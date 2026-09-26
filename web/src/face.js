@@ -3,6 +3,7 @@
 import * as faceapi from '@vladmandic/face-api';
 
 let loading = null;
+const MODELS = `${import.meta.env.BASE_URL}models`;
 
 export function loadModels() {
   if (!loading) {
@@ -11,9 +12,9 @@ export function loadModels() {
       if (!webgl) await faceapi.tf.setBackend('cpu');
       await faceapi.tf.ready();
       await Promise.all([
-        faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
-        faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-        faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
+        faceapi.nets.ssdMobilenetv1.loadFromUri(MODELS),
+        faceapi.nets.faceLandmark68Net.loadFromUri(MODELS),
+        faceapi.nets.faceRecognitionNet.loadFromUri(MODELS),
       ]);
       // The first detection compiles the WebGL shaders (several seconds); do it now,
       // while the guest is still taking photos, instead of on the "compare" click.

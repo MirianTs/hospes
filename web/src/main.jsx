@@ -12,7 +12,8 @@ import { AuthProvider } from './auth.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
+    {/* "/" locally; "/hospes" on GitHub Pages (vite build --base=/hospes/) */}
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
       <AuthProvider>
         <App />
       </AuthProvider>

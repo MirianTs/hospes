@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { resetDemo, STATIC_DEMO } from '../api.js';
 import { useAuth } from '../auth.jsx';
 import { initial } from '../format.js';
 import Icon from './Icon.jsx';
@@ -42,7 +43,7 @@ export default function Layout() {
       <header className="header">
         <div className="container header-inner">
           <Link to="/" className="logo" aria-label="Hospes: მთავარი">
-            <img src="/favicon.svg" alt="" />
+            <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" />
             Hospes
           </Link>
           <nav className={`nav${open ? ' open' : ''}`} aria-label="მთავარი მენიუ">
@@ -105,6 +106,14 @@ export default function Layout() {
       <footer className="footer">
         <div className="container inner">
           <span>© 2026 Hospes · Smartstay 2026 ჰაკათონის დემო</span>
+          {STATIC_DEMO && (
+            <span>
+              ონლაინ დემო: სერვერისა და Arduino-ს გარეშე, მონაცემები მხოლოდ ამ ბრაუზერში ინახება ·{' '}
+              <button type="button" className="link-button" onClick={resetDemo}>
+                თავიდან დაწყება
+              </button>
+            </span>
+          )}
           <span>
             რუკა: ©{' '}
             <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">

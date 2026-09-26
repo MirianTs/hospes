@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { api } from '../api.js';
+import { api, STATIC_DEMO } from '../api.js';
 import { useAuth } from '../auth.jsx';
 import Icon from '../components/Icon.jsx';
 import { Alert, ErrorBox, KeyBadge, Loading, Spinner, useAction, useApi } from '../components/ui.jsx';
@@ -87,7 +87,11 @@ function SmartLock({ booking, onOpened }) {
           : `ოთახი ${booking.room_number} · საკეტი #${booking.lock_id}`}
       </p>
       {result?.hardware === 'mock' && (
-        <Alert tone="info">დემო რეჟიმი: Arduino არ არის მიერთებული, ბრძანება OPEN{result.lock_id} სერვერის ლოგში ჩაიწერა.</Alert>
+        <Alert tone="info">
+          {STATIC_DEMO
+            ? 'ონლაინ დემოში საკეტი სიმულაციაა: ნამდვილ კარს ლეპტოპზე გაშვებული ვერსია და Arduino აღებს.'
+            : `დემო რეჟიმი: Arduino არ არის მიერთებული, ბრძანება OPEN${result.lock_id} სერვერის ლოგში ჩაიწერა.`}
+        </Alert>
       )}
       {needsVerification ? (
         <Alert tone="warn">

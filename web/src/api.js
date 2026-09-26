@@ -1,5 +1,26 @@
 const TOKEN_KEY = 'hospes_token';
 
+// GitHub Pages build (VITE_STATIC_DEMO=1): no server, so requests go to an in-browser
+// demo API with the same routes (src/demo/mockApi.js). Normal builds never load it.
+export const STATIC_DEMO = import.meta.env.VITE_STATIC_DEMO === '1';
+let demoModule = null;
+// The condition is spelled out so a normal build drops the demo chunk entirely.
+const demoApi = () =>
+  (demoModule ??=
+    import.meta.env.VITE_STATIC_DEMO === '1' ? import('./demo/mockApi.js') : Promise.reject(new Error('not a demo build')));
+
+// Demo build only: forget this browser's demo data and start over.
+export async function resetDemo() {
+  const { STORE_KEY } = await demoApi();
+  try {
+    localStorage.removeItem(STORE_KEY);
+  } catch {
+    // nothing stored
+  }
+  setToken(null);
+  window.location.reload();
+}
+
 export function getToken() {
   try {
     return localStorage.getItem(TOKEN_KEY);
@@ -27,8 +48,20 @@ export class ApiError extends Error {
 
 // api('/hotels'), api('/bookings', { method: 'POST', body: {...} }), api('/auth/verify', { method: 'POST', form })
 export async function api(path, { method = 'GET', body, form } = {}) {
-  const headers = {};
   const token = getToken();
+  const { status, data } = STATIC_DEMO
+    ? await (await demoApi()).request({ method, path, body, form, token })
+    : await request(path, { method, body, form, token });
+  if (status === 401 && token) {
+    setToken(null);
+    window.dispatchEvent(new Event('hospes:logout'));
+  }
+  if (status >= 400) throw new ApiError(status, data?.error || `შეცდომა (${status})`, data);
+  return data;
+}
+
+async function request(path, { method, body, form, token }) {
+  const headers = {};
   if (token) headers.Authorization = `Bearer ${token}`;
   let payload;
   if (form) payload = form;
@@ -36,20 +69,13 @@ export async function api(path, { method = 'GET', body, form } = {}) {
     headers['Content-Type'] = 'application/json';
     payload = JSON.stringify(body);
   }
-
   let res;
   try {
     res = await fetch(`/api${path}`, { method, headers, body: payload });
   } catch {
     throw new ApiError(0, 'სერვერთან კავშირი ვერ დამყარდა. ჩართულია backend?');
   }
-  const data = await res.json().catch(() => null);
-  if (res.status === 401 && token) {
-    setToken(null);
-    window.dispatchEvent(new Event('hospes:logout'));
-  }
-  if (!res.ok) throw new ApiError(res.status, data?.error || `შეცდომა (${res.status})`, data);
-  return data;
+  return { status: res.status, data: await res.json().catch(() => null) };
 }
 
 // Follows a server-sent-events endpoint. EventSource can't send the auth header,
@@ -58,6 +84,18 @@ export async function api(path, { method = 'GET', body, form } = {}) {
 export function stream(path, onMessage, onState) {
   let stopped = false;
   let controller = null;
+  if (STATIC_DEMO) {
+    let unsubscribe = () => {};
+    demoApi().then((demo) => {
+      if (stopped) return;
+      onState?.('open');
+      unsubscribe = demo.subscribe(path, onMessage);
+    });
+    return () => {
+      stopped = true;
+      unsubscribe();
+    };
+  }
   (async () => {
     while (!stopped) {
       controller = new AbortController();
