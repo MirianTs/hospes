@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "hospes",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 5173
+    },
+    {
+      "name": "card-status",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["card-status/server.js"],
+      "port": 5500
+    },
+    {
+      "name": "servo-buttons",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["servo-buttons/server.js"],
+      "port": 5501
+    }
+  ]
+}

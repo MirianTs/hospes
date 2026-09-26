@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="ka">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hospes · სერვოები</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@500;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #2a2325;
+        --locked: #5e1730;
+        --open: #2f7a45;
+        --offline: #463d40;
+        --error: #ffd2cc;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+      }
+      body {
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        padding: 22px 16px 16px;
+        font-family: 'Noto Sans Georgian', 'Segoe UI', Sylfaen, system-ui, sans-serif;
+        color: #fff;
+        background: var(--bg);
+        user-select: none;
+      }
+      header {
+        text-align: center;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(1.5rem, 4vw, 2.2rem);
+        line-height: 1.2;
+      }
+      header p {
+        margin: 6px auto 0;
+        max-width: 36em;
+        font-size: clamp(0.9rem, 2.2vw, 1.05rem);
+        opacity: 0.72;
+      }
+      main {
+        flex: 1;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      @media (max-width: 720px) {
+        main {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+      .servo {
+        position: relative;
+        overflow: hidden;
+        min-height: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 24px 16px 28px;
+        border: 0;
+        border-radius: 22px;
+        background: var(--locked);
+        color: inherit;
+        font: inherit;
+        text-align: center;
+        cursor: pointer;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        transition:
+          background-color 0.3s ease,
+          transform 0.12s ease;
+      }
+      .servo.open {
+        background: var(--open);
+      }
+      .servo.offline {
+        background: var(--offline);
+        color: rgba(255, 255, 255, 0.7);
+        cursor: not-allowed;
+      }
+      .servo:not(:disabled):hover {
+        filter: brightness(1.1);
+      }
+      .servo:not(:disabled):active,
+      .servo.pressed {
+        transform: scale(0.97);
+      }
+      .servo:focus-visible {
+        outline: 3px solid rgba(255, 255, 255, 0.8);
+        outline-offset: 3px;
+      }
+      .icon {
+        width: clamp(56px, 11vmin, 92px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.14);
+        display: grid;
+        place-items: center;
+      }
+      .icon svg {
+        width: 46%;
+        height: 46%;
+      }
+      .pop {
+        animation: pop 0.45s ease;
+      }
+      @keyframes pop {
+        0% {
+          transform: scale(0.86);
+        }
+        60% {
+          transform: scale(1.06);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .opening .icon {
+        animation: pulse 0.9s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        50% {
+          transform: scale(0.9);
+          background: rgba(255, 255, 255, 0.26);
+        }
+      }
+      .name {
+        font-size: clamp(1.6rem, 4.5vw, 2.6rem);
+        font-weight: 700;
+        line-height: 1.1;
+      }
+      .state {
+        font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+        font-weight: 700;
+      }
+      .sub {
+        min-height: 1.4em;
+        font-size: clamp(0.88rem, 2vw, 1rem);
+        opacity: 0.8;
+      }
+      .sub.error {
+        color: var(--error);
+        opacity: 1;
+      }
+      .pin,
+      .key {
+        position: absolute;
+        top: 12px;
+        font-size: 0.8rem;
+        opacity: 0.6;
+      }
+      .pin {
+        right: 14px;
+        letter-spacing: 0.04em;
+      }
+      /* keyboard shortcut, shown only where there is a keyboard and mouse */
+      .key {
+        left: 12px;
+        display: none;
+        min-width: 1.8em;
+        padding: 1px 6px;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 6px;
+        font-family: inherit;
+      }
+      @media (hover: hover) and (pointer: fine) {
+        .key {
+          display: inline-block;
+        }
+      }
+      /* time left until the servo locks again */
+      .bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.6);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.1s linear;
+      }
+      .conn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.88rem;
+        text-align: center;
+        opacity: 0.8;
+      }
+      .dot {
+        flex: none;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #f2c14e;
+      }
+      .conn.ok .dot {
+        background: #7ee08e;
+      }
+      .conn.bad .dot {
+        background: #ff8a80;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>სერვოები</h1>
+      <p id="hint">დააჭირე ღილაკს: სერვო გაიხსნება და 5 წამში თავისით დაიკეტება</p>
+    </header>
+    <main id="servos"></main>
+    <footer class="conn" id="conn" role="status">
+      <span class="dot"></span><span id="connText">უკავშირდება…</span>
+    </footer>
+
+    <script>
+      const SERVOS = 3;
+      const PINS = ['D3', 'D5', 'D6']; // signal pins of servos 1-3 in hardware/hospes_locks
+      const CONFIRM_MS = 2000; // the board answers OPENED<n> within milliseconds
+      const ICONS = {
+        locked: '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+        open: '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/>',
+        offline: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+      };
+      ICONS.opening = ICONS.locked;
+      const STATE_TEXT = { locked: 'დაკეტილია', opening: 'იხსნება…', open: 'ღიაა', offline: 'მიუწვდომელია' };
+
+      const $ = (id) => document.getElementById(id);
+      let data = null; // latest state from the server: { backend, board, openMs, doors: [{ open, leftMs, opens }] }
+      let pageConnected = false;
+
+      const servos = Array.from({ length: SERVOS }, (_, i) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'servo';
+        button.innerHTML =
+          `<kbd class="key" aria-hidden="true">${i + 1}</kbd><span class="pin" aria-hidden="true">${PINS[i]}</span>` +
+          `<span class="icon" aria-hidden="true"></span><span class="name">სერვო ${i + 1}</span>` +
+          '<span class="state"></span><span class="sub"></span><span class="bar" aria-hidden="true"></span>';
+        button.addEventListener('click', () => open(i));
+        $('servos').append(button);
+        return {
+          button,
+          icon: button.querySelector('.icon'),
+          state: button.querySelector('.state'),
+          sub: button.querySelector('.sub'),
+          bar: button.querySelector('.bar'),
+          shown: null, // view on screen
+          busy: false, // request on its way
+          opensBefore: 0, // the door's open count when the button was pressed
+          waitUntil: 0, // sent: waiting for the board to report the door open
+          closesAt: 0, // local time the door locks again
+          error: null, // { text, until }
+        };
+      });
+
+      const opens = (i) => data?.doors?.[i]?.opens ?? 0;
+
+      function canPress() {
+        const board = data && data.backend && data.board;
+        return Boolean(pageConnected && board && (board.mode === 'mock' || board.open));
+      }
+
+      async function open(i) {
+        const s = servos[i];
+        if (s.busy || !canPress()) return;
+        s.busy = true;
+        s.error = null;
+        s.opensBefore = opens(i);
+        render();
+        try {
+          const res = await fetch(`/open/${i + 1}`, { method: 'POST' });
+          const body = await res.json().catch(() => ({}));
+          if (!res.ok) throw new Error(body.error || `ვერ გაიხსნა (${res.status})`);
+          // The board's OPENED<n> may already have arrived (it comes on a separate stream).
+          if (opens(i) === s.opensBefore) s.waitUntil = Date.now() + CONFIRM_MS;
+        } catch (err) {
+          const text = err instanceof TypeError ? 'საიტის სერვერი არ პასუხობს' : err.message;
+          s.error = { text, until: Date.now() + 6000 };
+        }
+        s.busy = false;
+        render();
+      }
+
+      function view(s, i) {
+        if (!canPress()) return 'offline';
+        if (data.doors[i]?.open) return 'open';
+        if (s.busy || s.waitUntil) return 'opening';
+        return 'locked';
+      }
+
+      function subText(s, v, now) {
+        if (s.error && now < s.error.until) return [s.error.text, true];
+        if (v === 'locked') return ['დააჭირე გასახსნელად', false];
+        if (v === 'open') {
+          const left = Math.ceil((s.closesAt - now) / 1000);
+          return [left > 0 ? `დაიკეტება ${left} წამში` : 'იკეტება…', false];
+        }
+        return ['', false];
+      }
+
+      function connection() {
+        if (!pageConnected) return ['bad', 'ამ საიტის სერვერი არ პასუხობს'];
+        if (!data || !data.backend) return ['bad', 'Hospes-ის სერვერი არ მუშაობს (backend, პორტი 4000)'];
+        const b = data.board;
+        if (!b) return ['wait', 'ველოდები Arduino-ს…'];
+        if (b.mode === 'mock') return ['wait', 'დემო რეჟიმი: Arduino არ არის მიერთებული, სერვოები არ იმოძრავებს'];
+        if (!b.open) return ['bad', 'Arduino არ არის დაკავშირებული: შეამოწმე USB კაბელი'];
+        if (!b.ready) return ['wait', 'Arduino ირთვება…'];
+        return ['ok', 'მზადაა: დააჭირე ღილაკს'];
+      }
+
+      function render() {
+        const now = Date.now();
+        servos.forEach((s, i) => {
+          if (s.waitUntil && now >= s.waitUntil) {
+            s.waitUntil = 0;
+            s.error = { text: 'Arduino-მ გაღება არ დაადასტურა', until: now + 6000 };
+          }
+          const v = view(s, i);
+          if (v !== s.shown) {
+            s.button.className = `servo ${v}`;
+            s.button.disabled = v === 'offline';
+            s.icon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[v]}</svg>`;
+            if (s.shown !== null && (v === 'open' || s.shown === 'open')) {
+              s.icon.classList.remove('pop');
+              void s.icon.offsetWidth; // restart the animation
+              s.icon.classList.add('pop');
+            }
+            s.state.textContent = STATE_TEXT[v];
+            s.shown = v;
+          }
+          const [text, isError] = subText(s, v, now);
+          s.sub.textContent = text;
+          s.sub.classList.toggle('error', isError);
+          const left = v === 'open' ? (s.closesAt - now) / data.openMs : 0;
+          s.bar.style.transform = `scaleX(${Math.min(1, Math.max(0, left))})`;
+        });
+        const [tone, text] = connection();
+        $('conn').className = `conn ${tone}`;
+        $('connText').textContent = text;
+      }
+
+      function connect() {
+        const events = new EventSource('/events');
+        events.onopen = () => {
+          pageConnected = true;
+          render();
+        };
+        events.onmessage = (e) => {
+          data = JSON.parse(e.data);
+          const now = Date.now();
+          data.doors.forEach((d, i) => {
+            const s = servos[i];
+            if (!s) return;
+            s.closesAt = d.open ? now + d.leftMs : 0;
+            if (s.waitUntil && d.opens !== s.opensBefore) s.waitUntil = 0;
+          });
+          $('hint').textContent = `დააჭირე ღილაკს: სერვო გაიხსნება და ${Math.round(data.openMs / 1000)} წამში თავისით დაიკეტება`;
+          pageConnected = true;
+          render();
+        };
+        events.onerror = () => {
+          pageConnected = false;
+          render();
+        };
+      }
+
+      // Keys 1-3 press the buttons (handy on a laptop during the demo).
+      document.addEventListener('keydown', (e) => {
+        if (e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
+        const n = Number(e.key);
+        if (!Number.isInteger(n) || n < 1 || n > SERVOS) return;
+        const s = servos[n - 1];
+        s.button.classList.add('pressed');
+        setTimeout(() => s.button.classList.remove('pressed'), 120);
+        open(n - 1);
+      });
+
+      connect();
+      render();
+      setInterval(render, 100);
+    </script>
+  </body>
+</html>

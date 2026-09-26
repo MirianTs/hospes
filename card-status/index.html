@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="ka">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hospes · საკეტი</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@500;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --locked: #5e1730;
+        --open: #2f7a45;
+        --denied: #b3261e;
+        --idle: #3b3335;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+      body {
+        font-family: 'Noto Sans Georgian', 'Segoe UI', Sylfaen, system-ui, sans-serif;
+        color: #fff;
+        background: var(--idle);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 24px 16px;
+        transition: background 0.35s ease;
+        user-select: none;
+      }
+      body.locked {
+        background: var(--locked);
+      }
+      body.open {
+        background: var(--open);
+      }
+      body.denied {
+        background: var(--denied);
+      }
+      .door {
+        font-size: clamp(1rem, 3vw, 1.4rem);
+        opacity: 0.75;
+        letter-spacing: 0.02em;
+      }
+      .ring {
+        width: min(46vmin, 280px);
+        height: min(46vmin, 280px);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.14);
+        display: grid;
+        place-items: center;
+        margin: 28px auto 24px;
+      }
+      .ring svg {
+        width: 46%;
+        height: 46%;
+      }
+      .pop {
+        animation: pop 0.45s ease;
+      }
+      @keyframes pop {
+        0% {
+          transform: scale(0.86);
+        }
+        60% {
+          transform: scale(1.06);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .state {
+        font-size: clamp(2.4rem, 11vw, 6rem);
+        font-weight: 700;
+        line-height: 1.1;
+        margin: 0;
+      }
+      .countdown {
+        font-size: clamp(1.1rem, 4vw, 1.8rem);
+        opacity: 0.85;
+        margin-top: 10px;
+        min-height: 1.5em;
+      }
+      .conn {
+        position: fixed;
+        bottom: 14px;
+        left: 0;
+        right: 0;
+        font-size: 0.85rem;
+        opacity: 0.75;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+      }
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #f2c14e;
+      }
+      .conn.ok .dot {
+        background: #7ee08e;
+      }
+      .conn.bad .dot {
+        background: #ff8a80;
+      }
+      .sound {
+        position: fixed;
+        top: 14px;
+        right: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border: 0;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+        color: #fff;
+        font: inherit;
+        font-size: 0.9rem;
+        cursor: pointer;
+      }
+      .sound:hover {
+        background: rgba(255, 255, 255, 0.26);
+      }
+      .sound:focus-visible {
+        outline: 3px solid rgba(255, 255, 255, 0.7);
+        outline-offset: 2px;
+      }
+      .sound svg {
+        width: 18px;
+        height: 18px;
+      }
+      .tap-hint {
+        position: fixed;
+        top: 64px;
+        right: 14px;
+        font-size: 0.82rem;
+        opacity: 0.8;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="door" id="door">კარი #1</div>
+    <div class="ring" id="ring" aria-hidden="true"></div>
+    <h1 class="state" id="state" role="status" aria-live="polite">…</h1>
+    <div class="countdown" id="countdown"></div>
+    <div class="conn" id="conn"><span class="dot"></span><span id="connText">უკავშირდება…</span></div>
+    <button type="button" class="sound" id="sound" aria-pressed="true"></button>
+    <div class="tap-hint" id="tapHint" hidden>შეეხე ეკრანს, რომ ხმა ჩაირთოს</div>
+
+    <script>
+      // ?lock=2 shows another door (1-4).
+      const lock = Math.min(4, Math.max(1, Number(new URLSearchParams(location.search).get('lock')) || 1));
+      const OPEN_SECONDS = 5; // the sketch locks the door again after 5 s
+      const ICONS = {
+        locked: '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+        open: '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/>',
+        denied: '<circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>',
+        idle: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+      };
+      const TEXT = { locked: 'დაკეტილია', open: 'ღიაა', denied: 'წვდომა აკრძალულია', idle: '…' };
+
+      const $ = (id) => document.getElementById(id);
+      $('door').textContent = `კარი #${lock}`;
+
+      // ---- Sound: short tones made in the browser (Web Audio), no files ----
+      // Browsers keep audio muted until the first tap or click on the page.
+      let audio = null;
+      let soundOn = true;
+      try {
+        soundOn = localStorage.getItem('hospes-sound') !== 'off';
+      } catch {
+        // storage blocked: keep the default
+      }
+
+      function tone(freq, start, duration, type = 'sine', volume = 0.3) {
+        const t = audio.currentTime + start;
+        const osc = audio.createOscillator();
+        const gain = audio.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, t);
+        gain.gain.setValueAtTime(0.0001, t);
+        gain.gain.exponentialRampToValueAtTime(volume, t + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + duration);
+        osc.connect(gain).connect(audio.destination);
+        osc.start(t);
+        osc.stop(t + duration + 0.05);
+      }
+
+      const SOUNDS = {
+        open: () => {
+          tone(659, 0, 0.2); // E5
+          tone(880, 0.16, 0.45); // A5: rising "welcome" chime
+        },
+        locked: () => {
+          tone(523, 0, 0.16); // C5
+          tone(392, 0.13, 0.3); // G4: falling "closed"
+        },
+        denied: () => {
+          tone(185, 0, 0.2, 'square', 0.12);
+          tone(185, 0.28, 0.34, 'square', 0.12); // low double buzz
+        },
+      };
+
+      function audioReady() {
+        return audio && audio.state === 'running';
+      }
+
+      function play(name) {
+        if (soundOn && audioReady()) SOUNDS[name]();
+      }
+
+      function unlockAudio() {
+        if (!audio) audio = new (window.AudioContext || window.webkitAudioContext)();
+        if (audio.state === 'running') renderSoundButton();
+        else audio.resume().then(renderSoundButton).catch(() => {});
+      }
+
+      function renderSoundButton() {
+        const on = '<path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>';
+        const off = '<path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+        $('sound').innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${soundOn ? on : off}</svg>${soundOn ? 'ხმა ჩართულია' : 'ხმა გამორთულია'}`;
+        $('sound').setAttribute('aria-pressed', String(soundOn));
+        $('tapHint').hidden = !soundOn || audioReady();
+      }
+
+      $('sound').addEventListener('click', () => {
+        soundOn = !soundOn;
+        try {
+          localStorage.setItem('hospes-sound', soundOn ? 'on' : 'off');
+        } catch {
+          // not remembered, still works for this visit
+        }
+        unlockAudio();
+        renderSoundButton();
+        if (soundOn) setTimeout(() => play('open'), 120);
+      });
+      document.addEventListener('pointerdown', unlockAudio);
+      document.addEventListener('keydown', unlockAudio);
+      renderSoundButton();
+
+      let data = null;
+      let pageConnected = false;
+      let shown = null;
+      let openedAt = 0; // local time the door was seen opening (works across devices)
+      let deniedUntil = 0;
+      let lastCardAt = null;
+
+      function view() {
+        if (!data || !data.backend) return 'idle';
+        if (Date.now() < deniedUntil) return 'denied';
+        return data.doors[lock - 1] ? 'open' : 'locked';
+      }
+
+      function connection() {
+        if (!pageConnected) return ['bad', 'სტატუსის სერვერი არ პასუხობს'];
+        if (!data || !data.backend) return ['bad', 'Hospes-ის სერვერი არ მუშაობს (backend, პორტი 4000)'];
+        const b = data.board;
+        if (!b) return ['wait', 'ველოდები Arduino-ს…'];
+        if (b.mode === 'mock') return ['wait', 'დემო რეჟიმი: Arduino არ არის მიერთებული'];
+        if (!b.open) return ['bad', 'Arduino არ არის დაკავშირებული'];
+        if (b.reader === 'missing' && b.power) return ['bad', 'RFID მკითხველს კვება არ ჰყოფნის: შეამოწმე 3.3V და GND'];
+        if (b.reader === 'missing') return ['bad', 'RFID მკითხველი ვერ მოიძებნა: შეამოწმე სადენები'];
+        return ['ok', 'მზადაა: მიადე ბარათი'];
+      }
+
+      function render() {
+        const v = view();
+        if (v !== shown) {
+          document.body.className = v;
+          $('ring').innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[v]}</svg>`;
+          $('ring').classList.remove('pop');
+          void $('ring').offsetWidth; // restart the animation
+          $('ring').classList.add('pop');
+          $('state').textContent = TEXT[v];
+          if (v === 'open' && shown !== 'open') openedAt = Date.now();
+          // Sound only for real changes, not for the first state after the page loads.
+          if (shown !== null && shown !== 'idle') {
+            if (v === 'open') play('open');
+            else if (v === 'denied') play('denied');
+            else if (v === 'locked' && shown === 'open') play('locked');
+          }
+          shown = v;
+        }
+        const left = Math.ceil(OPEN_SECONDS - (Date.now() - openedAt) / 1000);
+        $('countdown').textContent = v === 'open' && left > 0 ? `დაიკეტება ${left} წამში` : '';
+        const [tone, text] = connection();
+        $('conn').className = `conn ${tone}`;
+        $('connText').textContent = text;
+      }
+
+      function connect() {
+        const events = new EventSource('/events');
+        events.onopen = () => {
+          pageConnected = true;
+          render();
+        };
+        events.onmessage = (e) => {
+          data = JSON.parse(e.data);
+          const card = data.lastCard;
+          if (card && card.at !== lastCardAt) {
+            // Show a refused card for a moment (only for taps that arrive while the page is open).
+            if (lastCardAt !== null && card.result === 'denied' && card.lock_id === lock) deniedUntil = Date.now() + 2500;
+            lastCardAt = card.at;
+          } else if (!card && lastCardAt === null) {
+            lastCardAt = '';
+          }
+          render();
+        };
+        events.onerror = () => {
+          pageConnected = false;
+          render();
+        };
+      }
+
+      connect();
+      setInterval(render, 250);
+    </script>
+  </body>
+</html>

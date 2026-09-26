@@ -1,0 +1,16 @@
+{
+  "name": "hospes",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Hospes: contactless booking and check-in for small Georgian hotels (Smartstay 2026 hackathon demo)",
+  "scripts": {
+    "setup": "npm install && npm install --prefix backend && npm install --prefix web",
+    "dev": "concurrently -k -n api,web -c magenta,cyan \"npm run dev --prefix backend\" \"npm run dev --prefix web\"",
+    "seed": "npm run seed --prefix backend",
+    "build": "npm run build --prefix web",
+    "start": "npm start --prefix backend"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  }
+}

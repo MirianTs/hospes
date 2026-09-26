@@ -1,0 +1,13 @@
+{
+  "name": "hospes-servo-buttons",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Separate one-screen site: three buttons, each opens one servo through the Hospes backend",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
