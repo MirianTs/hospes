@@ -8,6 +8,7 @@
 
 - 2026-11-08 (SkillLAB): მთავარი გვერდის რებილდი დაიწყო, ბრენჩი `homepage-skeleton` (main-იდან): ჩონჩხი მომხმარებლის ტექსტებით (ჰირო მთელ სიგანეზე ფოტოს ადგილით → როგორ მუშაობს → პროდუქტები → გესთჰაუსები საქართველოში → ჩვენს შესახებ → გაქვს გესთჰაუსი?). მორგებულია ტელეფონზე, ტაბლეტზე და დესკტოპზე. ტესტ-დიზაინი `design-trailhead` ბრენჩზე დარჩა.
 
+- 2026-11-08 (SkillLAB): ჩონჩხი ცოცხალზეა: https://miriants.github.io/hospes/ (Pages deploy ხელით, `homepage-skeleton`-იდან; github-pages გარემოს წესებში ეს ბრენჩიც დაემატა). ხელახლა: `gh workflow run "Pages demo" --ref homepage-skeleton`. ძველი დემოს დასაბრუნებლად იგივე `--ref main`.
 ## დარჩა
 - 2026-11-08 (SkillLAB): **გაგრძელება სხვა კომპიუტერზე:** `git fetch && git switch homepage-skeleton`, მერე `cd web && npm install && npm run dev`. ბრენჩები GitHub-ზეა: `homepage-skeleton` (ახალი ჩონჩხი), `design-trailhead` (ძველი ტესტ-დიზაინი). main-ზე push Pages საიტს აახლებს, ამიტომ main-ში ჯერ არ შეგვაქვს.
 - 2026-11-08 (SkillLAB): მომხმარებელი მისცემს თემფლეითს → მთავარი გვერდის დიზაინის გამართვა; ჰიროს ფოტო; ახალი სლოგანი.
