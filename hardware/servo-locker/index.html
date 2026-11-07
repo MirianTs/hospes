@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ka">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>საკეტები</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #fff; --text: #1d2330; --muted: #6b7280;
+    --line: #e3e6eb; --accent: #2f6fed; --open: #1f9d55; --open-bg: #e7f6ee;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12151b; --card: #1b1f27; --text: #e8eaee; --muted: #9aa1ad;
+      --line: #2a303b; --accent: #5b8cff; --open: #3ecf7a; --open-bg: #15301f;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: grid; place-items: center;
+    background: var(--bg); color: var(--text);
+    font: 16px/1.4 system-ui, "Segoe UI", sans-serif;
+  }
+  main { width: min(440px, 100% - 32px); }
+  h1 { font-size: 1.4rem; font-weight: 600; margin: 0 0 4px; }
+  .muted { color: var(--muted); font-size: .9rem; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 24px 0; }
+  .lock {
+    height: 120px; border: 1px solid var(--line); border-radius: 16px;
+    background: var(--card); color: var(--text); font: inherit; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    transition: background .2s, border-color .2s, transform .1s;
+  }
+  .lock:active:not(:disabled) { transform: scale(.97); }
+  .lock:disabled { opacity: .45; cursor: default; }
+  .lock .num { font-size: 1.6rem; font-weight: 600; }
+  .lock .state { font-size: .85rem; color: var(--muted); }
+  .lock.open { background: var(--open-bg); border-color: var(--open); }
+  .lock.open .state { color: var(--open); font-weight: 600; }
+  .connect {
+    width: 100%; padding: 14px; border: 0; border-radius: 12px;
+    background: var(--accent); color: #fff; font: inherit; font-weight: 600; cursor: pointer;
+  }
+  .connect.on { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+  #status { text-align: center; margin-top: 12px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>საკეტები</h1>
+  <div class="muted">დააჭირე ღილაკს, საკეტი გაიღება და 5 წამში თავისით დაიკეტება.</div>
+
+  <div class="grid" id="grid"></div>
+
+  <button class="connect" id="connect">Arduino-სთან დაკავშირება</button>
+  <div class="muted" id="status">არ არის დაკავშირებული</div>
+</main>
+
+<script>
+const OPEN_SECONDS = 5;
+const grid = document.getElementById('grid');
+const connectBtn = document.getElementById('connect');
+const statusEl = document.getElementById('status');
+
+let port = null;
+let writer = null;
+const locks = [1, 2, 3, 4].map((n) => {
+  const btn = document.createElement('button');
+  btn.className = 'lock';
+  btn.disabled = true;
+  btn.innerHTML = `<span class="num">${n}</span><span class="state">დაკეტილი</span>`;
+  btn.onclick = () => send(String(n));
+  grid.appendChild(btn);
+  return { btn, state: btn.querySelector('.state'), until: 0 };
+});
+
+function setStatus(text) { statusEl.textContent = text; }
+
+function setOpen(n, open) {
+  const l = locks[n - 1];
+  l.btn.classList.toggle('open', open);
+  l.until = open ? Date.now() + OPEN_SECONDS * 1000 : 0;
+  if (!open) l.state.textContent = 'დაკეტილი';
+}
+
+// Countdown on open locks (the Arduino decides when it really locks).
+setInterval(() => {
+  for (const l of locks) {
+    if (!l.until) continue;
+    const s = Math.max(0, Math.ceil((l.until - Date.now()) / 1000));
+    l.state.textContent = `ღიაა · ${s} წმ`;
+  }
+}, 200);
+
+async function send(text) {
+  if (!writer) return;
+  await writer.write(new TextEncoder().encode(text + '\n'));
+}
+
+function handleLine(line) {
+  const m = line.match(/^(OPEN|CLOSED) ([1-4])$/);
+  if (m) setOpen(Number(m[2]), m[1] === 'OPEN');
+  else if (line === 'READY') setStatus('დაკავშირებულია · მზადაა');
+}
+
+async function readLoop() {
+  const reader = port.readable.pipeThrough(new TextDecoderStream()).getReader();
+  let buf = '';
+  try {
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buf += value;
+      let i;
+      while ((i = buf.indexOf('\n')) >= 0) {
+        handleLine(buf.slice(0, i).trim());
+        buf = buf.slice(i + 1);
+      }
+    }
+  } catch (e) {
+    // cable pulled out
+  }
+  disconnected();
+}
+
+function disconnected() {
+  port = null; writer = null;
+  locks.forEach((l, i) => { l.btn.disabled = true; setOpen(i + 1, false); });
+  connectBtn.textContent = 'Arduino-სთან დაკავშირება';
+  connectBtn.classList.remove('on');
+  setStatus('კავშირი გაწყდა');
+}
+
+connectBtn.onclick = async () => {
+  if (!('serial' in navigator)) {
+    setStatus('ეს ბრაუზერი Web Serial-ს ვერ იყენებს. გახსენი Chrome-ში ან Edge-ში.');
+    return;
+  }
+  if (port) { location.reload(); return; }
+  try {
+    port = await navigator.serial.requestPort();
+    await port.open({ baudRate: 9600 });
+  } catch (e) {
+    port = null;
+    setStatus(e.name === 'NotFoundError' ? 'პორტი არ აირჩიე' : 'ვერ გაიხსნა: პორტი სხვა პროგრამას (მაგ. Serial Monitor) ხომ არ უკავია?');
+    return;
+  }
+  writer = port.writable.getWriter();
+  locks.forEach((l) => (l.btn.disabled = false));
+  connectBtn.textContent = 'გათიშვა';
+  connectBtn.classList.add('on');
+  setStatus('დაკავშირებულია · Arduino იტვირთება…');
+  readLoop();
+  // Opening the port restarts the Uno; ask for the state once it has booted.
+  setTimeout(() => send('?').then(() => setStatus('დაკავშირებულია · მზადაა')), 2500);
+};
+
+document.addEventListener('keydown', (e) => {
+  if (e.key >= '1' && e.key <= '4') send(e.key);
+});
+</script>
+</body>
+</html>
