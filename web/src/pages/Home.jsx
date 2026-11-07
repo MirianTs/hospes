@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
-import HotelArt from '../components/HotelArt.jsx';
 import HotelCard from '../components/HotelCard.jsx';
 import Icon from '../components/Icon.jsx';
 import { Loading, useApi } from '../components/ui.jsx';
+import './home-skeleton.css';
+
+// Home page skeleton: structure and final texts only. The visual design comes
+// later from a template; every rule in home-skeleton.css is scoped under .sk.
 
 const STEPS = [
   { title: 'დაჯავშნე', text: 'იპოვე გესთჰაუსი რუკაზე, აირჩიე თარიღები და ოთახი.' },
@@ -16,19 +19,19 @@ const PRODUCTS = [
     icon: 'calendar',
     tag: 'სტუმრისთვის',
     title: 'ონლაინ ჯავშანი',
-    text: 'თავისუფალი ოთახები რეალურ დროში, ორმაგი ჯავშნის გარეშე: შიდა და Booking.com-ის ჯავშნები ერთად მოწმდება.',
+    text: 'თავისუფალი ოთახები რეალურ დროში, ორმაგი ჯავშნის გარეშე. დაჯავშნე ნებისმიერ დროს, მფლობელთან დაკავშირება არ გჭირდება.',
   },
   {
     icon: 'key',
     tag: 'სტუმრისთვის',
     title: 'უკონტაქტო ჩექინი',
-    text: 'ვინაობის ვერიფიკაცია სელფით და შესვლა კოდით ან ჭკვიანი საკეტით, დღე-ღამის ნებისმიერ დროს.',
+    text: 'ვინაობის ვერიფიკაცია სელფით და გასაღების მიღება ჭკვიანი ლოქერიდან, დღე-ღამის ნებისმიერ დროს.',
   },
   {
     icon: 'lock',
     tag: 'მფლობელისთვის',
     title: 'Hospes Lock',
-    text: 'Arduino-ზე აწყობილი საკეტი, რომელიც მხოლოდ ვერიფიცირებულ სტუმარს, აქტიური ჯავშნის დროს უღებს კარს.',
+    text: 'ჭკვიანი ლოქერ-ბოქსი, რომელიც კარს მხოლოდ ვერიფიცირებულ სტუმარს და მხოლოდ აქტიური ჯავშნის დროს უღებს.',
   },
   {
     icon: 'map',
@@ -50,170 +53,147 @@ const PRODUCTS = [
   },
 ];
 
+const FACTS = [
+  { title: 'მასპინძელს რეცეფცია აღარ სჭირდება.', text: 'სტუმარი თვითონ შედის, ოღონდ მხოლოდ თავისი ჯავშნის თარიღებში.' },
+  { title: 'ორმაგი ჯავშანი გამორიცხულია.', text: 'Booking.com-ზე ან ტელეფონით გაკეთებულ ჯავშანს მფლობელი ერთი ღილაკით ბლოკავს.' },
+  { title: 'ტურისტი რეგიონს უკეთ იცნობს.', text: 'რუკაზე ადგილობრივი კაფეები, გიდები, ტურები და ბილიკებია.' },
+];
+
+function SectionHead({ title, link }) {
+  return (
+    <div className="sk-head">
+      <h2>{title}</h2>
+      {link && (
+        <Link to={link.to} className="sk-more">
+          {link.label} <Icon name="arrowRight" size={16} />
+        </Link>
+      )}
+    </div>
+  );
+}
+
 export default function Home() {
   const hotels = useApi('/hotels');
 
   return (
-    <>
-      <section className="hero">
-        <div className="container hero-grid">
-          <div>
-            <span className="eyebrow">
-              <Icon name="pin" size={14} /> კახეთი · Smartstay 2026
-            </span>
-            <h1>
-              ჩამოდი, გააღე, <span>დაისვენე</span>
-            </h1>
-            <p className="hero-lead">
-              Hospes არის უკონტაქტო ჩექინი საქართველოს მცირე სასტუმროებისა და გესთჰაუსებისთვის. სტუმარი ჯავშნის ონლაინ,
-              ვინაობას სელფით ადასტურებს და ოთახში რეცეფციის გარეშე შედის.
-            </p>
-            <div className="hero-cta">
-              <Link to="/map" className="btn btn-primary btn-lg">
-                <Icon name="search" /> იპოვე სასტუმრო რუკაზე
-              </Link>
-              <a href="#how" className="btn btn-outline btn-lg">
-                როგორ მუშაობს
-              </a>
-            </div>
-            <div className="hero-points">
-              <span>
-                <Icon name="check" size={16} /> ჩექინი 24/7
-              </span>
-              <span>
-                <Icon name="check" size={16} /> ვერიფიკაცია პირადობით
-              </span>
-              <span>
-                <Icon name="check" size={16} /> Booking.com-ის ჯავშნებიც ერთ კალენდარში
-              </span>
-            </div>
-          </div>
-          <div className="hero-visual">
-            <HotelArt seed={1} label="გესთჰაუსი კახეთში" />
-            <div className="phone-card-top">
-              <Icon name="shield" size={16} /> ვინაობა დადასტურებულია
-            </div>
-            <div className="phone-card">
-              <div className="muted small">ალაზნის ხედი · ოთახი 102</div>
-              <div className="code">482 913</div>
-              <div className="inline small mt-1" style={{ color: 'var(--vine)', fontWeight: 600 }}>
-                <Icon name="unlock" size={16} /> კარი გაიღო
-              </div>
-            </div>
+    <div className="sk">
+      {/* 1. Hero: full-width photo (placeholder until the template), slogan on top */}
+      <section className="sk-hero">
+        <div className="sk-hero-img" aria-hidden="true">
+          <span>ჰირო ფოტო · მთელ სიგანეზე</span>
+        </div>
+        <div className="container sk-hero-text">
+          <h1>ჩამოდი, გააღე, დაისვენე</h1>
+          <p>
+            Hospes არის უკონტაქტო ჩექინი საქართველოს მცირე სასტუმროებისა და გესთჰაუსებისთვის. სტუმარი ჯავშნის ონლაინ,
+            ვინაობას სელფით ადასტურებს და ოთახში რეცეფციის გარეშე შედის.
+          </p>
+          <div className="sk-cta">
+            <Link to="/map" className="btn btn-primary btn-lg">
+              <Icon name="search" /> იპოვე სასტუმრო რუკაზე
+            </Link>
+            <a href="#how" className="btn btn-lg sk-btn-light">
+              როგორ მუშაობს
+            </a>
           </div>
         </div>
       </section>
 
-      <section className="section" id="how">
+      {/* 2. How it works */}
+      <section className="sk-sec" id="how">
         <div className="container">
-          <h2>როგორ მუშაობს</h2>
-          <p className="muted">ოთხი ნაბიჯი ჯავშნიდან ოთახამდე. მფლობელს ადგილზე ყოფნა არ სჭირდება.</p>
-          <div className="steps mt-3">
+          <SectionHead title="როგორ მუშაობს" />
+          <ol className="sk-steps">
             {STEPS.map((s, i) => (
-              <div key={s.title} className="card step">
-                <div className="step-num">{i + 1}</div>
+              <li key={s.title}>
+                <span className="sk-num">{i + 1}</span>
                 <h3>{s.title}</h3>
                 <p>{s.text}</p>
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      <section className="section" id="products" style={{ paddingTop: 0 }}>
+      {/* 3. Products */}
+      <section className="sk-sec sk-alt" id="products">
         <div className="container">
-          <h2>პროდუქტები</h2>
-          <p className="muted">ერთი პლატფორმა სტუმრისთვისაც და მასპინძლისთვისაც.</p>
-          <div className="grid grid-3 mt-3">
+          <SectionHead title="პროდუქტები" link={{ to: '/services', label: 'ყველა სერვისი' }} />
+          <div className="sk-grid">
             {PRODUCTS.map((p) => (
-              <div key={p.title} className="card feature">
-                <div className="feature-icon">
-                  <Icon name={p.icon} size={22} />
+              <article key={p.title} className="sk-card">
+                <div className="sk-card-top">
+                  <span className="sk-icon">
+                    <Icon name={p.icon} size={20} />
+                  </span>
+                  <span className="sk-tag">{p.tag}</span>
                 </div>
-                <div className="tag">{p.tag}</div>
                 <h3>{p.title}</h3>
                 <p>{p.text}</p>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: 0 }}>
+      {/* 4. Guesthouses (all regions) */}
+      <section className="sk-sec" id="stays">
         <div className="container">
-          <div className="spread">
-            <div>
-              <h2 className="mb-0">გესთჰაუსები კახეთში</h2>
-              <p className="muted mb-0">სადემონსტრაციო ობიექტები თელავში, სიღნაღში, წინანდალსა და ყვარელში.</p>
+          <SectionHead title="გესთჰაუსები საქართველოში" link={{ to: '/map', label: 'ყველა რუკაზე' }} />
+          {hotels.loading && <Loading />}
+          {hotels.data && (
+            <div className="sk-grid">
+              {hotels.data.map((h) => (
+                <HotelCard key={h.id} hotel={h} />
+              ))}
             </div>
-            <Link to="/map" className="btn btn-outline">
-              ყველა რუკაზე <Icon name="arrowRight" size={16} />
-            </Link>
-          </div>
-          <div className="mt-3">
-            {hotels.loading && <Loading />}
-            {hotels.data && (
-              <div className="grid grid-4">
-                {hotels.data.map((h) => (
-                  <HotelCard key={h.id} hotel={h} />
-                ))}
-              </div>
-            )}
-          </div>
+          )}
         </div>
       </section>
 
-      <section className="section" id="about" style={{ paddingTop: 0 }}>
-        <div className="container about">
+      {/* 5. About */}
+      <section className="sk-sec sk-alt" id="about">
+        <div className="container sk-about">
           <div>
-            <h2>ჩვენს შესახებ</h2>
+            <SectionHead title="ჩვენს შესახებ" />
             <p>
-              საქართველოში ათასობით საოჯახო სასტუმრო და გესთჰაუსია. მათი უმეტესობის მასპინძელი ერთდროულად რეცეფციონისტიცაა,
-              დამლაგებელიც და გიდიც. სტუმარი კი ხშირად გვიან ღამით ჩამოდის და ელოდება, ვინმე როდის გაუღებს კარს.
+              საქართველოში ათასობით საოჯახო სასტუმრო და გესთჰაუსია. მათი უმეტესობის მასპინძელი ერთდროულად
+              რეცეფციონისტიცაა, დამლაგებელიც და გიდიც. სტუმარი კი ხშირად გვიან ღამით ჩამოდის და ელოდება, ვინმე როდის
+              გაუღებს კარს.
             </p>
             <p>
-              Hospes ამ ლოდინს აქრობს: ჯავშანი, გადახდა, ვინაობის შემოწმება და ოთახში შესვლა ერთ აპშია. მასპინძელი კი ყველაფერს
-              ტელეფონიდან მართავს.
+              Hospes ამ ლოდინს აქრობს: ჯავშანი, გადახდა, ვინაობის შემოწმება და ოთახში შესვლა ერთ აპშია. მასპინძელი კი
+              ყველაფერს ტელეფონიდან მართავს.
             </p>
-            <p className="muted small">Hospes იქმნება Smartstay 2026 ჰაკათონზე. ეს სადემონსტრაციო ვერსიაა.</p>
           </div>
-          <ul className="about-list card card-body">
-            <li>
-              <Icon name="checkCircle" />
-              <div>
-                <strong>მასპინძელს რეცეფცია აღარ სჭირდება.</strong>
-                <div className="muted small">სტუმარი თვითონ შედის, ოღონდ მხოლოდ თავისი ჯავშნის თარიღებში.</div>
-              </div>
-            </li>
-            <li>
-              <Icon name="checkCircle" />
-              <div>
-                <strong>ორმაგი ჯავშანი გამორიცხულია.</strong>
-                <div className="muted small">Booking.com-ზე ან ტელეფონით გაკეთებულ ჯავშანს მფლობელი ერთი ღილაკით ბლოკავს.</div>
-              </div>
-            </li>
-            <li>
-              <Icon name="checkCircle" />
-              <div>
-                <strong>ტურისტი რეგიონს უკეთ იცნობს.</strong>
-                <div className="muted small">რუკაზე ადგილობრივი კაფეები, გიდები, ტურები და ბილიკებია.</div>
-              </div>
-            </li>
+          <ul className="sk-facts">
+            {FACTS.map((f) => (
+              <li key={f.title}>
+                <Icon name="checkCircle" size={20} />
+                <div>
+                  <strong>{f.title}</strong>
+                  <span>{f.text}</span>
+                </div>
+              </li>
+            ))}
           </ul>
         </div>
       </section>
 
-      <section className="container">
-        <div className="cta-band">
-          <div>
-            <h2>გაქვს გესთჰაუსი?</h2>
-            <p>დაგვიკავშირდი და შენს ობიექტს სისტემაში ადმინისტრატორი დაამატებს.</p>
+      {/* 6. Owner call to action */}
+      <section className="sk-sec">
+        <div className="container">
+          <div className="sk-owner">
+            <div>
+              <h2>გაქვს გესთჰაუსი?</h2>
+              <p>დაგვიკავშირდი და შენს ობიექტს სისტემაში ადმინისტრატორი დაამატებს.</p>
+            </div>
+            <Link to="/register" className="btn btn-primary btn-lg">
+              რეგისტრაცია
+            </Link>
           </div>
-          <Link to="/register" className="btn btn-outline btn-lg">
-            რეგისტრაცია
-          </Link>
         </div>
       </section>
-    </>
+    </div>
   );
 }

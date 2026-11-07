@@ -1,0 +1,235 @@
+/* Home page skeleton. Neutral layout only; colours and type come later from the template. */
+
+.sk h2 {
+  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.1rem);
+  line-height: 1.2;
+  margin: 0;
+}
+.sk h3 {
+  font-size: 1.1rem;
+  margin: 0 0 6px;
+}
+.sk p {
+  margin: 0;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+/* Hero: full width, image placeholder behind the slogan */
+.sk-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: clamp(480px, 82vh, 760px);
+  color: #fff;
+  overflow: hidden;
+}
+.sk-hero-img {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.05) 30%, rgba(0, 0, 0, 0.6)),
+    repeating-linear-gradient(135deg, #5b6166 0 2px, #646a70 2px 22px);
+}
+.sk-hero-img span {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 6px 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.6);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+.sk-hero-text {
+  position: relative;
+  padding-top: 64px;
+  padding-bottom: clamp(40px, 8vh, 88px);
+}
+.sk-hero h1 {
+  font-size: clamp(2.2rem, 1.2rem + 4.5vw, 4.4rem);
+  line-height: 1.1;
+  margin: 0 0 16px;
+  max-width: 14ch;
+}
+.sk-hero p {
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 600px;
+  font-size: 1.05rem;
+}
+.sk-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+.sk-btn-light {
+  background: #fff;
+  color: var(--ink);
+}
+.sk-btn-light:hover {
+  background: #f1ece6;
+}
+
+/* Sections */
+.sk-sec {
+  padding: clamp(56px, 8vw, 96px) 0;
+  scroll-margin-top: var(--header-h);
+}
+.sk-alt {
+  background: #fff;
+  border-block: 1px solid var(--line);
+}
+.sk-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.sk-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--wine);
+}
+
+/* How it works */
+.sk-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+.sk-num {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background: var(--wine);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Card grid (products and guesthouses) */
+.sk-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.sk-card {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+}
+.sk-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.sk-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--wine-soft);
+  color: var(--wine);
+}
+.sk-tag {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* About */
+.sk-about {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+.sk-about p + p {
+  margin-top: 14px;
+}
+.sk-facts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 22px;
+}
+.sk-facts li {
+  display: flex;
+  gap: 14px;
+}
+.sk-facts svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--vine);
+}
+.sk-facts strong {
+  display: block;
+  margin-bottom: 4px;
+}
+.sk-facts span {
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+/* Owner CTA */
+.sk-owner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: clamp(28px, 5vw, 48px);
+  border-radius: var(--radius);
+  background: var(--wine);
+  color: #fff;
+}
+.sk-owner p {
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 8px;
+}
+.sk-owner .btn {
+  background: #fff;
+  color: var(--wine);
+}
+
+/* Tablet */
+@media (max-width: 960px) {
+  .sk-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sk-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sk-about {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Phone */
+@media (max-width: 600px) {
+  .sk-steps,
+  .sk-grid {
+    grid-template-columns: 1fr;
+  }
+  .sk-cta .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .sk-owner .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
