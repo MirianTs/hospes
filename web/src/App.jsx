@@ -1,24 +1,25 @@
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import { Route, Routes, useParams } from 'react-router-dom';
 import Layout from './components/Layout.jsx';
 import RequireAuth from './components/RequireAuth.jsx';
-import { Loading } from './components/ui.jsx';
 import Home from './pages/Home.jsx';
-import Catalog from './pages/Catalog.jsx';
-import MapSearch from './pages/MapSearch.jsx';
-import HotelPage from './pages/HotelPage.jsx';
-import { Login, Register } from './pages/Auth.jsx';
-import Cabinet from './pages/Cabinet.jsx';
-import BookingPage from './pages/BookingPage.jsx';
-import CheckIn from './pages/CheckIn.jsx';
-import ExtraServices from './pages/ExtraServices.jsx';
-import OwnerDashboard from './pages/OwnerDashboard.jsx';
-import Admin from './pages/Admin.jsx';
-import CardAccess from './pages/CardAccess.jsx';
-import NotFound from './pages/NotFound.jsx';
-import Credits from './pages/Credits.jsx';
 
-// face-api (~1.5 MB) loads only when someone opens the verification page.
+// Every page except Home loads on demand as its own JS chunk (Leaflet only with the map,
+// face-api only with verification). Layout shows a spinner meanwhile.
+const Catalog = lazy(() => import('./pages/Catalog.jsx'));
+const MapSearch = lazy(() => import('./pages/MapSearch.jsx'));
+const HotelPage = lazy(() => import('./pages/HotelPage.jsx'));
+const Login = lazy(() => import('./pages/Auth.jsx').then((m) => ({ default: m.Login })));
+const Register = lazy(() => import('./pages/Auth.jsx').then((m) => ({ default: m.Register })));
+const Cabinet = lazy(() => import('./pages/Cabinet.jsx'));
+const BookingPage = lazy(() => import('./pages/BookingPage.jsx'));
+const CheckIn = lazy(() => import('./pages/CheckIn.jsx'));
+const ExtraServices = lazy(() => import('./pages/ExtraServices.jsx'));
+const OwnerDashboard = lazy(() => import('./pages/OwnerDashboard.jsx'));
+const Admin = lazy(() => import('./pages/Admin.jsx'));
+const CardAccess = lazy(() => import('./pages/CardAccess.jsx'));
+const NotFound = lazy(() => import('./pages/NotFound.jsx'));
+const Credits = lazy(() => import('./pages/Credits.jsx'));
 const Verify = lazy(() => import('./pages/Verify.jsx'));
 
 const guarded = (el, roles) => <RequireAuth roles={roles}>{el}</RequireAuth>;
@@ -40,14 +41,7 @@ export default function App() {
         <Route path="credits" element={<Credits />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route
-          path="verify"
-          element={guarded(
-            <Suspense fallback={<Loading />}>
-              <Verify />
-            </Suspense>,
-          )}
-        />
+        <Route path="verify" element={guarded(<Verify />)} />
         <Route path="cabinet" element={guarded(<Cabinet />)} />
         <Route path="bookings/:id" element={guarded(<KeyedById page={BookingPage} />)} />
         <Route path="bookings/:id/services" element={guarded(<KeyedById page={ExtraServices} />)} />

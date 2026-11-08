@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { resetDemo, STATIC_DEMO } from '../api.js';
 import { useAuth } from '../auth.jsx';
 import { initial } from '../format.js';
 import Icon from './Icon.jsx';
+import { Loading } from './ui.jsx';
 
 const MAIN_LINKS = [
   { to: '/', label: 'მთავარი', end: true },
@@ -101,7 +102,9 @@ export default function Layout() {
         </div>
       </header>
       <main>
-        <Outlet />
+        <Suspense fallback={<Loading />}>
+          <Outlet />
+        </Suspense>
       </main>
       <footer className="footer">
         <div className="container container-wide inner">

@@ -79,9 +79,11 @@ function PlacePicker({ value, onChange, groups, count }) {
 export default function MapSearch() {
   const [params] = useSearchParams();
   const initialType = params.get('type');
-  const [place, setPlace] = useState(params.get('city') ? `c:${params.get('city')}` : '');
-  const [checkIn, setCheckIn] = useState('');
-  const [checkOut, setCheckOut] = useState('');
+  const [place, setPlace] = useState(
+    () => params.get('place') || (params.get('city') ? `c:${params.get('city')}` : ''),
+  );
+  const [checkIn, setCheckIn] = useState(() => (params.get('in') >= todayStr() ? params.get('in') : ''));
+  const [checkOut, setCheckOut] = useState(() => (params.get('in') >= todayStr() ? params.get('out') || '' : ''));
   const [maxPrice, setMaxPrice] = useState('');
   const [cats, setCats] = useState(() => new Set(POI_BY_ID[initialType] ? [initialType] : []));
   const [selected, setSelected] = useState(params.get('focus'));
