@@ -89,11 +89,16 @@ router.post('/bookings/:id/cancel', requireAuth, (req, res) => {
   res.json(describeBooking(findBooking(b.id)));
 });
 
-router.post('/bookings/:id/checkout', requireAuth, (req, res) => {
+// Check-out: the guest drops the room key into the return compartment (servo 4), which opens for it.
+export const RETURN_LOCK = 4;
+router.post('/bookings/:id/checkout', requireAuth, async (req, res) => {
   const b = ownBooking(toId(req.params.id), req.user);
   if (b.status !== 'checked_in') fail(409, 'ჩექაუთი მხოლოდ ჩექინის შემდეგაა შესაძლებელი');
+  const result = await serial.openLock(RETURN_LOCK);
+  if (result.error) fail(503, result.error);
+  access.recordEvent({ kind: 'app', result: 'opened', lock_id: RETURN_LOCK, label: `${req.user.name} · ჩექაუთი, ოთახი ${b.room_number}` });
   db.prepare(`UPDATE bookings SET status = 'checked_out', checked_out_at = ? WHERE id = ?`).run(nowIso(), b.id);
-  res.json(describeBooking(findBooking(b.id)));
+  res.json({ ...describeBooking(findBooking(b.id)), return_lock: RETURN_LOCK, hardware: result.mock ? 'mock' : 'sent' });
 });
 
 // Every room's key sits in a key locker box. Verified guest + active booking + right code -> check-in.

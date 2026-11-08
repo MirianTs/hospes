@@ -45,6 +45,11 @@ export default function BookingCard({ b }) {
               <Icon name="key" size={15} /> ჩექინი
             </Link>
           )}
+          {b.status === 'checked_in' && (
+            <Link to={`/bookings/${b.id}`} className="btn btn-primary btn-sm">
+              <Icon name="logout" size={15} /> ჩექაუთი
+            </Link>
+          )}
           {active && (
             <Link to={`/bookings/${b.id}/services`} className="btn btn-outline btn-sm">
               <Icon name="bell" size={15} /> სერვისები

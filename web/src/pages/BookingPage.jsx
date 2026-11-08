@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import { api } from '../api.js';
 import { BookingHotelImage } from '../components/HotelCard.jsx';
 import Icon from '../components/Icon.jsx';
+import LockConnect from '../components/LockConnect.jsx';
+import { openCompartment } from '../lockSerial.js';
 import { Alert, Badge, ErrorBox, KeyBadge, Loading, Spinner, StatusBadge, useAction, useApi } from '../components/ui.jsx';
 import { fmtDate, fmtDateTime, money } from '../format.js';
 
@@ -66,6 +68,7 @@ export default function BookingPage() {
   const cancel = useAction();
   const checkout = useAction();
   const [justPaid, setJustPaid] = useState(false);
+  const [returned, setReturned] = useState(null);
 
   if (booking.loading && !booking.data) return <Loading />;
   if (!booking.data) {
@@ -83,7 +86,13 @@ export default function BookingPage() {
     if (await cancel.run(() => api(`/bookings/${b.id}/cancel`, { method: 'POST' }))) booking.reload();
   };
   const doCheckout = async () => {
-    if (await checkout.run(() => api(`/bookings/${b.id}/checkout`, { method: 'POST' }))) booking.reload();
+    if (!window.confirm('ჩექაუთი: დაბრუნების განყოფილება გაიღება და გასაღები შიგნით უნდა ჩადო. გავაგრძელო?')) return;
+    const res = await checkout.run(() => api(`/bookings/${b.id}/checkout`, { method: 'POST' }));
+    if (!res) return;
+    // The Arduino is on this computer's USB: open the key return compartment from the browser.
+    const sent = await openCompartment(res.return_lock);
+    setReturned({ lock: res.return_lock, sent, mock: res.hardware === 'mock' });
+    booking.reload();
   };
 
   return (
@@ -153,13 +162,24 @@ export default function BookingPage() {
             <div className="card card-body">
               <h3 className="card-title">შესახლებული ხარ</h3>
               {b.checkin_info && <Alert tone="info">{b.checkin_info}</Alert>}
+              <p className="small muted mb-0">
+                წასვლისას დააჭირე „ჩექაუთს“: ლოქერის <b>განყოფილება #4</b> გაიღება და ოთახის გასაღებს შიგნით ჩადებ. 5 წამში თავისით ჩაიკეტება.
+              </p>
+              <LockConnect />
               <ErrorBox error={checkout.error} />
-              <button type="button" className="btn btn-outline mt-2" disabled={checkout.busy} onClick={doCheckout}>
+              <button type="button" className="btn btn-primary mt-2" disabled={checkout.busy} onClick={doCheckout}>
                 <Icon name="logout" size={16} /> ჩექაუთი
               </button>
             </div>
           )}
 
+          {returned && (
+            <Alert tone="success" icon="key">
+              {returned.sent
+                ? `Hospes Lock: განყოფილება #${returned.lock} გაიღო. ჩადე ოთახის გასაღები, 5 წამში ჩაიკეტება.`
+                : `განყოფილება #${returned.lock} გაიღო: ჩადე ოთახის გასაღები.${returned.mock ? ' (დემო: Arduino ამ კომპიუტერზე მიერთებული არ არის.)' : ''}`}
+            </Alert>
+          )}
           {b.status === 'checked_out' && <Alert tone="success">ვიზიტი დასრულდა. გმადლობთ, რომ Hospes აირჩიე!</Alert>}
           {b.status === 'cancelled' && <Alert tone="warn">ეს ჯავშანი გაუქმებულია.</Alert>}
         </div>

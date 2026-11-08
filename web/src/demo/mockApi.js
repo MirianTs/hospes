@@ -7,6 +7,7 @@ export const STORE_KEY = 'hospes_demo_v1';
 const VERSION = 5; // 2: places all over Georgia; 3: key locker box only, more cottages and sights; 4: Tbilisi places; 5: rooms 1–3 on every place, each with its servo
 const TIMEZONE = 'Asia/Tbilisi';
 const OPEN_MS = 5000;
+const RETURN_LOCK = 4; // key return compartment, opens on check-out
 const FACE_THRESHOLD = 0.6;
 
 // ---------- helpers (backend/src/util.js) ----------
@@ -711,8 +712,11 @@ route('POST', '/bookings/:id/cancel', (ctx) => {
 route('POST', '/bookings/:id/checkout', (ctx) => {
   const b = ownBooking(toId(ctx.params.id), auth(ctx));
   if (b.status !== 'checked_in') fail(409, 'ჩექაუთი მხოლოდ ჩექინის შემდეგაა შესაძლებელი');
+  // Same as backend: the key goes back into the return compartment (servo 4).
+  openLock(RETURN_LOCK);
+  recordEvent({ kind: 'app', result: 'opened', lock_id: RETURN_LOCK, label: `${find('users', b.user_id)?.name ?? ''} · ჩექაუთი, ოთახი ${b.room_number}` });
   Object.assign(find('bookings', b.id), { status: 'checked_out', checked_out_at: nowIso() });
-  return bookingView(b.id);
+  return { ...bookingView(b.id), return_lock: RETURN_LOCK, hardware: 'mock' };
 });
 // Same as backend/src/routes/guest.js: code check-in for every room; a Hospes Lock compartment (lock_id) opens too.
 route('POST', '/checkin/code', (ctx) => {
@@ -894,6 +898,12 @@ route('PATCH', '/admin/users/:id', (ctx) => {
   Object.assign(user, { role: nextRole, verification_status: status });
   return publicUser(user);
 });
+// Every new place starts with rooms 1–3, each in its own Hospes Lock compartment; the owner sets prices later.
+const DEFAULT_ROOMS = [
+  { number: '1', title: 'ორადგილიანი', capacity: 2, price: 100, lock_id: 1 },
+  { number: '2', title: 'სამადგილიანი', capacity: 3, price: 120, lock_id: 2 },
+  { number: '3', title: 'საოჯახო ოთახი', capacity: 4, price: 150, lock_id: 3 },
+];
 route(
   'POST',
   '/admin/hotels',
@@ -917,6 +927,7 @@ route(
       created_at: nowIso(),
     };
     db.hotels.push(hotel);
+    for (const r of DEFAULT_ROOMS) db.rooms.push({ id: nextId('rooms'), hotel_id: hotel.id, ...r, key_type: 'box', status: 'available' });
     return hotelOut(hotel);
   },
   201,
@@ -930,7 +941,7 @@ route(
     const hotelId = toId(b.hotel_id);
     if (!find('hotels', hotelId)) fail(404, 'ობიექტი ვერ მოიძებნა');
     const lockId = b.lock_id ? Number(b.lock_id) : null;
-    if (lockId && ![1, 2, 3, 4].includes(lockId)) fail(400, 'Hospes Lock-ის განყოფილება: 1–4');
+    if (lockId && ![1, 2, 3].includes(lockId)) fail(400, 'Hospes Lock-ის განყოფილება: 1–3 (#4 გასაღების დასაბრუნებელია)');
     if (lockId && db.rooms.some((r) => r.hotel_id === hotelId && r.lock_id === lockId)) fail(409, `განყოფილება #${lockId} ამ ობიექტზე უკვე სხვა ოთახზეა მიბმული`);
     const number = text(b.number, 20, 'ოთახის ნომერი');
     if (db.rooms.some((r) => r.hotel_id === hotelId && r.number === number)) fail(409, 'ასეთი ნომრის ოთახი ამ ობიექტზე უკვე არსებობს');

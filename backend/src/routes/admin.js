@@ -38,6 +38,13 @@ router.patch('/users/:id', (req, res) => {
   res.json(publicUser(db.prepare('SELECT * FROM users WHERE id = ?').get(user.id)));
 });
 
+// Every new place starts with rooms 1–3, each in its own Hospes Lock compartment; the owner sets prices later.
+const DEFAULT_ROOMS = [
+  { number: '1', title: 'ორადგილიანი', capacity: 2, price: 100, lock_id: 1 },
+  { number: '2', title: 'სამადგილიანი', capacity: 3, price: 120, lock_id: 2 },
+  { number: '3', title: 'საოჯახო ოთახი', capacity: 4, price: 150, lock_id: 3 },
+];
+
 router.post('/hotels', (req, res) => {
   const b = req.body || {};
   const ownerId = b.owner_id ? toId(b.owner_id) : null;
@@ -62,6 +69,10 @@ router.post('/hotels', (req, res) => {
       JSON.stringify(photos),
       text(b.checkin_info, 300, 'ჩექინის ინფორმაცია', false),
     );
+  const addRoom = db.prepare(
+    `INSERT INTO rooms (hotel_id, number, title, capacity, price, key_type, lock_id) VALUES (?, ?, ?, ?, ?, 'box', ?)`,
+  );
+  for (const r of DEFAULT_ROOMS) addRoom.run(lastInsertRowid, r.number, r.title, r.capacity, r.price, r.lock_id);
   res.status(201).json(hotelOut(db.prepare('SELECT * FROM hotels WHERE id = ?').get(lastInsertRowid)));
 });
 
@@ -69,10 +80,10 @@ router.post('/rooms', (req, res) => {
   const b = req.body || {};
   const hotelId = toId(b.hotel_id);
   if (!db.prepare('SELECT 1 FROM hotels WHERE id = ?').get(hotelId)) fail(404, 'ობიექტი ვერ მოიძებნა');
-  // Keys are always in a key locker box; lock_id = optional Hospes Lock compartment (Arduino servo 1–4).
+  // Keys are always in a key locker box; lock_id = optional Hospes Lock compartment (servo 1–3; 4 is the key return).
   const keyType = 'box';
   const lockId = b.lock_id ? Number(b.lock_id) : null;
-  if (lockId && ![1, 2, 3, 4].includes(lockId)) fail(400, 'Hospes Lock-ის განყოფილება: 1–4');
+  if (lockId && ![1, 2, 3].includes(lockId)) fail(400, 'Hospes Lock-ის განყოფილება: 1–3 (#4 გასაღების დასაბრუნებელია)');
   if (lockId && db.prepare('SELECT 1 FROM rooms WHERE hotel_id = ? AND lock_id = ?').get(hotelId, lockId)) {
     fail(409, `განყოფილება #${lockId} ამ ობიექტზე უკვე სხვა ოთახზეა მიბმული`);
   }

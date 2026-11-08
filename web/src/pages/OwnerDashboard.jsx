@@ -129,7 +129,7 @@ function RoomRow({ room, onSaved }) {
       </td>
       <td className="nowrap">
         <KeyBadge type={room.key_type} />
-        {room.lock_id && <div className="muted small mt-1">Arduino საკეტი #{room.lock_id}</div>}
+        {room.lock_id && <div className="muted small mt-1">ლოქერის განყოფილება #{room.lock_id}</div>}
       </td>
       <td>
         <div className="inline" style={{ flexWrap: 'nowrap' }}>

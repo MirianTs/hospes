@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { api, stream } from '../api.js';
+import { api, STATIC_DEMO, stream } from '../api.js';
 import Icon from '../components/Icon.jsx';
 import { Alert, Badge, ErrorBox, Loading, Spinner, useAction, useApi } from '../components/ui.jsx';
 import { fmtTime } from '../format.js';
@@ -12,17 +12,17 @@ function describe(e, cards) {
   const who = e.uid ? `${spaced(e.uid)}${card?.label ? ` (${card.label})` : ''}` : '';
   switch (`${e.kind}:${e.result}`) {
     case 'card:allowed':
-      return { icon: 'key', tone: 'ok', text: `ბარათი ${who} მიიდო → კარი #${e.lock_id} იღება` };
+      return { icon: 'key', tone: 'ok', text: `ბარათი ${who} მიიდო → განყოფილება #${e.lock_id} იღება` };
     case 'card:denied':
       return { icon: 'ban', tone: 'no', text: `უცნობი ბარათი ${who} → წვდომა აკრძალულია` };
     case 'door:opened':
-      return { icon: 'unlock', tone: 'ok', text: `კარი #${e.lock_id} გაიღო` };
+      return { icon: 'unlock', tone: 'ok', text: `განყოფილება #${e.lock_id} გაიღო` };
     case 'door:locked':
-      return { icon: 'lock', tone: 'info', text: `კარი #${e.lock_id} დაიკეტა` };
+      return { icon: 'lock', tone: 'info', text: `განყოფილება #${e.lock_id} დაიკეტა` };
     case 'app:opened':
-      return { icon: 'unlock', tone: 'ok', text: `აპიდან გაიღო კარი #${e.lock_id}: ${e.label}` };
+      return { icon: 'unlock', tone: 'ok', text: `აპიდან გაიღო განყოფილება #${e.lock_id}: ${e.label}` };
     case 'admin:opened':
-      return { icon: 'unlock', tone: 'ok', text: `ადმინმა გააღო კარი #${e.lock_id} (${e.label})` };
+      return { icon: 'unlock', tone: 'ok', text: `ადმინმა გააღო განყოფილება #${e.lock_id} (${e.label})` };
     default:
       return { icon: 'alert', tone: 'no', text: e.label || 'შეცდომა' };
   }
@@ -35,7 +35,7 @@ function Door({ n, open, openedAt, openMs, now }) {
       <div className="ico">
         <Icon name={open ? 'unlock' : 'lock'} size={30} strokeWidth={2.2} />
       </div>
-      <div className="muted small">კარი #{n}</div>
+      <div className="muted small">განყოფილება #{n}{n === 4 ? ' · დაბრუნება' : ''}</div>
       <div className="state">{open ? `ღიაა${left ? ` · ${left} წმ` : ''}` : 'დაკეტილია'}</div>
     </div>
   );
@@ -77,7 +77,9 @@ function Connection({ hw, live }) {
       )}
       {hw.mode === 'mock' && (
         <p className="small muted mt-2 mb-0">
-          დაფის მისაერთებლად backend/.env-ში ჩაწერე ARDUINO_PORT=auto და გადატვირთე backend. მანამდე გამოიყენე სიმულაცია.
+          {STATIC_DEMO
+            ? 'ონლაინ დემოში ბარათის მკითხველი არ მუშაობს (საჭიროა ლეპტოპზე გაშვებული backend). გამოიყენე სიმულაცია.'
+            : 'დაფის მისაერთებლად backend/.env-ში ჩაწერე ARDUINO_PORT=auto და გადატვირთე backend. მანამდე გამოიყენე სიმულაცია.'}
         </p>
       )}
       {hw.lastError && hw.mode === 'serial' && !hw.open && <p className="small muted mt-2 mb-0">{hw.lastError}</p>}
@@ -161,7 +163,7 @@ export default function CardAccess() {
     <div className="container">
       <div className="page-head">
         <h1>ბარათით შესვლა</h1>
-        <p>მიადე ბარათი RC522 მკითხველს: კარი გაიღება, მოვლენა აქ ჩაიწერება და 5 წამში კარი ისევ დაიკეტება.</p>
+        <p>ლოქერის 4 განყოფილება: #1–#3 ოთახების გასაღებებია (ჩექინისას იღება), #4 გასაღების დასაბრუნებელია (ჩექაუთისას იღება). მიადე ბარათი RC522 მკითხველს: განყოფილება გაიღება, მოვლენა აქ ჩაიწერება და 5 წამში ისევ დაიკეტება.</p>
       </div>
       <ErrorBox error={initial.error} onRetry={initial.reload} />
 
@@ -206,7 +208,7 @@ export default function CardAccess() {
           <Connection hw={hw} live={live} />
 
           <div className="card card-body">
-            <h3 className="card-title">ვის უღებს კარს</h3>
+            <h3 className="card-title">ვის უღებს ლოქერს</h3>
             <div className="chips">
               <button type="button" className={`chip${openAny ? ' on' : ''}`} onClick={() => setMode(true)} disabled={action.busy}>
                 ნებისმიერ ბარათს
@@ -226,10 +228,10 @@ export default function CardAccess() {
               <div className="uid">{spaced(lastUnknown)}</div>
               <div className="form-row mt-2">
                 <input className="input input-sm" placeholder="სახელი, მაგ. ნინოს ბარათი" value={label} onChange={(e) => setLabel(e.target.value)} />
-                <select className="input input-sm" style={{ maxWidth: 110 }} value={lockId} onChange={(e) => setLockId(e.target.value)} aria-label="კარი">
+                <select className="input input-sm" style={{ maxWidth: 110 }} value={lockId} onChange={(e) => setLockId(e.target.value)} aria-label="განყოფილება">
                   {[1, 2, 3, 4].map((n) => (
                     <option key={n} value={n}>
-                      კარი #{n}
+                      განყოფილება #{n}
                     </option>
                   ))}
                 </select>
@@ -251,7 +253,7 @@ export default function CardAccess() {
                     <div>
                       <div>{c.label || 'უსახელო ბარათი'}</div>
                       <div className="muted small uid">
-                        {spaced(c.uid)} · კარი #{c.lock_id}
+                        {spaced(c.uid)} · განყოფილება #{c.lock_id}
                       </div>
                     </div>
                     <button type="button" className="btn btn-ghost btn-sm btn-icon" onClick={() => removeCard(c.uid)} title="წაშლა" aria-label="წაშლა">
@@ -273,7 +275,7 @@ export default function CardAccess() {
             </Link>
           </div>
           {hw?.mode === 'serial' && !hw.open && (
-            <Alert tone="warn">სანამ Arduino არ დაუკავშირდება, ბარათი კარს ვერ გააღებს.</Alert>
+            <Alert tone="warn">სანამ Arduino არ დაუკავშირდება, ბარათი ლოქერს ვერ გააღებს.</Alert>
           )}
         </aside>
       </div>

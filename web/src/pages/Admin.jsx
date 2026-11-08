@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { api } from '../api.js';
+import { api, STATIC_DEMO } from '../api.js';
 import Icon from '../components/Icon.jsx';
 import LockConnect from '../components/LockConnect.jsx';
 import { openCompartment } from '../lockSerial.js';
@@ -164,7 +164,7 @@ function NewRoom({ hotels, onCreated }) {
         <span>გასაღები: Hospes Lock-ის განყოფილება</span>
         <select className="input" value={form.lock_id} onChange={set('lock_id')}>
           <option value="">კოდიანი ლოქერ-ბოქსი (Arduino-ს გარეშე)</option>
-          {[1, 2, 3, 4].map((n) => (
+          {[1, 2, 3].map((n) => (
             <option key={n} value={n}>
               განყოფილება #{n} (servo)
             </option>
@@ -345,7 +345,7 @@ function HardwareTab() {
         <div className="inline mt-1">
           {[1, 2, 3, 4].map((n) => (
             <button key={n} type="button" className="btn btn-outline" disabled={action.busy} onClick={() => open(n)}>
-              <Icon name="unlock" size={15} /> OPEN{n}
+              <Icon name="unlock" size={15} /> OPEN{n}{n === 4 ? " (დაბრუნება)" : ""}
             </button>
           ))}
         </div>
@@ -362,7 +362,9 @@ function HardwareTab() {
           {s?.log.length ? s.log.map((l) => `${fmtTime(l.at)}  ${l.line}`).join('\n') : 'ჯერ ცარიელია'}
         </pre>
         <p className="muted small mt-2 mb-0">
-          დაფის მისაერთებლად backend/.env-ში ჩაწერე ARDUINO_PORT=COM3 (ან auto) და გადატვირთე backend.
+          {STATIC_DEMO
+            ? 'ონლაინ დემოში დაფა ბრაუზერს USB-ით უერთდება: დააჭირე „Hospes Lock-ის მიერთებას“ (Chrome ან Edge). ღილაკები და ჩექინი/ჩექაუთი OPEN<N>-ს პირდაპირ აგზავნის.'
+            : 'დაფის მისაერთებლად backend/.env-ში ჩაწერე ARDUINO_PORT=COM3 (ან auto) და გადატვირთე backend. ან ბრაუზერიდან: „Hospes Lock-ის მიერთება“.'}
         </p>
       </div>
     </div>
