@@ -17,10 +17,10 @@
 const uint8_t LOCKS = 4;
 const uint8_t SERVO_PINS[LOCKS] = {3, 5, 6, 9};
 // Per lock, so a servo mounted the other way can turn the other way.
-// Locks 1 and 3: locked at 180°, open at 90° (the arm swings down). Lock 2 turns the other way: 0° -> 90°.
+// Locks 1 and 3: locked at 180°, open at 90° (the arm swings down). Lock 2 opens to the other side: 90° -> 180° (its arm is set on the spline at 90° = closed).
 // Lock 4 (key return) turns the other way: locked at 0°, open at 90°.
-const uint8_t LOCKED_ANGLE[LOCKS] = {180, 0, 180, 0};
-const uint8_t OPEN_ANGLE[LOCKS] = {90, 90, 90, 90};
+const uint8_t LOCKED_ANGLE[LOCKS] = {180, 90, 180, 0};
+const uint8_t OPEN_ANGLE[LOCKS] = {90, 180, 90, 90};
 const unsigned long OPEN_MS = 5000;   // how long a lock stays open
 const unsigned long SETTLE_MS = 600;  // time an SG90 needs to turn 90°
 
