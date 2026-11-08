@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { api, STATIC_DEMO } from '../api.js';
 import { useAuth } from '../auth.jsx';
 import Icon from '../components/Icon.jsx';
-import LockConnect from '../components/LockConnect.jsx';
+import LockConnect, { LockRetry } from '../components/LockConnect.jsx';
 import { openCompartment } from '../lockSerial.js';
 import { Alert, ErrorBox, KeyBadge, Loading, Spinner, useAction, useApi } from '../components/ui.jsx';
 import { fmtDate } from '../format.js';
@@ -127,7 +127,9 @@ export default function CheckIn() {
                 {done.checkin_info}
               </Alert>
             )}
-            {done.sent ? (
+            {done.sent === 'noreply' ? (
+              <LockRetry lock={done.lock_id} />
+            ) : done.sent ? (
               <Alert tone="success" icon="key">
                 {L(
                   `Hospes Lock: განყოფილება #${done.lock_id} გაიღო. 5 წამში თავისით ჩაიკეტება.`,

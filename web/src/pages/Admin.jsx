@@ -372,7 +372,9 @@ function HardwareTab() {
         {last && (
           <p className="small muted mt-1 mb-0">
             {L('ბოლო:', 'Last:')} OPEN{last.lock_id} →{' '}
-            {last.sent
+            {last.sent === 'noreply'
+              ? L('Arduino-მ არ უპასუხა: მიაერთე თავიდან და აირჩიე Arduino-ს პორტი', "the Arduino didn't answer: reconnect and choose the Arduino's port")
+              : last.sent
               ? L('გაიგზავნა USB-ით (ბრაუზერიდან)', 'sent over USB (from the browser)')
               : last.hardware === 'mock'
                 ? L('ჩაიწერა ლოგში (დემო)', 'written to the log (demo)')

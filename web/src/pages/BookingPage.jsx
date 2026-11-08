@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { api } from '../api.js';
 import { BookingHotelImage } from '../components/HotelCard.jsx';
 import Icon from '../components/Icon.jsx';
-import LockConnect from '../components/LockConnect.jsx';
+import LockConnect, { LockRetry } from '../components/LockConnect.jsx';
 import { openCompartment } from '../lockSerial.js';
 import { Alert, Badge, ErrorBox, KeyBadge, Loading, Spinner, StatusBadge, useAction, useApi } from '../components/ui.jsx';
 import { fmtDate, fmtDateTime, money } from '../format.js';
@@ -186,7 +186,8 @@ export default function BookingPage() {
             </div>
           )}
 
-          {returned && (
+          {returned?.sent === 'noreply' && <LockRetry lock={returned.lock} />}
+          {returned && returned.sent !== 'noreply' && (
             <Alert tone="success" icon="key">
               {returned.sent
                 ? L(
