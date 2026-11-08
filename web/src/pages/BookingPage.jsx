@@ -127,19 +127,14 @@ export default function BookingPage() {
                 </div>
               </div>
               <p className="small muted mt-2 mb-0">
-                {b.key_type === 'box'
-                  ? 'ჩამოსვლისას ჩექინის ეკრანზე შეიყვანე კოდი: სისტემა დაადასტურებს და გეტყვის, სად არის გასაღები.'
-                  : 'ჩამოსვლისას ჩექინის ეკრანზე დააჭირე „კარის გაღებას“: საკეტი ტელეფონიდან გაიღება. საჭიროა ვერიფიცირებული ანგარიში.'}
+                ჩამოსვლისას ჩექინის ეკრანზე შეიყვანე ეს კოდი: გასაღების ლოქერ-ბოქსი გაიღება და აიღებ ოთახის გასაღებს.
+                საჭიროა ვერიფიცირებული ანგარიში.
               </p>
               <div className="inline mt-2">
                 {!b.can_check_in ? (
                   <Badge tone="gold" icon="clock">
                     ჩექინი გაიხსნება {fmtDate(b.check_in)}-ს
                   </Badge>
-                ) : b.key_type === 'smartlock' ? (
-                  <Link to={`/checkin/${b.id}`} className="btn btn-primary">
-                    <Icon name="unlock" size={16} /> {b.status === 'checked_in' ? 'კარის გაღება' : 'ჩექინი'}
-                  </Link>
                 ) : (
                   b.status !== 'checked_in' && (
                     <Link to={`/checkin/${b.id}`} className="btn btn-primary">

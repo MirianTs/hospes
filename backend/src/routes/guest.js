@@ -96,28 +96,24 @@ router.post('/bookings/:id/checkout', requireAuth, (req, res) => {
   res.json(describeBooking(findBooking(b.id)));
 });
 
-// Key-box room: the guest types the access code on the check-in screen.
-router.post('/checkin/code', requireAuth, (req, res) => {
+// Every room's key sits in a key locker box. Verified guest + active booking + right code -> check-in.
+// When the key is in a Hospes Lock compartment (rooms.lock_id), the code also sends "OPEN<lock_id>" to the Arduino.
+router.post('/checkin/code', requireAuth, async (req, res) => {
   const { booking_id, code } = req.body || {};
   const b = ownBooking(toId(booking_id), req.user);
-  if (b.key_type !== 'box') fail(400, 'ეს ოთახი ჭკვიანი საკეტითაა: გამოიყენეთ ღილაკი „კარის გაღება“');
+  if (req.user.verification_status !== 'verified') {
+    fail(403, 'ჩექინისთვის საჭიროა ვინაობის ვერიფიკაცია', { need: 'verification' });
+  }
   assertCanEnter(b);
   if (String(code || '').trim() !== b.access_code) fail(400, 'კოდი არასწორია');
-  res.json({ ok: true, booking: markCheckedIn(b), checkin_info: hotelCheckinInfo(b.hotel_id) });
-});
-
-// Smart-lock room: verified guest + active booking -> "OPEN<lock_id>" to the Arduino.
-router.post('/checkin/unlock', requireAuth, async (req, res) => {
-  const b = ownBooking(toId(req.body?.booking_id), req.user);
-  if (req.user.verification_status !== 'verified') {
-    fail(403, 'კარის გასაღებად საჭიროა ვინაობის ვერიფიკაცია', { need: 'verification' });
+  let hardware = null;
+  if (b.lock_id) {
+    const result = await serial.openLock(b.lock_id);
+    if (result.error) fail(503, result.error);
+    access.recordEvent({ kind: 'app', result: 'opened', lock_id: b.lock_id, label: `${req.user.name} · ოთახი ${b.room_number}` });
+    hardware = result.mock ? 'mock' : 'sent';
   }
-  if (b.key_type !== 'smartlock' || !b.lock_id) fail(400, 'ამ ოთახს ჭკვიანი საკეტი არ აქვს: შეიყვანეთ კოდი');
-  assertCanEnter(b);
-  const result = await serial.openLock(b.lock_id);
-  if (result.error) fail(503, result.error);
-  access.recordEvent({ kind: 'app', result: 'opened', lock_id: b.lock_id, label: `${req.user.name} · ოთახი ${b.room_number}` });
-  res.json({ ok: true, lock_id: b.lock_id, hardware: result.mock ? 'mock' : 'sent', booking: markCheckedIn(b) });
+  res.json({ ok: true, lock_id: b.lock_id ?? null, hardware, booking: markCheckedIn(b), checkin_info: hotelCheckinInfo(b.hotel_id) });
 });
 
 router.get('/bookings/:id/services', requireAuth, (req, res) => {

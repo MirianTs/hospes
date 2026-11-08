@@ -48,7 +48,7 @@ npm start
 
 **https://miriants.github.io/hospes/**: იგივე საიტი, რომელსაც სერვერი არ სჭირდება და ნებისმიერ ტელეფონზე ან კომპიუტერზე იხსნება.
 
-- მუშაობს ყველაფერი: ძებნა რუკაზე, ჯავშანი, გადახდა, კოდით ჩექინი, ჭკვიანი საკეტი, სერვისები, მფლობელის დეშბორდი და ადმინი.
+- მუშაობს ყველაფერი: ძებნა რუკაზე, ჯავშანი, გადახდა, კოდით ჩექინი და ლოქერ-ბოქსი, სერვისები, მფლობელის დეშბორდი და ადმინი.
 - მონაცემები მხოლოდ სტუმრის ბრაუზერში ინახება (`web/src/demo/mockApi.js`). საკეტი სიმულაციაა, სახის ვერიფიკაცია კი დემო რეჟიმშია.
 - ქვედა ზოლში ღილაკია „თავიდან დაწყება“, რომელიც დემოს საწყის მონაცემებს აბრუნებს.
 - `main`-ზე ყოველი push-ისას საიტს `.github/workflows/pages.yml` თავიდან აწყობს. ერთჯერადი დაყენება: რეპოზიტორია → **Settings → Pages → Source: GitHub Actions**.
@@ -72,8 +72,8 @@ cd web && VITE_STATIC_DEMO=1 npx vite build --base=/hospes/
 | სტუმარი (ვერიფიკაციის გარეშე) | anna@hospes.test | guest123 |
 
 სტუმარს დღევანდელი თარიღით უკვე აქვს ორი გადახდილი ჯავშანი, სარეზერვოდ, თუ ცოცხალი ჯავშანი ვერ მოესწრო:
-- **ალაზნის ხედი, ოთახი 102**: ჭკვიანი საკეტი #1;
-- **ყვარლის კარი, ოთახი 1**: კოდი და გასაღების ყუთი.
+- **ალაზნის ხედი, ოთახი 102**: Hospes Lock, განყოფილება #1 (Arduino);
+- **ყვარლის კარი, ოთახი 1**: კოდიანი ლოქერ-ბოქსი.
 
 ## დემოს სცენარი
 
@@ -81,8 +81,8 @@ cd web && VITE_STATIC_DEMO=1 npx vite build --base=/hospes/
 2. **ძებნა რუკაზე.** „რუკა“ → თარიღები. ჩანს მხოლოდ ის სასტუმროები, სადაც ოთახი თავისუფალია. კატეგორიების ჩართვით რუკაზე კაფეები, ტურები, გიდები, ბილიკები და ღირსშესანიშნაობები ემატება.
 3. **ჯავშანი.** სასტუმროს გვერდი → ოთახი → „დაჯავშნა“ → დემო გადახდა → ჩნდება 6-ციფრიანი კოდი.
 4. **ჩექინი.**
-   - კოდის ოთახი: შეიყვანე კოდი. არასწორი კოდი და ჯავშნის თარიღებს გარეთ შეყვანილი კოდი არ მიიღება.
-   - ჭკვიანი საკეტი: „კარის გაღება“ → Arduino კარს აღებს და 5 წამში ისევ კეტავს.
+   - ყველა ოთახის გასაღები ლოქერ-ბოქსშია. ვერიფიცირებული სტუმარი შეიყვანს კოდს. არასწორი კოდი და ჯავშნის თარიღებს გარეთ შეყვანილი კოდი არ მიიღება.
+   - თუ გასაღები Hospes Lock-ის განყოფილებაშია (lock_id), იგივე კოდი Arduino-ს `OPEN<id>`-ს უგზავნის და განყოფილება 5 წამით იღება.
 5. **სერვისის მოთხოვნა.** ჯავშანი → „დამატებითი სერვისები“ → მაგალითად, საუზმე.
 6. **მფლობელი** (owner@hospes.test) → „დეშბორდი“:
    - ხედავს ჯავშანს და მოთხოვნას, აღნიშნავს „შესრულდა“;
@@ -93,7 +93,7 @@ cd web && VITE_STATIC_DEMO=1 npx vite build --base=/hospes/
 
 - ერთ ოთახზე თარიღები არ გადაიფარება. შიდა ჯავშნები და გარე ბლოკები ერთად მოწმდება. გასვლის დღეს ოთახი ახალ სტუმარს შეუძლია დაჯავშნოს.
 - წვდომის კოდი იქმნება გადახდისას და მოქმედებს მხოლოდ შესვლის დღიდან გასვლის დღის ჩათვლით, თბილისის დროით.
-- კარს ჭკვიანი საკეტი მხოლოდ ვერიფიცირებულ სტუმარს უღებს, გადახდილი, აქტიური ჯავშნით, smartlock ოთახზე.
+- ლოქერ-ბოქსი (ჩექინი) მხოლოდ ვერიფიცირებულ სტუმარს, გადახდილი და აქტიური ჯავშნით იღება. ჭკვიანი კარის საკეტი აღარ გამოიყენება.
 - ახალ სასტუმროს, ოთახსა და რუკის ადგილს მხოლოდ ადმინი ამატებს. მფლობელი ცვლის ფასს, სტატუსს და სერვისებს, და ბლოკავს თარიღებს.
 - გასაღების ყუთის მდებარეობა სტუმარს მხოლოდ წარმატებული ჩექინის შემდეგ უჩანს.
 
@@ -170,7 +170,7 @@ arduino-cli upload -p COM3 --fqbn arduino:avr:uno hardware/hospes_locks
 
 - **auth:** `POST /auth/register`, `POST /auth/login`, `GET /auth/me`, `POST /auth/verify` (multipart: `id_doc`, `selfie`, `distance`)
 - **public:** `GET /hotels?q=&check_in=&check_out=&max_price=&key_type=`, `GET /hotels/:id`, `GET /rooms/:id/availability`, `GET /pois?type=cafe,tour`
-- **guest:** `POST /bookings`, `GET /bookings/my`, `GET /bookings/:id`, `POST /bookings/:id/pay`, `POST /bookings/:id/cancel`, `POST /bookings/:id/checkout`, `POST /checkin/code`, `POST /checkin/unlock`, `GET|POST /bookings/:id/services`
+- **guest:** `POST /bookings`, `GET /bookings/my`, `GET /bookings/:id`, `POST /bookings/:id/pay`, `POST /bookings/:id/cancel`, `POST /bookings/:id/checkout`, `POST /checkin/code`, `GET|POST /bookings/:id/services`
 - **owner:** `GET /owner/hotels`, `GET /owner/bookings`, `PATCH /rooms/:id`, `GET|POST|PATCH|DELETE /owner/services`, `POST /owner/blocks`, `DELETE /owner/blocks/:id`, `GET /owner/service-requests`, `PATCH /owner/service-requests/:id`
 - **admin:** `POST /admin/hotels`, `POST /admin/rooms`, `POST /admin/pois`, `GET /admin/users`, `PATCH /admin/users/:id`, `GET /admin/hardware`, `POST /admin/locks/:n/open`
 - **card access (admin):** `GET /admin/rfid`, `GET /admin/rfid/stream` (server-sent events), `POST /admin/rfid/cards`, `DELETE /admin/rfid/cards/:uid`, `PATCH /admin/rfid/settings`, `POST /admin/rfid/simulate`

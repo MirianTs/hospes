@@ -105,7 +105,7 @@ function NewHotel({ owners, onCreated }) {
 }
 
 function NewRoom({ hotels, onCreated }) {
-  const empty = { hotel_id: '', number: '', title: '', capacity: '2', price: '', key_type: 'box', lock_id: '1' };
+  const empty = { hotel_id: '', number: '', title: '', capacity: '2', price: '', lock_id: '' };
   const [form, setForm] = useState(empty);
   const action = useAction();
   const [done, setDone] = useState(null);
@@ -117,7 +117,7 @@ function NewRoom({ hotels, onCreated }) {
       hotel_id: Number(form.hotel_id),
       price: Number(form.price),
       capacity: Number(form.capacity),
-      lock_id: form.key_type === 'smartlock' ? Number(form.lock_id) : null,
+      lock_id: form.lock_id ? Number(form.lock_id) : null,
     };
     const r = await action.run(() => api('/admin/rooms', { method: 'POST', body }));
     if (r) {
@@ -158,27 +158,17 @@ function NewRoom({ hotels, onCreated }) {
         <span>სათაური</span>
         <input className="input" placeholder="მაგ. ორადგილიანი, აივნით" value={form.title} onChange={set('title')} />
       </label>
-      <div className="form-row">
-        <label className="field">
-          <span>შესვლის ტიპი</span>
-          <select className="input" value={form.key_type} onChange={set('key_type')}>
-            <option value="box">კოდი და გასაღების ყუთი</option>
-            <option value="smartlock">ჭკვიანი საკეტი (Arduino)</option>
-          </select>
-        </label>
-        {form.key_type === 'smartlock' && (
-          <label className="field">
-            <span>საკეტი (servo 1–4)</span>
-            <select className="input" value={form.lock_id} onChange={set('lock_id')}>
-              {[1, 2, 3, 4].map((n) => (
-                <option key={n} value={n}>
-                  #{n}
-                </option>
-              ))}
-            </select>
-          </label>
-        )}
-      </div>
+      <label className="field">
+        <span>გასაღები: Hospes Lock-ის განყოფილება</span>
+        <select className="input" value={form.lock_id} onChange={set('lock_id')}>
+          <option value="">კოდიანი ლოქერ-ბოქსი (Arduino-ს გარეშე)</option>
+          {[1, 2, 3, 4].map((n) => (
+            <option key={n} value={n}>
+              განყოფილება #{n} (servo)
+            </option>
+          ))}
+        </select>
+      </label>
       <ErrorBox error={action.error} />
       {done && <Alert tone="success">ოთახი {done.number} დაემატა.</Alert>}
       <button type="submit" className="btn btn-primary mt-1" disabled={action.busy}>

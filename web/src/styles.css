@@ -996,6 +996,33 @@ textarea.input {
   height: 9px;
   border-radius: 50%;
 }
+.chip-count {
+  min-width: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--line);
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+  text-align: center;
+}
+.chip.on .chip-count {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+.chip:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+/* Phone: one swipeable row of chips instead of several wrapped lines */
+@media (max-width: 600px) {
+  .chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-inline: -16px;
+    padding: 2px 16px 6px;
+    scrollbar-width: none;
+  }
+}
 
 .tabs {
   display: flex;

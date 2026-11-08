@@ -84,8 +84,8 @@ export const BOOKING_STATUS = {
 };
 
 export const KEY_TYPE = {
-  box: { label: 'კოდი და გასაღების ყუთი', short: 'კოდით', icon: 'key' },
-  smartlock: { label: 'ჭკვიანი საკეტი', short: 'ჭკვიანი საკეტი', icon: 'lock' },
+  // The only entry method: the key waits in a key locker box that opens with the booking code.
+  box: { label: 'გასაღების ლოქერ-ბოქსი', short: 'ლოქერ-ბოქსი', icon: 'key' },
 };
 
 export const VERIFICATION = {
@@ -93,6 +93,22 @@ export const VERIFICATION = {
   verified: { label: 'ვერიფიცირებული', tone: 'green' },
   rejected: { label: 'ვერიფიკაცია ვერ გაიარა', tone: 'red' },
 };
+
+// Town or village = first part of the address ("მესტია, ზემო სვანეთი" -> "მესტია"), grouped by tourist region.
+export const cityOf = (address = '') => address.split(',')[0].trim();
+export const REGIONS = [
+  ['თბილისი', ['თბილისი']],
+  ['მცხეთა, ყაზბეგი, ხევსურეთი', ['მცხეთა', 'სტეფანწმინდა', 'გუდაური', 'სნო', 'ჯუთა', 'ფასანაური', 'როშკა']],
+  ['კახეთი', ['თელავი', 'სიღნაღი', 'წინანდალი', 'ყვარელი', 'ლაგოდეხი']],
+  ['თუშეთი', ['ომალო', 'დართლო']],
+  ['სვანეთი', ['მესტია', 'უშგული', 'მაზერი', 'ბეჩო', 'ლენტეხი']],
+  ['რაჭა', ['ონი', 'ამბროლაური', 'შოვი']],
+  ['იმერეთი', ['ქუთაისი', 'საირმე']],
+  ['სამეგრელო', ['მარტვილი']],
+  ['გურია', ['ბახმარო']],
+  ['აჭარა', ['ბათუმი', 'კობულეთი', 'გოდერძი', 'ბეშუმი']],
+  ['სამცხე-ჯავახეთი', ['ბორჯომი', 'ბაკურიანი', 'ასპინძა', 'აბასთუმანი']],
+];
 
 export const POI_TYPES = [
   { id: 'cafe', label: 'კაფეები', one: 'კაფე', icon: 'coffee', color: '#c65a3e' },

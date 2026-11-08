@@ -19,7 +19,7 @@ function optionalNumber(value) {
   return Number.isFinite(n) ? n : fail(400, 'ფასის ფილტრი არასწორია');
 }
 
-// GET /hotels?q=&min_price=&max_price=&key_type=box|smartlock&check_in=&check_out=
+// GET /hotels?q=&min_price=&max_price=&check_in=&check_out=
 router.get('/hotels', (req, res) => {
   const { q, check_in, check_out } = req.query;
   const minPrice = optionalNumber(req.query.min_price);

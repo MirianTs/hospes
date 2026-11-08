@@ -84,7 +84,7 @@ export function KeyBadge({ type }) {
   const k = KEY_TYPE[type];
   if (!k) return null;
   return (
-    <Badge tone={type === 'smartlock' ? 'wine' : 'gold'} icon={k.icon}>
+    <Badge tone="gold" icon={k.icon}>
       {k.short}
     </Badge>
   );

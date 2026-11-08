@@ -69,7 +69,7 @@ export default function Cabinet() {
             {user.verification_status !== 'verified' && (
               <div className="mt-2">
                 <Alert tone="warn">
-                  ჭკვიანი საკეტით შესასვლელად ვინაობა უნდა დაადასტურო.
+                  ჩექინისა და ლოქერ-ბოქსის გასახსნელად ვინაობა უნდა დაადასტურო.
                 </Alert>
                 <Link to="/verify" className="btn btn-primary btn-block mt-2">
                   <Icon name="camera" size={16} /> ვერიფიკაციის გავლა

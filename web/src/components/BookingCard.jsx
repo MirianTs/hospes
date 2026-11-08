@@ -40,12 +40,7 @@ export default function BookingCard({ b }) {
               <Icon name="card" size={15} /> გადახდა
             </Link>
           )}
-          {b.can_check_in && b.key_type === 'smartlock' && (
-            <Link to={`/checkin/${b.id}`} className="btn btn-primary btn-sm">
-              <Icon name="unlock" size={15} /> {b.status === 'checked_in' ? 'კარის გაღება' : 'ჩექინი'}
-            </Link>
-          )}
-          {b.can_check_in && b.key_type === 'box' && b.status !== 'checked_in' && (
+          {b.can_check_in && b.status !== 'checked_in' && (
             <Link to={`/checkin/${b.id}`} className="btn btn-primary btn-sm">
               <Icon name="key" size={15} /> ჩექინი
             </Link>

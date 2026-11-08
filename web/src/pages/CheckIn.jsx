@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { api, STATIC_DEMO } from '../api.js';
 import { useAuth } from '../auth.jsx';
@@ -6,7 +6,9 @@ import Icon from '../components/Icon.jsx';
 import { Alert, ErrorBox, KeyBadge, Loading, Spinner, useAction, useApi } from '../components/ui.jsx';
 import { fmtDate } from '../format.js';
 
-const OPEN_SECONDS = 5; // matches OPEN_MS in the Arduino sketch
+// One entry method for every room: the key waits in a key locker box. The guest (verified, paid,
+// within the booking dates) enters the 6-digit code; if the key is in a Hospes Lock compartment,
+// the same code opens it through the Arduino.
 
 function Check({ ok, children }) {
   return (
@@ -25,10 +27,11 @@ function CodeCheckIn({ booking, onDone }) {
     const res = await action.run(() => api('/checkin/code', { method: 'POST', body: { booking_id: booking.id, code } }));
     if (res) onDone(res);
   };
+  const needsVerification = action.error?.data?.need === 'verification';
   return (
     <form onSubmit={submit}>
       <label className="field">
-        <span>შეიყვანე 6-ციფრიანი წვდომის კოდი</span>
+        <span>შეიყვანე 6-ციფრიანი კოდი</span>
         <input
           className="input otp"
           inputMode="numeric"
@@ -40,68 +43,19 @@ function CodeCheckIn({ booking, onDone }) {
           autoFocus
         />
       </label>
-      <ErrorBox error={action.error} />
-      <button type="submit" className="btn btn-primary btn-lg btn-block mt-1" disabled={code.length !== 6 || action.busy}>
-        {action.busy ? <Spinner small /> : <Icon name="key" size={16} />} კოდის შემოწმება
-      </button>
-      <p className="muted small center-text mt-2 mb-0">კოდი ჯავშნის გვერდზეა და მხოლოდ შენს თარიღებში მოქმედებს.</p>
-    </form>
-  );
-}
-
-function SmartLock({ booking, onOpened }) {
-  const [openLeft, setOpenLeft] = useState(0);
-  const [result, setResult] = useState(null);
-  const action = useAction();
-  const timer = useRef(null);
-
-  useEffect(() => () => clearInterval(timer.current), []);
-
-  const unlock = async () => {
-    const res = await action.run(() => api('/checkin/unlock', { method: 'POST', body: { booking_id: booking.id } }));
-    if (!res) return;
-    setResult(res);
-    onOpened(res);
-    setOpenLeft(OPEN_SECONDS);
-    clearInterval(timer.current);
-    timer.current = setInterval(() => {
-      setOpenLeft((s) => {
-        if (s <= 1) clearInterval(timer.current);
-        return s - 1;
-      });
-    }, 1000);
-  };
-
-  const needsVerification = action.error?.data?.need === 'verification';
-  const opened = openLeft > 0;
-
-  return (
-    <div className="center-text">
-      <button type="button" className={`unlock-btn${opened ? ' opened' : ''}`} onClick={unlock} disabled={action.busy || opened}>
-        {action.busy ? <Spinner /> : <Icon name={opened ? 'unlock' : 'lock'} strokeWidth={2.2} />}
-        {opened ? `ღიაა · ${openLeft}` : 'კარის გაღება'}
-      </button>
-      <p className="muted small mt-2">
-        {opened
-          ? `კარი გაიღო. ${OPEN_SECONDS} წამში საკეტი ისევ ჩაიკეტება.`
-          : `ოთახი ${booking.room_number} · საკეტი #${booking.lock_id}`}
-      </p>
-      {result?.hardware === 'mock' && (
-        <Alert tone="info">
-          {STATIC_DEMO
-            ? 'ონლაინ დემოში საკეტი სიმულაციაა: ნამდვილ კარს ლეპტოპზე გაშვებული ვერსია და Arduino აღებს.'
-            : `დემო რეჟიმი: Arduino არ არის მიერთებული, ბრძანება OPEN${result.lock_id} სერვერის ლოგში ჩაიწერა.`}
-        </Alert>
-      )}
       {needsVerification ? (
         <Alert tone="warn">
-          კარის გასაღებად ჯერ ვინაობა დაადასტურე.{' '}
+          ჯერ ვინაობა დაადასტურე.{' '}
           <Link to={`/verify?next=${encodeURIComponent(`/checkin/${booking.id}`)}`}>ვერიფიკაციის გავლა →</Link>
         </Alert>
       ) : (
         <ErrorBox error={action.error} />
       )}
-    </div>
+      <button type="submit" className="btn btn-primary btn-lg btn-block mt-1" disabled={code.length !== 6 || action.busy}>
+        {action.busy ? <Spinner small /> : <Icon name="key" size={16} />} ლოქერ-ბოქსის გახსნა
+      </button>
+      <p className="muted small center-text mt-2 mb-0">კოდი ჯავშნის გვერდზეა და მხოლოდ შენს თარიღებში მოქმედებს.</p>
+    </form>
   );
 }
 
@@ -122,8 +76,6 @@ export default function CheckIn() {
   const b = booking.data;
   const paid = ['confirmed', 'checked_in'].includes(b.status);
   const verified = user.verification_status === 'verified';
-  const smart = b.key_type === 'smartlock';
-  const ready = paid && b.within_stay && (!smart || verified);
 
   return (
     <div className="container">
@@ -134,18 +86,25 @@ export default function CheckIn() {
         </p>
       </div>
       <div className="card card-body checkin-card" style={{ padding: 28 }}>
-        {done && !smart ? (
+        {done ? (
           <div className="center-text">
             <div className="success-mark">
               <Icon name="check" strokeWidth={3} />
             </div>
-            <h2>ჩექინი დასრულდა</h2>
+            <h2>ლოქერ-ბოქსი გაიღო</h2>
             <p className="muted">
-              კეთილი იყოს შენი მობრძანება! ოთახი {b.room_number} შენია {fmtDate(b.check_out, true)}-მდე.
+              აიღე ოთახის გასაღები. კეთილი იყოს შენი მობრძანება! ოთახი {b.room_number} შენია {fmtDate(b.check_out, true)}-მდე.
             </p>
             {done.checkin_info && (
               <Alert tone="info" icon="key">
                 {done.checkin_info}
+              </Alert>
+            )}
+            {done.hardware === 'mock' && (
+              <Alert tone="info">
+                {STATIC_DEMO
+                  ? 'ონლაინ დემოში Hospes Lock სიმულაციაა: ნამდვილ ლოქერს ლეპტოპზე გაშვებული ვერსია და Arduino აღებს.'
+                  : `დემო რეჟიმი: Arduino არ არის მიერთებული, ბრძანება OPEN${done.lock_id} სერვერის ლოგში ჩაიწერა.`}
               </Alert>
             )}
             <div className="inline mt-2" style={{ justifyContent: 'center' }}>
@@ -167,32 +126,29 @@ export default function CheckIn() {
             </div>
             <ul className="checklist mt-2">
               <Check ok={paid}>{paid ? 'ჯავშანი გადახდილია' : 'ჯავშანი ჯერ არ არის გადახდილი'}</Check>
+              <Check ok={verified}>{verified ? 'ვინაობა დადასტურებულია' : 'ვინაობა დასადასტურებელია'}</Check>
               <Check ok={b.within_stay}>
                 {b.within_stay ? 'დღეს შენი ჯავშნის თარიღია' : `კოდი მოქმედებს ${fmtDate(b.check_in)}-დან ${fmtDate(b.check_out)}-მდე`}
               </Check>
-              {smart && <Check ok={verified}>{verified ? 'ვინაობა დადასტურებულია' : 'ვინაობა დასადასტურებელია'}</Check>}
             </ul>
             <hr className="divider" />
             {b.status === 'checked_out' || b.status === 'cancelled' ? (
               <Alert tone="warn">ეს ჯავშანი აღარ არის აქტიური.</Alert>
+            ) : b.status === 'checked_in' ? (
+              <Alert tone="success">ჩექინი უკვე გავლილია. გასაღები შენთანაა.</Alert>
             ) : !paid ? (
               <Link to={`/bookings/${b.id}`} className="btn btn-primary btn-block">
                 გადახდაზე გადასვლა
               </Link>
-            ) : smart ? (
-              <>
-                {!verified && (
-                  <Alert tone="warn">
-                    ჭკვიანი საკეტი მხოლოდ ვერიფიცირებულ სტუმარს უღებს კარს.{' '}
-                    <Link to={`/verify?next=${encodeURIComponent(`/checkin/${b.id}`)}`}>ვერიფიკაციის გავლა →</Link>
-                  </Alert>
-                )}
-                <SmartLock booking={b} onOpened={setDone} />
-              </>
+            ) : !verified ? (
+              <Alert tone="warn">
+                ლოქერ-ბოქსი მხოლოდ ვერიფიცირებულ სტუმარს იღება.{' '}
+                <Link to={`/verify?next=${encodeURIComponent(`/checkin/${b.id}`)}`}>ვერიფიკაციის გავლა →</Link>
+              </Alert>
             ) : (
               <CodeCheckIn booking={b} onDone={setDone} />
             )}
-            {!ready && paid && !smart && !b.within_stay && (
+            {paid && !b.within_stay && b.status === 'confirmed' && (
               <p className="muted small center-text mt-2 mb-0">თარიღამდე კოდი არ იმუშავებს.</p>
             )}
           </>

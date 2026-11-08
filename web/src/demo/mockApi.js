@@ -4,7 +4,7 @@
 import { HOTELS, POIS, USERS } from './demoData.js';
 
 export const STORE_KEY = 'hospes_demo_v1';
-const VERSION = 2; // 2: guesthouses and landmarks all over Georgia, with photos
+const VERSION = 3; // 2: places all over Georgia; 3: key locker box only, more cottages and sights
 const TIMEZONE = 'Asia/Tbilisi';
 const OPEN_MS = 5000;
 const FACE_THRESHOLD = 0.6;
@@ -713,22 +713,24 @@ route('POST', '/bookings/:id/checkout', (ctx) => {
   Object.assign(find('bookings', b.id), { status: 'checked_out', checked_out_at: nowIso() });
   return bookingView(b.id);
 });
+// Same as backend/src/routes/guest.js: code check-in for every room; a Hospes Lock compartment (lock_id) opens too.
 route('POST', '/checkin/code', (ctx) => {
-  const b = ownBooking(toId(ctx.body.booking_id), auth(ctx));
-  if (b.key_type !== 'box') fail(400, 'ეს ოთახი ჭკვიანი საკეტითაა: გამოიყენეთ ღილაკი „კარის გაღება“');
-  assertCanEnter(b);
-  if (String(ctx.body.code || '').trim() !== b.access_code) fail(400, 'კოდი არასწორია');
-  return { ok: true, booking: markCheckedIn(b), checkin_info: checkinInfo(b.hotel_id) };
-});
-route('POST', '/checkin/unlock', (ctx) => {
   const user = auth(ctx);
   const b = ownBooking(toId(ctx.body.booking_id), user);
-  if (user.verification_status !== 'verified') fail(403, 'კარის გასაღებად საჭიროა ვინაობის ვერიფიკაცია', { need: 'verification' });
-  if (b.key_type !== 'smartlock' || !b.lock_id) fail(400, 'ამ ოთახს ჭკვიანი საკეტი არ აქვს: შეიყვანეთ კოდი');
+  if (user.verification_status !== 'verified') fail(403, 'ჩექინისთვის საჭიროა ვინაობის ვერიფიკაცია', { need: 'verification' });
   assertCanEnter(b);
-  openLock(b.lock_id);
-  recordEvent({ kind: 'app', result: 'opened', lock_id: b.lock_id, label: `${user.name} · ოთახი ${b.room_number}` });
-  return { ok: true, lock_id: b.lock_id, hardware: 'mock', booking: markCheckedIn(b) };
+  if (String(ctx.body.code || '').trim() !== b.access_code) fail(400, 'კოდი არასწორია');
+  if (b.lock_id) {
+    openLock(b.lock_id);
+    recordEvent({ kind: 'app', result: 'opened', lock_id: b.lock_id, label: `${user.name} · ოთახი ${b.room_number}` });
+  }
+  return {
+    ok: true,
+    lock_id: b.lock_id ?? null,
+    hardware: b.lock_id ? 'mock' : null,
+    booking: markCheckedIn(b),
+    checkin_info: checkinInfo(b.hotel_id),
+  };
 });
 route('GET', '/bookings/:id/services', (ctx) => serviceRequestsFor(ownBooking(toId(ctx.params.id), auth(ctx)).id));
 route(
@@ -926,10 +928,9 @@ route(
     const b = ctx.body;
     const hotelId = toId(b.hotel_id);
     if (!find('hotels', hotelId)) fail(404, 'ობიექტი ვერ მოიძებნა');
-    if (!['box', 'smartlock'].includes(b.key_type)) fail(400, 'გასაღების ტიპი: box ან smartlock');
-    const lockId = b.key_type === 'smartlock' ? Number(b.lock_id) : null;
-    if (b.key_type === 'smartlock' && ![1, 2, 3, 4].includes(lockId)) fail(400, 'ჭკვიან საკეტს სჭირდება lock_id 1–4');
-    if (lockId && db.rooms.some((r) => r.lock_id === lockId)) fail(409, `საკეტი #${lockId} უკვე სხვა ოთახზეა მიბმული`);
+    const lockId = b.lock_id ? Number(b.lock_id) : null;
+    if (lockId && ![1, 2, 3, 4].includes(lockId)) fail(400, 'Hospes Lock-ის განყოფილება: 1–4');
+    if (lockId && db.rooms.some((r) => r.lock_id === lockId)) fail(409, `განყოფილება #${lockId} უკვე სხვა ოთახზეა მიბმული`);
     const number = text(b.number, 20, 'ოთახის ნომერი');
     if (db.rooms.some((r) => r.hotel_id === hotelId && r.number === number)) fail(409, 'ასეთი ნომრის ოთახი ამ ობიექტზე უკვე არსებობს');
     const room = {
@@ -939,7 +940,7 @@ route(
       title: text(b.title, 80, 'სათაური', false),
       capacity: Math.max(1, Math.min(12, Number(b.capacity) || 2)),
       price: coord(b.price, 0, 10000, 'ფასი'),
-      key_type: b.key_type,
+      key_type: 'box',
       lock_id: lockId,
       status: 'available',
     };

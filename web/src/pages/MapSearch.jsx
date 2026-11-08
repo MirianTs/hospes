@@ -1,47 +1,71 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { qs } from '../api.js';
 import { HotelImage, PriceFrom } from '../components/HotelCard.jsx';
 import Icon from '../components/Icon.jsx';
 import MapView from '../components/MapView.jsx';
-import { ErrorBox, KeyBadge, Rating, Spinner, useApi } from '../components/ui.jsx';
-import { addDays, nightsBetween, POI_BY_ID, POI_TYPES, todayStr } from '../format.js';
+import { ErrorBox, Rating, Spinner, useApi } from '../components/ui.jsx';
+import { addDays, cityOf, distanceKm, nightsBetween, POI_BY_ID, POI_TYPES, REGIONS, todayStr } from '../format.js';
 
-function useDebounced(value, ms) {
-  const [v, setV] = useState(value);
-  useEffect(() => {
-    const id = setTimeout(() => setV(value), ms);
-    return () => clearTimeout(id);
-  }, [value, ms]);
-  return v;
-}
+const NEAR_KM = 45; // with a town chosen, places within this distance of its guesthouses are shown
+
+// Chips: nothing selected = everything is shown ("ყველა"). Tapping a chip narrows the map to it;
+// more chips can be added, and "ყველა" clears the choice.
+const CATEGORIES = [{ id: 'hotels', label: 'სასტუმროები', icon: 'home', color: 'var(--wine)' }, ...POI_TYPES];
 
 export default function MapSearch() {
   const [params] = useSearchParams();
   const initialType = params.get('type');
-  const [q, setQ] = useState('');
+  const [city, setCity] = useState(params.get('city') || '');
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
-  const [keyType, setKeyType] = useState('');
-  const [showHotels, setShowHotels] = useState(!initialType);
-  const [types, setTypes] = useState(() =>
-    POI_BY_ID[initialType] ? new Set([initialType]) : new Set(POI_TYPES.map((t) => t.id)),
-  );
+  const [cats, setCats] = useState(() => new Set(POI_BY_ID[initialType] ? [initialType] : []));
   const [selected, setSelected] = useState(params.get('focus'));
 
-  const search = useDebounced(q, 300);
   const datesValid = checkIn && checkOut && nightsBetween(checkIn, checkOut) > 0;
   const stay = datesValid ? { check_in: checkIn, check_out: checkOut } : {};
-  const hotels = useApi(`/hotels${qs({ q: search, max_price: maxPrice, key_type: keyType, ...stay })}`);
+  const hotels = useApi(`/hotels${qs({ max_price: maxPrice, ...stay })}`);
+  const allHotels = useApi('/hotels');
   const pois = useApi('/pois');
 
-  const visibleHotels = showHotels ? hotels.data || [] : [];
-  const visiblePois = useMemo(() => (pois.data || []).filter((p) => types.has(p.type)), [pois.data, types]);
+  // Town list from the guesthouses we have, grouped by region (unknown towns go to "სხვა").
+  const cityGroups = useMemo(() => {
+    const count = {};
+    for (const h of allHotels.data || []) count[cityOf(h.address)] = (count[cityOf(h.address)] || 0) + 1;
+    const known = new Set(REGIONS.flatMap(([, cs]) => cs));
+    const groups = REGIONS.map(([region, cs]) => [region, cs.filter((c) => count[c])]).filter(([, cs]) => cs.length);
+    const other = Object.keys(count).filter((c) => !known.has(c));
+    if (other.length) groups.push(['სხვა', other.sort()]);
+    return { groups, count };
+  }, [allHotels.data]);
+
+  const cityCenters = useMemo(
+    () => (city ? (allHotels.data || []).filter((h) => cityOf(h.address) === city) : []),
+    [city, allHotels.data],
+  );
+  const hotelsInArea = useMemo(
+    () => (hotels.data || []).filter((h) => !city || cityOf(h.address) === city),
+    [hotels.data, city],
+  );
+  const poisInArea = useMemo(
+    () =>
+      (pois.data || []).filter((p) => !city || cityCenters.some((c) => distanceKm(c, p) <= NEAR_KM)),
+    [pois.data, city, cityCenters],
+  );
+
+  const all = cats.size === 0;
+  const visibleHotels = all || cats.has('hotels') ? hotelsInArea : [];
+  const visiblePois = poisInArea.filter((p) => all || cats.has(p.type));
+  const counts = useMemo(() => {
+    const c = { hotels: hotelsInArea.length };
+    for (const p of poisInArea) c[p.type] = (c[p.type] || 0) + 1;
+    return c;
+  }, [hotelsInArea, poisInArea]);
   const linkSearch = datesValid ? qs(stay) : '';
 
-  const toggleType = (id) =>
-    setTypes((prev) => {
+  const toggleCat = (id) =>
+    setCats((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
@@ -52,18 +76,45 @@ export default function MapSearch() {
     setCheckIn(v);
     if (v && (!checkOut || checkOut <= v)) setCheckOut(addDays(v, 1));
   };
+  const filtersOn = city || checkIn || maxPrice || cats.size > 0;
+  const reset = () => {
+    setCity('');
+    setCheckIn('');
+    setCheckOut('');
+    setMaxPrice('');
+    setCats(new Set());
+    setSelected(null);
+  };
 
   return (
     <div className="container">
       <div className="page-head" style={{ paddingBottom: 12 }}>
         <h1>ძებნა რუკაზე</h1>
-        <p>მიუთითე თარიღები და ნახავ მხოლოდ იმ სასტუმროებს, სადაც ოთახი თავისუფალია.</p>
+        <p>აირჩიე ადგილი და თარიღები: ნახავ თავისუფალ სასტუმროებს და რა არის მათ გარშემო სანახავი.</p>
       </div>
 
       <div className="card search-bar">
         <label className="field grow">
-          <span>ძებნა</span>
-          <input className="input" placeholder="სახელი ან ქალაქი: თელავი, სიღნაღი…" value={q} onChange={(e) => setQ(e.target.value)} />
+          <span>სად მიდიხარ?</span>
+          <select
+            className="input"
+            value={city}
+            onChange={(e) => {
+              setCity(e.target.value);
+              setSelected(null);
+            }}
+          >
+            <option value="">მთელი საქართველო</option>
+            {cityGroups.groups.map(([region, cs]) => (
+              <optgroup key={region} label={region}>
+                {cs.map((c) => (
+                  <option key={c} value={c}>
+                    {c} ({cityGroups.count[c]})
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
         </label>
         <label className="field">
           <span>შესვლა</span>
@@ -80,7 +131,7 @@ export default function MapSearch() {
           />
         </label>
         <label className="field">
-          <span>მაქს. ფასი ღამეში</span>
+          <span>ბიუჯეტი ღამეში</span>
           <select className="input" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)}>
             <option value="">ნებისმიერი</option>
             <option value="100">100 ₾-მდე</option>
@@ -88,52 +139,48 @@ export default function MapSearch() {
             <option value="200">200 ₾-მდე</option>
           </select>
         </label>
-        <label className="field">
-          <span>შესვლის ტიპი</span>
-          <select className="input" value={keyType} onChange={(e) => setKeyType(e.target.value)}>
-            <option value="">ორივე</option>
-            <option value="smartlock">ჭკვიანი საკეტი</option>
-            <option value="box">კოდი და ყუთი</option>
-          </select>
-        </label>
-        {(q || checkIn || maxPrice || keyType) && (
-          <button
-            type="button"
-            className="btn btn-ghost"
-            onClick={() => {
-              setQ('');
-              setCheckIn('');
-              setCheckOut('');
-              setMaxPrice('');
-              setKeyType('');
-            }}
-          >
+        {filtersOn && (
+          <button type="button" className="btn btn-ghost" onClick={reset}>
             <Icon name="x" size={16} /> გასუფთავება
           </button>
         )}
       </div>
 
-      <div className="chips mt-2">
-        <button type="button" className={`chip${showHotels ? ' on' : ''}`} onClick={() => setShowHotels((s) => !s)}>
-          <span className="dot" style={{ background: 'var(--wine)' }} /> სასტუმროები
+      <div className="chips mt-2" role="group" aria-label="რა გაჩვენო რუკაზე">
+        <button type="button" className={`chip${all ? ' on' : ''}`} onClick={() => setCats(new Set())} aria-pressed={all}>
+          ყველა
         </button>
-        {POI_TYPES.map((t) => (
-          <button key={t.id} type="button" className={`chip${types.has(t.id) ? ' on' : ''}`} onClick={() => toggleType(t.id)}>
-            <span className="dot" style={{ background: t.color }} /> {t.label}
-          </button>
-        ))}
+        {CATEGORIES.map((t) => {
+          const on = cats.has(t.id);
+          const n = counts[t.id] || 0;
+          return (
+            <button
+              key={t.id}
+              type="button"
+              className={`chip${on ? ' on' : ''}`}
+              onClick={() => toggleCat(t.id)}
+              aria-pressed={on}
+              disabled={!n && !on}
+            >
+              <span className="dot" style={{ background: t.color }} /> {t.label}
+              <span className="chip-count">{n}</span>
+            </button>
+          );
+        })}
       </div>
 
       <div className="search-layout">
         <div className="results">
           <ErrorBox error={hotels.error} onRetry={hotels.reload} />
-          {showHotels && (
+          {(all || cats.has('hotels')) && (
             <>
               <h3 className="inline">
                 სასტუმროები · {hotels.data ? visibleHotels.length : '…'} {hotels.loading && <Spinner small />}
               </h3>
               {hotels.data && visibleHotels.length === 0 && (
-                <div className="card card-body muted small">ამ ფილტრებით თავისუფალი ოთახი ვერ მოიძებნა.</div>
+                <div className="card card-body muted small">
+                  {datesValid ? 'ამ თარიღებში თავისუფალი ოთახი ვერ მოიძებნა. სცადე სხვა თარიღები ან ბიუჯეტი.' : 'აქ სასტუმრო ჯერ არ გვაქვს.'}
+                </div>
               )}
               {visibleHotels.map((h) => (
                 <div
@@ -153,11 +200,6 @@ export default function MapSearch() {
                       <Rating value={h.google_rating} />
                     </div>
                     <div className="muted small">{h.address}</div>
-                    <div className="inline mt-1">
-                      {h.key_types.map((t) => (
-                        <KeyBadge key={t} type={t} />
-                      ))}
-                    </div>
                     <div className="spread mt-1">
                       <PriceFrom value={h.min_price} />
                       <Link to={`/hotels/${h.id}${linkSearch}`} className="btn btn-sm btn-primary" onClick={(e) => e.stopPropagation()}>
@@ -169,7 +211,7 @@ export default function MapSearch() {
               ))}
             </>
           )}
-          {visiblePois.length > 0 && <h3>ადგილები · {visiblePois.length}</h3>}
+          {visiblePois.length > 0 && <h3>{city ? 'სანახავი ახლომახლო' : 'სანახავი ადგილები'} · {visiblePois.length}</h3>}
           {visiblePois.map((p) => {
             const t = POI_BY_ID[p.type];
             return (

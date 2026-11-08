@@ -19,7 +19,7 @@ guest / owner / admin — ერთი User ცხრილი `role` ველ�
 ## მონაცემთა მოდელი
 - User: id, name, phone, email, password_hash, role, verification_status, id_doc_url, selfie_url
 - Hotel: id, name, address, lat, lng, owner_id, google_rating (static), description, photos
-- Room: id, hotel_id, number, price, key_type (box/smartlock), lock_id (Arduino servo 1–4, nullable), status
+- Room: id, hotel_id, number, price, key_type (მხოლოდ box: გასაღების ლოქერ-ბოქსი), lock_id (Hospes Lock-ის განყოფილება, Arduino servo 1–4, nullable), status
 - HotelService: id, hotel_id, name, price (საუზმე, დალაგება...)
 - Booking: id, user_id (nullable), room_id, check_in, check_out, status, source (internal/external), access_code, total_price
 - ServiceRequest: id, booking_id, hotel_service_id, status (pending/done)
@@ -29,7 +29,7 @@ guest / owner / admin — ერთი User ცხრილი `role` ველ�
 - auth: POST /register, POST /login, POST /verify (ID + selfie შედეგი)
 - public: GET /hotels, GET /hotels/:id, GET /rooms/:id/availability, GET /pois?type=
 - guest: POST /bookings, GET /bookings/my, POST /bookings/:id/pay (mock),
-  POST /checkin/code (box — კოდის შემოწმება), POST /checkin/unlock (smartlock → Serial "OPEN<id>"),
+  POST /checkin/code (კოდის შემოწმება; lock_id-ის მქონე ოთახზე → Serial "OPEN<id>"),
   POST /bookings/:id/services
 - owner: GET /owner/hotels, GET /owner/bookings, PATCH /rooms/:id (ფასი/სტატუსი),
   CRUD /owner/services, POST /owner/blocks (Booking.com-ის ხელით ბლოკი → Booking source=external)
@@ -38,7 +38,7 @@ guest / owner / admin — ერთი User ცხრილი `role` ველ�
 ## წესები
 - ოთახზე თარიღების გადაფარვა აკრძალულია (internal + external ჯავშნები ერთად მოწმდება)
 - access_code მოქმედებს მხოლოდ check_in → check_out შუალედში
-- unlock მხოლოდ ვერიფიცირებულ მომხმარებელს, აქტიური ჯავშნით, smartlock ოთახზე
+- ჩექინი მხოლოდ ვერიფიცირებულ მომხმარებელს, აქტიური ჯავშნით
 
 ## Frontend გვერდები
 მთავარი (ჩვენს შესახებ + პროდუქტები) · სერვისები კატეგორიებით · ძებნა რუკით + ფილტრი ·
@@ -51,7 +51,7 @@ Uno + 4 SG90 (გარე 5V კვება, საერთო GND). ბრ�
 
 ## დემო სცენარი
 რეგისტრაცია + ვერიფიკაცია → რუკაზე ძებნა → გესთჰაუსის ჯავშანი → კოდი →
-box ოთახი: კოდის შემოწმება / smartlock ოთახი: ფიზიკური კარის გაღება →
+კოდის შემოწმება → ლოქერ-ბოქსის (Hospes Lock-ის განყოფილების) გაღება →
 სერვისის მოთხოვნა → მფლობელი ხედავს ჯავშანს, ცვლის ფასს, ბლოკავს გარე ჯავშანს.
 
 ## პრიორიტეტი
