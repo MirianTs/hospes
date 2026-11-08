@@ -22,9 +22,9 @@ export const HOTELS = [
       'საოჯახო სასტუმრო თელავის ძველ უბანში, ალაზნის ველისა და კავკასიონის ხედით. ბატონის ციხემდე 5 წუთის სავალია, საკუთარ მარანში კი ოჯახის ღვინოს დააგემოვნებთ.',
     checkin_info: 'გასაღების ყუთი ჭიშკართან, მარცხენა კედელზეა. ოთახი მეორე სართულზეა, კიბე ეზოდან ადის.',
     rooms: [
-      { number: '101', title: 'ორადგილიანი, ბაღის ხედით', price: 120, key_type: 'box', capacity: 2 },
-      { number: '102', title: 'ორადგილიანი, აივნით', price: 140, key_type: 'box', lock_id: 1, capacity: 2 },
-      { number: '201', title: 'საოჯახო ოთახი', price: 180, key_type: 'box', lock_id: 2, capacity: 4 },
+      { number: '1', title: 'ორადგილიანი, ბაღის ხედით', price: 120, key_type: 'box', lock_id: 1, capacity: 2 },
+      { number: '2', title: 'ორადგილიანი, აივნით', price: 140, key_type: 'box', lock_id: 2, capacity: 2 },
+      { number: '3', title: 'საოჯახო ოთახი', price: 180, key_type: 'box', lock_id: 3, capacity: 4 },
     ],
     services: [
       { name: 'საუზმე', price: 25, description: 'ქართული საუზმე ეზოში: ხაჭაპური, ყველი, თაფლი' },
@@ -45,8 +45,9 @@ export const HOTELS = [
       'XIX საუკუნის ქვის სახლი სიღნაღის გალავანთან. ოთახებიდან ალაზნის ველი მოჩანს, ძველ მარანში კი საღამოობით სუფრა იშლება.',
     checkin_info: 'გასაღების ყუთი მთავარ კართან, ზარის ქვემოთაა.',
     rooms: [
-      { number: '1', title: 'ორადგილიანი, ქალაქის ხედით', price: 95, key_type: 'box', capacity: 2 },
-      { number: '2', title: 'ლუქსი ბუხრით', price: 150, key_type: 'box', lock_id: 3, capacity: 2 },
+      { number: '1', title: 'ორადგილიანი, ქალაქის ხედით', price: 95, key_type: 'box', lock_id: 1, capacity: 2 },
+      { number: '2', title: 'ლუქსი ბუხრით', price: 150, key_type: 'box', lock_id: 2, capacity: 2 },
+      { number: '3', title: 'საოჯახო ოთახი', price: 160, key_type: 'box', lock_id: 3, capacity: 4 },
     ],
     services: [
       { name: 'საუზმე', price: 20, description: 'საოჯახო საუზმე' },
@@ -66,8 +67,9 @@ export const HOTELS = [
       'მშვიდი სასტუმრო ვენახებს შორის, წინანდლის მამულიდან 10 წუთის სავალზე. აქვს ბაღი, აუზი და ვახშამი ქართული სუფრით.',
     checkin_info: 'გასაღების ყუთი ალაყაფის კარის მარჯვნივ, ყურძნის ლოზის ქვეშაა.',
     rooms: [
-      { number: 'A', title: 'სტანდარტული', price: 130, key_type: 'box', capacity: 2 },
-      { number: 'B', title: 'ვილა აუზის პირას', price: 220, key_type: 'box', lock_id: 4, capacity: 3 },
+      { number: '1', title: 'სტანდარტული', price: 130, key_type: 'box', lock_id: 1, capacity: 2 },
+      { number: '2', title: 'ვილა აუზის პირას', price: 220, key_type: 'box', lock_id: 2, capacity: 3 },
+      { number: '3', title: 'ორადგილიანი, ვენახის ხედით', price: 150, key_type: 'box', lock_id: 3, capacity: 2 },
     ],
     services: [
       { name: 'საუზმე', price: 30, description: 'ბუფეტი ბაღში' },
@@ -87,8 +89,9 @@ export const HOTELS = [
       'მარტივი და თბილი გესთჰაუსი კავკასიონის ძირას. კარგი საწყისი წერტილია ლაგოდეხისა და გრემის სანახავად.',
     checkin_info: 'გასაღების ყუთი ეზოს ჭიშკართან, საფოსტო ყუთის გვერდითაა.',
     rooms: [
-      { number: '1', title: 'ორადგილიანი', price: 80, key_type: 'box', capacity: 2 },
-      { number: '2', title: 'სამადგილიანი', price: 100, key_type: 'box', capacity: 3 },
+      { number: '1', title: 'ორადგილიანი', price: 80, key_type: 'box', lock_id: 1, capacity: 2 },
+      { number: '2', title: 'სამადგილიანი', price: 100, key_type: 'box', lock_id: 2, capacity: 3 },
+      { number: '3', title: 'ერთადგილიანი', price: 60, key_type: 'box', lock_id: 3, capacity: 1 },
     ],
     services: [
       { name: 'საუზმე', price: 20, description: 'თონის პური, ყველი, მურაბა' },

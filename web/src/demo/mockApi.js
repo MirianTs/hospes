@@ -4,7 +4,7 @@
 import { HOTELS, POIS, USERS } from './demoData.js';
 
 export const STORE_KEY = 'hospes_demo_v1';
-const VERSION = 4; // 2: places all over Georgia; 3: key locker box only, more cottages and sights; 4: Tbilisi places
+const VERSION = 5; // 2: places all over Georgia; 3: key locker box only, more cottages and sights; 4: Tbilisi places; 5: rooms 1–3 on every place, each with its servo
 const TIMEZONE = 'Asia/Tbilisi';
 const OPEN_MS = 5000;
 const FACE_THRESHOLD = 0.6;
@@ -176,7 +176,7 @@ async function seed() {
   // Ready-made bookings so both check-in types can be shown right away.
   const smartStay = booking({
     user_id: users.giorgi,
-    room_id: rooms['alazani:102'],
+    room_id: rooms['alazani:2'],
     check_in: t,
     check_out: addDays(t, 2),
     status: 'confirmed',
@@ -196,7 +196,7 @@ async function seed() {
   });
   booking({
     user_id: users.giorgi,
-    room_id: rooms['tsinandali:A'],
+    room_id: rooms['tsinandali:1'],
     check_in: addDays(t, -12),
     check_out: addDays(t, -10),
     status: 'checked_out',
@@ -206,8 +206,8 @@ async function seed() {
     checked_in_at: nowIso(),
     checked_out_at: nowIso(),
   });
-  booking({ user_id: users.anna, room_id: rooms['alazani:201'], check_in: addDays(t, 5), check_out: addDays(t, 8), status: 'pending', total_price: 540 });
-  booking({ room_id: rooms['alazani:101'], check_in: addDays(t, 3), check_out: addDays(t, 6), status: 'confirmed', source: 'external', note: 'Booking.com #4821' });
+  booking({ user_id: users.anna, room_id: rooms['alazani:3'], check_in: addDays(t, 5), check_out: addDays(t, 8), status: 'pending', total_price: 540 });
+  booking({ room_id: rooms['alazani:1'], check_in: addDays(t, 3), check_out: addDays(t, 6), status: 'confirmed', source: 'external', note: 'Booking.com #4821' });
   booking({ room_id: rooms['marani:1'], check_in: addDays(t, 1), check_out: addDays(t, 3), status: 'confirmed', source: 'external', note: 'ტელეფონით' });
   s.requests.push({
     id: id('requests'),
@@ -931,7 +931,7 @@ route(
     if (!find('hotels', hotelId)) fail(404, 'ობიექტი ვერ მოიძებნა');
     const lockId = b.lock_id ? Number(b.lock_id) : null;
     if (lockId && ![1, 2, 3, 4].includes(lockId)) fail(400, 'Hospes Lock-ის განყოფილება: 1–4');
-    if (lockId && db.rooms.some((r) => r.lock_id === lockId)) fail(409, `განყოფილება #${lockId} უკვე სხვა ოთახზეა მიბმული`);
+    if (lockId && db.rooms.some((r) => r.hotel_id === hotelId && r.lock_id === lockId)) fail(409, `განყოფილება #${lockId} ამ ობიექტზე უკვე სხვა ოთახზეა მიბმული`);
     const number = text(b.number, 20, 'ოთახის ნომერი');
     if (db.rooms.some((r) => r.hotel_id === hotelId && r.number === number)) fail(409, 'ასეთი ნომრის ოთახი ამ ობიექტზე უკვე არსებობს');
     const room = {

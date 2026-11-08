@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import { api, STATIC_DEMO } from '../api.js';
 import { useAuth } from '../auth.jsx';
 import Icon from '../components/Icon.jsx';
+import LockConnect from '../components/LockConnect.jsx';
+import { openCompartment } from '../lockSerial.js';
 import { Alert, ErrorBox, KeyBadge, Loading, Spinner, useAction, useApi } from '../components/ui.jsx';
 import { fmtDate } from '../format.js';
 
@@ -25,7 +27,10 @@ function CodeCheckIn({ booking, onDone }) {
   const submit = async (e) => {
     e.preventDefault();
     const res = await action.run(() => api('/checkin/code', { method: 'POST', body: { booking_id: booking.id, code } }));
-    if (res) onDone(res);
+    if (!res) return;
+    // The Arduino is on this computer's USB: open the room's compartment from the browser.
+    const sent = res.lock_id ? await openCompartment(res.lock_id) : false;
+    onDone({ ...res, sent });
   };
   const needsVerification = action.error?.data?.need === 'verification';
   return (
@@ -55,6 +60,15 @@ function CodeCheckIn({ booking, onDone }) {
         {action.busy ? <Spinner small /> : <Icon name="key" size={16} />} ლოქერ-ბოქსის გახსნა
       </button>
       <p className="muted small center-text mt-2 mb-0">კოდი ჯავშნის გვერდზეა და მხოლოდ შენს თარიღებში მოქმედებს.</p>
+      {booking.lock_id && (
+        <>
+          <hr className="divider" />
+          <p className="small center-text mb-1">
+            ოთახი {booking.room_number}-ის გასაღები ლოქერის <b>განყოფილება #{booking.lock_id}</b>-შია.
+          </p>
+          <LockConnect />
+        </>
+      )}
     </form>
   );
 }
@@ -100,7 +114,11 @@ export default function CheckIn() {
                 {done.checkin_info}
               </Alert>
             )}
-            {done.hardware === 'mock' && (
+            {done.sent ? (
+              <Alert tone="success" icon="key">
+                Hospes Lock: განყოფილება #{done.lock_id} გაიღო. 5 წამში თავისით ჩაიკეტება.
+              </Alert>
+            ) : done.hardware === 'mock' && (
               <Alert tone="info">
                 {STATIC_DEMO
                   ? 'ონლაინ დემოში Hospes Lock სიმულაციაა: ნამდვილ ლოქერს ლეპტოპზე გაშვებული ვერსია და Arduino აღებს.'

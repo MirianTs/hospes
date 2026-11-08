@@ -73,8 +73,8 @@ router.post('/rooms', (req, res) => {
   const keyType = 'box';
   const lockId = b.lock_id ? Number(b.lock_id) : null;
   if (lockId && ![1, 2, 3, 4].includes(lockId)) fail(400, 'Hospes Lock-ის განყოფილება: 1–4');
-  if (lockId && db.prepare('SELECT 1 FROM rooms WHERE lock_id = ?').get(lockId)) {
-    fail(409, `განყოფილება #${lockId} უკვე სხვა ოთახზეა მიბმული`);
+  if (lockId && db.prepare('SELECT 1 FROM rooms WHERE hotel_id = ? AND lock_id = ?').get(hotelId, lockId)) {
+    fail(409, `განყოფილება #${lockId} ამ ობიექტზე უკვე სხვა ოთახზეა მიბმული`);
   }
   const number = text(b.number, 20, 'ოთახის ნომერი');
   if (db.prepare('SELECT 1 FROM rooms WHERE hotel_id = ? AND number = ?').get(hotelId, number)) {

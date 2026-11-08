@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { api } from '../api.js';
 import Icon from '../components/Icon.jsx';
+import LockConnect from '../components/LockConnect.jsx';
+import { openCompartment } from '../lockSerial.js';
 import MapView from '../components/MapView.jsx';
 import { Alert, Badge, ErrorBox, Loading, Spinner, useAction, useApi, VerificationBadge } from '../components/ui.jsx';
 import { fmtTime, POI_TYPES, ROLE } from '../format.js';
@@ -301,7 +303,8 @@ function HardwareTab() {
   const open = async (n) => {
     const res = await action.run(() => api(`/admin/locks/${n}/open`, { method: 'POST' }));
     if (res) {
-      setLast(res);
+      const sent = await openCompartment(n);
+      setLast({ ...res, sent });
       setTimeout(hw.reload, 400);
     }
   };
@@ -338,6 +341,7 @@ function HardwareTab() {
         )}
         <hr className="divider" />
         <div className="label">საკეტის ტესტი</div>
+        <LockConnect />
         <div className="inline mt-1">
           {[1, 2, 3, 4].map((n) => (
             <button key={n} type="button" className="btn btn-outline" disabled={action.busy} onClick={() => open(n)}>
@@ -348,7 +352,7 @@ function HardwareTab() {
         <ErrorBox error={action.error} />
         {last && (
           <p className="small muted mt-1 mb-0">
-            ბოლო: OPEN{last.lock_id} → {last.hardware === 'mock' ? 'ჩაიწერა ლოგში (დემო)' : 'გაიგზავნა დაფაზე'}
+            ბოლო: OPEN{last.lock_id} → {last.sent ? 'გაიგზავნა USB-ით (ბრაუზერიდან)' : last.hardware === 'mock' ? 'ჩაიწერა ლოგში (დემო)' : 'გაიგზავნა დაფაზე'}
           </p>
         )}
       </div>

@@ -1862,3 +1862,9 @@ div.leaflet-container {
     transition: none !important;
   }
 }
+
+/* Hospes Lock (Arduino by USB, Web Serial) */
+.lock-connect { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; margin: 8px 0 0; }
+.lock-on { display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 600; color: var(--wine); }
+.lock-dot { width: 9px; height: 9px; border-radius: 50%; background: #3fa34d; box-shadow: 0 0 0 4px rgba(63, 163, 77, 0.18); }
+.lock-err { color: #b42318; flex-basis: 100%; text-align: center; }

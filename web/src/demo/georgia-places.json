@@ -745,14 +745,24 @@
      "title": "ორადგილიანი, აივნით",
      "price": 130,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "საოჯახო ოთახი",
      "price": 170,
      "key_type": "box",
-     "capacity": 4
+     "capacity": 4,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 100,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -785,14 +795,24 @@
      "title": "ორადგილიანი",
      "price": 100,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "სამადგილიანი",
      "price": 120,
      "key_type": "box",
-     "capacity": 3
+     "capacity": 3,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 75,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -825,14 +845,24 @@
      "title": "ორადგილიანი, მთის ხედით",
      "price": 120,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "საოჯახო ოთახი",
      "price": 160,
      "key_type": "box",
-     "capacity": 4
+     "capacity": 4,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 90,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -861,11 +891,28 @@
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
    "rooms": [
     {
-     "number": "A",
+     "number": "1",
+     "title": "ორადგილიანი ოთახი",
+     "price": 110,
+     "key_type": "box",
+     "capacity": 2,
+     "lock_id": 1
+    },
+    {
+     "number": "2",
+     "title": "სამადგილიანი ოთახი",
+     "price": 145,
+     "key_type": "box",
+     "capacity": 3,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
      "title": "კოტეჯი, 2 საძინებელი",
      "price": 220,
      "key_type": "box",
-     "capacity": 5
+     "capacity": 5,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -893,14 +940,24 @@
      "title": "ორადგილიანი",
      "price": 110,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "ოთხადგილიანი",
      "price": 160,
      "key_type": "box",
-     "capacity": 4
+     "capacity": 4,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 85,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -928,14 +985,24 @@
      "title": "ორადგილიანი",
      "price": 100,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "სამადგილიანი",
      "price": 130,
      "key_type": "box",
-     "capacity": 3
+     "capacity": 3,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 75,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -968,14 +1035,24 @@
      "title": "ორადგილიანი, კოშკის ხედით",
      "price": 110,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "საოჯახო ოთახი",
      "price": 150,
      "key_type": "box",
-     "capacity": 4
+     "capacity": 4,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 85,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1008,14 +1085,24 @@
      "title": "ორადგილიანი",
      "price": 100,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "სამადგილიანი",
      "price": 130,
      "key_type": "box",
-     "capacity": 3
+     "capacity": 3,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 75,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1043,14 +1130,24 @@
      "title": "ორადგილიანი",
      "price": 85,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "სამადგილიანი",
      "price": 105,
      "key_type": "box",
-     "capacity": 3
+     "capacity": 3,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 65,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1083,14 +1180,24 @@
      "title": "ორადგილიანი",
      "price": 80,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "საოჯახო ოთახი",
      "price": 120,
      "key_type": "box",
-     "capacity": 4
+     "capacity": 4,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 60,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1123,14 +1230,24 @@
      "title": "სტუდიო",
      "price": 110,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "ორ ოთახიანი",
      "price": 160,
      "key_type": "box",
-     "capacity": 4
+     "capacity": 4,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 85,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1154,11 +1271,28 @@
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
    "rooms": [
     {
-     "number": "A",
+     "number": "1",
+     "title": "ორადგილიანი ოთახი",
+     "price": 90,
+     "key_type": "box",
+     "capacity": 2,
+     "lock_id": 1
+    },
+    {
+     "number": "2",
+     "title": "სამადგილიანი ოთახი",
+     "price": 115,
+     "key_type": "box",
+     "capacity": 3,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
      "title": "კოტეჯი, 2 საძინებელი",
      "price": 180,
      "key_type": "box",
-     "capacity": 5
+     "capacity": 5,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1186,14 +1320,24 @@
      "title": "ორადგილიანი",
      "price": 95,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "სამადგილიანი",
      "price": 120,
      "key_type": "box",
-     "capacity": 3
+     "capacity": 3,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 70,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1222,11 +1366,28 @@
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
    "rooms": [
     {
-     "number": "A",
+     "number": "1",
+     "title": "ორადგილიანი ოთახი",
+     "price": 100,
+     "key_type": "box",
+     "capacity": 2,
+     "lock_id": 1
+    },
+    {
+     "number": "2",
+     "title": "სამადგილიანი ოთახი",
+     "price": 130,
+     "key_type": "box",
+     "capacity": 3,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
      "title": "კოტეჯი, ბუხრით",
      "price": 200,
      "key_type": "box",
-     "capacity": 6
+     "capacity": 6,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1254,14 +1415,24 @@
      "title": "ორადგილიანი",
      "price": 80,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "სამადგილიანი",
      "price": 100,
      "key_type": "box",
-     "capacity": 3
+     "capacity": 3,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 60,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1294,14 +1465,24 @@
      "title": "ორადგილიანი",
      "price": 85,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "საოჯახო ოთახი",
      "price": 120,
      "key_type": "box",
-     "capacity": 4
+     "capacity": 4,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 65,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1334,14 +1515,24 @@
      "title": "ორადგილიანი",
      "price": 80,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "სამადგილიანი",
      "price": 100,
      "key_type": "box",
-     "capacity": 3
+     "capacity": 3,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 60,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1370,11 +1561,28 @@
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
    "rooms": [
     {
-     "number": "A",
+     "number": "1",
+     "title": "ორადგილიანი ოთახი",
+     "price": 95,
+     "key_type": "box",
+     "capacity": 2,
+     "lock_id": 1
+    },
+    {
+     "number": "2",
+     "title": "სამადგილიანი ოთახი",
+     "price": 125,
+     "key_type": "box",
+     "capacity": 3,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
      "title": "კოტეჯი, 2 საძინებელი",
      "price": 190,
      "key_type": "box",
-     "capacity": 4
+     "capacity": 4,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1407,14 +1615,24 @@
      "title": "ორადგილიანი",
      "price": 90,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "ოთხადგილიანი",
      "price": 140,
      "key_type": "box",
-     "capacity": 4
+     "capacity": 4,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 70,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1438,11 +1656,28 @@
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
    "rooms": [
     {
-     "number": "A",
+     "number": "1",
+     "title": "ორადგილიანი ოთახი",
+     "price": 105,
+     "key_type": "box",
+     "capacity": 2,
+     "lock_id": 1
+    },
+    {
+     "number": "2",
+     "title": "სამადგილიანი ოთახი",
+     "price": 135,
+     "key_type": "box",
+     "capacity": 3,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
      "title": "კოტეჯი ბუხრით",
      "price": 210,
      "key_type": "box",
-     "capacity": 5
+     "capacity": 5,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1471,11 +1706,28 @@
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
    "rooms": [
     {
-     "number": "A",
+     "number": "1",
+     "title": "ორადგილიანი ოთახი",
+     "price": 80,
+     "key_type": "box",
+     "capacity": 2,
+     "lock_id": 1
+    },
+    {
+     "number": "2",
+     "title": "სამადგილიანი ოთახი",
+     "price": 105,
+     "key_type": "box",
+     "capacity": 3,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
      "title": "კოტეჯი, 2 საძინებელი",
      "price": 160,
      "key_type": "box",
-     "capacity": 5
+     "capacity": 5,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1504,11 +1756,28 @@
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
    "rooms": [
     {
-     "number": "A",
+     "number": "1",
+     "title": "ორადგილიანი ოთახი",
+     "price": 85,
+     "key_type": "box",
+     "capacity": 2,
+     "lock_id": 1
+    },
+    {
+     "number": "2",
+     "title": "სამადგილიანი ოთახი",
+     "price": 110,
+     "key_type": "box",
+     "capacity": 3,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
      "title": "კოტეჯი, 2 საძინებელი",
      "price": 170,
      "key_type": "box",
-     "capacity": 5
+     "capacity": 5,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1536,14 +1805,24 @@
      "title": "ორადგილიანი",
      "price": 100,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "საოჯახო ოთახი",
      "price": 150,
      "key_type": "box",
-     "capacity": 4
+     "capacity": 4,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 75,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1576,14 +1855,24 @@
      "title": "ორადგილიანი",
      "price": 85,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "სამადგილიანი",
      "price": 110,
      "key_type": "box",
-     "capacity": 3
+     "capacity": 3,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 65,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1616,14 +1905,24 @@
      "title": "ორადგილიანი",
      "price": 80,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "სამადგილიანი",
      "price": 105,
      "key_type": "box",
-     "capacity": 3
+     "capacity": 3,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 60,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
@@ -1651,14 +1950,24 @@
      "title": "ორადგილიანი",
      "price": 90,
      "key_type": "box",
-     "capacity": 2
+     "capacity": 2,
+     "lock_id": 1
     },
     {
      "number": "2",
      "title": "საოჯახო ოთახი",
      "price": 130,
      "key_type": "box",
-     "capacity": 4
+     "capacity": 4,
+     "lock_id": 2
+    },
+    {
+     "number": "3",
+     "title": "ერთადგილიანი",
+     "price": 70,
+     "key_type": "box",
+     "capacity": 1,
+     "lock_id": 3
     }
    ],
    "services": [
