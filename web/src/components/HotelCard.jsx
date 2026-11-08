@@ -9,6 +9,11 @@ export function HotelImage({ hotel }) {
   return photo ? <img src={photo} alt={hotel.name} loading="lazy" /> : <HotelArt seed={hotel.id} label={hotel.name} />;
 }
 
+// Same image for a booking (it carries hotel_id, hotel_name and hotel_photo).
+export function BookingHotelImage({ b }) {
+  return <HotelImage hotel={{ id: b.hotel_id, name: b.hotel_name, photos: b.hotel_photo ? [b.hotel_photo] : [] }} />;
+}
+
 export function PriceFrom({ value }) {
   if (value == null) return null;
   return (

@@ -358,6 +358,7 @@ function joinBooking(b) {
     room_price: r.price,
     hotel_id: h.id,
     hotel_name: h.name,
+    hotel_photo: h.photos?.[0] ?? null,
     hotel_address: h.address,
     lat: h.lat,
     lng: h.lng,

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { fmtRange, money } from '../format.js';
-import HotelArt from './HotelArt.jsx';
+import { BookingHotelImage } from './HotelCard.jsx';
 import Icon from './Icon.jsx';
 import { Badge, KeyBadge, StatusBadge } from './ui.jsx';
 
@@ -9,7 +9,7 @@ export default function BookingCard({ b }) {
   return (
     <div className="card booking-card">
       <div className="thumb">
-        <HotelArt seed={b.hotel_id} label={b.hotel_name} />
+        <BookingHotelImage b={b} />
       </div>
       <div className="body">
         <div className="spread">

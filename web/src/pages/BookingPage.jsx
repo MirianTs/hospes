@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { api } from '../api.js';
-import HotelArt from '../components/HotelArt.jsx';
+import { BookingHotelImage } from '../components/HotelCard.jsx';
 import Icon from '../components/Icon.jsx';
 import { Alert, Badge, ErrorBox, KeyBadge, Loading, Spinner, StatusBadge, useAction, useApi } from '../components/ui.jsx';
 import { fmtDate, fmtDateTime, money } from '../format.js';
@@ -166,8 +166,8 @@ export default function BookingPage() {
 
         <aside className="stack sticky">
           <div className="card" style={{ overflow: 'hidden' }}>
-            <div style={{ aspectRatio: '16 / 8' }}>
-              <HotelArt seed={b.hotel_id} label={b.hotel_name} />
+            <div className="booking-cover">
+              <BookingHotelImage b={b} />
             </div>
             <div className="card-body">
               <h3 className="card-title">{b.hotel_name}</h3>

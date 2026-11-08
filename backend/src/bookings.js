@@ -18,7 +18,7 @@ export function hasOverlap(roomId, checkIn, checkOut, excludeBookingId = 0) {
 const BOOKING_SELECT = `
   SELECT b.*,
          r.number AS room_number, r.title AS room_title, r.key_type, r.lock_id, r.price AS room_price,
-         h.id AS hotel_id, h.name AS hotel_name, h.address AS hotel_address, h.lat, h.lng,
+         h.id AS hotel_id, h.name AS hotel_name, json_extract(h.photos, '$[0]') AS hotel_photo, h.address AS hotel_address, h.lat, h.lng,
          u.name AS guest_name, u.phone AS guest_phone, u.email AS guest_email,
          u.verification_status AS guest_verification
   FROM bookings b

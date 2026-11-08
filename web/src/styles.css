@@ -1537,7 +1537,21 @@ div.leaflet-container {
   background: #e8e8e8;
   min-height: 100%;
 }
-.booking-card .thumb svg {
+.booking-card .thumb svg,
+.booking-card .thumb img,
+.booking-cover > svg,
+.booking-cover > img {
+  display: block;
+  object-fit: cover;
+}
+.booking-cover {
+  aspect-ratio: 16 / 9;
+  background: #e8e8e8;
+}
+.booking-cover > svg,
+.booking-cover > img,
+.booking-card .thumb svg,
+.booking-card .thumb img {
   width: 100%;
   height: 100%;
 }
