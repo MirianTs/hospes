@@ -179,9 +179,13 @@ export default function MapSearch() {
                 className={`card poi-card poi-row${selected === `p:${p.id}` ? ' on' : ''}`}
                 onClick={() => setSelected(`p:${p.id}`)}
               >
-                <div className="poi-icon" style={{ background: t.color, width: 36, height: 36 }}>
-                  <Icon name={t.icon} size={17} />
-                </div>
+                {p.photo ? (
+                  <img className="poi-thumb" src={p.photo} alt="" loading="lazy" />
+                ) : (
+                  <div className="poi-icon" style={{ background: t.color, width: 36, height: 36 }}>
+                    <Icon name={t.icon} size={17} />
+                  </div>
+                )}
                 <div>
                   <div className="muted small">{t.one}</div>
                   <h3>{p.name}</h3>

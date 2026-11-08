@@ -4,7 +4,7 @@
 import { HOTELS, POIS, USERS } from './demoData.js';
 
 export const STORE_KEY = 'hospes_demo_v1';
-const VERSION = 1;
+const VERSION = 2; // 2: guesthouses and landmarks all over Georgia, with photos
 const TIMEZONE = 'Asia/Tbilisi';
 const OPEN_MS = 5000;
 const FACE_THRESHOLD = 0.6;
@@ -129,7 +129,7 @@ async function seed() {
       owner_id: users[h.owner],
       google_rating: h.rating,
       description: h.description,
-      photos: [],
+      photos: h.photos || [],
       checkin_info: h.checkin_info,
       created_at: nowIso(),
     });

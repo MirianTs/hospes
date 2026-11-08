@@ -6,7 +6,7 @@ import { money, POI_BY_ID } from '../format.js';
 import { iconHtml } from './Icon.jsx';
 import { Rating } from './ui.jsx';
 
-const KAKHETI = [41.85, 45.75];
+const GEORGIA = [42.2, 43.6];
 
 const escapeHtml = (s) =>
   String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -87,7 +87,7 @@ export default function MapView({
 
   return (
     <div className="map-box" style={{ height }}>
-      <MapContainer center={KAKHETI} zoom={9} scrollWheelZoom style={{ height: '100%' }}>
+      <MapContainer center={GEORGIA} zoom={7} scrollWheelZoom style={{ height: '100%' }}>
         <TileLayer
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -110,6 +110,7 @@ export default function MapView({
               eventHandlers={{ click: () => onSelect?.(`p:${p.id}`) }}
             >
               <Popup>
+                {p.photo && <img className="popup-photo" src={p.photo} alt={p.name} loading="lazy" />}
                 <h4>{p.name}</h4>
                 <p className="muted small">{t.one}</p>
                 {p.description && <p>{p.description}</p>}
@@ -132,6 +133,7 @@ export default function MapView({
               eventHandlers={{ click: () => onSelect?.(`h:${h.id}`) }}
             >
               <Popup>
+                {h.photos?.[0] && <img className="popup-photo" src={h.photos[0]} alt={h.name} loading="lazy" />}
                 <h4>{h.name}</h4>
                 <p className="inline">
                   <Rating value={h.google_rating} />

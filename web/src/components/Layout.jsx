@@ -119,7 +119,7 @@ export default function Layout() {
             <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">
               OpenStreetMap
             </a>{' '}
-            ავტორები
+            ავტორები · ფოტოები: <Link to="/credits">Wikimedia Commons</Link>
           </span>
         </div>
       </footer>

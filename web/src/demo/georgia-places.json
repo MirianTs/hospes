@@ -1,0 +1,1213 @@
+{
+ "_note": "Generated. Guesthouses are fictional demo listings in real places; landmarks are real. Photos: Wikimedia Commons, see each photo's author, license and source.",
+ "photos": {
+  "lm-gelati": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/Gelati_Monastery_1.jpg/960px-Gelati_Monastery_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Ihor Burliai",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Gelati_Monastery_1.jpg"
+  },
+  "lm-jvari": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/47/Georgia_Jvari_monastery_IMG_9345_2070.jpg/960px-Georgia_Jvari_monastery_IMG_9345_2070.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Alexxx1979",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Georgia_Jvari_monastery_IMG_9345_2070.jpg"
+  },
+  "lm-narikala": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/45/Tbilisi_IMG_8846_1920.jpg/960px-Tbilisi_IMG_8846_1920.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Alexxx1979",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Tbilisi_IMG_8846_1920.jpg"
+  },
+  "lm-sameba": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Tbilisi_and_Tsminda_Sameba_Cathedral.jpg/960px-Tbilisi_and_Tsminda_Sameba_Cathedral.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Adam Harvey from Wembley, Western Australia, Australia",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Tbilisi_and_Tsminda_Sameba_Cathedral.jpg"
+  },
+  "lm-chronicle": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Photos_taken_during_HGN_workshop_in_Tbilisi_in_May_2024_5.jpg/960px-Photos_taken_during_HGN_workshop_in_Tbilisi_in_May_2024_5.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Eric Luth (WMSE)",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Photos_taken_during_HGN_workshop_in_Tbilisi_in_May_2024_5.jpg"
+  },
+  "lm-svetitskhoveli": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Svetitskhoveli_Cathedral_09.23_%283%29.jpg/960px-Svetitskhoveli_Cathedral_09.23_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "This Photo was taken by Supanut Arunoprayote. Feel free to use any of my images,",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Svetitskhoveli_Cathedral_09.23_(3).jpg"
+  },
+  "lm-uplistsikhe": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Middle_ages_Basilica_on_the_top_of_the_cave%2C_Uplistsikhe_20230920_%28II%29.jpg/960px-Middle_ages_Basilica_on_the_top_of_the_cave%2C_Uplistsikhe_20230920_%28II%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "This Photo was taken by Supanut Arunoprayote. Feel free to use any of my images,",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Middle_ages_Basilica_on_the_top_of_the_cave,_Uplistsikhe_20230920_(II).jpg"
+  },
+  "lm-ananuri": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/Georgian_Fortress_Ananuri.jpg/960px-Georgian_Fortress_Ananuri.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Vadim Tolbatov",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Georgian_Fortress_Ananuri.jpg"
+  },
+  "lm-gergeti": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/Gergeti_Trinity_Church_09.23.jpg/960px-Gergeti_Trinity_Church_09.23.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "This Photo was taken by Supanut Arunoprayote. Feel free to use any of my images,",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Gergeti_Trinity_Church_09.23.jpg"
+  },
+  "lm-truso": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/25/2024-08-03_Truso_Valley_1.jpg/960px-2024-08-03_Truso_Valley_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Alexkom000",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:2024-08-03_Truso_Valley_1.jpg"
+  },
+  "lm-shatili": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cf/Shatili_fortress%2C_Khevsureti%2C_Georgia.jpg/960px-Shatili_fortress%2C_Khevsureti%2C_Georgia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Vyacheslav Argenberg",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Shatili_fortress,_Khevsureti,_Georgia.jpg"
+  },
+  "lm-keselo": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/2018_-_Keselo_fortress.jpg/960px-2018_-_Keselo_fortress.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Moahim",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:2018_-_Keselo_fortress.jpg"
+  },
+  "lm-gareja": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/David_Gareja_Monastery%2C_Georgia.jpg/960px-David_Gareja_Monastery%2C_Georgia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Vyacheslav Argenberg",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:David_Gareja_Monastery,_Georgia.jpg"
+  },
+  "lm-bodbe": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/07/Bodbe_Monastery%2C_Sighnaghi_09.23.jpg/960px-Bodbe_Monastery%2C_Sighnaghi_09.23.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "This Photo was taken by Supanut Arunoprayote. Feel free to use any of my images,",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Bodbe_Monastery,_Sighnaghi_09.23.jpg"
+  },
+  "lm-vardzia": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/2025-05-25_Vardzia_9.jpg/960px-2025-05-25_Vardzia_9.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Alexkom000",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:2025-05-25_Vardzia_9.jpg"
+  },
+  "lm-rabati": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Akhalcikhe%2C_old_city_general_view.jpg/960px-Akhalcikhe%2C_old_city_general_view.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "I kynitsky",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Akhalcikhe,_old_city_general_view.jpg"
+  },
+  "lm-borjomi-park": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/Borjomi_mountains.jpg/960px-Borjomi_mountains.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Polscience at English Wikipedia",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Borjomi_mountains.jpg"
+  },
+  "lm-bagrati": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3c/2014_Kutaisi%2C_Katedra_Bagrati_%2819%29.jpg/960px-2014_Kutaisi%2C_Katedra_Bagrati_%2819%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Marcin Konsek",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:2014_Kutaisi,_Katedra_Bagrati_(19).jpg"
+  },
+  "lm-motsameta": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Motsameta_monastery.JPG/960px-Motsameta_monastery.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "CHARGERLEVANI",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Motsameta_monastery.JPG"
+  },
+  "lm-prometheus": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/2014_Imeretia%2C_Jaskinia_Prometeusza_%2816%29.jpg/960px-2014_Imeretia%2C_Jaskinia_Prometeusza_%2816%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Marcin Konsek",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:2014_Imeretia,_Jaskinia_Prometeusza_(16).jpg"
+  },
+  "lm-sataplia": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5f/Sataplia_Managed_Reserve_21.jpg/960px-Sataplia_Managed_Reserve_21.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Paata vardanashvili",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Sataplia_Managed_Reserve_21.jpg"
+  },
+  "lm-katskhi": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Katskhi_Pillar2_%28edited%29.jpg/960px-Katskhi_Pillar2_%28edited%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Jaba1977, improvements by Giorgi Balakhadze",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Katskhi_Pillar2_(edited).jpg"
+  },
+  "lm-okatse": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Okatse_Canyon_Nature_Reserve%2C_Georgia_03.jpg/960px-Okatse_Canyon_Nature_Reserve%2C_Georgia_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "United States Embassy Tbilisi, Georgia",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Okatse_Canyon_Nature_Reserve,_Georgia_03.jpg"
+  },
+  "lm-martvili-canyon": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/Martvili_Canyon_Augas.jpg/960px-Martvili_Canyon_Augas.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Iscream icecream",
+   "license": "CC0",
+   "source": "https://commons.wikimedia.org/wiki/File:Martvili_Canyon_Augas.jpg"
+  },
+  "lm-nikortsminda": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/2015-08-30_%2825%29_Nikortsminda.jpg/960px-2015-08-30_%2825%29_Nikortsminda.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Yasuhiro Kojima",
+   "license": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:2015-08-30_(25)_Nikortsminda.jpg"
+  },
+  "lm-ushguli": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/Ushguli_Svaneti_Georgia.JPG/960px-Ushguli_Svaneti_Georgia.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Florian Pinel",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Ushguli_Svaneti_Georgia.JPG"
+  },
+  "lm-botanical": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Batumi%2C_Georgia_%E2%80%94_Botanical_Garden.jpg/960px-Batumi%2C_Georgia_%E2%80%94_Botanical_Garden.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Archil Kikvadze",
+   "license": "CC BY 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Batumi,_Georgia_%E2%80%94_Botanical_Garden.jpg"
+  },
+  "lm-boulevard": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Batumi_Boulevard_Colonnades.jpg/960px-Batumi_Boulevard_Colonnades.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Sosotedrd",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Batumi_Boulevard_Colonnades.jpg"
+  },
+  "lm-alaverdi": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Alaverdi_Monastery%2C_Kakheti%2C_Georgia.jpg/960px-Alaverdi_Monastery%2C_Kakheti%2C_Georgia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Max Benidze",
+   "license": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Alaverdi_Monastery,_Kakheti,_Georgia.jpg"
+  },
+  "lm-gremi": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/Kakheti_15465_%289124094644%29.jpg/960px-Kakheti_15465_%289124094644%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Sarah Murray from South Bend, IN, USA",
+   "license": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kakheti_15465_(9124094644).jpg"
+  },
+  "lm-batoni": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8e/%E1%83%94%E1%83%A0%E1%83%94%E1%83%99%E1%83%9A%E1%83%94_%E1%83%9B%E1%83%94%E1%83%A4%E1%83%98%E1%83%A1_%E1%83%A1%E1%83%90%E1%83%A1%E1%83%90%E1%83%AE%E1%83%9A%E1%83%94.jpg/960px-%E1%83%94%E1%83%A0%E1%83%94%E1%83%99%E1%83%9A%E1%83%94_%E1%83%9B%E1%83%94%E1%83%A4%E1%83%98%E1%83%A1_%E1%83%A1%E1%83%90%E1%83%A1%E1%83%90%E1%83%AE%E1%83%9A%E1%83%94.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Lia Katselashvili",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:%E1%83%94%E1%83%A0%E1%83%94%E1%83%99%E1%83%9A%E1%83%94_%E1%83%9B%E1%83%94%E1%83%A4%E1%83%98%E1%83%A1_%E1%83%A1%E1%83%90%E1%83%A1%E1%83%90%E1%83%AE%E1%83%9A%E1%83%94.jpg"
+  },
+  "lm-signagi": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/61/Sighnagi_2009.jpg/960px-Sighnagi_2009.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "George Nikoladze",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Sighnagi_2009.jpg"
+  },
+  "lm-nekresi": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Shilda_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+   "author": "Zabette",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Shilda_(1).jpg"
+  },
+  "lm-tsinandali": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Tsinandali_%281%29.jpg/960px-Tsinandali_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Archil sutiashvili",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Tsinandali_(1).jpg"
+  },
+  "lm-ninoskhevi": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/Ninoskhevi_waterfall_7.jpg/960px-Ninoskhevi_waterfall_7.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Paata vardanashvili",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Ninoskhevi_waterfall_7.jpg"
+  },
+  "gh-telavi": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ac/Rustaveli_Street%2C_Telavi.jpg/960px-Rustaveli_Street%2C_Telavi.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Jelger Groeneveld",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Rustaveli_Street,_Telavi.jpg"
+  },
+  "gh-sighnaghi": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/07/Signagi_Houses_09.23.jpg/960px-Signagi_Houses_09.23.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "This Photo was taken by Supanut Arunoprayote. Feel free to use any of my images,",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Signagi_Houses_09.23.jpg"
+  },
+  "gh-alazani-valley": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/Telavi_Airfield-179.jpg/960px-Telavi_Airfield-179.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Donovan Driver from Texarkana, Texas, USA",
+   "license": "CC BY-SA 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Telavi_Airfield-179.jpg"
+  },
+  "gh-kvareli": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/Kvareli_Town_Center.jpg/960px-Kvareli_Town_Center.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Gaga.vaa",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kvareli_Town_Center.jpg"
+  },
+  "gh-tbilisi": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9c/008A_Tbilissi_Maison_%C3%A0_balcon_de_bois_remparts_du_vieux_Tbilissi.JPG/960px-008A_Tbilissi_Maison_%C3%A0_balcon_de_bois_remparts_du_vieux_Tbilissi.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Moreau.henri",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:008A_Tbilissi_Maison_%C3%A0_balcon_de_bois_remparts_du_vieux_Tbilissi.JPG"
+  },
+  "gh-mtskheta": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e2/View_to_Mtskheta_from_Jvari.jpg/960px-View_to_Mtskheta_from_Jvari.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Jelger Groeneveld",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:View_to_Mtskheta_from_Jvari.jpg"
+  },
+  "gh-stepantsminda": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/View_of_Stepantsminda_09.23.jpg/960px-View_of_Stepantsminda_09.23.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "This Photo was taken by Supanut Arunoprayote. Feel free to use any of my images,",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:View_of_Stepantsminda_09.23.jpg"
+  },
+  "gh-gudauri": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/%D0%93%D1%83%D0%B4%D0%B0%D1%83%D1%80%D0%B8_-_panoramio_%2848%29.jpg/960px-%D0%93%D1%83%D0%B4%D0%B0%D1%83%D1%80%D0%B8_-_panoramio_%2848%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Андрей Бобровский",
+   "license": "CC BY 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:%D0%93%D1%83%D0%B4%D0%B0%D1%83%D1%80%D0%B8_-_panoramio_(48).jpg"
+  },
+  "gh-dartlo": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Dartlo_%282%29.jpg/960px-Dartlo_%282%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Lidia Ilona",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Dartlo_(2).jpg"
+  },
+  "gh-omalo": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Upper_Omalo_%28cropped%29.JPG/960px-Upper_Omalo_%28cropped%29.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Abramia Giorgi",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Upper_Omalo_(cropped).JPG"
+  },
+  "gh-mestia": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/Near_Mestia%2C_Svan_towers_%2835252565354%29.jpg/960px-Near_Mestia%2C_Svan_towers_%2835252565354%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Arian Zwegers from Brussels, Belgium",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Near_Mestia,_Svan_towers_(35252565354).jpg"
+  },
+  "gh-ushguli": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Svaneti_House_in_Ushguli-Namas_Ushguli_kaimelyje_%283872437908%29.jpg/960px-Svaneti_House_in_Ushguli-Namas_Ushguli_kaimelyje_%283872437908%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "deguonis from Lithuania",
+   "license": "CC BY 2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Svaneti_House_in_Ushguli-Namas_Ushguli_kaimelyje_(3872437908).jpg"
+  },
+  "gh-kutaisi": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/40/Downtown_Kutaisi_%26_White_Bridge_as_seen_from_Mt_Gora_%28August_2011%29-cropped.jpg/960px-Downtown_Kutaisi_%26_White_Bridge_as_seen_from_Mt_Gora_%28August_2011%29-cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Kober",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Downtown_Kutaisi_%26_White_Bridge_as_seen_from_Mt_Gora_(August_2011)-cropped.jpg"
+  },
+  "gh-martvili": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Martvili_center.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+   "author": "Medgeorgia",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Martvili_center.jpg"
+  },
+  "gh-batumi": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/USS_Oak_Hill%2C_26th_MEU_Marines_Visit_Batumi%2C_Georgia_%2840817303032%29.jpg/960px-USS_Oak_Hill%2C_26th_MEU_Marines_Visit_Batumi%2C_Georgia_%2840817303032%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Commander, U.S. Naval Forces Europe-Africa/U.S. 6th Fleet",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:USS_Oak_Hill,_26th_MEU_Marines_Visit_Batumi,_Georgia_(40817303032).jpg"
+  },
+  "gh-kobuleti": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Kobuleti_viewed_from_Tsikhisdziri.jpg/960px-Kobuleti_viewed_from_Tsikhisdziri.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "AlexandreAssatiani",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Kobuleti_viewed_from_Tsikhisdziri.jpg"
+  },
+  "gh-borjomi": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/Panorama_of_Borjomi_from_the_cable_car.jpg/960px-Panorama_of_Borjomi_from_the_cable_car.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Sergey Sebelev",
+   "license": "CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Panorama_of_Borjomi_from_the_cable_car.jpg"
+  },
+  "gh-bakuriani": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cf/Bakurianiiiii.jpg/960px-Bakurianiiiii.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "სანდრო at English Wikipedia",
+   "license": "Public domain",
+   "source": "https://commons.wikimedia.org/wiki/File:Bakurianiiiii.jpg"
+  },
+  "gh-aspindza": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/Aspindza_%28G.N._2008%29.jpg/960px-Aspindza_%28G.N._2008%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "G.N.",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Aspindza_(G.N._2008).jpg"
+  },
+  "gh-oni": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/2025-06-20_View_of_Oni_2.jpg/960px-2025-06-20_View_of_Oni_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "Alexkom000",
+   "license": "CC BY 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:2025-06-20_View_of_Oni_2.jpg"
+  },
+  "gh-lagodekhi": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/Lagodekhi_%28G.N._2009%29.jpg/960px-Lagodekhi_%28G.N._2009%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "author": "G.N.",
+   "license": "CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Lagodekhi_(G.N._2009).jpg"
+  }
+ },
+ "hotels": [
+  {
+   "key": "sololaki",
+   "owner": "nino",
+   "name": "სოლოლაკის აივანი",
+   "address": "თბილისი, სოლოლაკი",
+   "lat": 41.6905,
+   "lng": 44.7995,
+   "rating": 4.7,
+   "description": "ძველი თბილისის სახლი ხის აივნით. ნარიყალამდე და აბანოთუბნამდე ფეხით 10-15 წუთია.",
+   "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "rooms": [
+    {
+     "number": "1",
+     "title": "ორადგილიანი, აივნით",
+     "price": 130,
+     "key_type": "box",
+     "capacity": 2
+    },
+    {
+     "number": "2",
+     "title": "საოჯახო ოთახი",
+     "price": 170,
+     "key_type": "box",
+     "capacity": 4
+    }
+   ],
+   "services": [
+    {
+     "name": "საუზმე",
+     "price": 20,
+     "description": "საოჯახო საუზმე"
+    },
+    {
+     "name": "ტრანსფერი აეროპორტიდან",
+     "price": 60,
+     "description": "4 ადგილამდე"
+    }
+   ],
+   "photo": "gh-tbilisi"
+  },
+  {
+   "key": "aragvi",
+   "owner": "levan",
+   "name": "არაგვის პირას",
+   "address": "მცხეთა, ძველი ქალაქი",
+   "lat": 41.8445,
+   "lng": 44.7165,
+   "rating": 4.6,
+   "description": "მყუდრო სახლი მცხეთის ცენტრში. სვეტიცხოვლამდე 5 წუთის სავალია, ეზოდან ჯვრის მონასტერი ჩანს.",
+   "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "rooms": [
+    {
+     "number": "1",
+     "title": "ორადგილიანი",
+     "price": 100,
+     "key_type": "box",
+     "capacity": 2
+    },
+    {
+     "number": "2",
+     "title": "სამადგილიანი",
+     "price": 120,
+     "key_type": "box",
+     "capacity": 3
+    }
+   ],
+   "services": [
+    {
+     "name": "საუზმე",
+     "price": 20,
+     "description": "საოჯახო საუზმე"
+    },
+    {
+     "name": "ღვინის დეგუსტაცია",
+     "price": 40,
+     "description": "3 საოჯახო ღვინო"
+    }
+   ],
+   "photo": "gh-mtskheta"
+  },
+  {
+   "key": "kazbegi",
+   "owner": "nino",
+   "name": "ყაზბეგის ხედი",
+   "address": "სტეფანწმინდა",
+   "lat": 42.6582,
+   "lng": 44.6425,
+   "rating": 4.8,
+   "description": "გესთჰაუსი სტეფანწმინდაში, ყაზბეგის ხედით. გერგეტის სამებამდე ბილიკი სოფლიდან იწყება.",
+   "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "rooms": [
+    {
+     "number": "1",
+     "title": "ორადგილიანი, მთის ხედით",
+     "price": 120,
+     "key_type": "box",
+     "capacity": 2
+    },
+    {
+     "number": "2",
+     "title": "საოჯახო ოთახი",
+     "price": 160,
+     "key_type": "box",
+     "capacity": 4
+    }
+   ],
+   "services": [
+    {
+     "name": "საუზმე",
+     "price": 20,
+     "description": "საოჯახო საუზმე"
+    },
+    {
+     "name": "ჯიპ-ტური თრუსოს ხეობაში",
+     "price": 150,
+     "description": "ნახევარი დღე, 4 ადგილამდე"
+    }
+   ],
+   "photo": "gh-stepantsminda"
+  },
+  {
+   "key": "gudauri",
+   "owner": "levan",
+   "name": "გუდაურის კოტეჯი",
+   "address": "გუდაური",
+   "lat": 42.4777,
+   "lng": 44.4775,
+   "rating": 4.5,
+   "description": "ხის კოტეჯი სათხილამურო ტრასებთან ახლოს. ზაფხულში აქედან ლაშქრობა და პარაპლანით ფრენაა შესაძლებელი.",
+   "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "rooms": [
+    {
+     "number": "A",
+     "title": "კოტეჯი, 2 საძინებელი",
+     "price": 220,
+     "key_type": "box",
+     "capacity": 5
+    }
+   ],
+   "services": [
+    {
+     "name": "თხილამურების ქირაობა",
+     "price": 50,
+     "description": "ერთი დღით, ერთ ადამიანზე"
+    }
+   ],
+   "photo": "gh-gudauri"
+  },
+  {
+   "key": "dartlo",
+   "owner": "nino",
+   "name": "დართლოს ქვის სახლი",
+   "address": "დართლო, თუშეთი",
+   "lat": 42.4394,
+   "lng": 45.5811,
+   "rating": 4.9,
+   "description": "ქვის სახლი თუშეთის ძველ სოფელში. გზა თუშეთში მხოლოდ ზაფხულში, დაახლოებით ივნისიდან ოქტომბრამდეა ღია.",
+   "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "rooms": [
+    {
+     "number": "1",
+     "title": "ორადგილიანი",
+     "price": 110,
+     "key_type": "box",
+     "capacity": 2
+    },
+    {
+     "number": "2",
+     "title": "ოთხადგილიანი",
+     "price": 160,
+     "key_type": "box",
+     "capacity": 4
+    }
+   ],
+   "services": [
+    {
+     "name": "სამი კვება",
+     "price": 60,
+     "description": "საუზმე, სადილი, ვახშამი"
+    }
+   ],
+   "photo": "gh-dartlo"
+  },
+  {
+   "key": "omalo",
+   "owner": "levan",
+   "name": "ომალოს სტუმარი",
+   "address": "ომალო, თუშეთი",
+   "lat": 42.378,
+   "lng": 45.629,
+   "rating": 4.6,
+   "description": "საოჯახო გესთჰაუსი ომალოში, კესელოს ციხის ძირას. აქედან თუშეთის სოფლებში საცხენოსნო ტურები იწყება.",
+   "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "rooms": [
+    {
+     "number": "1",
+     "title": "ორადგილიანი",
+     "price": 100,
+     "key_type": "box",
+     "capacity": 2
+    },
+    {
+     "number": "2",
+     "title": "სამადგილიანი",
+     "price": 130,
+     "key_type": "box",
+     "capacity": 3
+    }
+   ],
+   "services": [
+    {
+     "name": "საუზმე",
+     "price": 20,
+     "description": "საოჯახო საუზმე"
+    },
+    {
+     "name": "საცხენოსნო ტური",
+     "price": 90,
+     "description": "ნახევარი დღე, გიდით"
+    }
+   ],
+   "photo": "gh-omalo"
+  },
+  {
+   "key": "mestia",
+   "owner": "nino",
+   "name": "სვანური სახლი",
+   "address": "მესტია",
+   "lat": 43.0465,
+   "lng": 42.729,
+   "rating": 4.7,
+   "description": "სახლი მესტიის ძველ უბანში, სვანური კოშკების გვერდით. ცენტრამდე და მუზეუმამდე ფეხით 10 წუთია.",
+   "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "rooms": [
+    {
+     "number": "1",
+     "title": "ორადგილიანი, კოშკის ხედით",
+     "price": 110,
+     "key_type": "box",
+     "capacity": 2
+    },
+    {
+     "number": "2",
+     "title": "საოჯახო ოთახი",
+     "price": 150,
+     "key_type": "box",
+     "capacity": 4
+    }
+   ],
+   "services": [
+    {
+     "name": "საუზმე",
+     "price": 20,
+     "description": "საოჯახო საუზმე"
+    },
+    {
+     "name": "ტრანსფერი უშგულში",
+     "price": 200,
+     "description": "ორივე მიმართულებით, 4 ადგილამდე"
+    }
+   ],
+   "photo": "gh-mestia"
+  },
+  {
+   "key": "ushguli",
+   "owner": "levan",
+   "name": "უშგულის აივანი",
+   "address": "უშგული",
+   "lat": 42.917,
+   "lng": 43.015,
+   "rating": 4.8,
+   "description": "ხის აივნიანი სახლი უშგულში, შხარის ხედით. ევროპის ერთ-ერთი ყველაზე მაღალმთიანი მუდმივი დასახლებაა.",
+   "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "rooms": [
+    {
+     "number": "1",
+     "title": "ორადგილიანი",
+     "price": 100,
+     "key_type": "box",
+     "capacity": 2
+    },
+    {
+     "number": "2",
+     "title": "სამადგილიანი",
+     "price": 130,
+     "key_type": "box",
+     "capacity": 3
+    }
+   ],
+   "services": [
+    {
+     "name": "სამი კვება",
+     "price": 55,
+     "description": "სვანური კერძებით"
+    }
+   ],
+   "photo": "gh-ushguli"
+  },
+  {
+   "key": "rioni",
+   "owner": "nino",
+   "name": "რიონის სახლი",
+   "address": "ქუთაისი, ცენტრი",
+   "lat": 42.27,
+   "lng": 42.702,
+   "rating": 4.5,
+   "description": "სახლი ქუთაისის ცენტრში, რიონის ნაპირთან. ბაგრატის ტაძრამდე ფეხით, გელათამდე მანქანით 20 წუთია.",
+   "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "rooms": [
+    {
+     "number": "1",
+     "title": "ორადგილიანი",
+     "price": 85,
+     "key_type": "box",
+     "capacity": 2
+    },
+    {
+     "number": "2",
+     "title": "სამადგილიანი",
+     "price": 105,
+     "key_type": "box",
+     "capacity": 3
+    }
+   ],
+   "services": [
+    {
+     "name": "საუზმე",
+     "price": 20,
+     "description": "საოჯახო საუზმე"
+    },
+    {
+     "name": "ტური მღვიმეებში",
+     "price": 120,
+     "description": "პრომეთე და სათაფლია, ტრანსპორტით"
+    }
+   ],
+   "photo": "gh-kutaisi"
+  },
+  {
+   "key": "martvili",
+   "owner": "levan",
+   "name": "მარტვილის ბაღი",
+   "address": "მარტვილი",
+   "lat": 42.414,
+   "lng": 42.379,
+   "rating": 4.4,
+   "description": "საოჯახო სახლი ბაღით მარტვილში. მარტვილის კანიონამდე მანქანით დაახლოებით 15 წუთია.",
+   "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "rooms": [
+    {
+     "number": "1",
+     "title": "ორადგილიანი",
+     "price": 80,
+     "key_type": "box",
+     "capacity": 2
+    },
+    {
+     "number": "2",
+     "title": "საოჯახო ოთახი",
+     "price": 120,
+     "key_type": "box",
+     "capacity": 4
+    }
+   ],
+   "services": [
+    {
+     "name": "საუზმე",
+     "price": 20,
+     "description": "საოჯახო საუზმე"
+    },
+    {
+     "name": "მეგრული ვახშამი",
+     "price": 45,
+     "description": "ერთ ადამიანზე"
+    }
+   ],
+   "photo": "gh-martvili"
+  },
+  {
+   "key": "batumi",
+   "owner": "nino",
+   "name": "ზღვის ბრიზი",
+   "address": "ბათუმი, ძველი ქალაქი",
+   "lat": 41.65,
+   "lng": 41.638,
+   "rating": 4.5,
+   "description": "აპარტამენტი ბათუმის ძველ უბანში. ზღვამდე და ბულვარამდე ფეხით 5 წუთია.",
+   "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "rooms": [
+    {
+     "number": "1",
+     "title": "სტუდიო",
+     "price": 110,
+     "key_type": "box",
+     "capacity": 2
+    },
+    {
+     "number": "2",
+     "title": "ორ ოთახიანი",
+     "price": 160,
+     "key_type": "box",
+     "capacity": 4
+    }
+   ],
+   "services": [
+    {
+     "name": "ტრანსფერი აეროპორტიდან",
+     "price": 40,
+     "description": "4 ადგილამდე"
+    }
+   ],
+   "photo": "gh-batumi"
+  },
+  {
+   "key": "kobuleti",
+   "owner": "levan",
+   "name": "კობულეთის კოტეჯი",
+   "address": "კობულეთი",
+   "lat": 41.815,
+   "lng": 41.778,
+   "rating": 4.4,
+   "description": "კოტეჯი ეზოთი ზღვასთან ახლოს. ზაფხულში იდეალურია ოჯახისთვის.",
+   "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "rooms": [
+    {
+     "number": "A",
+     "title": "კოტეჯი, 2 საძინებელი",
+     "price": 180,
+     "key_type": "box",
+     "capacity": 5
+    }
+   ],
+   "services": [
+    {
+     "name": "საუზმე",
+     "price": 20,
+     "description": "საოჯახო საუზმე"
+    }
+   ],
+   "photo": "gh-kobuleti"
+  },
+  {
+   "key": "borjomi",
+   "owner": "nino",
+   "name": "ბორჯომის ხეობა",
+   "address": "ბორჯომი",
+   "lat": 41.842,
+   "lng": 43.385,
+   "rating": 4.6,
+   "description": "სახლი ბორჯომის ცენტრალურ პარკთან ახლოს. აქედან ეროვნული პარკის ბილიკებზე წასვლა მარტივია.",
+   "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "rooms": [
+    {
+     "number": "1",
+     "title": "ორადგილიანი",
+     "price": 95,
+     "key_type": "box",
+     "capacity": 2
+    },
+    {
+     "number": "2",
+     "title": "სამადგილიანი",
+     "price": 120,
+     "key_type": "box",
+     "capacity": 3
+    }
+   ],
+   "services": [
+    {
+     "name": "საუზმე",
+     "price": 20,
+     "description": "საოჯახო საუზმე"
+    },
+    {
+     "name": "გიდი ეროვნულ პარკში",
+     "price": 100,
+     "description": "ერთი დღე"
+    }
+   ],
+   "photo": "gh-borjomi"
+  },
+  {
+   "key": "bakuriani",
+   "owner": "levan",
+   "name": "ბაკურიანის ხის სახლი",
+   "address": "ბაკურიანი",
+   "lat": 41.75,
+   "lng": 43.53,
+   "rating": 4.7,
+   "description": "ხის კოტეჯი ნაძვნარში. ზამთარში თხილამურებით, ზაფხულში ტყეში სასეირნოდ.",
+   "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "rooms": [
+    {
+     "number": "A",
+     "title": "კოტეჯი, ბუხრით",
+     "price": 200,
+     "key_type": "box",
+     "capacity": 6
+    }
+   ],
+   "services": [
+    {
+     "name": "შეშა ბუხრისთვის",
+     "price": 0,
+     "description": "ზამთრის სეზონზე"
+    }
+   ],
+   "photo": "gh-bakuriani"
+  },
+  {
+   "key": "aspindza",
+   "owner": "nino",
+   "name": "ვარძიის გზაზე",
+   "address": "ასპინძა",
+   "lat": 41.5733,
+   "lng": 43.25,
+   "rating": 4.5,
+   "description": "საოჯახო სახლი ასპინძაში, ვარძიიდან დაახლოებით 30 კილომეტრში.",
+   "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "rooms": [
+    {
+     "number": "1",
+     "title": "ორადგილიანი",
+     "price": 80,
+     "key_type": "box",
+     "capacity": 2
+    },
+    {
+     "number": "2",
+     "title": "სამადგილიანი",
+     "price": 100,
+     "key_type": "box",
+     "capacity": 3
+    }
+   ],
+   "services": [
+    {
+     "name": "საუზმე",
+     "price": 20,
+     "description": "საოჯახო საუზმე"
+    },
+    {
+     "name": "ტრანსფერი ვარძიაში",
+     "price": 70,
+     "description": "ორივე მიმართულებით"
+    }
+   ],
+   "photo": "gh-aspindza"
+  },
+  {
+   "key": "oni",
+   "owner": "levan",
+   "name": "რაჭის სახლი",
+   "address": "ონი, რაჭა",
+   "lat": 42.5839,
+   "lng": 43.4417,
+   "rating": 4.6,
+   "description": "სახლი ონში, რიონის ხეობაში. კარგი საწყისია რაჭის მთების, შოვისა და ნიკორწმინდის სანახავად.",
+   "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "rooms": [
+    {
+     "number": "1",
+     "title": "ორადგილიანი",
+     "price": 85,
+     "key_type": "box",
+     "capacity": 2
+    },
+    {
+     "number": "2",
+     "title": "საოჯახო ოთახი",
+     "price": 120,
+     "key_type": "box",
+     "capacity": 4
+    }
+   ],
+   "services": [
+    {
+     "name": "საუზმე",
+     "price": 20,
+     "description": "საოჯახო საუზმე"
+    },
+    {
+     "name": "რაჭული ვახშამი",
+     "price": 45,
+     "description": "ლობიანი და ლორი, ერთ ადამიანზე"
+    }
+   ],
+   "photo": "gh-oni"
+  },
+  {
+   "key": "lagodekhi",
+   "owner": "nino",
+   "name": "ლაგოდეხის ტყე",
+   "address": "ლაგოდეხი",
+   "lat": 41.827,
+   "lng": 46.277,
+   "rating": 4.6,
+   "description": "გესთჰაუსი ლაგოდეხის დაცული ტერიტორიის შესასვლელთან. ნინოსხევის ჩანჩქერის ბილიკი აქედან იწყება.",
+   "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "rooms": [
+    {
+     "number": "1",
+     "title": "ორადგილიანი",
+     "price": 80,
+     "key_type": "box",
+     "capacity": 2
+    },
+    {
+     "number": "2",
+     "title": "სამადგილიანი",
+     "price": 100,
+     "key_type": "box",
+     "capacity": 3
+    }
+   ],
+   "services": [
+    {
+     "name": "საუზმე",
+     "price": 20,
+     "description": "საოჯახო საუზმე"
+    },
+    {
+     "name": "საგზალი ლაშქრობისთვის",
+     "price": 15,
+     "description": "სენდვიჩი, ხილი, წყალი"
+    }
+   ],
+   "photo": "gh-lagodekhi"
+  }
+ ],
+ "landmarks": [
+  {
+   "type": "landmark",
+   "name": "გელათის მონასტერი",
+   "description": "XII საუკუნის მონასტერი ქუთაისთან, დავით აღმაშენებლის დაარსებული. UNESCO-ს მსოფლიო მემკვიდრეობის ძეგლია.",
+   "lat": 42.2947,
+   "lng": 42.7681,
+   "photo": "lm-gelati"
+  },
+  {
+   "type": "landmark",
+   "name": "ჯვრის მონასტერი",
+   "description": "VI საუკუნის ტაძარი მცხეთის თავზე, არაგვისა და მტკვრის შესართავის ხედით.",
+   "lat": 41.8386,
+   "lng": 44.7339,
+   "photo": "lm-jvari"
+  },
+  {
+   "type": "landmark",
+   "name": "ნარიყალა",
+   "description": "ძველი ციხე-სიმაგრე თბილისის თავზე, ძველი ქალაქისა და მტკვრის პანორამით.",
+   "lat": 41.6878,
+   "lng": 44.8086,
+   "photo": "lm-narikala"
+  },
+  {
+   "type": "landmark",
+   "name": "სამების საკათედრო ტაძარი",
+   "description": "თბილისის მთავარი ტაძარი ელიას მთაზე, ქალაქის თითქმის ყველა უბნიდან ჩანს.",
+   "lat": 41.6975,
+   "lng": 44.8167,
+   "photo": "lm-sameba"
+  },
+  {
+   "type": "landmark",
+   "name": "საქართველოს მატიანე",
+   "description": "მონუმენტი თბილისის ზღვის თავზე: მაღალ სვეტებზე საქართველოს ისტორიის სცენებია.",
+   "lat": 41.7705,
+   "lng": 44.8104,
+   "photo": "lm-chronicle"
+  },
+  {
+   "type": "landmark",
+   "name": "სვეტიცხოველი",
+   "description": "XI საუკუნის საკათედრო ტაძარი მცხეთის ცენტრში. UNESCO-ს მსოფლიო მემკვიდრეობის ძეგლია.",
+   "lat": 41.8419,
+   "lng": 44.7211,
+   "photo": "lm-svetitskhoveli"
+  },
+  {
+   "type": "landmark",
+   "name": "უფლისციხე",
+   "description": "კლდეში ნაკვეთი ძველი ქალაქი გორთან, მტკვრის ნაპირზე.",
+   "lat": 41.9683,
+   "lng": 44.2042,
+   "photo": "lm-uplistsikhe"
+  },
+  {
+   "type": "landmark",
+   "name": "ანანურის ციხე",
+   "description": "XVII საუკუნის ციხე-სიმაგრე ჟინვალის წყალსაცავის პირას, საქართველოს სამხედრო გზაზე.",
+   "lat": 42.1636,
+   "lng": 44.7039,
+   "photo": "lm-ananuri"
+  },
+  {
+   "type": "landmark",
+   "name": "გერგეტის სამება",
+   "description": "XIV საუკუნის ეკლესია ყაზბეგის ძირას, 2170 მეტრ სიმაღლეზე. სტეფანწმინდიდან ბილიკი ადის.",
+   "lat": 42.6625,
+   "lng": 44.6203,
+   "photo": "lm-gergeti"
+  },
+  {
+   "type": "trail",
+   "name": "თრუსოს ხეობა",
+   "description": "მთის ხეობა ყაზბეგის მუნიციპალიტეტში: მინერალური წყაროები, ტრავერტინები და მიტოვებული სოფლები.",
+   "lat": 42.62,
+   "lng": 44.45,
+   "photo": "lm-truso"
+  },
+  {
+   "type": "landmark",
+   "name": "შატილი",
+   "description": "ხევსურეთის შუა საუკუნეების ციხე-სოფელი ერთმანეთზე მიდგმული ქვის კოშკებით.",
+   "lat": 42.6597,
+   "lng": 45.1586,
+   "photo": "lm-shatili"
+  },
+  {
+   "type": "landmark",
+   "name": "კესელოს ციხე",
+   "description": "ციხე-კოშკები ომალოს თავზე, თუშეთის მთების ხედით.",
+   "lat": 42.3775,
+   "lng": 45.6317,
+   "photo": "lm-keselo"
+  },
+  {
+   "type": "landmark",
+   "name": "დავით გარეჯი",
+   "description": "VI საუკუნიდან კლდეში ნაკვეთი მონასტრები ნახევრად უდაბნო ლანდშაფტში.",
+   "lat": 41.4473,
+   "lng": 45.3765,
+   "photo": "lm-gareja"
+  },
+  {
+   "type": "landmark",
+   "name": "ბოდბის მონასტერი",
+   "description": "წმინდა ნინოს საფლავი სიღნაღიდან 2 კილომეტრში, ალაზნის ველის ხედით.",
+   "lat": 41.6066,
+   "lng": 45.9334,
+   "photo": "lm-bodbe"
+  },
+  {
+   "type": "landmark",
+   "name": "ვარძია",
+   "description": "XII საუკუნის კლდეში ნაკვეთი სამონასტრო ქალაქი მტკვრის ხეობაში.",
+   "lat": 41.3809,
+   "lng": 43.2838,
+   "photo": "lm-vardzia"
+  },
+  {
+   "type": "landmark",
+   "name": "რაბათის ციხე",
+   "description": "ახალციხის ძველი ციხე-სიმაგრე: ეკლესია, მეჩეთი და მუზეუმი ერთ კომპლექსში.",
+   "lat": 41.6425,
+   "lng": 42.9808,
+   "photo": "lm-rabati"
+  },
+  {
+   "type": "trail",
+   "name": "ბორჯომ-ხარაგაულის ეროვნული პარკი",
+   "description": "ერთ-ერთი უდიდესი დაცული ტერიტორია კავკასიაში, მონიშნული ტყის ბილიკებით.",
+   "lat": 41.85,
+   "lng": 43.25,
+   "photo": "lm-borjomi-park"
+  },
+  {
+   "type": "landmark",
+   "name": "ბაგრატის ტაძარი",
+   "description": "XI საუკუნის ტაძარი ქუთაისის უქიმერიონის გორაზე.",
+   "lat": 42.2773,
+   "lng": 42.7043,
+   "photo": "lm-bagrati"
+  },
+  {
+   "type": "landmark",
+   "name": "მოწამეთას მონასტერი",
+   "description": "მონასტერი წყალწითელას ხეობის კლდეზე, ქუთაისთან.",
+   "lat": 42.2819,
+   "lng": 42.7592,
+   "photo": "lm-motsameta"
+  },
+  {
+   "type": "landmark",
+   "name": "პრომეთეს მღვიმე",
+   "description": "კარსტული მღვიმე წყალტუბოსთან: სტალაქტიტები, სტალაგმიტები და მიწისქვეშა მდინარე.",
+   "lat": 42.3767,
+   "lng": 42.6006,
+   "photo": "lm-prometheus"
+  },
+  {
+   "type": "landmark",
+   "name": "სათაფლია",
+   "description": "დაცული ტერიტორია ქუთაისთან: დინოზავრის ნაკვალევი, მღვიმე და ხედის მოედანი.",
+   "lat": 42.3117,
+   "lng": 42.6744,
+   "photo": "lm-sataplia"
+  },
+  {
+   "type": "landmark",
+   "name": "კაცხის სვეტი",
+   "description": "40-მეტრიანი კლდის სვეტი, რომლის თავზეც პატარა ეკლესიაა.",
+   "lat": 42.2875,
+   "lng": 43.2156,
+   "photo": "lm-katskhi"
+  },
+  {
+   "type": "trail",
+   "name": "ოკაცეს კანიონი",
+   "description": "კიდული ბილიკი კანიონის კედელზე, ხონთან ახლოს.",
+   "lat": 42.4523,
+   "lng": 42.5472,
+   "photo": "lm-okatse"
+  },
+  {
+   "type": "landmark",
+   "name": "მარტვილის კანიონი",
+   "description": "ზურმუხტისფერი მდინარე და ჩანჩქერები. კანიონში ნავით სეირნობაა შესაძლებელი.",
+   "lat": 42.4572,
+   "lng": 42.3772,
+   "photo": "lm-martvili-canyon"
+  },
+  {
+   "type": "landmark",
+   "name": "ნიკორწმინდა",
+   "description": "XI საუკუნის ტაძარი რაჭაში, მდიდრული ქვის ჩუქურთმით.",
+   "lat": 42.4594,
+   "lng": 43.0878,
+   "photo": "lm-nikortsminda"
+  },
+  {
+   "type": "landmark",
+   "name": "უშგული",
+   "description": "სვანური კოშკებით ცნობილი სოფლები შხარის ძირას. UNESCO-ს მსოფლიო მემკვიდრეობის ძეგლია.",
+   "lat": 42.9178,
+   "lng": 43.0157,
+   "photo": "lm-ushguli"
+  },
+  {
+   "type": "landmark",
+   "name": "ბათუმის ბოტანიკური ბაღი",
+   "description": "ზღვისპირა ბაღი მწვანე კონცხზე, მსოფლიოს სხვადასხვა კუთხის მცენარეებით.",
+   "lat": 41.6927,
+   "lng": 41.7198,
+   "photo": "lm-botanical"
+  },
+  {
+   "type": "landmark",
+   "name": "ბათუმის ბულვარი",
+   "description": "ზღვისპირა ბულვარი ბაღებით, შადრევნებითა და სასეირნო ბილიკით.",
+   "lat": 41.6541,
+   "lng": 41.6342,
+   "photo": "lm-boulevard"
+  }
+ ],
+ "existingHotelPhotos": {
+  "alazani": "gh-telavi",
+  "marani": "gh-sighnaghi",
+  "tsinandali": "gh-alazani-valley",
+  "kvareli": "gh-kvareli"
+ },
+ "existingPoiPhotos": {
+  "ალავერდის მონასტერი": "lm-alaverdi",
+  "გრემის ციხე-ქალაქი": "lm-gremi",
+  "ბატონის ციხე": "lm-batoni",
+  "სიღნაღის გალავანი": "lm-signagi",
+  "ნეკრესის მონასტერი": "lm-nekresi",
+  "წინანდლის მამული": "lm-tsinandali",
+  "ნინოსხევის ჩანჩქერის ბილიკი": "lm-ninoskhevi"
+ }
+}

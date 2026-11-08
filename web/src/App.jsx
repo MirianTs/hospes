@@ -16,6 +16,7 @@ import OwnerDashboard from './pages/OwnerDashboard.jsx';
 import Admin from './pages/Admin.jsx';
 import CardAccess from './pages/CardAccess.jsx';
 import NotFound from './pages/NotFound.jsx';
+import Credits from './pages/Credits.jsx';
 
 // face-api (~1.5 MB) loads only when someone opens the verification page.
 const Verify = lazy(() => import('./pages/Verify.jsx'));
@@ -36,6 +37,7 @@ export default function App() {
         <Route path="services" element={<Catalog />} />
         <Route path="map" element={<MapSearch />} />
         <Route path="hotels/:id" element={<HotelPage />} />
+        <Route path="credits" element={<Credits />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route

@@ -143,7 +143,7 @@ export default function Home() {
           {hotels.loading && <Loading />}
           {hotels.data && (
             <div className="sk-grid">
-              {hotels.data.map((h) => (
+              {hotels.data.slice(0, 6).map((h) => (
                 <HotelCard key={h.id} hotel={h} />
               ))}
             </div>

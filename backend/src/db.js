@@ -103,7 +103,8 @@ export function createSchema() {
       description TEXT,
       lat REAL NOT NULL,
       lng REAL NOT NULL,
-      google_maps_url TEXT
+      google_maps_url TEXT,
+      photo TEXT
     );
 
     -- Card access (RC522). Hardware setup, so a demo reset (npm run seed) keeps it.
@@ -129,4 +130,9 @@ export function createSchema() {
       value TEXT NOT NULL
     );
   `);
+
+  // Databases made before pois.photo existed.
+  if (!db.prepare('PRAGMA table_info(pois)').all().some((c) => c.name === 'photo')) {
+    db.exec('ALTER TABLE pois ADD COLUMN photo TEXT');
+  }
 }

@@ -1,3 +1,5 @@
+import PLACES from './georgia-places.json';
+
 // Demo data for the GitHub Pages build. Same as backend/src/seed.js: keep the two in sync.
 export const USERS = [
   { key: 'admin', name: 'ადმინისტრატორი', email: 'admin@hospes.test', password: 'admin123', role: 'admin', verified: true },
@@ -114,3 +116,11 @@ export const POIS = [
   { type: 'landmark', name: 'ნეკრესის მონასტერი', description: 'მთის ფერდზე მდებარე ერთ-ერთი უძველესი მონასტერი კახეთში.', lat: 41.9651, lng: 45.7992 },
   { type: 'landmark', name: 'წინანდლის მამული', description: 'ალექსანდრე ჭავჭავაძის სახლ-მუზეუმი, ბაღი და ისტორიული მარანი.', lat: 41.8948, lng: 45.5712 },
 ];
+
+// Guesthouses and landmarks all over Georgia (georgia-places.json, photos from Wikimedia Commons).
+// backend/src/seed.js reads the same file.
+const photoUrl = (key) => PLACES.photos[key]?.url;
+for (const h of HOTELS) h.photos = PLACES.existingHotelPhotos[h.key] ? [photoUrl(PLACES.existingHotelPhotos[h.key])] : [];
+HOTELS.push(...PLACES.hotels.map(({ photo, ...h }) => ({ ...h, photos: [photoUrl(photo)] })));
+for (const p of POIS) p.photo = photoUrl(PLACES.existingPoiPhotos[p.name]) ?? null;
+POIS.push(...PLACES.landmarks.map(({ photo, ...p }) => ({ ...p, photo: photoUrl(photo) })));

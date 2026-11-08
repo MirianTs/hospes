@@ -1,4 +1,4 @@
-// Demo data: 4 fictional guesthouses in Kakheti, 15 points of interest, demo accounts.
+// Demo data: 21 fictional guesthouses (Kakheti + georgia-places.json), points of interest with real landmarks, demo accounts.
 // `npm run seed` wipes the database and recreates everything.
 import bcrypt from 'bcryptjs';
 import fs from 'node:fs';
@@ -124,6 +124,16 @@ const POIS = [
   { type: 'landmark', name: 'წინანდლის მამული', description: 'ალექსანდრე ჭავჭავაძის სახლ-მუზეუმი, ბაღი და ისტორიული მარანი.', lat: 41.8948, lng: 45.5712 },
 ];
 
+// Guesthouses and landmarks all over Georgia, shared with the Pages demo (photos from Wikimedia Commons).
+const PLACES = JSON.parse(
+  fs.readFileSync(new URL('../../web/src/demo/georgia-places.json', import.meta.url), 'utf8'),
+);
+const photoUrl = (key) => PLACES.photos[key]?.url;
+for (const h of HOTELS) h.photos = PLACES.existingHotelPhotos[h.key] ? [photoUrl(PLACES.existingHotelPhotos[h.key])] : [];
+HOTELS.push(...PLACES.hotels.map(({ photo, ...h }) => ({ ...h, photos: [photoUrl(photo)] })));
+for (const p of POIS) p.photo = photoUrl(PLACES.existingPoiPhotos[p.name]) ?? null;
+POIS.push(...PLACES.landmarks.map(({ photo, ...p }) => ({ ...p, photo: photoUrl(photo) })));
+
 // Uploaded ID photos and selfies belong to users that a reset deletes, so they go too.
 function clearUploads() {
   if (!fs.existsSync(config.uploadDir)) return;
@@ -161,7 +171,7 @@ export function seed() {
 
     const insertHotel = db.prepare(
       `INSERT INTO hotels (name, address, lat, lng, owner_id, google_rating, description, photos, checkin_info)
-       VALUES (?, ?, ?, ?, ?, ?, ?, '[]', ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     );
     const insertRoom = db.prepare(
       `INSERT INTO rooms (hotel_id, number, title, capacity, price, key_type, lock_id) VALUES (?, ?, ?, ?, ?, ?, ?)`,
@@ -170,7 +180,8 @@ export function seed() {
     const rooms = {};
     const services = {};
     for (const h of HOTELS) {
-      const hotelId = insertHotel.run(h.name, h.address, h.lat, h.lng, users[h.owner], h.rating, h.description, h.checkin_info)
+      const hotelId = insertHotel
+        .run(h.name, h.address, h.lat, h.lng, users[h.owner], h.rating, h.description, JSON.stringify(h.photos || []), h.checkin_info)
         .lastInsertRowid;
       for (const r of h.rooms) {
         rooms[`${h.key}:${r.number}`] = insertRoom.run(hotelId, r.number, r.title, r.capacity, r.price, r.key_type, r.lock_id ?? null)
@@ -181,8 +192,8 @@ export function seed() {
       }
     }
 
-    const insertPoi = db.prepare('INSERT INTO pois (type, name, description, lat, lng) VALUES (?, ?, ?, ?, ?)');
-    for (const p of POIS) insertPoi.run(p.type, p.name, p.description, p.lat, p.lng);
+    const insertPoi = db.prepare('INSERT INTO pois (type, name, description, lat, lng, photo) VALUES (?, ?, ?, ?, ?, ?)');
+    for (const p of POIS) insertPoi.run(p.type, p.name, p.description, p.lat, p.lng, p.photo ?? null);
 
     const insertBooking = db.prepare(
       `INSERT INTO bookings (user_id, room_id, check_in, check_out, status, source, access_code, total_price, note,
