@@ -41,7 +41,7 @@ export default function Layout() {
   return (
     <>
       <header className="header">
-        <div className="container header-inner">
+        <div className="container container-wide header-inner">
           <Link to="/" className="logo" aria-label="Hospes: მთავარი">
             <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" />
             Hospes
@@ -104,7 +104,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <footer className="footer">
-        <div className="container inner">
+        <div className="container container-wide inner">
           <span>© 2026 Hospes · Smartstay 2026 ჰაკათონის დემო</span>
           {STATIC_DEMO && (
             <span>

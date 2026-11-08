@@ -82,7 +82,7 @@ export default function Home() {
         <div className="sk-hero-img" aria-hidden="true">
           <span>ჰირო ფოტო · მთელ სიგანეზე</span>
         </div>
-        <div className="container sk-hero-text">
+        <div className="container container-wide sk-hero-text">
           <h1>ჩამოდი, გააღე, დაისვენე</h1>
           <p>
             Hospes არის უკონტაქტო ჩექინი საქართველოს მცირე სასტუმროებისა და გესთჰაუსებისთვის. სტუმარი ჯავშნის ონლაინ,
@@ -101,7 +101,7 @@ export default function Home() {
 
       {/* 2. How it works */}
       <section className="sk-sec" id="how">
-        <div className="container">
+        <div className="container container-wide">
           <SectionHead title="როგორ მუშაობს" />
           <ol className="sk-steps">
             {STEPS.map((s, i) => (
@@ -117,7 +117,7 @@ export default function Home() {
 
       {/* 3. Products */}
       <section className="sk-sec sk-alt" id="products">
-        <div className="container">
+        <div className="container container-wide">
           <SectionHead title="პროდუქტები" link={{ to: '/services', label: 'ყველა სერვისი' }} />
           <div className="sk-grid">
             {PRODUCTS.map((p) => (
@@ -138,7 +138,7 @@ export default function Home() {
 
       {/* 4. Guesthouses (all regions) */}
       <section className="sk-sec" id="stays">
-        <div className="container">
+        <div className="container container-wide">
           <SectionHead title="გესთჰაუსები საქართველოში" link={{ to: '/map', label: 'ყველა რუკაზე' }} />
           {hotels.loading && <Loading />}
           {hotels.data && (
@@ -153,7 +153,7 @@ export default function Home() {
 
       {/* 5. About */}
       <section className="sk-sec sk-alt" id="about">
-        <div className="container sk-about">
+        <div className="container container-wide sk-about">
           <div>
             <SectionHead title="ჩვენს შესახებ" />
             <p>
@@ -182,7 +182,7 @@ export default function Home() {
 
       {/* 6. Owner call to action */}
       <section className="sk-sec">
-        <div className="container">
+        <div className="container container-wide">
           <div className="sk-owner">
             <div>
               <h2>გაქვს გესთჰაუსი?</h2>

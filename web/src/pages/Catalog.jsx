@@ -40,7 +40,7 @@ export default function Catalog() {
   const items = tab === 'hotels' ? hotels : pois;
 
   return (
-    <div className="container">
+    <div className="container container-wide">
       <div className="page-head">
         <h1>სერვისები</h1>
         <p>დასაჯავშნი გესთჰაუსები და ყველაფერი, რაც მათ გარშემოა: სად ვჭამოთ, რა ვნახოთ და ვინ გვიმასპინძლოს.</p>
