@@ -313,13 +313,15 @@ export default function Home() {
       <section className="sk-hero">
         <HeroSlides slides={slides} />
         <div className="container container-wide sk-hero-text">
-          <h1 className="sk-rise">{L('ჩამოდი, გააღე, დაისვენე', 'Arrive, unlock, unwind')}</h1>
+          <div className="sk-hero-copy">
+          <h1 className="sk-rise">{L('მოდი, ნახე, დაისვენე', 'Come, see, unwind')}</h1>
           <p className="sk-rise" style={{ '--d': '120ms' }}>
             {L(
               'Hospes არის უკონტაქტო ჩექინი საქართველოს მცირე სასტუმროებისა და გესთჰაუსებისთვის. სტუმარი ჯავშნის ონლაინ, ვინაობას სელფით ადასტურებს და ოთახში რეცეფციის გარეშე შედის.',
               'Hospes is contactless check-in for small hotels and guesthouses in Georgia. Guests book online, verify their identity with a selfie and get into their room without a reception desk.',
             )}
           </p>
+          </div>
           <div className="sk-rise" style={{ '--d': '240ms' }}>
             <HeroSearch groups={regions.map((r) => [r.name, r.towns])} />
           </div>

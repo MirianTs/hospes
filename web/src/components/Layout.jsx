@@ -1,3 +1,4 @@
+import { LogoMark } from './Logo.jsx';
 import { Suspense, useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { resetDemo, STATIC_DEMO } from '../api.js';
@@ -73,8 +74,8 @@ export default function Layout() {
       <header className="header">
         <div className="container container-wide header-inner">
           <Link to="/" className="logo" aria-label={L('Hospes: მთავარი', 'Hospes: home')}>
-            <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" />
-            Hospes
+            <LogoMark size={36} />
+            <span className="logo-word">Hospes</span>
           </Link>
           <nav className={`nav${open ? ' open' : ''}`} aria-label={L('მთავარი მენიუ', 'Main menu')}>
             {[...mainLinks(), ...roleLinks(user)].map((l) => (

@@ -124,7 +124,24 @@
   background: #fff;
 }
 .sk-credit {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.85);
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(6px);
+}
+/* Text on photos gets a soft dark backdrop so it stays readable on bright pictures. */
+.sk-hero-copy {
+  display: inline-block;
+  max-width: 760px;
+  padding: clamp(16px, 2.4vw, 28px) clamp(18px, 2.8vw, 32px);
+  margin-bottom: 18px;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(4px);
+}
+.sk-hero-copy p {
+  margin: 0;
 }
 .sk-credit:hover {
   color: #fff;
@@ -137,8 +154,8 @@
 .sk-hero h1 {
   font-size: clamp(2.3rem, 1.2rem + 4.8vw, 4.8rem);
   line-height: 1.05;
-  margin: 0 0 18px;
-  max-width: 14ch;
+  margin: 0 0 14px;
+  max-width: 16ch;
   letter-spacing: -0.02em;
 }
 .sk-hero p {
@@ -151,7 +168,11 @@
   align-items: center;
   gap: 6px;
   margin-top: 18px;
-  color: rgba(255, 255, 255, 0.85);
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(4px);
+  color: #fff;
   font-weight: 600;
   font-size: 0.92rem;
 }
@@ -483,10 +504,14 @@
 }
 .sk-dest-text {
   position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: 16px;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
   z-index: 1;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
 }
 .sk-dest-text strong {
   display: block;

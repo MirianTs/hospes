@@ -1,5 +1,7 @@
 :root {
   --ink: #141414;
+  --logo-green: #24402a;
+  --logo-window: #ffffff;
   --ink-soft: #3d3d3d;
   --muted: #737373;
   --line: #e6e6e6;
@@ -37,6 +39,8 @@
 /* Dark theme: same tokens, dark values. The choice lives in <html data-theme> (prefs.js). */
 :root[data-theme="dark"] {
   --ink: #ececec;
+  --logo-green: #8fb47f;
+  --logo-window: #ffffff;
   --ink-soft: #c8c8c8;
   --muted: #9b9f9b;
   --line: #2a2f2a;
@@ -223,9 +227,15 @@ p {
 .logo:hover {
   text-decoration: none;
 }
-.logo img {
-  width: 34px;
-  height: 34px;
+.logo-mark {
+  flex: none;
+}
+.logo-word {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Black', sans-serif;
+  font-weight: 400;
+  font-size: 1.75rem;
+  letter-spacing: 0.01em;
+  line-height: 1;
 }
 .nav {
   display: flex;
