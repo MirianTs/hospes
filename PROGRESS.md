@@ -28,7 +28,7 @@
 
 ## დარჩა
 - 2026-11-08 (SkillLAB): ხვალ: ნამდვილი ტესტი Arduino-თი (ჩექინი → სერვო 1–3, ჩექაუთი → სერვო 4), საჭიროების შემთხვევაში შესწორებები.
-- 2026-11-08 (SkillLAB): **გაგრძელება სხვა კომპიუტერზე:** `git fetch && git switch homepage-skeleton`, მერე `cd web && npm install && npm run dev`. main-ზე push Pages საიტს აახლებს, ამიტომ main-ში ჯერ არ შეგვაქვს.
+- 2026-11-08 (SkillLAB): **გაგრძელება სხვა კომპიუტერზე:** `git fetch && git switch homepage-skeleton`, მერე `cd web && npm install && npm run dev`. 2026-11-08: homepage-skeleton main-ში შეერთდა (fast-forward); main-ზე push Pages საიტს აახლებს.
 - 2026-11-08 (SkillLAB): backend-ის seed და check-in მხოლოდ სინტაქსზეა შემოწმებული (`backend`-ში `npm install` არ არის); ონლაინ დემოს (mockApi) ჩექინი შემოწმდა. შემდეგ ჯერზე: `cd backend && npm install && npm run seed`.
 - 2026-11-08 (SkillLAB): მომხმარებელი მისცემს თემფლეითს → მთავარი გვერდის დიზაინის გამართვა; ჰიროს ფოტო; ახალი სლოგანი.
 - 2026-11-08 (SkillLAB): შემდეგ: დანარჩენი გვერდები (სერვისები, რეგისტრაცია/შესვლა).
