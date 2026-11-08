@@ -17,9 +17,14 @@ let confirmWait = null; // { n, resolve } while waiting for the board to answer 
 const subs = new Set();
 
 // USB-serial chips used on Arduino boards: Arduino, FTDI (FT232R), CH340, CP210x.
-// Filtering the picker keeps Bluetooth and other COM ports out, so the right board gets chosen.
-const USB_FILTERS = [0x2341, 0x2a03, 0x0403, 0x1a86, 0x10c4].map((usbVendorId) => ({ usbVendorId }));
-const isArduinoPort = (p) => USB_FILTERS.some((f) => f.usbVendorId === p.getInfo().usbVendorId);
+// The picker is not filtered: on Windows a board on the FTDI driver (FTDIBUS) reports no USB ids,
+// so a filter would hide it. For reconnecting we skip Bluetooth ports and prefer known chips.
+const ARDUINO_VENDORS = [0x2341, 0x2a03, 0x0403, 0x1a86, 0x10c4];
+const portScore = (p) => {
+  const info = p.getInfo();
+  if (info.bluetoothServiceClassId) return 0;
+  return ARDUINO_VENDORS.includes(info.usbVendorId) ? 2 : 1;
+};
 // servo-locker answers "OPEN <n>", hospes_locks answers "OPENED<n>".
 const confirms = (line, n) => new RegExp(`^OPEN(ED)? ?${n}$`).test(line.trim());
 
@@ -82,7 +87,7 @@ export async function connectLock() {
   if (!serialSupported || port) return;
   let p;
   try {
-    p = await navigator.serial.requestPort({ filters: USB_FILTERS });
+    p = await navigator.serial.requestPort();
   } catch {
     return; // closed the picker
   }
@@ -92,7 +97,7 @@ export async function connectLock() {
 // Reconnect to a port the user already allowed, without asking.
 export async function reconnectLock() {
   if (!serialSupported || port || state.status === 'connecting') return;
-  const p = (await navigator.serial.getPorts()).find(isArduinoPort);
+  const [p] = (await navigator.serial.getPorts()).filter((x) => portScore(x) > 0).sort((a, b) => portScore(b) - portScore(a));
   if (p) await attach(p).catch(() => {});
 }
 
