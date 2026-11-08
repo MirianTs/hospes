@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { api } from '../api.js';
 import { BOOKING_STATUS, KEY_TYPE, VERIFICATION } from '../format.js';
 import Icon from './Icon.jsx';
+import { L } from '../prefs.js';
 
 // Loads `path` whenever it changes; `path = null` skips loading.
 export function useApi(path) {
@@ -28,7 +29,7 @@ export function useApi(path) {
 }
 
 export function Spinner({ small }) {
-  return <div className={`spinner${small ? ' spinner-sm' : ''}`} role="status" aria-label="იტვირთება" />;
+  return <div className={`spinner${small ? ' spinner-sm' : ''}`} role="status" aria-label={L('იტვირთება', 'Loading')} />;
 }
 
 export function Loading() {
@@ -58,7 +59,7 @@ export function ErrorBox({ error, onRetry }) {
         <>
           {' '}
           <button type="button" className="btn btn-sm btn-ghost" onClick={onRetry}>
-            <Icon name="refresh" size={14} /> თავიდან ცდა
+            <Icon name="refresh" size={14} /> {L('თავიდან ცდა', 'Try again')}
           </button>
         </>
       )}
@@ -102,7 +103,7 @@ export function VerificationBadge({ status }) {
 export function Rating({ value }) {
   if (value == null) return null;
   return (
-    <span className="rating" title="Google-ის რეიტინგი">
+    <span className="rating" title={L('Google-ის რეიტინგი', 'Google rating')}>
       <Icon name="star" size={14} /> {Number(value).toFixed(1)}
     </span>
   );

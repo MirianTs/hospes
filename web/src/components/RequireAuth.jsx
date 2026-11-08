@@ -2,6 +2,7 @@ import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../auth.jsx';
 import { ROLE } from '../format.js';
 import { Alert, Loading } from './ui.jsx';
+import { L } from '../prefs.js';
 
 export default function RequireAuth({ roles, children }) {
   const { user, loading } = useAuth();
@@ -15,7 +16,8 @@ export default function RequireAuth({ roles, children }) {
     return (
       <div className="container section">
         <Alert tone="warn">
-          ეს გვერდი მხოლოდ ამ როლებისთვისაა: {roles.map((r) => ROLE[r]).join(', ')}. <Link to="/">მთავარზე დაბრუნება</Link>
+          {L('ეს გვერდი მხოლოდ ამ როლებისთვისაა:', 'This page is only for these roles:')} {roles.map((r) => ROLE[r]).join(', ')}.{' '}
+          <Link to="/">{L('მთავარზე დაბრუნება', 'Back to home')}</Link>
         </Alert>
       </div>
     );

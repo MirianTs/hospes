@@ -234,6 +234,7 @@ p {
   margin-left: 16px;
 }
 .nav a {
+  white-space: nowrap;
   padding: 8px 12px;
   border-radius: 8px;
   color: var(--ink-soft);
@@ -285,8 +286,17 @@ p {
 .menu-btn {
   display: none !important;
 }
+/* Admins have six links: tighten them before the menu button takes over at 1180px. */
+@media (max-width: 1320px) {
+  .nav a {
+    padding: 8px 8px;
+  }
+  .header-actions {
+    gap: 4px;
+  }
+}
 
-@media (max-width: 880px) {
+@media (max-width: 1180px) {
   .nav {
     display: none;
     position: absolute;
@@ -1208,7 +1218,7 @@ div.leaflet-container {
   left: 14px;
   top: -40px;
   background: #fff;
-  color: var(--ink);
+  color: #141414; /* white tag over map tiles, in both themes */
   font-weight: 700;
   font-size: 12px;
   line-height: 1;
@@ -1913,3 +1923,31 @@ div.leaflet-container {
 
 /* Theme and language switches in the header */
 .lang-btn { min-width: 44px; padding-left: 10px; padding-right: 10px; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.02em; }
+
+/* Dark theme: Leaflet controls and popups (Leaflet ships white ones) */
+:root[data-theme="dark"] .leaflet-bar a,
+:root[data-theme="dark"] .leaflet-control-layers,
+:root[data-theme="dark"] .leaflet-popup-content-wrapper,
+:root[data-theme="dark"] .leaflet-popup-tip {
+  background: var(--card);
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+:root[data-theme="dark"] .leaflet-bar a:hover {
+  background: var(--surface-2);
+}
+:root[data-theme="dark"] .leaflet-bar,
+:root[data-theme="dark"] .leaflet-control-layers {
+  border-color: var(--line-strong);
+}
+:root[data-theme="dark"] .leaflet-control-attribution {
+  background: rgba(17, 20, 17, 0.75);
+  color: var(--muted);
+}
+:root[data-theme="dark"] .leaflet-control-attribution a {
+  color: var(--wine-ink);
+}
+:root[data-theme="dark"] .chip.on .chip-count {
+  background: rgba(0, 0, 0, 0.12);
+  color: var(--bg);
+}

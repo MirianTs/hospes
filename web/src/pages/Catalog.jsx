@@ -3,8 +3,9 @@ import HotelCard from '../components/HotelCard.jsx';
 import Icon from '../components/Icon.jsx';
 import { ErrorBox, Loading, useApi } from '../components/ui.jsx';
 import { POI_BY_ID, POI_TYPES } from '../format.js';
+import { L } from '../prefs.js';
 
-const TABS = [{ id: 'hotels', label: 'სასტუმროები', icon: 'home' }, ...POI_TYPES];
+const TABS = () => [{ id: 'hotels', label: L('სასტუმროები', 'Guesthouses'), icon: 'home' }, ...POI_TYPES];
 
 export function PoiCard({ poi }) {
   const t = POI_BY_ID[poi.type];
@@ -19,7 +20,7 @@ export function PoiCard({ poi }) {
         {poi.description && <p>{poi.description}</p>}
         <div className="inline small">
           <Link to={`/map?focus=p:${poi.id}`}>
-            <Icon name="map" size={14} /> რუკაზე
+            <Icon name="map" size={14} /> {L('რუკაზე', 'On the map')}
           </Link>
           <a href={poi.google_maps_url} target="_blank" rel="noreferrer" className="inline" style={{ gap: 4 }}>
             Google Maps <Icon name="external" size={13} />
@@ -32,7 +33,7 @@ export function PoiCard({ poi }) {
 
 export default function Catalog() {
   const [params, setParams] = useSearchParams();
-  const tab = TABS.some((t) => t.id === params.get('tab')) ? params.get('tab') : 'hotels';
+  const tab = TABS().some((t) => t.id === params.get('tab')) ? params.get('tab') : 'hotels';
   const hotels = useApi('/hotels');
   const pois = useApi('/pois');
 
@@ -42,11 +43,16 @@ export default function Catalog() {
   return (
     <div className="container container-wide">
       <div className="page-head">
-        <h1>სერვისები</h1>
-        <p>დასაჯავშნი გესთჰაუსები და ყველაფერი, რაც მათ გარშემოა: სად ვჭამოთ, რა ვნახოთ და ვინ გვიმასპინძლოს.</p>
+        <h1>{L('სერვისები', 'Services')}</h1>
+        <p>
+          {L(
+            'დასაჯავშნი გესთჰაუსები და ყველაფერი, რაც მათ გარშემოა: სად ვჭამოთ, რა ვნახოთ და ვინ გვიმასპინძლოს.',
+            'Guesthouses to book and everything around them: where to eat, what to see and who will show you around.',
+          )}
+        </p>
       </div>
       <div className="tabs" role="tablist">
-        {TABS.map((t) => (
+        {TABS().map((t) => (
           <button
             key={t.id}
             type="button"
@@ -82,7 +88,8 @@ export default function Catalog() {
       {tab !== 'hotels' && (
         <div className="mt-3">
           <Link to={`/map?type=${tab}`} className="btn btn-outline">
-            <Icon name="map" size={16} /> ყველა {POI_BY_ID[tab].label.toLowerCase()} რუკაზე
+            <Icon name="map" size={16} />{' '}
+            {L(`ყველა ${POI_BY_ID[tab].label.toLowerCase()} რუკაზე`, `All ${POI_BY_ID[tab].label.toLowerCase()} on the map`)}
           </Link>
         </div>
       )}

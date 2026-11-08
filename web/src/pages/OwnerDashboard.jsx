@@ -4,13 +4,14 @@ import { useAuth } from '../auth.jsx';
 import Icon from '../components/Icon.jsx';
 import { Alert, Badge, ErrorBox, KeyBadge, Loading, Spinner, StatusBadge, useAction, useApi, VerificationBadge } from '../components/ui.jsx';
 import { addDays, fmtDate, fmtDateTime, fmtRange, money, todayStr } from '../format.js';
+import { L } from '../prefs.js';
 
-const TABS = [
-  { id: 'bookings', label: 'ჯავშნები', icon: 'calendar' },
-  { id: 'rooms', label: 'ოთახები და ფასები', icon: 'home' },
-  { id: 'requests', label: 'მოთხოვნები', icon: 'bell' },
-  { id: 'services', label: 'სერვისები', icon: 'coffee' },
-  { id: 'blocks', label: 'გარე ჯავშნები', icon: 'ban' },
+const TABS = () => [
+  { id: 'bookings', label: L('ჯავშნები', 'Bookings'), icon: 'calendar' },
+  { id: 'rooms', label: L('ოთახები და ფასები', 'Rooms and prices'), icon: 'home' },
+  { id: 'requests', label: L('მოთხოვნები', 'Requests'), icon: 'bell' },
+  { id: 'services', label: L('სერვისები', 'Services'), icon: 'coffee' },
+  { id: 'blocks', label: L('გარე ჯავშნები', 'External bookings'), icon: 'ban' },
 ];
 
 function BookingsTab({ bookings, showHotel }) {
@@ -24,14 +25,14 @@ function BookingsTab({ bookings, showHotel }) {
       <div className="card-body spread" style={{ paddingBottom: 8 }}>
         <div className="chips">
           <button type="button" className={`chip${!all ? ' on' : ''}`} onClick={() => setAll(false)}>
-            მიმდინარე და მომავალი
+            {L('მიმდინარე და მომავალი', 'Current and upcoming')}
           </button>
           <button type="button" className={`chip${all ? ' on' : ''}`} onClick={() => setAll(true)}>
-            ყველა
+            {L('ყველა', 'All')}
           </button>
         </div>
         <button type="button" className="btn btn-ghost btn-sm" onClick={bookings.reload}>
-          <Icon name="refresh" size={14} /> განახლება
+          <Icon name="refresh" size={14} /> {L('განახლება', 'Refresh')}
         </button>
       </div>
       <ErrorBox error={bookings.error} />
@@ -41,12 +42,12 @@ function BookingsTab({ bookings, showHotel }) {
           <thead>
             <tr>
               <th>#</th>
-              {showHotel && <th>ობიექტი</th>}
-              <th>ოთახი</th>
-              <th>სტუმარი / წყარო</th>
-              <th>თარიღები</th>
-              <th>სტატუსი</th>
-              <th className="num">თანხა</th>
+              {showHotel && <th>{L('ობიექტი', 'Property')}</th>}
+              <th>{L('ოთახი', 'Room')}</th>
+              <th>{L('სტუმარი / წყარო', 'Guest / source')}</th>
+              <th>{L('თარიღები', 'Dates')}</th>
+              <th>{L('სტატუსი', 'Status')}</th>
+              <th className="num">{L('თანხა', 'Amount')}</th>
             </tr>
           </thead>
           <tbody>
@@ -61,7 +62,7 @@ function BookingsTab({ bookings, showHotel }) {
                   {b.source === 'external' ? (
                     <span className="inline">
                       <Badge tone="blue" icon="external">
-                        გარე
+                        {L('გარე', 'External')}
                       </Badge>
                       {b.note}
                     </span>
@@ -83,7 +84,7 @@ function BookingsTab({ bookings, showHotel }) {
                   {fmtRange(b.check_in, b.check_out)}
                   {b.check_in === t && ['pending', 'confirmed'].includes(b.status) && (
                     <div>
-                      <Badge tone="green">დღეს ჩამოდის</Badge>
+                      <Badge tone="green">{L('დღეს ჩამოდის', 'Arriving today')}</Badge>
                     </div>
                   )}
                 </td>
@@ -101,7 +102,7 @@ function BookingsTab({ bookings, showHotel }) {
             {bookings.data && rows.length === 0 && (
               <tr>
                 <td colSpan={7} className="empty">
-                  ჯავშნები არ არის.
+                  {L('ჯავშნები არ არის.', 'No bookings.')}
                 </td>
               </tr>
             )}
@@ -129,7 +130,7 @@ function RoomRow({ room, onSaved }) {
       </td>
       <td className="nowrap">
         <KeyBadge type={room.key_type} />
-        {room.lock_id && <div className="muted small mt-1">ლოქერის განყოფილება #{room.lock_id}</div>}
+        {room.lock_id && <div className="muted small mt-1">{L('ლოქერის განყოფილება', 'Locker compartment')} #{room.lock_id}</div>}
       </td>
       <td>
         <div className="inline" style={{ flexWrap: 'nowrap' }}>
@@ -141,20 +142,20 @@ function RoomRow({ room, onSaved }) {
             style={{ width: 96 }}
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            aria-label={`ოთახი ${room.number}: ფასი`}
+            aria-label={L(`ოთახი ${room.number}: ფასი`, `Room ${room.number}: price`)}
           />
           <span className="muted">₾</span>
         </div>
       </td>
       <td>
-        <select className="input input-sm" value={status} onChange={(e) => setStatus(e.target.value)} aria-label="სტატუსი">
-          <option value="available">ღიაა ჯავშნისთვის</option>
-          <option value="maintenance">დროებით დახურული</option>
+        <select className="input input-sm" value={status} onChange={(e) => setStatus(e.target.value)} aria-label={L('სტატუსი', 'Status')}>
+          <option value="available">{L('ღიაა ჯავშნისთვის', 'Open for booking')}</option>
+          <option value="maintenance">{L('დროებით დახურული', 'Temporarily closed')}</option>
         </select>
       </td>
       <td className="num">
         <button type="button" className="btn btn-primary btn-sm" disabled={!dirty || action.busy} onClick={save}>
-          {action.busy ? <Spinner small /> : <Icon name="check" size={14} />} შენახვა
+          {action.busy ? <Spinner small /> : <Icon name="check" size={14} />} {L('შენახვა', 'Save')}
         </button>
         {action.error && <div className="small" style={{ color: 'var(--danger)' }}>{action.error.message}</div>}
       </td>
@@ -179,10 +180,10 @@ function RoomsTab({ hotels, setHotels }) {
             <table className="table">
               <thead>
                 <tr>
-                  <th>ოთახი</th>
-                  <th>შესვლა</th>
-                  <th>ფასი ღამეში</th>
-                  <th>სტატუსი</th>
+                  <th>{L('ოთახი', 'Room')}</th>
+                  <th>{L('შესვლა', 'Access')}</th>
+                  <th>{L('ფასი ღამეში', 'Price per night')}</th>
+                  <th>{L('სტატუსი', 'Status')}</th>
                   <th />
                 </tr>
               </thead>
@@ -195,7 +196,7 @@ function RoomsTab({ hotels, setHotels }) {
           </div>
         </div>
       ))}
-      <p className="muted small">ახალ ოთახს ან ობიექტს ადმინისტრატორი ამატებს.</p>
+      <p className="muted small">{L('ახალ ოთახს ან ობიექტს ადმინისტრატორი ამატებს.', 'New rooms and properties are added by an administrator.')}</p>
     </div>
   );
 }
@@ -214,12 +215,12 @@ function RequestsTab({ requests, showHotel, onChange }) {
         <table className="table">
           <thead>
             <tr>
-              <th>სერვისი</th>
-              {showHotel && <th>ობიექტი</th>}
-              <th>სტუმარი</th>
-              <th>კომენტარი</th>
-              <th>დრო</th>
-              <th>სტატუსი</th>
+              <th>{L('სერვისი', 'Service')}</th>
+              {showHotel && <th>{L('ობიექტი', 'Property')}</th>}
+              <th>{L('სტუმარი', 'Guest')}</th>
+              <th>{L('კომენტარი', 'Comment')}</th>
+              <th>{L('დრო', 'Time')}</th>
+              <th>{L('სტატუსი', 'Status')}</th>
               <th />
             </tr>
           </thead>
@@ -228,26 +229,26 @@ function RequestsTab({ requests, showHotel, onChange }) {
               <tr key={r.id} className={r.status === 'done' ? 'dim' : ''}>
                 <td>
                   <strong>{r.service_name}</strong>
-                  <div className="muted small">{r.service_price ? money(r.service_price) : 'უფასო'}</div>
+                  <div className="muted small">{r.service_price ? money(r.service_price) : L('უფასო', 'Free')}</div>
                 </td>
                 {showHotel && <td>{r.hotel_name}</td>}
                 <td>
                   {r.guest_name}
-                  <div className="muted small">ოთახი {r.room_number}</div>
+                  <div className="muted small">{L('ოთახი', 'Room')} {r.room_number}</div>
                 </td>
                 <td className="small">{r.note || <span className="muted">—</span>}</td>
                 <td className="small nowrap">{fmtDateTime(r.created_at)}</td>
                 <td>
-                  <Badge tone={r.status === 'done' ? 'green' : 'gold'}>{r.status === 'done' ? 'შესრულდა' : 'მოლოდინში'}</Badge>
+                  <Badge tone={r.status === 'done' ? 'green' : 'gold'}>{r.status === 'done' ? L('შესრულდა', 'Done') : L('მოლოდინში', 'Pending')}</Badge>
                 </td>
                 <td className="num">
                   {r.status === 'pending' ? (
                     <button type="button" className="btn btn-success btn-sm" disabled={action.busy} onClick={() => setStatus(r, 'done')}>
-                      <Icon name="check" size={14} /> შესრულდა
+                      <Icon name="check" size={14} /> {L('შესრულდა', 'Mark done')}
                     </button>
                   ) : (
                     <button type="button" className="btn btn-ghost btn-sm" disabled={action.busy} onClick={() => setStatus(r, 'pending')}>
-                      დაბრუნება
+                      {L('დაბრუნება', 'Reopen')}
                     </button>
                   )}
                 </td>
@@ -256,7 +257,7 @@ function RequestsTab({ requests, showHotel, onChange }) {
             {requests.data && rows.length === 0 && (
               <tr>
                 <td colSpan={7} className="empty">
-                  მოთხოვნები ჯერ არ არის.
+                  {L('მოთხოვნები ჯერ არ არის.', 'No requests yet.')}
                 </td>
               </tr>
             )}
@@ -279,37 +280,37 @@ function ServiceRow({ service, onChange }) {
     }
   };
   const remove = async () => {
-    if (!window.confirm(`წავშალო სერვისი „${service.name}“?`)) return;
+    if (!window.confirm(L(`წავშალო სერვისი „${service.name}“?`, `Delete the service "${service.name}"?`))) return;
     if (await action.run(() => api(`/owner/services/${service.id}`, { method: 'DELETE' }))) onChange();
   };
   if (edit) {
     return (
       <li className="stack" style={{ gap: 8 }}>
         <div className="form-row">
-          <input className="input input-sm" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} aria-label="სახელი" />
+          <input className="input input-sm" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} aria-label={L('სახელი', 'Name')} />
           <input
             className="input input-sm"
             type="number"
             min="0"
             value={form.price}
             onChange={(e) => setForm({ ...form, price: e.target.value })}
-            aria-label="ფასი"
+            aria-label={L('ფასი', 'Price')}
             style={{ maxWidth: 110 }}
           />
         </div>
         <input
           className="input input-sm"
-          placeholder="აღწერა"
+          placeholder={L('აღწერა', 'Description')}
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
         />
         {action.error && <div className="small" style={{ color: 'var(--danger)' }}>{action.error.message}</div>}
         <div className="inline">
           <button type="button" className="btn btn-primary btn-sm" disabled={action.busy} onClick={save}>
-            შენახვა
+            {L('შენახვა', 'Save')}
           </button>
           <button type="button" className="btn btn-ghost btn-sm" onClick={() => setEdit(false)}>
-            გაუქმება
+            {L('გაუქმება', 'Cancel')}
           </button>
         </div>
       </li>
@@ -322,11 +323,11 @@ function ServiceRow({ service, onChange }) {
         {service.description && <div className="muted small">{service.description}</div>}
       </div>
       <div className="inline" style={{ flexWrap: 'nowrap' }}>
-        <strong className="nowrap">{service.price ? money(service.price) : 'უფასო'}</strong>
+        <strong className="nowrap">{service.price ? money(service.price) : L('უფასო', 'Free')}</strong>
         <button type="button" className="btn btn-ghost btn-sm" onClick={() => setEdit(true)}>
-          შეცვლა
+          {L('შეცვლა', 'Edit')}
         </button>
-        <button type="button" className="btn btn-ghost btn-sm btn-icon" onClick={remove} title="წაშლა" aria-label="წაშლა">
+        <button type="button" className="btn btn-ghost btn-sm btn-icon" onClick={remove} title={L('წაშლა', 'Delete')} aria-label={L('წაშლა', 'Delete')}>
           <Icon name="trash" size={15} />
         </button>
       </div>
@@ -348,18 +349,18 @@ function NewService({ hotelId, onChange }) {
   return (
     <form onSubmit={submit} className="mt-2">
       <div className="form-row">
-        <input className="input input-sm" required placeholder="ახალი სერვისი, მაგ. გვიანი ჩექაუთი" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+        <input className="input input-sm" required placeholder={L('ახალი სერვისი, მაგ. გვიანი ჩექაუთი', 'New service, e.g. late check-out')} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
         <input
           className="input input-sm"
           type="number"
           min="0"
-          placeholder="ფასი ₾"
+          placeholder={L('ფასი ₾', 'Price ₾')}
           value={form.price}
           onChange={(e) => setForm({ ...form, price: e.target.value })}
           style={{ maxWidth: 110 }}
         />
         <button type="submit" className="btn btn-outline btn-sm" style={{ flex: '0 0 auto' }} disabled={action.busy}>
-          <Icon name="plus" size={14} /> დამატება
+          <Icon name="plus" size={14} /> {L('დამატება', 'Add')}
         </button>
       </div>
       {action.error && <div className="small mt-1" style={{ color: 'var(--danger)' }}>{action.error.message}</div>}
@@ -405,7 +406,15 @@ function BlocksTab({ hotels, bookings, onChange }) {
     }
   };
   const unblock = async (b) => {
-    if (!window.confirm(`მოვხსნა ბლოკი: ოთახი ${b.room_number}, ${fmtRange(b.check_in, b.check_out)}?`)) return;
+    if (
+      !window.confirm(
+        L(
+          `მოვხსნა ბლოკი: ოთახი ${b.room_number}, ${fmtRange(b.check_in, b.check_out)}?`,
+          `Remove the block: room ${b.room_number}, ${fmtRange(b.check_in, b.check_out)}?`,
+        ),
+      )
+    )
+      return;
     if (await remove.run(() => api(`/owner/blocks/${b.id}`, { method: 'DELETE' }))) onChange();
   };
 
@@ -413,17 +422,22 @@ function BlocksTab({ hotels, bookings, onChange }) {
     <div className="two-col">
       <div className="card">
         <div className="card-body" style={{ paddingBottom: 4 }}>
-          <h3 className="mb-0">დაბლოკილი თარიღები</h3>
-          <p className="muted small mb-0">სხვაგან გაკეთებული ჯავშნები: ამ თარიღებზე Hospes-ში ოთახს ვეღარავინ დაჯავშნის.</p>
+          <h3 className="mb-0">{L('დაბლოკილი თარიღები', 'Blocked dates')}</h3>
+          <p className="muted small mb-0">
+            {L(
+              'სხვაგან გაკეთებული ჯავშნები: ამ თარიღებზე Hospes-ში ოთახს ვეღარავინ დაჯავშნის.',
+              'Bookings made elsewhere: nobody can book the room on Hospes for these dates.',
+            )}
+          </p>
         </div>
         <ErrorBox error={remove.error} />
         <div className="table-wrap">
           <table className="table">
             <thead>
               <tr>
-                <th>ოთახი</th>
-                <th>თარიღები</th>
-                <th>წყარო</th>
+                <th>{L('ოთახი', 'Room')}</th>
+                <th>{L('თარიღები', 'Dates')}</th>
+                <th>{L('წყარო', 'Source')}</th>
                 <th />
               </tr>
             </thead>
@@ -438,7 +452,7 @@ function BlocksTab({ hotels, bookings, onChange }) {
                   <td>{b.note}</td>
                   <td className="num">
                     <button type="button" className="btn btn-danger btn-sm" disabled={remove.busy} onClick={() => unblock(b)}>
-                      მოხსნა
+                      {L('მოხსნა', 'Remove')}
                     </button>
                   </td>
                 </tr>
@@ -446,7 +460,7 @@ function BlocksTab({ hotels, bookings, onChange }) {
               {bookings.data && blocks.length === 0 && (
                 <tr>
                   <td colSpan={4} className="empty">
-                    გარე ჯავშნები არ არის.
+                    {L('გარე ჯავშნები არ არის.', 'No external bookings.')}
                   </td>
                 </tr>
               )}
@@ -455,20 +469,20 @@ function BlocksTab({ hotels, bookings, onChange }) {
         </div>
       </div>
       <form className="card card-body sticky" onSubmit={submit}>
-        <h3 className="card-title">ახალი ბლოკი</h3>
+        <h3 className="card-title">{L('ახალი ბლოკი', 'New block')}</h3>
         <label className="field">
-          <span>ოთახი</span>
+          <span>{L('ოთახი', 'Room')}</span>
           <select className="input" value={form.room_id} onChange={(e) => setForm({ ...form, room_id: e.target.value })}>
             {rooms.map((r) => (
               <option key={r.id} value={r.id}>
-                {r.hotel_name} · ოთახი {r.number}
+                {r.hotel_name} · {L('ოთახი', 'room')} {r.number}
               </option>
             ))}
           </select>
         </label>
         <div className="form-row">
           <label className="field">
-            <span>შესვლა</span>
+            <span>{L('შესვლა', 'Check-in')}</span>
             <input
               className="input"
               type="date"
@@ -481,7 +495,7 @@ function BlocksTab({ hotels, bookings, onChange }) {
             />
           </label>
           <label className="field">
-            <span>გასვლა</span>
+            <span>{L('გასვლა', 'Check-out')}</span>
             <input
               className="input"
               type="date"
@@ -492,17 +506,17 @@ function BlocksTab({ hotels, bookings, onChange }) {
           </label>
         </div>
         <label className="field">
-          <span>წყარო / შენიშვნა</span>
+          <span>{L('წყარო / შენიშვნა', 'Source / note')}</span>
           <input className="input" value={form.note} onChange={(e) => setForm({ ...form, note: e.target.value })} placeholder="Booking.com #1234" />
         </label>
         <ErrorBox error={create.error} />
         {created && !create.error && (
           <Alert tone="success">
-            დაიბლოკა: ოთახი {created.room_number}, {fmtDate(created.check_in)} – {fmtDate(created.check_out, true)}.
+            {L('დაიბლოკა: ოთახი', 'Blocked: room')} {created.room_number}, {fmtDate(created.check_in)} – {fmtDate(created.check_out, true)}.
           </Alert>
         )}
         <button type="submit" className="btn btn-primary btn-block mt-2" disabled={create.busy || !form.room_id}>
-          {create.busy ? <Spinner small /> : <Icon name="ban" size={16} />} თარიღების დაბლოკვა
+          {create.busy ? <Spinner small /> : <Icon name="ban" size={16} />} {L('თარიღების დაბლოკვა', 'Block dates')}
         </button>
       </form>
     </div>
@@ -527,11 +541,11 @@ export default function OwnerDashboard() {
   const list = bookings.data || [];
   const live = list.filter((b) => b.status !== 'cancelled');
   const stats = [
-    { l: 'დღეს ჩამოდის', v: live.filter((b) => b.check_in === t).length },
-    { l: 'ახლა შესახლებულია', v: list.filter((b) => b.status === 'checked_in').length },
-    { l: 'მომავალი ჯავშნები', v: live.filter((b) => b.check_in > t).length },
+    { l: L('დღეს ჩამოდის', 'Arriving today'), v: live.filter((b) => b.check_in === t).length },
+    { l: L('ახლა შესახლებულია', 'Checked in now'), v: list.filter((b) => b.status === 'checked_in').length },
+    { l: L('მომავალი ჯავშნები', 'Upcoming bookings'), v: live.filter((b) => b.check_in > t).length },
     {
-      l: 'შემოსავალი Hospes-ით',
+      l: L('შემოსავალი Hospes-ით', 'Revenue via Hospes'),
       v: money(list.filter((b) => b.source === 'internal' && b.paid).reduce((sum, b) => sum + b.total_price, 0)),
     },
   ];
@@ -542,20 +556,27 @@ export default function OwnerDashboard() {
   return (
     <div className="container">
       <div className="page-head">
-        <h1>მფლობელის დეშბორდი</h1>
+        <h1>{L('მფლობელის დეშბორდი', 'Owner dashboard')}</h1>
         <p>
-          {user.name} · {hotels.data?.length || 0} ობიექტი
+          {user.name} · {hotels.data?.length || 0} {L('ობიექტი', hotels.data?.length === 1 ? 'property' : 'properties')}
         </p>
       </div>
       <ErrorBox error={hotels.error} onRetry={hotels.reload} />
-      {hotels.data?.length === 0 && <Alert tone="info">თქვენზე ჯერ არცერთი ობიექტი არ არის მიბმული. მიმართეთ ადმინისტრატორს.</Alert>}
+      {hotels.data?.length === 0 && (
+        <Alert tone="info">
+          {L(
+            'თქვენზე ჯერ არცერთი ობიექტი არ არის მიბმული. მიმართეთ ადმინისტრატორს.',
+            'No properties are linked to your account yet. Please contact an administrator.',
+          )}
+        </Alert>
+      )}
 
       {hotels.data?.length > 0 && (
         <>
           {hotels.data.length > 1 && (
             <div className="hotel-switch">
               <button type="button" className={`chip${hotelId === 'all' ? ' on' : ''}`} onClick={() => setHotelId('all')}>
-                ყველა ობიექტი
+                {L('ყველა ობიექტი', 'All properties')}
               </button>
               {hotels.data.map((h) => (
                 <button key={h.id} type="button" className={`chip${hotelId === String(h.id) ? ' on' : ''}`} onClick={() => setHotelId(String(h.id))}>
@@ -575,7 +596,7 @@ export default function OwnerDashboard() {
           </div>
 
           <div className="tabs" role="tablist">
-            {TABS.map((tb) => (
+            {TABS().map((tb) => (
               <button
                 key={tb.id}
                 type="button"

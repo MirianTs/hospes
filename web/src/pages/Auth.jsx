@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { homeFor, useAuth } from '../auth.jsx';
 import Icon from '../components/Icon.jsx';
 import { ErrorBox, Spinner, useAction } from '../components/ui.jsx';
+import { L } from '../prefs.js';
 
 // Only same-site paths, so ?next= can't send people to another site.
 function safeNext(next) {
@@ -12,9 +13,9 @@ function safeNext(next) {
 // Seeded demo accounts (backend/src/seed.js), for switching roles during the pitch.
 // Remove before a real pilot.
 const DEMO_ACCOUNTS = [
-  { label: 'სტუმარი', email: 'guest@hospes.test', password: 'guest123' },
-  { label: 'მფლობელი', email: 'owner@hospes.test', password: 'owner123' },
-  { label: 'ადმინი', email: 'admin@hospes.test', password: 'admin123' },
+  { get label() { return L('სტუმარი', 'Guest'); }, email: 'guest@hospes.test', password: 'guest123' },
+  { get label() { return L('მფლობელი', 'Owner'); }, email: 'owner@hospes.test', password: 'owner123' },
+  { get label() { return L('ადმინი', 'Admin'); }, email: 'admin@hospes.test', password: 'admin123' },
 ];
 
 function AuthShell({ title, subtitle, children }) {
@@ -46,23 +47,26 @@ export function Login() {
 
   if (user) {
     return (
-      <AuthShell title="უკვე შესული ხართ" subtitle={`${user.name} · ${user.email}`}>
+      <AuthShell title={L('უკვე შესული ხართ', "You're already signed in")} subtitle={`${user.name} · ${user.email}`}>
         <Link to={next || homeFor(user)} className="btn btn-primary btn-block">
-          გაგრძელება <Icon name="arrowRight" size={16} />
+          {L('გაგრძელება', 'Continue')} <Icon name="arrowRight" size={16} />
         </Link>
       </AuthShell>
     );
   }
 
   return (
-    <AuthShell title="შესვლა" subtitle="შედი, რომ დაჯავშნო, გაიარო ჩექინი ან მართო შენი ობიექტი.">
+    <AuthShell
+      title={L('შესვლა', 'Sign in')}
+      subtitle={L('შედი, რომ დაჯავშნო, გაიარო ჩექინი ან მართო შენი ობიექტი.', 'Sign in to book, check in, or manage your property.')}
+    >
       <form onSubmit={signIn}>
         <label className="field">
-          <span>ელფოსტა</span>
+          <span>{L('ელფოსტა', 'Email')}</span>
           <input className="input" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
         </label>
         <label className="field">
-          <span>პაროლი</span>
+          <span>{L('პაროლი', 'Password')}</span>
           <input
             className="input"
             type="password"
@@ -74,14 +78,15 @@ export function Login() {
         </label>
         <ErrorBox error={action.error} />
         <button type="submit" className="btn btn-primary btn-block btn-lg mt-2" disabled={action.busy}>
-          {action.busy && <Spinner small />} შესვლა
+          {action.busy && <Spinner small />} {L('შესვლა', 'Sign in')}
         </button>
       </form>
       <p className="muted small mt-2 mb-0">
-        ანგარიში არ გაქვს? <Link to={`/register${next ? `?next=${encodeURIComponent(next)}` : ''}`}>რეგისტრაცია</Link>
+        {L('ანგარიში არ გაქვს?', "Don't have an account?")}{' '}
+        <Link to={`/register${next ? `?next=${encodeURIComponent(next)}` : ''}`}>{L('რეგისტრაცია', 'Sign up')}</Link>
       </p>
       <hr className="divider" />
-      <div className="small muted">სადემონსტრაციო ანგარიშები:</div>
+      <div className="small muted">{L('სადემონსტრაციო ანგარიშები:', 'Demo accounts:')}</div>
       <div className="inline mt-1">
         {DEMO_ACCOUNTS.map((a) => (
           <button key={a.email} type="button" className="btn btn-sm btn-outline" disabled={action.busy} onClick={() => signIn(null, a)}>
@@ -109,22 +114,28 @@ export function Register() {
   };
 
   return (
-    <AuthShell title="რეგისტრაცია" subtitle="რეგისტრაციის შემდეგ ვინაობას დაადასტურებ: პირადობის ფოტო და სელფი.">
+    <AuthShell
+      title={L('რეგისტრაცია', 'Sign up')}
+      subtitle={L(
+        'რეგისტრაციის შემდეგ ვინაობას დაადასტურებ: პირადობის ფოტო და სელფი.',
+        "After signing up you'll verify your identity with an ID photo and a selfie."
+      )}
+    >
       <form onSubmit={submit}>
         <label className="field">
-          <span>სახელი და გვარი</span>
+          <span>{L('სახელი და გვარი', 'Full name')}</span>
           <input className="input" autoComplete="name" required value={form.name} onChange={set('name')} />
         </label>
         <label className="field">
-          <span>ტელეფონი</span>
+          <span>{L('ტელეფონი', 'Phone')}</span>
           <input className="input" type="tel" autoComplete="tel" placeholder="+995 5XX XX XX XX" value={form.phone} onChange={set('phone')} />
         </label>
         <label className="field">
-          <span>ელფოსტა</span>
+          <span>{L('ელფოსტა', 'Email')}</span>
           <input className="input" type="email" autoComplete="email" required value={form.email} onChange={set('email')} />
         </label>
         <label className="field">
-          <span>პაროლი (მინ. 6 სიმბოლო)</span>
+          <span>{L('პაროლი (მინ. 6 სიმბოლო)', 'Password (min. 6 characters)')}</span>
           <input
             className="input"
             type="password"
@@ -137,11 +148,12 @@ export function Register() {
         </label>
         <ErrorBox error={action.error} />
         <button type="submit" className="btn btn-primary btn-block btn-lg mt-2" disabled={action.busy}>
-          {action.busy && <Spinner small />} ანგარიშის შექმნა
+          {action.busy && <Spinner small />} {L('ანგარიშის შექმნა', 'Create account')}
         </button>
       </form>
       <p className="muted small mt-2 mb-0">
-        უკვე გაქვს ანგარიში? <Link to={`/login${next ? `?next=${encodeURIComponent(next)}` : ''}`}>შესვლა</Link>
+        {L('უკვე გაქვს ანგარიში?', 'Already have an account?')}{' '}
+        <Link to={`/login${next ? `?next=${encodeURIComponent(next)}` : ''}`}>{L('შესვლა', 'Sign in')}</Link>
       </p>
     </AuthShell>
   );

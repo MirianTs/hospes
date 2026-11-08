@@ -6,7 +6,8 @@ import { HotelImage } from '../components/HotelCard.jsx';
 import Icon from '../components/Icon.jsx';
 import MapView from '../components/MapView.jsx';
 import { Alert, Badge, ErrorBox, KeyBadge, Loading, Rating, Spinner, useAction, useApi } from '../components/ui.jsx';
-import { addDays, distanceKm, KEY_TYPE, money, nightsBetween, todayStr } from '../format.js';
+import { addDays, distanceKm, KEY_TYPE, money, nightsBetween, nightsLabel, todayStr } from '../format.js';
+import { L } from '../prefs.js';
 
 export default function HotelPage() {
   const { id } = useParams();
@@ -56,7 +57,7 @@ export default function HotelPage() {
       <div className="container section">
         <ErrorBox error={hotel.error} onRetry={hotel.reload} />
         <p className="mt-2">
-          <Link to="/map">← რუკაზე დაბრუნება</Link>
+          <Link to="/map">← {L('რუკაზე დაბრუნება', 'Back to the map')}</Link>
         </p>
       </div>
     );
@@ -67,7 +68,7 @@ export default function HotelPage() {
     <div className="container">
       <div style={{ paddingTop: 20 }}>
         <Link to="/map" className="small inline" style={{ gap: 4 }}>
-          <Icon name="arrowLeft" size={14} /> ყველა სასტუმრო
+          <Icon name="arrowLeft" size={14} /> {L('ყველა სასტუმრო', 'All guesthouses')}
         </Link>
       </div>
       <div className="hotel-head">
@@ -89,25 +90,25 @@ export default function HotelPage() {
       <div className="two-col mt-3">
         <div className="stack" style={{ gap: 24 }}>
           <div>
-            <h2>აღწერა</h2>
+            <h2>{L('აღწერა', 'Description')}</h2>
             <p>{h.description}</p>
             {h.host && (
               <p className="muted small inline">
-                <Icon name="user" size={15} /> მასპინძელი: {h.host.name}
+                <Icon name="user" size={15} /> {L('მასპინძელი', 'Host')}: {h.host.name}
               </p>
             )}
           </div>
 
           <div className="card" id="rooms">
             <div className="card-body" style={{ paddingBottom: 8 }}>
-              <h2 className="mb-0">ოთახები</h2>
+              <h2 className="mb-0">{L('ოთახები', 'Rooms')}</h2>
               <div className="form-row mt-2">
                 <label className="field">
-                  <span>შესვლა</span>
+                  <span>{L('შესვლა', 'Check-in')}</span>
                   <input className="input" type="date" min={today} value={checkIn} onChange={(e) => setDates(e.target.value, checkOut)} />
                 </label>
                 <label className="field">
-                  <span>გასვლა</span>
+                  <span>{L('გასვლა', 'Check-out')}</span>
                   <input
                     className="input"
                     type="date"
@@ -117,11 +118,16 @@ export default function HotelPage() {
                   />
                 </label>
               </div>
-              {!datesValid && <Alert tone="warn">აირჩიე სწორი თარიღები: გასვლა შესვლის შემდეგ, შესვლა დღეიდან.</Alert>}
+              {!datesValid && <Alert tone="warn">
+                  {L(
+                    'აირჩიე სწორი თარიღები: გასვლა შესვლის შემდეგ, შესვლა დღეიდან.',
+                    'Choose valid dates: check-out after check-in, and check-in from today on.',
+                  )}
+                </Alert>}
               <ErrorBox error={booking.error} />
               {hotel.loading && (
                 <div className="inline muted small">
-                  <Spinner small /> ვამოწმებ თავისუფალ ოთახებს…
+                  <Spinner small /> {L('ვამოწმებ თავისუფალ ოთახებს…', 'Checking available rooms…')}
                 </div>
               )}
             </div>
@@ -131,33 +137,33 @@ export default function HotelPage() {
                 <div key={r.id} className="room">
                   <div>
                     <h3>
-                      ოთახი {r.number}
+                      {L('ოთახი', 'Room')} {r.number}
                       {r.title ? ` · ${r.title}` : ''}
                     </h3>
                     <div className="inline">
                       <KeyBadge type={r.key_type} />
-                      <Badge icon="users">{r.capacity} სტუმარი</Badge>
-                      {r.status === 'maintenance' && <Badge tone="red">დროებით დახურულია</Badge>}
+                      <Badge icon="users">{L(`${r.capacity} სტუმარი`, `${r.capacity} ${r.capacity === 1 ? 'guest' : 'guests'}`)}</Badge>
+                      {r.status === 'maintenance' && <Badge tone="red">{L('დროებით დახურულია', 'Temporarily closed')}</Badge>}
                     </div>
                     <p className="muted small mt-1 mb-0">{KEY_TYPE[r.key_type].label}</p>
                   </div>
                   <div className="actions">
                     <div>
                       <div className="price">
-                        {money(r.price)} <small>/ ღამე</small>
+                        {money(r.price)} <small>{L('/ ღამე', '/ night')}</small>
                       </div>
                       {free && r.total_price != null && (
                         <div className="muted small">
-                          სულ {money(r.total_price)} · {nights} ღამე
+                          {L('სულ', 'Total')} {money(r.total_price)} · {nightsLabel(nights)}
                         </div>
                       )}
                     </div>
                     {free ? (
                       <button type="button" className="btn btn-primary" disabled={booking.busy} onClick={() => book(r)}>
-                        {bookingRoom === r.id ? <Spinner small /> : <Icon name="calendar" size={16} />} დაჯავშნა
+                        {bookingRoom === r.id ? <Spinner small /> : <Icon name="calendar" size={16} />} {L('დაჯავშნა', 'Book')}
                       </button>
                     ) : (
-                      <Badge tone="red">ამ თარიღებზე დაკავებულია</Badge>
+                      <Badge tone="red">{L('ამ თარიღებზე დაკავებულია', 'Booked on these dates')}</Badge>
                     )}
                   </div>
                 </div>
@@ -169,26 +175,28 @@ export default function HotelPage() {
         <aside className="stack sticky" style={{ gap: 16 }}>
           {h.services.length > 0 && (
             <div className="card card-body">
-              <h3 className="card-title">დამატებითი სერვისები</h3>
+              <h3 className="card-title">{L('დამატებითი სერვისები', 'Extra services')}</h3>
               <ul className="service-list">
                 {h.services.map((s) => (
                   <li key={s.id}>
                     <span>{s.name}</span>
-                    <strong className="nowrap">{s.price ? money(s.price) : 'უფასო'}</strong>
+                    <strong className="nowrap">{s.price ? money(s.price) : L('უფასო', 'Free')}</strong>
                   </li>
                 ))}
               </ul>
-              <p className="muted small mb-0 mt-1">სერვისს ჯავშნის გადახდის შემდეგ აპიდან მოითხოვ.</p>
+              <p className="muted small mb-0 mt-1">
+                {L('სერვისს ჯავშნის გადახდის შემდეგ აპიდან მოითხოვ.', 'You can request services in the app once your booking is paid.')}
+              </p>
             </div>
           )}
           <div className="card card-body">
-            <h3 className="card-title">ადგილმდებარეობა და ახლომახლო</h3>
+            <h3 className="card-title">{L('ადგილმდებარეობა და ახლომახლო', 'Location and nearby')}</h3>
             <MapView hotels={[{ ...h, min_price: null }]} pois={nearby} height="260px" />
             <ul className="service-list mt-1">
               {nearby.slice(0, 5).map((p) => (
                 <li key={p.id}>
                   <span>{p.name}</span>
-                  <span className="muted nowrap">{p.km.toFixed(1)} კმ</span>
+                  <span className="muted nowrap">{p.km.toFixed(1)} {L('კმ', 'km')}</span>
                 </li>
               ))}
             </ul>

@@ -4,6 +4,7 @@ import { api } from '../api.js';
 import Icon from '../components/Icon.jsx';
 import { Alert, Badge, ErrorBox, Loading, Spinner, useAction, useApi } from '../components/ui.jsx';
 import { fmtDateTime, money } from '../format.js';
+import { L } from '../prefs.js';
 
 export default function ExtraServices() {
   const { id } = useParams();
@@ -41,25 +42,30 @@ export default function ExtraServices() {
     <div className="container">
       <div style={{ paddingTop: 20 }}>
         <Link to={`/bookings/${b.id}`} className="small inline" style={{ gap: 4 }}>
-          <Icon name="arrowLeft" size={14} /> ჯავშანი #{b.id}
+          <Icon name="arrowLeft" size={14} /> {L('ჯავშანი', 'Booking')} #{b.id}
         </Link>
       </div>
       <div className="page-head" style={{ paddingTop: 12 }}>
-        <h1>დამატებითი სერვისები</h1>
+        <h1>{L('დამატებითი სერვისები', 'Extra services')}</h1>
         <p>
-          {b.hotel_name} · ოთახი {b.room_number}. მოთხოვნა მასპინძელს დეშბორდზე მაშინვე გამოუჩნდება.
+          {b.hotel_name} · {L('ოთახი', 'Room')} {b.room_number}.{' '}
+          {L('მოთხოვნა მასპინძელს დეშბორდზე მაშინვე გამოუჩნდება.', 'Your request shows up on the host’s dashboard right away.')}
         </p>
       </div>
 
-      {!canRequest && <Alert tone="warn">სერვისის მოთხოვნა შეიძლება მხოლოდ გადახდილ, აქტიურ ჯავშანზე.</Alert>}
+      {!canRequest && (
+        <Alert tone="warn">
+          {L('სერვისის მოთხოვნა შეიძლება მხოლოდ გადახდილ, აქტიურ ჯავშანზე.', 'Services can only be requested for a paid, active booking.')}
+        </Alert>
+      )}
 
       <div className="two-col mt-2">
         <div className="stack">
           <label className="field mb-0">
-            <span>კომენტარი მასპინძლისთვის (არასავალდებულო)</span>
+            <span>{L('კომენტარი მასპინძლისთვის (არასავალდებულო)', 'Note for the host (optional)')}</span>
             <input
               className="input"
-              placeholder="მაგ. ხვალ 9:00-ზე, 2 ადამიანი"
+              placeholder={L('მაგ. ხვალ 9:00-ზე, 2 ადამიანი', 'e.g. tomorrow at 9:00, 2 people')}
               value={note}
               maxLength={300}
               onChange={(e) => setNote(e.target.value)}
@@ -72,7 +78,7 @@ export default function ExtraServices() {
               <div key={s.id} className="card card-body stack" style={{ gap: 8 }}>
                 <div className="spread">
                   <h3 className="mb-0">{s.name}</h3>
-                  <strong className="nowrap">{s.price ? money(s.price) : 'უფასო'}</strong>
+                  <strong className="nowrap">{s.price ? money(s.price) : L('უფასო', 'Free')}</strong>
                 </div>
                 {s.description && <p className="muted small mb-0">{s.description}</p>}
                 <button
@@ -82,7 +88,7 @@ export default function ExtraServices() {
                   onClick={() => request(s)}
                 >
                   {pendingId === s.id ? <Spinner small /> : <Icon name={sentId === s.id ? 'check' : 'plus'} size={15} />}
-                  {sentId === s.id ? 'მოთხოვნილია' : 'მოთხოვნა'}
+                  {sentId === s.id ? L('მოთხოვნილია', 'Requested') : L('მოთხოვნა', 'Request')}
                 </button>
               </div>
             ))}
@@ -90,9 +96,9 @@ export default function ExtraServices() {
         </div>
 
         <aside className="card card-body sticky">
-          <h3 className="card-title">ჩემი მოთხოვნები</h3>
+          <h3 className="card-title">{L('ჩემი მოთხოვნები', 'My requests')}</h3>
           {b.service_requests.length === 0 ? (
-            <p className="muted small mb-0">ჯერ არაფერი მოგითხოვია.</p>
+            <p className="muted small mb-0">{L('ჯერ არაფერი მოგითხოვია.', "You haven't requested anything yet.")}</p>
           ) : (
             <ul className="service-list">
               {b.service_requests.map((r) => (
@@ -104,13 +110,13 @@ export default function ExtraServices() {
                       {r.note ? ` · ${r.note}` : ''}
                     </div>
                   </div>
-                  <Badge tone={r.status === 'done' ? 'green' : 'gold'}>{r.status === 'done' ? 'შესრულდა' : 'მოლოდინში'}</Badge>
+                  <Badge tone={r.status === 'done' ? 'green' : 'gold'}>{r.status === 'done' ? L('შესრულდა', 'Done') : L('მოლოდინში', 'Pending')}</Badge>
                 </li>
               ))}
             </ul>
           )}
           <button type="button" className="btn btn-ghost btn-sm mt-1" onClick={booking.reload}>
-            <Icon name="refresh" size={14} /> განახლება
+            <Icon name="refresh" size={14} /> {L('განახლება', 'Refresh')}
           </button>
         </aside>
       </div>

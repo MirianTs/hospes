@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { LayersControl, MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import { HOTEL_COLOR, money, POI_BY_ID } from '../format.js';
+import { L as tr } from '../prefs.js'; // `L` is Leaflet in this file
 import { iconHtml } from './Icon.jsx';
 import { Rating } from './ui.jsx';
 
@@ -107,21 +108,21 @@ export default function MapView({
     <div className="map-box" style={{ height }}>
       <MapContainer center={GEORGIA} zoom={7} scrollWheelZoom style={{ height: '100%' }}>
         <LayersControl position="topright">
-          <LayersControl.BaseLayer checked name="სატელიტი">
+          <LayersControl.BaseLayer checked name={tr('სატელიტი', 'Satellite')}>
             <TileLayer
               url={`${ESRI}/World_Imagery/MapServer/tile/{z}/{y}/{x}`}
               attribution="Tiles &copy; Esri, Maxar, Earthstar Geographics"
               maxZoom={19}
             />
           </LayersControl.BaseLayer>
-          <LayersControl.BaseLayer name="რუკა">
+          <LayersControl.BaseLayer name={tr('რუკა', 'Map')}>
             <TileLayer
               url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
               maxZoom={19}
             />
           </LayersControl.BaseLayer>
-          <LayersControl.Overlay checked name="სახელები და საზღვრები">
+          <LayersControl.Overlay checked name={tr('სახელები და საზღვრები', 'Labels and borders')}>
             <TileLayer url={`${ESRI}/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}`} maxZoom={19} />
           </LayersControl.Overlay>
         </LayersControl>
@@ -129,7 +130,7 @@ export default function MapView({
         <ZoomClass />
         <FlyTo target={target} />
         {onPick && <ClickToPick onPick={onPick} />}
-        {picked && <Marker position={[picked.lat, picked.lng]} icon={poiIcon({ type: 'landmark', name: 'არჩეული წერტილი' }, true)} />}
+        {picked && <Marker position={[picked.lat, picked.lng]} icon={poiIcon({ type: 'landmark', name: tr('არჩეული წერტილი', 'Selected point') }, true)} />}
 
         {pois.map((p) => {
           const on = selected === `p:${p.id}`;
@@ -148,7 +149,7 @@ export default function MapView({
                 <p className="muted small">{t.one}</p>
                 {p.description && <p>{p.description}</p>}
                 <a href={p.google_maps_url} target="_blank" rel="noreferrer">
-                  Google Maps-ში გახსნა ↗
+                  {tr('Google Maps-ში გახსნა', 'Open in Google Maps')} ↗
                 </a>
               </Popup>
             </Marker>
@@ -172,8 +173,8 @@ export default function MapView({
                   <Rating value={h.google_rating} />
                   <span className="muted small">{h.address}</span>
                 </p>
-                {h.min_price != null && <p>{money(h.min_price)}-დან / ღამე</p>}
-                <Link to={`/hotels/${h.id}${hotelLinkSearch}`}>ნახვა და დაჯავშნა →</Link>
+                {h.min_price != null && <p>{tr(`${money(h.min_price)}-დან / ღამე`, `From ${money(h.min_price)} / night`)}</p>}
+                <Link to={`/hotels/${h.id}${hotelLinkSearch}`}>{tr('ნახვა და დაჯავშნა', 'View and book')} →</Link>
               </Popup>
             </Marker>
           );

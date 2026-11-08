@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from 'react';
+import { L } from './prefs.js';
 
 // Hospes Lock straight from the browser (Web Serial, Chrome / Edge on a computer):
 // the Arduino with the servos is plugged in by USB, the page sends "OPEN<n>".
@@ -47,7 +48,11 @@ async function attach(p) {
   try {
     await p.open({ baudRate: 9600 });
   } catch (e) {
-    set({ status: 'off', error: 'პორტი დაკავებულია: დახურე Arduino IDE-ის Serial Monitor ან სხვა ფანჯარა.' });
+    set({ status: 'off', error: L(
+        'პორტი დაკავებულია: დახურე Arduino IDE-ის Serial Monitor ან სხვა ფანჯარა.',
+        'The port is busy: close the Arduino IDE Serial Monitor or any other window using it.'
+      ),
+    });
     throw e;
   }
   port = p;

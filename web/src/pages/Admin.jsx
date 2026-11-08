@@ -6,10 +6,11 @@ import { openCompartment } from '../lockSerial.js';
 import MapView from '../components/MapView.jsx';
 import { Alert, Badge, ErrorBox, Loading, Spinner, useAction, useApi, VerificationBadge } from '../components/ui.jsx';
 import { fmtTime, POI_TYPES, ROLE } from '../format.js';
+import { L } from '../prefs.js';
 
-const TABS = [
-  { id: 'objects', label: 'ობიექტები', icon: 'home' },
-  { id: 'users', label: 'მომხმარებლები', icon: 'users' },
+const TABS = () => [
+  { id: 'objects', label: L('ობიექტები', 'Properties'), icon: 'home' },
+  { id: 'users', label: L('მომხმარებლები', 'Users'), icon: 'users' },
   { id: 'hardware', label: 'Arduino', icon: 'chip' },
 ];
 
@@ -19,7 +20,7 @@ function PickOnMap({ value, onChange }) {
   const picked = Number.isFinite(lat) && Number.isFinite(lng) ? { lat, lng } : null;
   return (
     <div className="field">
-      <span>ადგილი რუკაზე (დააჭირე რუკას)</span>
+      <span>{L('ადგილი რუკაზე (დააჭირე რუკას)', 'Location on the map (click the map)')}</span>
       <MapView onPick={onChange} picked={picked} height="220px" fit={false} />
       <div className="form-row mt-1">
         <input
@@ -27,14 +28,14 @@ function PickOnMap({ value, onChange }) {
           placeholder="lat"
           value={value?.lat ?? ''}
           onChange={(e) => onChange({ lat: e.target.value, lng: value?.lng ?? '' })}
-          aria-label="განედი"
+          aria-label={L('განედი', 'Latitude')}
         />
         <input
           className="input input-sm"
           placeholder="lng"
           value={value?.lng ?? ''}
           onChange={(e) => onChange({ lat: value?.lat ?? '', lng: e.target.value })}
-          aria-label="გრძედი"
+          aria-label={L('გრძედი', 'Longitude')}
         />
       </div>
     </div>
@@ -62,20 +63,20 @@ function NewHotel({ owners, onCreated }) {
   };
   return (
     <form className="card card-body" onSubmit={submit}>
-      <h3 className="card-title">ახალი სასტუმრო</h3>
+      <h3 className="card-title">{L('ახალი სასტუმრო', 'New property')}</h3>
       <label className="field">
-        <span>სახელი</span>
+        <span>{L('სახელი', 'Name')}</span>
         <input className="input" required value={form.name} onChange={set('name')} />
       </label>
       <label className="field">
-        <span>მისამართი</span>
+        <span>{L('მისამართი', 'Address')}</span>
         <input className="input" required value={form.address} onChange={set('address')} />
       </label>
       <div className="form-row">
         <label className="field">
-          <span>მფლობელი</span>
+          <span>{L('მფლობელი', 'Owner')}</span>
           <select className="input" value={form.owner_id} onChange={set('owner_id')}>
-            <option value="">— არ არის —</option>
+            <option value="">{L('— არ არის —', '— None —')}</option>
             {owners.map((o) => (
               <option key={o.id} value={o.id}>
                 {o.name}
@@ -84,23 +85,32 @@ function NewHotel({ owners, onCreated }) {
           </select>
         </label>
         <label className="field">
-          <span>Google რეიტინგი</span>
+          <span>{L('Google რეიტინგი', 'Google rating')}</span>
           <input className="input" type="number" min="0" max="5" step="0.1" value={form.google_rating} onChange={set('google_rating')} />
         </label>
       </div>
       <PickOnMap value={point} onChange={setPoint} />
       <label className="field">
-        <span>აღწერა</span>
+        <span>{L('აღწერა', 'Description')}</span>
         <textarea className="input" value={form.description} onChange={set('description')} />
       </label>
       <label className="field">
-        <span>ჩექინის ინსტრუქცია (ჩანს მხოლოდ ჩექინის შემდეგ)</span>
-        <input className="input" placeholder="მაგ. გასაღების ყუთი ჭიშკართან" value={form.checkin_info} onChange={set('checkin_info')} />
+        <span>{L('ჩექინის ინსტრუქცია (ჩანს მხოლოდ ჩექინის შემდეგ)', 'Check-in instructions (shown only after check-in)')}</span>
+        <input
+          className="input"
+          placeholder={L('მაგ. გასაღების ყუთი ჭიშკართან', 'e.g. key box by the gate')}
+          value={form.checkin_info}
+          onChange={set('checkin_info')}
+        />
       </label>
       <ErrorBox error={action.error} />
-      {done && <Alert tone="success">დაემატა: {done.name}. ახლა ოთახები დაამატე.</Alert>}
+      {done && (
+        <Alert tone="success">
+          {L('დაემატა:', 'Added:')} {done.name}. {L('ახლა ოთახები დაამატე.', 'Now add its rooms.')}
+        </Alert>
+      )}
       <button type="submit" className="btn btn-primary mt-1" disabled={action.busy}>
-        {action.busy ? <Spinner small /> : <Icon name="plus" size={16} />} სასტუმროს დამატება
+        {action.busy ? <Spinner small /> : <Icon name="plus" size={16} />} {L('სასტუმროს დამატება', 'Add property')}
       </button>
     </form>
   );
@@ -130,11 +140,11 @@ function NewRoom({ hotels, onCreated }) {
   };
   return (
     <form className="card card-body" onSubmit={submit}>
-      <h3 className="card-title">ახალი ოთახი</h3>
+      <h3 className="card-title">{L('ახალი ოთახი', 'New room')}</h3>
       <label className="field">
-        <span>სასტუმრო</span>
+        <span>{L('სასტუმრო', 'Property')}</span>
         <select className="input" required value={form.hotel_id} onChange={set('hotel_id')}>
-          <option value="">აირჩიე…</option>
+          <option value="">{L('აირჩიე…', 'Choose…')}</option>
           {hotels.map((h) => (
             <option key={h.id} value={h.id}>
               {h.name}
@@ -144,37 +154,37 @@ function NewRoom({ hotels, onCreated }) {
       </label>
       <div className="form-row">
         <label className="field">
-          <span>ნომერი</span>
+          <span>{L('ნომერი', 'Number')}</span>
           <input className="input" required value={form.number} onChange={set('number')} />
         </label>
         <label className="field">
-          <span>ფასი ღამეში, ₾</span>
+          <span>{L('ფასი ღამეში, ₾', 'Price per night, ₾')}</span>
           <input className="input" type="number" min="0" required value={form.price} onChange={set('price')} />
         </label>
         <label className="field">
-          <span>ადგილები</span>
+          <span>{L('ადგილები', 'Guests')}</span>
           <input className="input" type="number" min="1" max="12" value={form.capacity} onChange={set('capacity')} />
         </label>
       </div>
       <label className="field">
-        <span>სათაური</span>
-        <input className="input" placeholder="მაგ. ორადგილიანი, აივნით" value={form.title} onChange={set('title')} />
+        <span>{L('სათაური', 'Title')}</span>
+        <input className="input" placeholder={L('მაგ. ორადგილიანი, აივნით', 'e.g. double room with balcony')} value={form.title} onChange={set('title')} />
       </label>
       <label className="field">
-        <span>გასაღები: Hospes Lock-ის განყოფილება</span>
+        <span>{L('გასაღები: Hospes Lock-ის განყოფილება', 'Key: Hospes Lock compartment')}</span>
         <select className="input" value={form.lock_id} onChange={set('lock_id')}>
-          <option value="">კოდიანი ლოქერ-ბოქსი (Arduino-ს გარეშე)</option>
+          <option value="">{L('კოდიანი ლოქერ-ბოქსი (Arduino-ს გარეშე)', 'Code locker box (no Arduino)')}</option>
           {[1, 2, 3].map((n) => (
             <option key={n} value={n}>
-              განყოფილება #{n} (servo)
+              {L('განყოფილება', 'Compartment')} #{n} (servo)
             </option>
           ))}
         </select>
       </label>
       <ErrorBox error={action.error} />
-      {done && <Alert tone="success">ოთახი {done.number} დაემატა.</Alert>}
+      {done && <Alert tone="success">{L(`ოთახი ${done.number} დაემატა.`, `Room ${done.number} added.`)}</Alert>}
       <button type="submit" className="btn btn-primary mt-1" disabled={action.busy}>
-        {action.busy ? <Spinner small /> : <Icon name="plus" size={16} />} ოთახის დამატება
+        {action.busy ? <Spinner small /> : <Icon name="plus" size={16} />} {L('ოთახის დამატება', 'Add room')}
       </button>
     </form>
   );
@@ -198,10 +208,10 @@ function NewPoi() {
   };
   return (
     <form className="card card-body" onSubmit={submit}>
-      <h3 className="card-title">ახალი ადგილი რუკაზე</h3>
+      <h3 className="card-title">{L('ახალი ადგილი რუკაზე', 'New place on the map')}</h3>
       <div className="form-row">
         <label className="field">
-          <span>კატეგორია</span>
+          <span>{L('კატეგორია', 'Category')}</span>
           <select className="input" value={form.type} onChange={set('type')}>
             {POI_TYPES.map((t) => (
               <option key={t.id} value={t.id}>
@@ -211,23 +221,23 @@ function NewPoi() {
           </select>
         </label>
         <label className="field">
-          <span>სახელი</span>
+          <span>{L('სახელი', 'Name')}</span>
           <input className="input" required value={form.name} onChange={set('name')} />
         </label>
       </div>
       <label className="field">
-        <span>აღწერა</span>
+        <span>{L('აღწერა', 'Description')}</span>
         <input className="input" value={form.description} onChange={set('description')} />
       </label>
       <PickOnMap value={point} onChange={setPoint} />
       <label className="field">
-        <span>Google Maps ბმული (არასავალდებულო)</span>
+        <span>{L('Google Maps ბმული (არასავალდებულო)', 'Google Maps link (optional)')}</span>
         <input className="input" type="url" value={form.google_maps_url} onChange={set('google_maps_url')} />
       </label>
       <ErrorBox error={action.error} />
-      {done && <Alert tone="success">დაემატა: {done.name}</Alert>}
+      {done && <Alert tone="success">{L('დაემატა:', 'Added:')} {done.name}</Alert>}
       <button type="submit" className="btn btn-primary mt-1" disabled={action.busy}>
-        {action.busy ? <Spinner small /> : <Icon name="plus" size={16} />} ადგილის დამატება
+        {action.busy ? <Spinner small /> : <Icon name="plus" size={16} />} {L('ადგილის დამატება', 'Add place')}
       </button>
     </form>
   );
@@ -248,10 +258,10 @@ function UsersTab() {
         <table className="table">
           <thead>
             <tr>
-              <th>მომხმარებელი</th>
-              <th>როლი</th>
-              <th>ვერიფიკაცია</th>
-              <th className="num">სახეების მანძილი</th>
+              <th>{L('მომხმარებელი', 'User')}</th>
+              <th>{L('როლი', 'Role')}</th>
+              <th>{L('ვერიფიკაცია', 'Verification')}</th>
+              <th className="num">{L('სახეების მანძილი', 'Face distance')}</th>
             </tr>
           </thead>
           <tbody>
@@ -262,7 +272,7 @@ function UsersTab() {
                   <div className="muted small">{u.email}</div>
                 </td>
                 <td>
-                  <select className="input input-sm" value={u.role} onChange={(e) => update(u, { role: e.target.value })} aria-label="როლი">
+                  <select className="input input-sm" value={u.role} onChange={(e) => update(u, { role: e.target.value })} aria-label={L('როლი', 'Role')}>
                     {Object.entries(ROLE).map(([id, label]) => (
                       <option key={id} value={id}>
                         {label}
@@ -278,11 +288,11 @@ function UsersTab() {
                       style={{ width: 'auto' }}
                       value={u.verification_status}
                       onChange={(e) => update(u, { verification_status: e.target.value })}
-                      aria-label="ვერიფიკაციის სტატუსი"
+                      aria-label={L('ვერიფიკაციის სტატუსი', 'Verification status')}
                     >
-                      <option value="unverified">გასავლელი</option>
-                      <option value="verified">დადასტურებული</option>
-                      <option value="rejected">უარყოფილი</option>
+                      <option value="unverified">{L('გასავლელი', 'Not verified')}</option>
+                      <option value="verified">{L('დადასტურებული', 'Verified')}</option>
+                      <option value="rejected">{L('უარყოფილი', 'Rejected')}</option>
                     </select>
                   </div>
                 </td>
@@ -313,58 +323,78 @@ function HardwareTab() {
     <div className="grid grid-2">
       <div className="card card-body">
         <div className="spread">
-          <h3 className="mb-0">კავშირი</h3>
+          <h3 className="mb-0">{L('კავშირი', 'Connection')}</h3>
           <button type="button" className="btn btn-ghost btn-sm" onClick={hw.reload}>
-            <Icon name="refresh" size={14} /> განახლება
+            <Icon name="refresh" size={14} /> {L('განახლება', 'Refresh')}
           </button>
         </div>
         <ErrorBox error={hw.error} />
         {s && (
           <dl className="kv mt-2">
-            <dt>რეჟიმი</dt>
-            <dd>{s.mode === 'mock' ? <Badge tone="gold">დემო (ARDUINO_PORT არ არის)</Badge> : <Badge tone="blue">Serial</Badge>}</dd>
-            <dt>პორტი</dt>
+            <dt>{L('რეჟიმი', 'Mode')}</dt>
+            <dd>{s.mode === 'mock' ? <Badge tone="gold">{L('დემო (ARDUINO_PORT არ არის)', 'Demo (no ARDUINO_PORT)')}</Badge> : <Badge tone="blue">Serial</Badge>}</dd>
+            <dt>{L('პორტი', 'Port')}</dt>
             <dd>{s.path || '—'}</dd>
-            <dt>სტატუსი</dt>
+            <dt>{L('სტატუსი', 'Status')}</dt>
             <dd>
-              {s.mode === 'mock' ? '—' : s.open ? <Badge tone="green">დაკავშირებულია{s.ready ? '' : ' (ირთვება…)'}</Badge> : <Badge tone="red">არ არის დაკავშირებული</Badge>}
+              {s.mode === 'mock' ? (
+                '—'
+              ) : s.open ? (
+                <Badge tone="green">
+                  {L('დაკავშირებულია', 'Connected')}
+                  {s.ready ? '' : L(' (ირთვება…)', ' (starting…)')}
+                </Badge>
+              ) : (
+                <Badge tone="red">{L('არ არის დაკავშირებული', 'Not connected')}</Badge>
+              )}
             </dd>
             {s.lastError && (
               <>
-                <dt>შეცდომა</dt>
+                <dt>{L('შეცდომა', 'Error')}</dt>
                 <dd className="small">{s.lastError}</dd>
               </>
             )}
-            <dt>COM პორტები</dt>
-            <dd className="small">{s.ports.length ? s.ports.map((p) => `${p.path} ${p.manufacturer || ''}`).join(', ') : 'ვერ მოიძებნა'}</dd>
+            <dt>{L('COM პორტები', 'COM ports')}</dt>
+            <dd className="small">{s.ports.length ? s.ports.map((p) => `${p.path} ${p.manufacturer || ''}`).join(', ') : L('ვერ მოიძებნა', 'None found')}</dd>
           </dl>
         )}
         <hr className="divider" />
-        <div className="label">საკეტის ტესტი</div>
+        <div className="label">{L('საკეტის ტესტი', 'Lock test')}</div>
         <LockConnect />
         <div className="inline mt-1">
           {[1, 2, 3, 4].map((n) => (
             <button key={n} type="button" className="btn btn-outline" disabled={action.busy} onClick={() => open(n)}>
-              <Icon name="unlock" size={15} /> OPEN{n}{n === 4 ? " (დაბრუნება)" : ""}
+              <Icon name="unlock" size={15} /> OPEN{n}{n === 4 ? L(' (დაბრუნება)', ' (return)') : ''}
             </button>
           ))}
         </div>
         <ErrorBox error={action.error} />
         {last && (
           <p className="small muted mt-1 mb-0">
-            ბოლო: OPEN{last.lock_id} → {last.sent ? 'გაიგზავნა USB-ით (ბრაუზერიდან)' : last.hardware === 'mock' ? 'ჩაიწერა ლოგში (დემო)' : 'გაიგზავნა დაფაზე'}
+            {L('ბოლო:', 'Last:')} OPEN{last.lock_id} →{' '}
+            {last.sent
+              ? L('გაიგზავნა USB-ით (ბრაუზერიდან)', 'sent over USB (from the browser)')
+              : last.hardware === 'mock'
+                ? L('ჩაიწერა ლოგში (დემო)', 'written to the log (demo)')
+                : L('გაიგზავნა დაფაზე', 'sent to the board')}
           </p>
         )}
       </div>
       <div className="card card-body">
-        <h3 className="card-title">Serial ლოგი</h3>
+        <h3 className="card-title">{L('Serial ლოგი', 'Serial log')}</h3>
         <pre className="small" style={{ margin: 0, whiteSpace: 'pre-wrap', fontFamily: 'ui-monospace, Consolas, monospace' }}>
-          {s?.log.length ? s.log.map((l) => `${fmtTime(l.at)}  ${l.line}`).join('\n') : 'ჯერ ცარიელია'}
+          {s?.log.length ? s.log.map((l) => `${fmtTime(l.at)}  ${l.line}`).join('\n') : L('ჯერ ცარიელია', 'Empty so far')}
         </pre>
         <p className="muted small mt-2 mb-0">
           {STATIC_DEMO
-            ? 'ონლაინ დემოში დაფა ბრაუზერს USB-ით უერთდება: დააჭირე „Hospes Lock-ის მიერთებას“ (Chrome ან Edge). ღილაკები და ჩექინი/ჩექაუთი OPEN<N>-ს პირდაპირ აგზავნის.'
-            : 'დაფის მისაერთებლად backend/.env-ში ჩაწერე ARDUINO_PORT=COM3 (ან auto) და გადატვირთე backend. ან ბრაუზერიდან: „Hospes Lock-ის მიერთება“.'}
+            ? L(
+                'ონლაინ დემოში დაფა ბრაუზერს USB-ით უერთდება: დააჭირე „Hospes Lock-ის მიერთებას“ (Chrome ან Edge). ღილაკები და ჩექინი/ჩექაუთი OPEN<N>-ს პირდაპირ აგზავნის.',
+                'In the online demo the board connects to the browser over USB: click "Connect Hospes Lock" (Chrome or Edge). The buttons and check-in/check-out send OPEN<N> directly.',
+              )
+            : L(
+                'დაფის მისაერთებლად backend/.env-ში ჩაწერე ARDUINO_PORT=COM3 (ან auto) და გადატვირთე backend. ან ბრაუზერიდან: „Hospes Lock-ის მიერთება“.',
+                'To connect the board, set ARDUINO_PORT=COM3 (or auto) in backend/.env and restart the backend. Or from the browser: "Connect Hospes Lock".',
+              )}
         </p>
       </div>
     </div>
@@ -380,11 +410,16 @@ export default function Admin() {
   return (
     <div className="container">
       <div className="page-head">
-        <h1>ადმინისტრირება</h1>
-        <p>ობიექტებს, ოთახებსა და რუკის ადგილებს მხოლოდ ადმინი ამატებს. აქვეა მომხმარებლები და Arduino-ს შემოწმება.</p>
+        <h1>{L('ადმინისტრირება', 'Administration')}</h1>
+        <p>
+          {L(
+            'ობიექტებს, ოთახებსა და რუკის ადგილებს მხოლოდ ადმინი ამატებს. აქვეა მომხმარებლები და Arduino-ს შემოწმება.',
+            'Only an admin adds properties, rooms and map places. Users and the Arduino check are here too.',
+          )}
+        </p>
       </div>
       <div className="tabs" role="tablist">
-        {TABS.map((t) => (
+        {TABS().map((t) => (
           <button key={t.id} type="button" role="tab" aria-selected={tab === t.id} className={`tab${tab === t.id ? ' on' : ''}`} onClick={() => setTab(t.id)}>
             <Icon name={t.icon} size={16} /> {t.label}
           </button>

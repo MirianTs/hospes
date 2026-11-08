@@ -1,3 +1,5 @@
+import { L } from './prefs.js';
+
 const TOKEN_KEY = 'hospes_token';
 
 // GitHub Pages build (VITE_STATIC_DEMO=1): no server, so requests go to an in-browser
@@ -56,7 +58,7 @@ export async function api(path, { method = 'GET', body, form } = {}) {
     setToken(null);
     window.dispatchEvent(new Event('hospes:logout'));
   }
-  if (status >= 400) throw new ApiError(status, data?.error || `შეცდომა (${status})`, data);
+  if (status >= 400) throw new ApiError(status, data?.error || L(`შეცდომა (${status})`, `Error (${status})`), data);
   return data;
 }
 
@@ -73,7 +75,7 @@ async function request(path, { method, body, form, token }) {
   try {
     res = await fetch(`/api${path}`, { method, headers, body: payload });
   } catch {
-    throw new ApiError(0, 'სერვერთან კავშირი ვერ დამყარდა. ჩართულია backend?');
+    throw new ApiError(0, L('სერვერთან კავშირი ვერ დამყარდა. ჩართულია backend?', 'Could not connect to the server. Is the backend running?'));
   }
   return { status: res.status, data: await res.json().catch(() => null) };
 }

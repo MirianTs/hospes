@@ -4,6 +4,7 @@ import BookingCard from '../components/BookingCard.jsx';
 import Icon from '../components/Icon.jsx';
 import { Alert, Badge, ErrorBox, Loading, useApi, VerificationBadge } from '../components/ui.jsx';
 import { initial, ROLE } from '../format.js';
+import { L } from '../prefs.js';
 
 export default function Cabinet() {
   const { user } = useAuth();
@@ -15,8 +16,8 @@ export default function Cabinet() {
   return (
     <div className="container">
       <div className="page-head">
-        <h1>პირადი კაბინეტი</h1>
-        <p>შენი ჯავშნები, წვდომის კოდები და ვერიფიკაციის სტატუსი.</p>
+        <h1>{L('პირადი კაბინეტი', 'My account')}</h1>
+        <p>{L('შენი ჯავშნები, წვდომის კოდები და ვერიფიკაციის სტატუსი.', 'Your bookings, access codes and verification status.')}</p>
       </div>
 
       <div className="two-col">
@@ -25,13 +26,13 @@ export default function Cabinet() {
           {bookings.loading && <Loading />}
           {bookings.data && (
             <>
-              <h2 className="mb-0">მიმდინარე და მომავალი</h2>
+              <h2 className="mb-0">{L('მიმდინარე და მომავალი', 'Current and upcoming')}</h2>
               {current.length === 0 && (
                 <div className="card empty">
                   <Icon name="calendar" size={30} />
-                  <p>აქტიური ჯავშანი არ გაქვს.</p>
+                  <p>{L('აქტიური ჯავშანი არ გაქვს.', "You don't have any active bookings.")}</p>
                   <Link to="/map" className="btn btn-primary">
-                    სასტუმროს მოძებნა
+                    {L('სასტუმროს მოძებნა', 'Find a hotel')}
                   </Link>
                 </div>
               )}
@@ -40,7 +41,7 @@ export default function Cabinet() {
               ))}
               {past.length > 0 && (
                 <>
-                  <h2 className="mb-0 mt-2">ისტორია</h2>
+                  <h2 className="mb-0 mt-2">{L('ისტორია', 'History')}</h2>
                   {past.map((b) => (
                     <BookingCard key={b.id} b={b} />
                   ))}
@@ -69,17 +70,20 @@ export default function Cabinet() {
             {user.verification_status !== 'verified' && (
               <div className="mt-2">
                 <Alert tone="warn">
-                  ჩექინისა და ლოქერ-ბოქსის გასახსნელად ვინაობა უნდა დაადასტურო.
+                  {L(
+                    'ჩექინისა და ლოქერ-ბოქსის გასახსნელად ვინაობა უნდა დაადასტურო.',
+                    'You need to verify your identity to check in and open the locker box.'
+                  )}
                 </Alert>
                 <Link to="/verify" className="btn btn-primary btn-block mt-2">
-                  <Icon name="camera" size={16} /> ვერიფიკაციის გავლა
+                  <Icon name="camera" size={16} /> {L('ვერიფიკაციის გავლა', 'Get verified')}
                 </Link>
               </div>
             )}
           </div>
           {(user.role === 'owner' || user.role === 'admin') && (
             <Link to="/owner" className="btn btn-outline">
-              <Icon name="grid" size={16} /> მფლობელის დეშბორდი
+              <Icon name="grid" size={16} /> {L('მფლობელის დეშბორდი', 'Owner dashboard')}
             </Link>
           )}
         </aside>

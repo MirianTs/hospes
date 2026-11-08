@@ -7,6 +7,7 @@ import LockConnect from '../components/LockConnect.jsx';
 import { openCompartment } from '../lockSerial.js';
 import { Alert, Badge, ErrorBox, KeyBadge, Loading, Spinner, StatusBadge, useAction, useApi } from '../components/ui.jsx';
 import { fmtDate, fmtDateTime, money } from '../format.js';
+import { L } from '../prefs.js';
 
 // Demo payment: the card fields stay in the browser; the server only records "paid".
 function MockPayment({ booking, onPaid }) {
@@ -23,8 +24,8 @@ function MockPayment({ booking, onPaid }) {
   };
   return (
     <form className="card card-body" onSubmit={pay}>
-      <h3 className="card-title">გადახდა</h3>
-      <Alert tone="info">დემო გადახდაა: ბარათის მონაცემები არსად იგზავნება და თანხა არ ჩამოიჭრება.</Alert>
+      <h3 className="card-title">{L('გადახდა', 'Payment')}</h3>
+      <Alert tone="info">{L('დემო გადახდაა: ბარათის მონაცემები არსად იგზავნება და თანხა არ ჩამოიჭრება.', 'This is a demo payment: card details are not sent anywhere and nothing is charged.')}</Alert>
       <div className="pay-card mt-2">
         <div className="spread">
           <span>Hospes Pay</span>
@@ -32,21 +33,21 @@ function MockPayment({ booking, onPaid }) {
         </div>
         <div className="num">{card.number || '•••• •••• •••• ••••'}</div>
         <div className="spread small">
-          <span>{card.name || 'სახელი გვარი'}</span>
+          <span>{card.name || L('სახელი გვარი', 'Full name')}</span>
           <span>{card.exp}</span>
         </div>
       </div>
       <label className="field">
-        <span>ბარათის ნომერი</span>
+        <span>{L('ბარათის ნომერი', 'Card number')}</span>
         <input className="input" inputMode="numeric" autoComplete="off" value={card.number} onChange={set('number')} />
       </label>
       <label className="field">
-        <span>ბარათის მფლობელი</span>
+        <span>{L('ბარათის მფლობელი', 'Cardholder name')}</span>
         <input className="input" autoComplete="off" value={card.name} onChange={set('name')} />
       </label>
       <div className="form-row">
         <label className="field">
-          <span>ვადა</span>
+          <span>{L('ვადა', 'Expiry')}</span>
           <input className="input" autoComplete="off" value={card.exp} onChange={set('exp')} />
         </label>
         <label className="field">
@@ -56,7 +57,7 @@ function MockPayment({ booking, onPaid }) {
       </div>
       <ErrorBox error={action.error} />
       <button type="submit" className="btn btn-primary btn-lg btn-block mt-1" disabled={action.busy}>
-        {action.busy ? <Spinner small /> : <Icon name="lock" size={16} />} გადახდა · {money(booking.total_price)}
+        {action.busy ? <Spinner small /> : <Icon name="lock" size={16} />} {L('გადახდა', 'Pay')} · {money(booking.total_price)}
       </button>
     </form>
   );
@@ -82,11 +83,11 @@ export default function BookingPage() {
   const active = ['confirmed', 'checked_in'].includes(b.status);
 
   const doCancel = async () => {
-    if (!window.confirm('ნამდვილად გსურს ჯავშნის გაუქმება?')) return;
+    if (!window.confirm(L('ნამდვილად გსურს ჯავშნის გაუქმება?', 'Are you sure you want to cancel this booking?'))) return;
     if (await cancel.run(() => api(`/bookings/${b.id}/cancel`, { method: 'POST' }))) booking.reload();
   };
   const doCheckout = async () => {
-    if (!window.confirm('ჩექაუთი: დაბრუნების განყოფილება გაიღება და გასაღები შიგნით უნდა ჩადო. გავაგრძელო?')) return;
+    if (!window.confirm(L('ჩექაუთი: დაბრუნების განყოფილება გაიღება და გასაღები შიგნით უნდა ჩადო. გავაგრძელო?', 'Check-out: the return compartment will open and you need to put the key inside. Continue?'))) return;
     const res = await checkout.run(() => api(`/bookings/${b.id}/checkout`, { method: 'POST' }));
     if (!res) return;
     // The Arduino is on this computer's USB: open the key return compartment from the browser.
@@ -99,22 +100,22 @@ export default function BookingPage() {
     <div className="container">
       <div style={{ paddingTop: 20 }}>
         <Link to="/cabinet" className="small inline" style={{ gap: 4 }}>
-          <Icon name="arrowLeft" size={14} /> ჩემი ჯავშნები
+          <Icon name="arrowLeft" size={14} /> {L('ჩემი ჯავშნები', 'My bookings')}
         </Link>
       </div>
       <div className="page-head" style={{ paddingTop: 12 }}>
         <div className="inline">
-          <h1 className="mb-0">ჯავშანი #{b.id}</h1>
+          <h1 className="mb-0">{L('ჯავშანი', 'Booking')} #{b.id}</h1>
           <StatusBadge status={b.status} />
         </div>
         <p className="mt-1">
-          {b.hotel_name} · ოთახი {b.room_number}
+          {b.hotel_name} · {L('ოთახი', 'Room')} {b.room_number}
         </p>
       </div>
 
       <div className="two-col">
         <div className="stack" style={{ gap: 16 }}>
-          {justPaid && <Alert tone="success">გადახდა შესრულდა. შენი წვდომის კოდი მზადაა.</Alert>}
+          {justPaid && <Alert tone="success">{L('გადახდა შესრულდა. შენი წვდომის კოდი მზადაა.', 'Payment complete. Your access code is ready.')}</Alert>}
 
           {b.status === 'pending' && (
             <MockPayment
@@ -128,31 +129,36 @@ export default function BookingPage() {
 
           {active && (
             <div className="card card-body">
-              <h3 className="card-title">წვდომის კოდი</h3>
+              <h3 className="card-title">{L('წვდომის კოდი', 'Access code')}</h3>
               <div className="code-box">
                 <div className="code">{b.access_code}</div>
                 <div className="muted small mt-1">
-                  მოქმედებს {fmtDate(b.check_in)}-დან {fmtDate(b.check_out, true)}-მდე
+                  {L(
+                    `მოქმედებს ${fmtDate(b.check_in)}-დან ${fmtDate(b.check_out, true)}-მდე`,
+                    `Valid from ${fmtDate(b.check_in)} to ${fmtDate(b.check_out, true)}`
+                  )}
                 </div>
               </div>
               <p className="small muted mt-2 mb-0">
-                ჩამოსვლისას ჩექინის ეკრანზე შეიყვანე ეს კოდი: გასაღების ლოქერ-ბოქსი გაიღება და აიღებ ოთახის გასაღებს.
-                საჭიროა ვერიფიცირებული ანგარიში.
+                {L(
+                  'ჩამოსვლისას ჩექინის ეკრანზე შეიყვანე ეს კოდი: გასაღების ლოქერ-ბოქსი გაიღება და აიღებ ოთახის გასაღებს. საჭიროა ვერიფიცირებული ანგარიში.',
+                  'When you arrive, enter this code on the check-in screen: the key locker box opens and you take your room key. A verified account is required.'
+                )}
               </p>
               <div className="inline mt-2">
                 {!b.can_check_in ? (
                   <Badge tone="gold" icon="clock">
-                    ჩექინი გაიხსნება {fmtDate(b.check_in)}-ს
+                    {L(`ჩექინი გაიხსნება ${fmtDate(b.check_in)}-ს`, `Check-in opens on ${fmtDate(b.check_in)}`)}
                   </Badge>
                 ) : (
                   b.status !== 'checked_in' && (
                     <Link to={`/checkin/${b.id}`} className="btn btn-primary">
-                      <Icon name="key" size={16} /> ჩექინი
+                      <Icon name="key" size={16} /> {L('ჩექინი', 'Check-in')}
                     </Link>
                   )
                 )}
                 <Link to={`/bookings/${b.id}/services`} className="btn btn-outline">
-                  <Icon name="bell" size={16} /> დამატებითი სერვისები
+                  <Icon name="bell" size={16} /> {L('დამატებითი სერვისები', 'Extra services')}
                 </Link>
               </div>
             </div>
@@ -160,15 +166,22 @@ export default function BookingPage() {
 
           {b.status === 'checked_in' && (
             <div className="card card-body">
-              <h3 className="card-title">შესახლებული ხარ</h3>
+              <h3 className="card-title">{L('შესახლებული ხარ', "You're checked in")}</h3>
               {b.checkin_info && <Alert tone="info">{b.checkin_info}</Alert>}
               <p className="small muted mb-0">
-                წასვლისას დააჭირე „ჩექაუთს“: ლოქერის <b>განყოფილება #4</b> გაიღება და ოთახის გასაღებს შიგნით ჩადებ. 5 წამში თავისით ჩაიკეტება.
+                {L(
+                  <>
+                    წასვლისას დააჭირე „ჩექაუთს“: ლოქერის <b>განყოფილება #4</b> გაიღება და ოთახის გასაღებს შიგნით ჩადებ. 5 წამში თავისით ჩაიკეტება.
+                  </>,
+                  <>
+                    When you leave, press “Check-out”: locker <b>compartment #4</b> opens and you put the room key inside. It locks by itself after 5 seconds.
+                  </>
+                )}
               </p>
               <LockConnect />
               <ErrorBox error={checkout.error} />
               <button type="button" className="btn btn-primary mt-2" disabled={checkout.busy} onClick={doCheckout}>
-                <Icon name="logout" size={16} /> ჩექაუთი
+                <Icon name="logout" size={16} /> {L('ჩექაუთი', 'Check-out')}
               </button>
             </div>
           )}
@@ -176,12 +189,18 @@ export default function BookingPage() {
           {returned && (
             <Alert tone="success" icon="key">
               {returned.sent
-                ? `Hospes Lock: განყოფილება #${returned.lock} გაიღო. ჩადე ოთახის გასაღები, 5 წამში ჩაიკეტება.`
-                : `განყოფილება #${returned.lock} გაიღო: ჩადე ოთახის გასაღები.${returned.mock ? ' (დემო: Arduino ამ კომპიუტერზე მიერთებული არ არის.)' : ''}`}
+                ? L(
+                    `Hospes Lock: განყოფილება #${returned.lock} გაიღო. ჩადე ოთახის გასაღები, 5 წამში ჩაიკეტება.`,
+                    `Hospes Lock: compartment #${returned.lock} is open. Put the room key inside; it locks in 5 seconds.`
+                  )
+                : L(
+                    `განყოფილება #${returned.lock} გაიღო: ჩადე ოთახის გასაღები.${returned.mock ? ' (დემო: Arduino ამ კომპიუტერზე მიერთებული არ არის.)' : ''}`,
+                    `Compartment #${returned.lock} is open: put the room key inside.${returned.mock ? ' (Demo: no Arduino is connected to this computer.)' : ''}`
+                  )}
             </Alert>
           )}
-          {b.status === 'checked_out' && <Alert tone="success">ვიზიტი დასრულდა. გმადლობთ, რომ Hospes აირჩიე!</Alert>}
-          {b.status === 'cancelled' && <Alert tone="warn">ეს ჯავშანი გაუქმებულია.</Alert>}
+          {b.status === 'checked_out' && <Alert tone="success">{L('ვიზიტი დასრულდა. გმადლობთ, რომ Hospes აირჩიე!', 'Your stay is over. Thank you for choosing Hospes!')}</Alert>}
+          {b.status === 'cancelled' && <Alert tone="warn">{L('ეს ჯავშანი გაუქმებულია.', 'This booking has been cancelled.')}</Alert>}
         </div>
 
         <aside className="stack sticky">
@@ -192,28 +211,28 @@ export default function BookingPage() {
             <div className="card-body">
               <h3 className="card-title">{b.hotel_name}</h3>
               <dl className="kv">
-                <dt>ოთახი</dt>
+                <dt>{L('ოთახი', 'Room')}</dt>
                 <dd>
                   {b.room_number}
                   {b.room_title ? ` · ${b.room_title}` : ''}
                 </dd>
-                <dt>შესვლა</dt>
+                <dt>{L('შესვლა', 'Check-in')}</dt>
                 <dd>{fmtDate(b.check_in, true)}</dd>
-                <dt>გასვლა</dt>
+                <dt>{L('გასვლა', 'Check-out')}</dt>
                 <dd>{fmtDate(b.check_out, true)}</dd>
-                <dt>ღამეები</dt>
+                <dt>{L('ღამეები', 'Nights')}</dt>
                 <dd>{b.nights}</dd>
-                <dt>შესვლის ტიპი</dt>
+                <dt>{L('შესვლის ტიპი', 'Entry type')}</dt>
                 <dd>
                   <KeyBadge type={b.key_type} />
                 </dd>
-                <dt>სულ</dt>
+                <dt>{L('სულ', 'Total')}</dt>
                 <dd>
                   <strong>{money(b.total_price)}</strong>
                 </dd>
                 {b.paid_at && (
                   <>
-                    <dt>გადახდილია</dt>
+                    <dt>{L('გადახდილია', 'Paid')}</dt>
                     <dd>{fmtDateTime(b.paid_at)}</dd>
                   </>
                 )}
@@ -222,7 +241,7 @@ export default function BookingPage() {
                 <>
                   <ErrorBox error={cancel.error} />
                   <button type="button" className="btn btn-danger btn-sm mt-2" disabled={cancel.busy} onClick={doCancel}>
-                    ჯავშნის გაუქმება
+                    {L('ჯავშნის გაუქმება', 'Cancel booking')}
                   </button>
                 </>
               )}
@@ -230,12 +249,12 @@ export default function BookingPage() {
           </div>
           {b.service_requests?.length > 0 && (
             <div className="card card-body">
-              <h3 className="card-title">მოთხოვნილი სერვისები</h3>
+              <h3 className="card-title">{L('მოთხოვნილი სერვისები', 'Requested services')}</h3>
               <ul className="service-list">
                 {b.service_requests.map((r) => (
                   <li key={r.id}>
                     <span>{r.service_name}</span>
-                    <Badge tone={r.status === 'done' ? 'green' : 'gold'}>{r.status === 'done' ? 'შესრულდა' : 'მოლოდინში'}</Badge>
+                    <Badge tone={r.status === 'done' ? 'green' : 'gold'}>{r.status === 'done' ? L('შესრულდა', 'Done') : L('მოლოდინში', 'Pending')}</Badge>
                   </li>
                 ))}
               </ul>

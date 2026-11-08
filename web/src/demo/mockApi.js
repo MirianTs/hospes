@@ -1,10 +1,15 @@
 // Browser-only stand-in for the Hospes API, used by the GitHub Pages demo (VITE_STATIC_DEMO=1).
 // Same routes, rules, response shapes and messages as backend/src; the data lives in this
 // visitor's localStorage and the Arduino is simulated (doors open for 5 s, then lock).
+// Language: rows keep English copies in `<field>_en`; responses are localized with loc() when they
+// are serialized, and messages use L(), so pages get the current language (switching refetches).
+import { getLang, L, loc } from '../prefs.js';
 import { HOTELS, POIS, USERS } from './demoData.js';
 
 export const STORE_KEY = 'hospes_demo_v1';
-const VERSION = 5; // 2: places all over Georgia; 3: key locker box only, more cottages and sights; 4: Tbilisi places; 5: rooms 1–3 on every place, each with its servo
+// 2: places all over Georgia; 3: key locker box only, more cottages and sights; 4: Tbilisi places;
+// 5: rooms 1–3 on every place, each with its servo; 6: English copies (_en fields) of the demo data
+const VERSION = 6;
 const TIMEZONE = 'Asia/Tbilisi';
 const OPEN_MS = 5000;
 const RETURN_LOCK = 4; // key return compartment, opens on check-out
@@ -47,11 +52,11 @@ function addDays(dateStr, n) {
 const nightsBetween = (a, b) => Math.round((Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / 86_400_000);
 
 function parseStay(checkIn, checkOut, { allowPast = false } = {}) {
-  if (!isDate(checkIn) || !isDate(checkOut)) fail(400, 'თარიღები არასწორია (ფორმატი: YYYY-MM-DD)');
+  if (!isDate(checkIn) || !isDate(checkOut)) fail(400, L('თარიღები არასწორია (ფორმატი: YYYY-MM-DD)', 'Invalid dates (format: YYYY-MM-DD)'));
   const nights = nightsBetween(checkIn, checkOut);
-  if (nights < 1) fail(400, 'გასვლის თარიღი შესვლის თარიღის შემდეგ უნდა იყოს');
-  if (nights > 60) fail(400, 'ერთი ჯავშანი მაქსიმუმ 60 ღამეა');
-  if (!allowPast && checkIn < today()) fail(400, 'შესვლის თარიღი წარსულშია');
+  if (nights < 1) fail(400, L('გასვლის თარიღი შესვლის თარიღის შემდეგ უნდა იყოს', 'The check-out date must be after the check-in date'));
+  if (nights > 60) fail(400, L('ერთი ჯავშანი მაქსიმუმ 60 ღამეა', 'A booking can be at most 60 nights'));
+  if (!allowPast && checkIn < today()) fail(400, L('შესვლის თარიღი წარსულშია', 'The check-in date is in the past'));
   return nights;
 }
 
@@ -63,7 +68,24 @@ const clone = (v) => (v === undefined ? v : JSON.parse(JSON.stringify(v)));
 
 function toId(value) {
   const n = Number(value);
-  return Number.isInteger(n) && n > 0 ? n : fail(400, 'არასწორი იდენტიფიკატორი');
+  return Number.isInteger(n) && n > 0 ? n : fail(400, L('არასწორი იდენტიფიკატორი', 'Invalid ID'));
+}
+
+// ---------- language ----------
+
+// A row without its `_en` copies, with the given fields in the current language.
+function locRow(row, fields) {
+  const out = Object.fromEntries(Object.entries(row).filter(([k]) => !k.endsWith('_en')));
+  for (const f of fields) if (f in row) out[f] = loc(row, f);
+  return out;
+}
+const roomOut = (r) => locRow(r, ['title']);
+const serviceOut = (s) => locRow(s, ['name', 'description']);
+const poiOut = (p) => locRow(p, ['name', 'description']);
+// Text an owner edits goes into the copy shown in the current language.
+function setLoc(row, field, value) {
+  if (getLang() === 'en' && `${field}_en` in row) row[`${field}_en`] = value;
+  else row[field] = value;
 }
 
 // Passwords are hashed even here, in case a visitor types a real one.
@@ -124,14 +146,18 @@ async function seed() {
     s.hotels.push({
       id: hotelId,
       name: h.name,
+      name_en: h.name_en,
       address: h.address,
+      address_en: h.address_en,
       lat: h.lat,
       lng: h.lng,
       owner_id: users[h.owner],
       google_rating: h.rating,
       description: h.description,
+      description_en: h.description_en,
       photos: h.photos || [],
       checkin_info: h.checkin_info,
+      checkin_info_en: h.checkin_info_en,
       created_at: nowIso(),
     });
     for (const r of h.rooms) {
@@ -141,6 +167,7 @@ async function seed() {
         hotel_id: hotelId,
         number: r.number,
         title: r.title,
+        title_en: r.title_en,
         capacity: r.capacity,
         price: r.price,
         key_type: r.key_type,
@@ -151,11 +178,20 @@ async function seed() {
     }
     for (const sv of h.services) {
       const serviceId = id('services');
-      s.services.push({ id: serviceId, hotel_id: hotelId, name: sv.name, price: sv.price, description: sv.description, active: 1 });
+      s.services.push({
+        id: serviceId,
+        hotel_id: hotelId,
+        name: sv.name,
+        name_en: sv.name_en,
+        price: sv.price,
+        description: sv.description,
+        description_en: sv.description_en,
+        active: 1,
+      });
       services[`${h.key}:${sv.name}`] = serviceId;
     }
   }
-  for (const p of POIS) s.pois.push({ id: id('pois'), ...p, google_maps_url: null });
+  for (const p of POIS) s.pois.push({ id: id('pois'), ...p, google_maps_url: null }); // name_en, description_en come along
 
   const booking = (b) => {
     const row = {
@@ -209,13 +245,14 @@ async function seed() {
   });
   booking({ user_id: users.anna, room_id: rooms['alazani:3'], check_in: addDays(t, 5), check_out: addDays(t, 8), status: 'pending', total_price: 540 });
   booking({ room_id: rooms['alazani:1'], check_in: addDays(t, 3), check_out: addDays(t, 6), status: 'confirmed', source: 'external', note: 'Booking.com #4821' });
-  booking({ room_id: rooms['marani:1'], check_in: addDays(t, 1), check_out: addDays(t, 3), status: 'confirmed', source: 'external', note: 'ტელეფონით' });
+  booking({ room_id: rooms['marani:1'], check_in: addDays(t, 1), check_out: addDays(t, 3), status: 'confirmed', source: 'external', note: 'ტელეფონით', note_en: 'By phone' });
   s.requests.push({
     id: id('requests'),
     booking_id: smartStay,
     hotel_service_id: services['alazani:საუზმე'],
     status: 'pending',
     note: 'ხვალ 9:00-ზე, 2 ადამიანი',
+    note_en: 'Tomorrow at 9:00, 2 people',
     created_at: nowIso(),
     done_at: null,
   });
@@ -263,13 +300,13 @@ function userFromToken(token) {
 
 function auth(ctx) {
   const user = userFromToken(ctx.token);
-  if (!user) fail(401, 'საჭიროა ავტორიზაცია');
+  if (!user) fail(401, L('საჭიროა ავტორიზაცია', 'Please sign in'));
   return user;
 }
 
 function role(ctx, ...roles) {
   const user = auth(ctx);
-  if (!roles.includes(user.role)) fail(403, 'ამ მოქმედების უფლება არ გაქვთ');
+  if (!roles.includes(user.role)) fail(403, L('ამ მოქმედების უფლება არ გაქვთ', 'You are not allowed to do this'));
   return user;
 }
 
@@ -351,16 +388,16 @@ function joinBooking(b) {
   const h = find('hotels', r.hotel_id);
   const u = b.user_id ? find('users', b.user_id) : null;
   return {
-    ...b,
+    ...locRow(b, ['note']),
     room_number: r.number,
-    room_title: r.title,
+    room_title: loc(r, 'title'),
     key_type: r.key_type,
     lock_id: r.lock_id,
     room_price: r.price,
     hotel_id: h.id,
-    hotel_name: h.name,
+    hotel_name: loc(h, 'name'),
     hotel_photo: h.photos?.[0] ?? null,
-    hotel_address: h.address,
+    hotel_address: loc(h, 'address'),
     lat: h.lat,
     lng: h.lng,
     guest_name: u?.name ?? null,
@@ -393,16 +430,19 @@ function listBookings(filter) {
 
 function ownBooking(id, user) {
   const b = find('bookings', id);
-  if (!b || b.user_id !== user.id) fail(404, 'ჯავშანი ვერ მოიძებნა');
+  if (!b || b.user_id !== user.id) fail(404, L('ჯავშანი ვერ მოიძებნა', 'Booking not found'));
   return joinBooking(b);
 }
 
 function assertCanEnter(b) {
-  if (b.status === 'pending') fail(409, 'ჯავშანი ჯერ არ არის გადახდილი');
-  if (b.status === 'cancelled') fail(409, 'ჯავშანი გაუქმებულია');
-  if (b.status === 'checked_out') fail(409, 'ამ ჯავშანზე უკვე გასული ხართ');
+  if (b.status === 'pending') fail(409, L('ჯავშანი ჯერ არ არის გადახდილი', 'This booking has not been paid yet'));
+  if (b.status === 'cancelled') fail(409, L('ჯავშანი გაუქმებულია', 'This booking has been cancelled'));
+  if (b.status === 'checked_out') fail(409, L('ამ ჯავშანზე უკვე გასული ხართ', 'You have already checked out of this booking'));
   if (!withinStay(b)) {
-    fail(403, `კოდი მოქმედებს მხოლოდ ${b.check_in}-დან ${b.check_out}-მდე`, { check_in: b.check_in, check_out: b.check_out });
+    fail(403, L(`კოდი მოქმედებს მხოლოდ ${b.check_in}-დან ${b.check_out}-მდე`, `The code is only valid from ${b.check_in} to ${b.check_out}`), {
+      check_in: b.check_in,
+      check_out: b.check_out,
+    });
   }
 }
 
@@ -411,14 +451,16 @@ function serviceRequestsFor(bookingId) {
     .filter((r) => r.booking_id === bookingId)
     .map((r) => {
       const s = find('services', r.hotel_service_id);
-      return { ...r, service_name: s.name, service_price: s.price };
+      return { ...locRow(r, ['note']), service_name: loc(s, 'name'), service_price: s.price };
     })
     .sort((a, b) => b.created_at.localeCompare(a.created_at));
 }
 
 const pendingRequests = (bookingId) => db.requests.filter((r) => r.booking_id === bookingId && r.status === 'pending').length;
 const activeServices = (hotelId) =>
-  db.services.filter((s) => s.hotel_id === hotelId && s.active).map(({ id, name, price, description }) => ({ id, name, price, description }));
+  db.services
+    .filter((s) => s.hotel_id === hotelId && s.active)
+    .map((s) => ({ id: s.id, name: loc(s, 'name'), price: s.price, description: loc(s, 'description') }));
 
 function markCheckedIn(b) {
   const row = find('bookings', b.id);
@@ -426,21 +468,21 @@ function markCheckedIn(b) {
   return bookingView(b.id);
 }
 
-const checkinInfo = (hotelId) => find('hotels', hotelId)?.checkin_info || null;
+const checkinInfo = (hotelId) => loc(find('hotels', hotelId), 'checkin_info') || null;
 
 // ---------- hotels & POIs (backend/src/routes/public.js) ----------
 
 const POI_TYPES = ['cafe', 'tour', 'guide', 'trail', 'landmark'];
 
 function hotelOut(h) {
-  const { checkin_info, ...rest } = h;
+  const { checkin_info, ...rest } = locRow(h, ['name', 'address', 'description']);
   return { ...rest, photos: h.photos || [], google_maps_url: mapsUrl(h.lat, h.lng) };
 }
 
 function optionalNumber(value) {
   if (value === undefined || value === '') return null;
   const n = Number(value);
-  return Number.isFinite(n) ? n : fail(400, 'ფასის ფილტრი არასწორია');
+  return Number.isFinite(n) ? n : fail(400, L('ფასის ფილტრი არასწორია', 'Invalid price filter'));
 }
 
 function listHotels(q) {
@@ -454,7 +496,8 @@ function listHotels(q) {
   return [...db.hotels]
     .sort((a, b) => (b.google_rating ?? 0) - (a.google_rating ?? 0) || a.id - b.id)
     .flatMap((h) => {
-      if (search && !`${h.name} ${h.address} ${h.description || ''}`.toLowerCase().includes(search)) return [];
+      const haystack = [h.name, h.name_en, h.address, h.address_en, h.description, h.description_en].filter(Boolean).join(' ');
+      if (search && !haystack.toLowerCase().includes(search)) return [];
       let rooms = db.rooms.filter((r) => r.hotel_id === h.id && r.status === 'available');
       if (keyType) rooms = rooms.filter((r) => r.key_type === keyType);
       if (minPrice !== null) rooms = rooms.filter((r) => r.price >= minPrice);
@@ -467,7 +510,7 @@ function listHotels(q) {
           min_price: rooms.length ? Math.min(...rooms.map((r) => r.price)) : null,
           rooms_count: rooms.length,
           key_types: [...new Set(rooms.map((r) => r.key_type))],
-          services: db.services.filter((s) => s.hotel_id === h.id && s.active).map((s) => s.name),
+          services: db.services.filter((s) => s.hotel_id === h.id && s.active).map((s) => loc(s, 'name')),
         },
       ];
     });
@@ -475,14 +518,14 @@ function listHotels(q) {
 
 function hotelDetail(id, q) {
   const hotel = find('hotels', toId(id));
-  if (!hotel) fail(404, 'ობიექტი ვერ მოიძებნა');
+  if (!hotel) fail(404, L('ობიექტი ვერ მოიძებნა', 'Property not found'));
   const hasStay = Boolean(q.check_in || q.check_out);
   const nights = hasStay ? parseStay(q.check_in, q.check_out) : null;
   const rooms = db.rooms
     .filter((r) => r.hotel_id === hotel.id)
     .sort((a, b) => a.number.localeCompare(b.number))
     .map((r) => ({
-      ...r,
+      ...roomOut(r),
       available: r.status === 'available' && (!hasStay || !hasOverlap(r.id, q.check_in, q.check_out)),
       total_price: nights ? nights * r.price : null,
     }));
@@ -495,12 +538,12 @@ function hotelDetail(id, q) {
 const hotelIds = (user) => (user.role === 'admin' ? db.hotels : db.hotels.filter((h) => h.owner_id === user.id)).map((h) => h.id);
 
 function assertOwnsHotel(user, hotelId) {
-  if (!hotelIds(user).includes(hotelId)) fail(403, 'ეს ობიექტი თქვენ არ გეკუთვნით');
+  if (!hotelIds(user).includes(hotelId)) fail(403, L('ეს ობიექტი თქვენ არ გეკუთვნით', 'This property does not belong to you'));
 }
 
 function roomOf(user, roomId) {
   const room = find('rooms', roomId);
-  if (!room) fail(404, 'ოთახი ვერ მოიძებნა');
+  if (!room) fail(404, L('ოთახი ვერ მოიძებნა', 'Room not found'));
   assertOwnsHotel(user, room.hotel_id);
   return room;
 }
@@ -509,13 +552,13 @@ function selectedHotels(user, hotelIdParam) {
   const ids = hotelIds(user);
   if (hotelIdParam === undefined || hotelIdParam === '') return ids;
   const id = toId(hotelIdParam);
-  if (!ids.includes(id)) fail(403, 'ეს ობიექტი თქვენ არ გეკუთვნით');
+  if (!ids.includes(id)) fail(403, L('ეს ობიექტი თქვენ არ გეკუთვნით', 'This property does not belong to you'));
   return [id];
 }
 
 function serviceOf(user, id) {
   const s = db.services.find((x) => x.id === id && x.active);
-  if (!s) fail(404, 'სერვისი ვერ მოიძებნა');
+  if (!s) fail(404, L('სერვისი ვერ მოიძებნა', 'Service not found'));
   assertOwnsHotel(user, s.hotel_id);
   return s;
 }
@@ -524,22 +567,25 @@ function parseService(body, current = {}) {
   const name = body.name !== undefined ? String(body.name).trim().slice(0, 80) : current.name;
   const price = body.price !== undefined ? Number(body.price) : current.price;
   const description = body.description !== undefined ? String(body.description).trim().slice(0, 300) || null : current.description ?? null;
-  if (!name) fail(400, 'მიუთითეთ სერვისის სახელი');
-  if (!Number.isFinite(price) || price < 0) fail(400, 'ფასი არასწორია');
+  if (!name) fail(400, L('მიუთითეთ სერვისის სახელი', 'Enter the service name'));
+  if (!Number.isFinite(price) || price < 0) fail(400, L('ფასი არასწორია', 'Invalid price'));
   return { name, price, description };
 }
 
 // ---------- admin helpers (backend/src/routes/admin.js) ----------
 
-function coord(value, min, max, label) {
+// label: [ქართული, English]
+function coord(value, min, max, [ka, en]) {
   const n = Number(value);
-  if (value === '' || value === null || value === undefined || !Number.isFinite(n) || n < min || n > max) fail(400, `${label} არასწორია`);
+  if (value === '' || value === null || value === undefined || !Number.isFinite(n) || n < min || n > max) {
+    fail(400, L(`${ka} არასწორია`, `Invalid ${en}`));
+  }
   return n;
 }
 
-function text(value, max, label, required = true) {
+function text(value, max, [ka, en], required = true) {
   const s = String(value ?? '').trim().slice(0, max);
-  if (required && !s) fail(400, `მიუთითეთ: ${label}`);
+  if (required && !s) fail(400, L(`მიუთითეთ: ${ka}`, `Required: ${en}`));
   return s || null;
 }
 
@@ -580,10 +626,10 @@ route(
   '/auth/register',
   async ({ body }) => {
     const { name, phone, email, password } = body;
-    if (!name?.trim() || !email?.trim() || !password) fail(400, 'შეავსეთ სახელი, ელფოსტა და პაროლი');
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.trim())) fail(400, 'ელფოსტის ფორმატი არასწორია');
-    if (String(password).length < 6) fail(400, 'პაროლი მინიმუმ 6 სიმბოლო უნდა იყოს');
-    if (db.users.some((u) => u.email.toLowerCase() === email.trim().toLowerCase())) fail(409, 'ეს ელფოსტა უკვე რეგისტრირებულია');
+    if (!name?.trim() || !email?.trim() || !password) fail(400, L('შეავსეთ სახელი, ელფოსტა და პაროლი', 'Please fill in your name, email and password'));
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.trim())) fail(400, L('ელფოსტის ფორმატი არასწორია', 'Invalid email format'));
+    if (String(password).length < 6) fail(400, L('პაროლი მინიმუმ 6 სიმბოლო უნდა იყოს', 'The password must be at least 6 characters'));
+    if (db.users.some((u) => u.email.toLowerCase() === email.trim().toLowerCase())) fail(409, L('ეს ელფოსტა უკვე რეგისტრირებულია', 'This email is already registered'));
     const user = {
       id: nextId('users'),
       name: name.trim(),
@@ -606,7 +652,7 @@ route(
 route('POST', '/auth/login', async ({ body }) => {
   const email = String(body.email || '').trim().toLowerCase();
   const user = db.users.find((u) => u.email.toLowerCase() === email);
-  if (!user || user.password_hash !== (await hash(String(body.password || '')))) fail(401, 'ელფოსტა ან პაროლი არასწორია');
+  if (!user || user.password_hash !== (await hash(String(body.password || '')))) fail(401, L('ელფოსტა ან პაროლი არასწორია', 'Wrong email or password'));
   return { token: tokenFor(user), user: publicUser(user) };
 });
 route('GET', '/auth/me', (ctx) => ({ user: publicUser(auth(ctx)) }));
@@ -624,7 +670,7 @@ route('GET', '/hotels', ({ query }) => listHotels(query));
 route('GET', '/hotels/:id', ({ params, query }) => hotelDetail(params.id, query));
 route('GET', '/rooms/:id/availability', ({ params, query }) => {
   const room = find('rooms', toId(params.id));
-  if (!room) fail(404, 'ოთახი ვერ მოიძებნა');
+  if (!room) fail(404, L('ოთახი ვერ მოიძებნა', 'Room not found'));
   const t = today();
   const booked = db.bookings
     .filter((b) => b.room_id === room.id && b.status !== 'cancelled' && b.check_out > t)
@@ -644,9 +690,10 @@ route('GET', '/pois', ({ query }) => {
     .map((t) => t.trim())
     .filter(Boolean);
   const unknown = types.filter((t) => !POI_TYPES.includes(t));
-  if (unknown.length) fail(400, `უცნობი კატეგორია: ${unknown.join(', ')}`, { allowed: POI_TYPES });
+  if (unknown.length) fail(400, L(`უცნობი კატეგორია: ${unknown.join(', ')}`, `Unknown category: ${unknown.join(', ')}`), { allowed: POI_TYPES });
   return db.pois
     .filter((p) => !types.length || types.includes(p.type))
+    .map(poiOut)
     .sort((a, b) => a.type.localeCompare(b.type) || a.name.localeCompare(b.name))
     .map((p) => ({ ...p, google_maps_url: p.google_maps_url || mapsUrl(p.lat, p.lng) }));
 });
@@ -659,10 +706,10 @@ route(
     const user = auth(ctx);
     const { room_id, check_in, check_out } = ctx.body;
     const room = find('rooms', toId(room_id));
-    if (!room) fail(404, 'ოთახი ვერ მოიძებნა');
-    if (room.status !== 'available') fail(409, 'ოთახი დროებით მიუწვდომელია');
+    if (!room) fail(404, L('ოთახი ვერ მოიძებნა', 'Room not found'));
+    if (room.status !== 'available') fail(409, L('ოთახი დროებით მიუწვდომელია', 'The room is temporarily unavailable'));
     const nights = parseStay(check_in, check_out);
-    if (hasOverlap(room.id, check_in, check_out)) fail(409, 'ამ თარიღებზე ოთახი უკვე დაკავებულია');
+    if (hasOverlap(room.id, check_in, check_out)) fail(409, L('ამ თარიღებზე ოთახი უკვე დაკავებულია', 'The room is already booked for these dates'));
     const booking = {
       id: nextId('bookings'),
       user_id: user.id,
@@ -699,22 +746,22 @@ route('GET', '/bookings/:id', (ctx) => {
 });
 route('POST', '/bookings/:id/pay', (ctx) => {
   const b = ownBooking(toId(ctx.params.id), auth(ctx));
-  if (b.status !== 'pending') fail(409, 'ეს ჯავშანი უკვე გადახდილია ან გაუქმებულია');
+  if (b.status !== 'pending') fail(409, L('ეს ჯავშანი უკვე გადახდილია ან გაუქმებულია', 'This booking has already been paid or cancelled'));
   Object.assign(find('bookings', b.id), { status: 'confirmed', paid_at: nowIso(), access_code: newAccessCode() });
   return bookingView(b.id);
 });
 route('POST', '/bookings/:id/cancel', (ctx) => {
   const b = ownBooking(toId(ctx.params.id), auth(ctx));
-  if (!['pending', 'confirmed'].includes(b.status)) fail(409, 'ამ ეტაპზე ჯავშნის გაუქმება შეუძლებელია');
+  if (!['pending', 'confirmed'].includes(b.status)) fail(409, L('ამ ეტაპზე ჯავშნის გაუქმება შეუძლებელია', 'This booking can no longer be cancelled'));
   find('bookings', b.id).status = 'cancelled';
   return bookingView(b.id);
 });
 route('POST', '/bookings/:id/checkout', (ctx) => {
   const b = ownBooking(toId(ctx.params.id), auth(ctx));
-  if (b.status !== 'checked_in') fail(409, 'ჩექაუთი მხოლოდ ჩექინის შემდეგაა შესაძლებელი');
+  if (b.status !== 'checked_in') fail(409, L('ჩექაუთი მხოლოდ ჩექინის შემდეგაა შესაძლებელი', 'Check-out is only possible after check-in'));
   // Same as backend: the key goes back into the return compartment (servo 4).
   openLock(RETURN_LOCK);
-  recordEvent({ kind: 'app', result: 'opened', lock_id: RETURN_LOCK, label: `${find('users', b.user_id)?.name ?? ''} · ჩექაუთი, ოთახი ${b.room_number}` });
+  recordEvent({ kind: 'app', result: 'opened', lock_id: RETURN_LOCK, label: `${find('users', b.user_id)?.name ?? ''} · ${L(`ჩექაუთი, ოთახი ${b.room_number}`, `check-out, room ${b.room_number}`)}` });
   Object.assign(find('bookings', b.id), { status: 'checked_out', checked_out_at: nowIso() });
   return { ...bookingView(b.id), return_lock: RETURN_LOCK, hardware: 'mock' };
 });
@@ -722,12 +769,12 @@ route('POST', '/bookings/:id/checkout', (ctx) => {
 route('POST', '/checkin/code', (ctx) => {
   const user = auth(ctx);
   const b = ownBooking(toId(ctx.body.booking_id), user);
-  if (user.verification_status !== 'verified') fail(403, 'ჩექინისთვის საჭიროა ვინაობის ვერიფიკაცია', { need: 'verification' });
+  if (user.verification_status !== 'verified') fail(403, L('ჩექინისთვის საჭიროა ვინაობის ვერიფიკაცია', 'Identity verification is required for check-in'), { need: 'verification' });
   assertCanEnter(b);
-  if (String(ctx.body.code || '').trim() !== b.access_code) fail(400, 'კოდი არასწორია');
+  if (String(ctx.body.code || '').trim() !== b.access_code) fail(400, L('კოდი არასწორია', 'Wrong code'));
   if (b.lock_id) {
     openLock(b.lock_id);
-    recordEvent({ kind: 'app', result: 'opened', lock_id: b.lock_id, label: `${user.name} · ოთახი ${b.room_number}` });
+    recordEvent({ kind: 'app', result: 'opened', lock_id: b.lock_id, label: `${user.name} · ${L(`ოთახი ${b.room_number}`, `room ${b.room_number}`)}` });
   }
   return {
     ok: true,
@@ -743,10 +790,10 @@ route(
   '/bookings/:id/services',
   (ctx) => {
     const b = ownBooking(toId(ctx.params.id), auth(ctx));
-    if (!['confirmed', 'checked_in'].includes(b.status)) fail(409, 'სერვისის მოთხოვნა შეიძლება მხოლოდ გადახდილ, აქტიურ ჯავშანზე');
+    if (!['confirmed', 'checked_in'].includes(b.status)) fail(409, L('სერვისის მოთხოვნა შეიძლება მხოლოდ გადახდილ, აქტიურ ჯავშანზე', 'Services can only be requested on a paid, active booking'));
     const serviceId = toId(ctx.body.hotel_service_id);
     const service = db.services.find((s) => s.id === serviceId && s.hotel_id === b.hotel_id && s.active);
-    if (!service) fail(404, 'ეს სერვისი ამ ობიექტზე არ არის');
+    if (!service) fail(404, L('ეს სერვისი ამ ობიექტზე არ არის', 'This property does not offer this service'));
     const note = String(ctx.body.note || '').trim().slice(0, 300) || null;
     db.requests.push({ id: nextId('requests'), booking_id: b.id, hotel_service_id: service.id, status: 'pending', note, created_at: nowIso(), done_at: null });
     return serviceRequestsFor(b.id);
@@ -761,9 +808,12 @@ route('GET', '/owner/hotels', (ctx) => {
     .filter((h) => ids.includes(h.id))
     .map((h) => ({
       ...hotelOut(h),
-      checkin_info: h.checkin_info,
-      rooms: db.rooms.filter((r) => r.hotel_id === h.id).sort((a, b) => a.number.localeCompare(b.number)),
-      services: db.services.filter((s) => s.hotel_id === h.id && s.active),
+      checkin_info: loc(h, 'checkin_info'),
+      rooms: db.rooms
+        .filter((r) => r.hotel_id === h.id)
+        .sort((a, b) => a.number.localeCompare(b.number))
+        .map(roomOut),
+      services: db.services.filter((s) => s.hotel_id === h.id && s.active).map(serviceOut),
     }));
 });
 route('GET', '/owner/bookings', (ctx) => {
@@ -775,19 +825,19 @@ route('PATCH', '/rooms/:id', (ctx) => {
   const { price, status, title } = ctx.body;
   if (price !== undefined) {
     const p = Number(price);
-    if (!Number.isFinite(p) || p < 0 || p > 10000) fail(400, 'ფასი არასწორია');
+    if (!Number.isFinite(p) || p < 0 || p > 10000) fail(400, L('ფასი არასწორია', 'Invalid price'));
     room.price = p;
   }
   if (status !== undefined) {
-    if (!['available', 'maintenance'].includes(status)) fail(400, 'სტატუსი: available ან maintenance');
+    if (!['available', 'maintenance'].includes(status)) fail(400, L('სტატუსი: available ან maintenance', 'Status: available or maintenance'));
     room.status = status;
   }
-  if (title !== undefined) room.title = String(title).trim().slice(0, 80) || null;
-  return room;
+  if (title !== undefined) setLoc(room, 'title', String(title).trim().slice(0, 80) || null);
+  return roomOut(room);
 });
 route('GET', '/owner/services', (ctx) => {
   const ids = selectedHotels(role(ctx, 'owner', 'admin'), ctx.query.hotel_id);
-  return db.services.filter((s) => s.active && ids.includes(s.hotel_id));
+  return db.services.filter((s) => s.active && ids.includes(s.hotel_id)).map(serviceOut);
 });
 route(
   'POST',
@@ -805,8 +855,11 @@ route(
 );
 route('PATCH', '/owner/services/:id', (ctx) => {
   const current = serviceOf(role(ctx, 'owner', 'admin'), toId(ctx.params.id));
-  Object.assign(current, parseService(ctx.body, current));
-  return current;
+  const next = parseService(ctx.body, { name: loc(current, 'name'), price: current.price, description: loc(current, 'description') });
+  setLoc(current, 'name', next.name);
+  setLoc(current, 'description', next.description);
+  current.price = next.price;
+  return serviceOut(current);
 });
 route('DELETE', '/owner/services/:id', (ctx) => {
   serviceOf(role(ctx, 'owner', 'admin'), toId(ctx.params.id)).active = 0;
@@ -819,7 +872,7 @@ route(
     const room = roomOf(role(ctx, 'owner', 'admin'), toId(ctx.body.room_id));
     const { check_in, check_out } = ctx.body;
     parseStay(check_in, check_out);
-    if (hasOverlap(room.id, check_in, check_out)) fail(409, 'ამ თარიღებზე ოთახი უკვე დაკავებულია');
+    if (hasOverlap(room.id, check_in, check_out)) fail(409, L('ამ თარიღებზე ოთახი უკვე დაკავებულია', 'The room is already booked for these dates'));
     const booking = {
       id: nextId('bookings'),
       user_id: null,
@@ -844,7 +897,7 @@ route(
 route('DELETE', '/owner/blocks/:id', (ctx) => {
   const user = role(ctx, 'owner', 'admin');
   const row = find('bookings', toId(ctx.params.id));
-  if (!row || row.source !== 'external') fail(404, 'გარე ჯავშანი ვერ მოიძებნა');
+  if (!row || row.source !== 'external') fail(404, L('გარე ჯავშანი ვერ მოიძებნა', 'External booking not found'));
   assertOwnsHotel(user, find('rooms', row.room_id).hotel_id);
   row.status = 'cancelled';
   return { ok: true };
@@ -859,14 +912,14 @@ route('GET', '/owner/service-requests', (ctx) => {
       const h = find('hotels', r.hotel_id);
       const u = b.user_id ? find('users', b.user_id) : null;
       return {
-        ...sr,
-        service_name: s.name,
+        ...locRow(sr, ['note']),
+        service_name: loc(s, 'name'),
         service_price: s.price,
         check_in: b.check_in,
         check_out: b.check_out,
         room_number: r.number,
         hotel_id: h.id,
-        hotel_name: h.name,
+        hotel_name: loc(h, 'name'),
         guest_name: u?.name ?? null,
         guest_phone: u?.phone ?? null,
       };
@@ -877,12 +930,12 @@ route('GET', '/owner/service-requests', (ctx) => {
 route('PATCH', '/owner/service-requests/:id', (ctx) => {
   const user = role(ctx, 'owner', 'admin');
   const sr = find('requests', toId(ctx.params.id));
-  if (!sr) fail(404, 'მოთხოვნა ვერ მოიძებნა');
+  if (!sr) fail(404, L('მოთხოვნა ვერ მოიძებნა', 'Request not found'));
   assertOwnsHotel(user, find('rooms', find('bookings', sr.booking_id).room_id).hotel_id);
   const { status } = ctx.body;
-  if (!['pending', 'done'].includes(status)) fail(400, 'სტატუსი: pending ან done');
+  if (!['pending', 'done'].includes(status)) fail(400, L('სტატუსი: pending ან done', 'Status: pending or done'));
   Object.assign(sr, { status, done_at: status === 'done' ? nowIso() : null });
-  return sr;
+  return locRow(sr, ['note']);
 });
 
 // admin
@@ -890,19 +943,19 @@ route('GET', '/admin/users', (ctx) => (role(ctx, 'admin'), [...db.users].sort((a
 route('PATCH', '/admin/users/:id', (ctx) => {
   role(ctx, 'admin');
   const user = find('users', toId(ctx.params.id));
-  if (!user) fail(404, 'მომხმარებელი ვერ მოიძებნა');
+  if (!user) fail(404, L('მომხმარებელი ვერ მოიძებნა', 'User not found'));
   const nextRole = ctx.body.role ?? user.role;
   const status = ctx.body.verification_status ?? user.verification_status;
-  if (!['guest', 'owner', 'admin'].includes(nextRole)) fail(400, 'როლი არასწორია');
-  if (!['unverified', 'verified', 'rejected'].includes(status)) fail(400, 'ვერიფიკაციის სტატუსი არასწორია');
+  if (!['guest', 'owner', 'admin'].includes(nextRole)) fail(400, L('როლი არასწორია', 'Invalid role'));
+  if (!['unverified', 'verified', 'rejected'].includes(status)) fail(400, L('ვერიფიკაციის სტატუსი არასწორია', 'Invalid verification status'));
   Object.assign(user, { role: nextRole, verification_status: status });
   return publicUser(user);
 });
 // Every new place starts with rooms 1–3, each in its own Hospes Lock compartment; the owner sets prices later.
 const DEFAULT_ROOMS = [
-  { number: '1', title: 'ორადგილიანი', capacity: 2, price: 100, lock_id: 1 },
-  { number: '2', title: 'სამადგილიანი', capacity: 3, price: 120, lock_id: 2 },
-  { number: '3', title: 'საოჯახო ოთახი', capacity: 4, price: 150, lock_id: 3 },
+  { number: '1', title: 'ორადგილიანი', title_en: 'Double', capacity: 2, price: 100, lock_id: 1 },
+  { number: '2', title: 'სამადგილიანი', title_en: 'Triple', capacity: 3, price: 120, lock_id: 2 },
+  { number: '3', title: 'საოჯახო ოთახი', title_en: 'Family room', capacity: 4, price: 150, lock_id: 3 },
 ];
 route(
   'POST',
@@ -911,19 +964,19 @@ route(
     role(ctx, 'admin');
     const b = ctx.body;
     const ownerId = b.owner_id ? toId(b.owner_id) : null;
-    if (ownerId && !db.users.some((u) => u.id === ownerId && u.role === 'owner')) fail(400, 'მფლობელი ვერ მოიძებნა (role = owner)');
-    const rating = b.google_rating === undefined || b.google_rating === '' ? null : coord(b.google_rating, 0, 5, 'რეიტინგი');
+    if (ownerId && !db.users.some((u) => u.id === ownerId && u.role === 'owner')) fail(400, L('მფლობელი ვერ მოიძებნა (role = owner)', 'Owner not found (role = owner)'));
+    const rating = b.google_rating === undefined || b.google_rating === '' ? null : coord(b.google_rating, 0, 5, ['რეიტინგი', 'rating']);
     const hotel = {
       id: nextId('hotels'),
-      name: text(b.name, 80, 'სახელი'),
-      address: text(b.address, 160, 'მისამართი'),
-      lat: coord(b.lat, -90, 90, 'განედი (lat)'),
-      lng: coord(b.lng, -180, 180, 'გრძედი (lng)'),
+      name: text(b.name, 80, ['სახელი', 'name']),
+      address: text(b.address, 160, ['მისამართი', 'address']),
+      lat: coord(b.lat, -90, 90, ['განედი (lat)', 'latitude (lat)']),
+      lng: coord(b.lng, -180, 180, ['გრძედი (lng)', 'longitude (lng)']),
       owner_id: ownerId,
       google_rating: rating,
-      description: text(b.description, 1000, 'აღწერა', false),
+      description: text(b.description, 1000, ['აღწერა', 'description'], false),
       photos: Array.isArray(b.photos) ? b.photos.filter((p) => typeof p === 'string').slice(0, 10) : [],
-      checkin_info: text(b.checkin_info, 300, 'ჩექინის ინფორმაცია', false),
+      checkin_info: text(b.checkin_info, 300, ['ჩექინის ინფორმაცია', 'check-in information'], false),
       created_at: nowIso(),
     };
     db.hotels.push(hotel);
@@ -939,19 +992,19 @@ route(
     role(ctx, 'admin');
     const b = ctx.body;
     const hotelId = toId(b.hotel_id);
-    if (!find('hotels', hotelId)) fail(404, 'ობიექტი ვერ მოიძებნა');
+    if (!find('hotels', hotelId)) fail(404, L('ობიექტი ვერ მოიძებნა', 'Property not found'));
     const lockId = b.lock_id ? Number(b.lock_id) : null;
-    if (lockId && ![1, 2, 3].includes(lockId)) fail(400, 'Hospes Lock-ის განყოფილება: 1–3 (#4 გასაღების დასაბრუნებელია)');
-    if (lockId && db.rooms.some((r) => r.hotel_id === hotelId && r.lock_id === lockId)) fail(409, `განყოფილება #${lockId} ამ ობიექტზე უკვე სხვა ოთახზეა მიბმული`);
-    const number = text(b.number, 20, 'ოთახის ნომერი');
-    if (db.rooms.some((r) => r.hotel_id === hotelId && r.number === number)) fail(409, 'ასეთი ნომრის ოთახი ამ ობიექტზე უკვე არსებობს');
+    if (lockId && ![1, 2, 3].includes(lockId)) fail(400, L('Hospes Lock-ის განყოფილება: 1–3 (#4 გასაღების დასაბრუნებელია)', 'Hospes Lock compartment: 1–3 (#4 is for returning the key)'));
+    if (lockId && db.rooms.some((r) => r.hotel_id === hotelId && r.lock_id === lockId)) fail(409, L(`განყოფილება #${lockId} ამ ობიექტზე უკვე სხვა ოთახზეა მიბმული`, `Compartment #${lockId} is already assigned to another room at this property`));
+    const number = text(b.number, 20, ['ოთახის ნომერი', 'room number']);
+    if (db.rooms.some((r) => r.hotel_id === hotelId && r.number === number)) fail(409, L('ასეთი ნომრის ოთახი ამ ობიექტზე უკვე არსებობს', 'A room with this number already exists at this property'));
     const room = {
       id: nextId('rooms'),
       hotel_id: hotelId,
       number,
-      title: text(b.title, 80, 'სათაური', false),
+      title: text(b.title, 80, ['სათაური', 'title'], false),
       capacity: Math.max(1, Math.min(12, Number(b.capacity) || 2)),
-      price: coord(b.price, 0, 10000, 'ფასი'),
+      price: coord(b.price, 0, 10000, ['ფასი', 'price']),
       key_type: 'box',
       lock_id: lockId,
       status: 'available',
@@ -967,15 +1020,15 @@ route(
   (ctx) => {
     role(ctx, 'admin');
     const b = ctx.body;
-    if (!POI_TYPES.includes(b.type)) fail(400, `კატეგორია: ${POI_TYPES.join(', ')}`);
+    if (!POI_TYPES.includes(b.type)) fail(400, L(`კატეგორია: ${POI_TYPES.join(', ')}`, `Category: ${POI_TYPES.join(', ')}`));
     const poi = {
       id: nextId('pois'),
       type: b.type,
-      name: text(b.name, 80, 'სახელი'),
-      description: text(b.description, 500, 'აღწერა', false),
-      lat: coord(b.lat, -90, 90, 'განედი (lat)'),
-      lng: coord(b.lng, -180, 180, 'გრძედი (lng)'),
-      google_maps_url: text(b.google_maps_url, 300, 'Google Maps ბმული', false),
+      name: text(b.name, 80, ['სახელი', 'name']),
+      description: text(b.description, 500, ['აღწერა', 'description'], false),
+      lat: coord(b.lat, -90, 90, ['განედი (lat)', 'latitude (lat)']),
+      lng: coord(b.lng, -180, 180, ['გრძედი (lng)', 'longitude (lng)']),
+      google_maps_url: text(b.google_maps_url, 300, ['Google Maps ბმული', 'Google Maps link'], false),
     };
     db.pois.push(poi);
     return poi;
@@ -986,7 +1039,7 @@ route('GET', '/admin/hardware', (ctx) => (role(ctx, 'admin'), { ...hwStatus(), p
 route('POST', '/admin/locks/:lockId/open', (ctx) => {
   const user = role(ctx, 'admin');
   const lockId = Number(ctx.params.lockId);
-  if (![1, 2, 3, 4].includes(lockId)) fail(400, 'საკეტის ნომერი 1–4');
+  if (![1, 2, 3, 4].includes(lockId)) fail(400, L('საკეტის ნომერი 1–4', 'Lock number 1–4'));
   openLock(lockId);
   recordEvent({ kind: 'admin', result: 'opened', lock_id: lockId, label: user.name });
   return { ok: true, lock_id: lockId, hardware: 'mock' };
@@ -1001,9 +1054,9 @@ route(
   (ctx) => {
     role(ctx, 'admin');
     const uid = normalizeUid(ctx.body.uid);
-    if (uid.length < 8) fail(400, 'ბარათის ID არასწორია');
+    if (uid.length < 8) fail(400, L('ბარათის ID არასწორია', 'Invalid card ID'));
     const lockId = Number(ctx.body.lock_id ?? 1);
-    if (![1, 2, 3, 4].includes(lockId)) fail(400, 'საკეტის ნომერი 1–4');
+    if (![1, 2, 3, 4].includes(lockId)) fail(400, L('საკეტის ნომერი 1–4', 'Lock number 1–4'));
     const label = String(ctx.body.label ?? '').trim().slice(0, 60) || null;
     const card = db.cards.find((c) => c.uid === uid);
     if (card) Object.assign(card, { label, lock_id: lockId });
@@ -1020,7 +1073,7 @@ route('DELETE', '/admin/rfid/cards/:uid', (ctx) => {
 });
 route('PATCH', '/admin/rfid/settings', (ctx) => {
   role(ctx, 'admin');
-  if (typeof ctx.body.open_any !== 'boolean') fail(400, 'open_any: true ან false');
+  if (typeof ctx.body.open_any !== 'boolean') fail(400, L('open_any: true ან false', 'open_any: true or false'));
   db.settings.open_any = ctx.body.open_any;
   broadcastStatus();
   return { open_any: db.settings.open_any };
@@ -1043,7 +1096,7 @@ export async function request({ method = 'GET', path, body, form, token }) {
     .map((r) => ({ r, m: r.regex.exec(url.pathname) }))
     .find((x) => x.m);
   try {
-    if (!match) fail(404, 'API მარშრუტი ვერ მოიძებნა');
+    if (!match) fail(404, L('API მარშრუტი ვერ მოიძებნა', 'API route not found'));
     const params = Object.fromEntries(match.r.keys.map((k, i) => [k, decodeURIComponent(match.m[i + 1])]));
     const ctx = { params, query: Object.fromEntries(url.searchParams), body: body ?? {}, form, token };
     const data = await match.r.handler(ctx);
@@ -1052,6 +1105,6 @@ export async function request({ method = 'GET', path, body, form, token }) {
   } catch (err) {
     if (err instanceof Fail) return { status: err.status, data: { error: err.message, ...err.extra } };
     console.error('[demo api]', err);
-    return { status: 500, data: { error: 'სერვერის შეცდომა' } };
+    return { status: 500, data: { error: L('სერვერის შეცდომა', 'Server error') } };
   }
 }

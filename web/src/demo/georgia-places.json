@@ -733,16 +733,21 @@
    "key": "sololaki",
    "owner": "nino",
    "name": "სოლოლაკის აივანი",
+   "name_en": "Sololaki Balcony",
    "address": "თბილისი, სოლოლაკი",
+   "address_en": "Tbilisi, Sololaki",
    "lat": 41.6905,
    "lng": 44.7995,
    "rating": 4.7,
    "description": "ძველი თბილისის სახლი ხის აივნით. ნარიყალამდე და აბანოთუბნამდე ფეხით 10-15 წუთია.",
+   "description_en": "An old Tbilisi house with a wooden balcony. Narikala and Abanotubani are a 10–15 minute walk away.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი, აივნით",
+     "title_en": "Double, with balcony",
      "price": 130,
      "key_type": "box",
      "capacity": 2,
@@ -751,6 +756,7 @@
     {
      "number": "2",
      "title": "საოჯახო ოთახი",
+     "title_en": "Family room",
      "price": 170,
      "key_type": "box",
      "capacity": 4,
@@ -759,6 +765,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 100,
      "key_type": "box",
      "capacity": 1,
@@ -768,11 +775,15 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     },
     {
      "name": "ტრანსფერი აეროპორტიდან",
+     "name_en": "Airport transfer",
+     "description_en": "Up to 4 people",
      "price": 60,
      "description": "4 ადგილამდე"
     }
@@ -783,16 +794,21 @@
    "key": "aragvi",
    "owner": "levan",
    "name": "არაგვის პირას",
+   "name_en": "By the Aragvi",
    "address": "მცხეთა, ძველი ქალაქი",
+   "address_en": "Mtskheta, Old Town",
    "lat": 41.8445,
    "lng": 44.7165,
    "rating": 4.6,
    "description": "მყუდრო სახლი მცხეთის ცენტრში. სვეტიცხოვლამდე 5 წუთის სავალია, ეზოდან ჯვრის მონასტერი ჩანს.",
+   "description_en": "A cosy house in central Mtskheta. Svetitskhoveli is a 5-minute walk, and Jvari Monastery can be seen from the yard.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი",
+     "title_en": "Double",
      "price": 100,
      "key_type": "box",
      "capacity": 2,
@@ -801,6 +817,7 @@
     {
      "number": "2",
      "title": "სამადგილიანი",
+     "title_en": "Triple",
      "price": 120,
      "key_type": "box",
      "capacity": 3,
@@ -809,6 +826,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 75,
      "key_type": "box",
      "capacity": 1,
@@ -818,11 +836,15 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     },
     {
      "name": "ღვინის დეგუსტაცია",
+     "name_en": "Wine tasting",
+     "description_en": "3 home-made wines",
      "price": 40,
      "description": "3 საოჯახო ღვინო"
     }
@@ -833,16 +855,21 @@
    "key": "kazbegi",
    "owner": "nino",
    "name": "ყაზბეგის ხედი",
+   "name_en": "Kazbegi View",
    "address": "სტეფანწმინდა",
+   "address_en": "Stepantsminda",
    "lat": 42.6582,
    "lng": 44.6425,
    "rating": 4.8,
    "description": "გესთჰაუსი სტეფანწმინდაში, ყაზბეგის ხედით. გერგეტის სამებამდე ბილიკი სოფლიდან იწყება.",
+   "description_en": "A guesthouse in Stepantsminda with a view of Mount Kazbek. The trail to Gergeti Trinity Church starts in the village.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი, მთის ხედით",
+     "title_en": "Double, mountain view",
      "price": 120,
      "key_type": "box",
      "capacity": 2,
@@ -851,6 +878,7 @@
     {
      "number": "2",
      "title": "საოჯახო ოთახი",
+     "title_en": "Family room",
      "price": 160,
      "key_type": "box",
      "capacity": 4,
@@ -859,6 +887,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 90,
      "key_type": "box",
      "capacity": 1,
@@ -868,11 +897,15 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     },
     {
      "name": "ჯიპ-ტური თრუსოს ხეობაში",
+     "name_en": "Jeep tour to the Truso Valley",
+     "description_en": "Half a day, up to 4 people",
      "price": 150,
      "description": "ნახევარი დღე, 4 ადგილამდე"
     }
@@ -883,16 +916,21 @@
    "key": "gudauri",
    "owner": "levan",
    "name": "გუდაურის კოტეჯი",
+   "name_en": "Gudauri Cottage",
    "address": "გუდაური",
+   "address_en": "Gudauri",
    "lat": 42.4777,
    "lng": 44.4775,
    "rating": 4.5,
    "description": "ხის კოტეჯი სათხილამურო ტრასებთან ახლოს. ზაფხულში აქედან ლაშქრობა და პარაპლანით ფრენაა შესაძლებელი.",
+   "description_en": "A wooden cottage close to the ski slopes. In summer you can go hiking and paragliding from here.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი ოთახი",
+     "title_en": "Double room",
      "price": 110,
      "key_type": "box",
      "capacity": 2,
@@ -901,6 +939,7 @@
     {
      "number": "2",
      "title": "სამადგილიანი ოთახი",
+     "title_en": "Triple room",
      "price": 145,
      "key_type": "box",
      "capacity": 3,
@@ -909,6 +948,7 @@
     {
      "number": "3",
      "title": "კოტეჯი, 2 საძინებელი",
+     "title_en": "Cottage, 2 bedrooms",
      "price": 220,
      "key_type": "box",
      "capacity": 5,
@@ -918,6 +958,8 @@
    "services": [
     {
      "name": "თხილამურების ქირაობა",
+     "name_en": "Ski rental",
+     "description_en": "For one day, per person",
      "price": 50,
      "description": "ერთი დღით, ერთ ადამიანზე"
     }
@@ -928,16 +970,21 @@
    "key": "dartlo",
    "owner": "nino",
    "name": "დართლოს ქვის სახლი",
+   "name_en": "Dartlo Stone House",
    "address": "დართლო, თუშეთი",
+   "address_en": "Dartlo, Tusheti",
    "lat": 42.4394,
    "lng": 45.5811,
    "rating": 4.9,
    "description": "ქვის სახლი თუშეთის ძველ სოფელში. გზა თუშეთში მხოლოდ ზაფხულში, დაახლოებით ივნისიდან ოქტომბრამდეა ღია.",
+   "description_en": "A stone house in an old Tusheti village. The road to Tusheti is open only in summer, roughly from June to October.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი",
+     "title_en": "Double",
      "price": 110,
      "key_type": "box",
      "capacity": 2,
@@ -946,6 +993,7 @@
     {
      "number": "2",
      "title": "ოთხადგილიანი",
+     "title_en": "Quadruple",
      "price": 160,
      "key_type": "box",
      "capacity": 4,
@@ -954,6 +1002,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 85,
      "key_type": "box",
      "capacity": 1,
@@ -963,6 +1012,8 @@
    "services": [
     {
      "name": "სამი კვება",
+     "name_en": "Three meals a day",
+     "description_en": "Breakfast, lunch and dinner",
      "price": 60,
      "description": "საუზმე, სადილი, ვახშამი"
     }
@@ -973,16 +1024,21 @@
    "key": "omalo",
    "owner": "levan",
    "name": "ომალოს სტუმარი",
+   "name_en": "Omalo Guest House",
    "address": "ომალო, თუშეთი",
+   "address_en": "Omalo, Tusheti",
    "lat": 42.378,
    "lng": 45.629,
    "rating": 4.6,
    "description": "საოჯახო გესთჰაუსი ომალოში, კესელოს ციხის ძირას. აქედან თუშეთის სოფლებში საცხენოსნო ტურები იწყება.",
+   "description_en": "A family guesthouse in Omalo, below Keselo Fortress. Horse-riding tours to the villages of Tusheti start from here.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი",
+     "title_en": "Double",
      "price": 100,
      "key_type": "box",
      "capacity": 2,
@@ -991,6 +1047,7 @@
     {
      "number": "2",
      "title": "სამადგილიანი",
+     "title_en": "Triple",
      "price": 130,
      "key_type": "box",
      "capacity": 3,
@@ -999,6 +1056,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 75,
      "key_type": "box",
      "capacity": 1,
@@ -1008,11 +1066,15 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     },
     {
      "name": "საცხენოსნო ტური",
+     "name_en": "Horse-riding tour",
+     "description_en": "Half a day, with a guide",
      "price": 90,
      "description": "ნახევარი დღე, გიდით"
     }
@@ -1023,16 +1085,21 @@
    "key": "mestia",
    "owner": "nino",
    "name": "სვანური სახლი",
+   "name_en": "Svan House",
    "address": "მესტია",
+   "address_en": "Mestia",
    "lat": 43.0465,
    "lng": 42.729,
    "rating": 4.7,
    "description": "სახლი მესტიის ძველ უბანში, სვანური კოშკების გვერდით. ცენტრამდე და მუზეუმამდე ფეხით 10 წუთია.",
+   "description_en": "A house in Mestia's old quarter, next to the Svan towers. The centre and the museum are a 10-minute walk away.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი, კოშკის ხედით",
+     "title_en": "Double, tower view",
      "price": 110,
      "key_type": "box",
      "capacity": 2,
@@ -1041,6 +1108,7 @@
     {
      "number": "2",
      "title": "საოჯახო ოთახი",
+     "title_en": "Family room",
      "price": 150,
      "key_type": "box",
      "capacity": 4,
@@ -1049,6 +1117,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 85,
      "key_type": "box",
      "capacity": 1,
@@ -1058,11 +1127,15 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     },
     {
      "name": "ტრანსფერი უშგულში",
+     "name_en": "Transfer to Ushguli",
+     "description_en": "Both ways, up to 4 people",
      "price": 200,
      "description": "ორივე მიმართულებით, 4 ადგილამდე"
     }
@@ -1073,16 +1146,21 @@
    "key": "ushguli",
    "owner": "levan",
    "name": "უშგულის აივანი",
+   "name_en": "Ushguli Balcony",
    "address": "უშგული",
+   "address_en": "Ushguli",
    "lat": 42.917,
    "lng": 43.015,
    "rating": 4.8,
    "description": "ხის აივნიანი სახლი უშგულში, შხარის ხედით. ევროპის ერთ-ერთი ყველაზე მაღალმთიანი მუდმივი დასახლებაა.",
+   "description_en": "A house with a wooden balcony in Ushguli, looking out at Shkhara. One of the highest permanently inhabited settlements in Europe.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი",
+     "title_en": "Double",
      "price": 100,
      "key_type": "box",
      "capacity": 2,
@@ -1091,6 +1169,7 @@
     {
      "number": "2",
      "title": "სამადგილიანი",
+     "title_en": "Triple",
      "price": 130,
      "key_type": "box",
      "capacity": 3,
@@ -1099,6 +1178,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 75,
      "key_type": "box",
      "capacity": 1,
@@ -1108,6 +1188,8 @@
    "services": [
     {
      "name": "სამი კვება",
+     "name_en": "Three meals a day",
+     "description_en": "With Svan dishes",
      "price": 55,
      "description": "სვანური კერძებით"
     }
@@ -1118,16 +1200,21 @@
    "key": "rioni",
    "owner": "nino",
    "name": "რიონის სახლი",
+   "name_en": "Rioni House",
    "address": "ქუთაისი, ცენტრი",
+   "address_en": "Kutaisi, Centre",
    "lat": 42.27,
    "lng": 42.702,
    "rating": 4.5,
    "description": "სახლი ქუთაისის ცენტრში, რიონის ნაპირთან. ბაგრატის ტაძრამდე ფეხით, გელათამდე მანქანით 20 წუთია.",
+   "description_en": "A house in central Kutaisi, on the bank of the Rioni. Bagrati Cathedral is within walking distance; Gelati is a 20-minute drive.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი",
+     "title_en": "Double",
      "price": 85,
      "key_type": "box",
      "capacity": 2,
@@ -1136,6 +1223,7 @@
     {
      "number": "2",
      "title": "სამადგილიანი",
+     "title_en": "Triple",
      "price": 105,
      "key_type": "box",
      "capacity": 3,
@@ -1144,6 +1232,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 65,
      "key_type": "box",
      "capacity": 1,
@@ -1153,11 +1242,15 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     },
     {
      "name": "ტური მღვიმეებში",
+     "name_en": "Cave tour",
+     "description_en": "Prometheus Cave and Sataplia, with transport",
      "price": 120,
      "description": "პრომეთე და სათაფლია, ტრანსპორტით"
     }
@@ -1168,16 +1261,21 @@
    "key": "martvili",
    "owner": "levan",
    "name": "მარტვილის ბაღი",
+   "name_en": "Martvili Garden",
    "address": "მარტვილი",
+   "address_en": "Martvili",
    "lat": 42.414,
    "lng": 42.379,
    "rating": 4.4,
    "description": "საოჯახო სახლი ბაღით მარტვილში. მარტვილის კანიონამდე მანქანით დაახლოებით 15 წუთია.",
+   "description_en": "A family house with a garden in Martvili. Martvili Canyon is about a 15-minute drive.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი",
+     "title_en": "Double",
      "price": 80,
      "key_type": "box",
      "capacity": 2,
@@ -1186,6 +1284,7 @@
     {
      "number": "2",
      "title": "საოჯახო ოთახი",
+     "title_en": "Family room",
      "price": 120,
      "key_type": "box",
      "capacity": 4,
@@ -1194,6 +1293,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 60,
      "key_type": "box",
      "capacity": 1,
@@ -1203,11 +1303,15 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     },
     {
      "name": "მეგრული ვახშამი",
+     "name_en": "Megrelian dinner",
+     "description_en": "Per person",
      "price": 45,
      "description": "ერთ ადამიანზე"
     }
@@ -1218,16 +1322,21 @@
    "key": "batumi",
    "owner": "nino",
    "name": "ზღვის ბრიზი",
+   "name_en": "Sea Breeze",
    "address": "ბათუმი, ძველი ქალაქი",
+   "address_en": "Batumi, Old Town",
    "lat": 41.65,
    "lng": 41.638,
    "rating": 4.5,
    "description": "აპარტამენტი ბათუმის ძველ უბანში. ზღვამდე და ბულვარამდე ფეხით 5 წუთია.",
+   "description_en": "An apartment in Batumi's old quarter. The sea and the boulevard are a 5-minute walk away.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "სტუდიო",
+     "title_en": "Studio",
      "price": 110,
      "key_type": "box",
      "capacity": 2,
@@ -1236,6 +1345,7 @@
     {
      "number": "2",
      "title": "ორ ოთახიანი",
+     "title_en": "Two-room",
      "price": 160,
      "key_type": "box",
      "capacity": 4,
@@ -1244,6 +1354,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 85,
      "key_type": "box",
      "capacity": 1,
@@ -1253,6 +1364,8 @@
    "services": [
     {
      "name": "ტრანსფერი აეროპორტიდან",
+     "name_en": "Airport transfer",
+     "description_en": "Up to 4 people",
      "price": 40,
      "description": "4 ადგილამდე"
     }
@@ -1263,16 +1376,21 @@
    "key": "kobuleti",
    "owner": "levan",
    "name": "კობულეთის კოტეჯი",
+   "name_en": "Kobuleti Cottage",
    "address": "კობულეთი",
+   "address_en": "Kobuleti",
    "lat": 41.815,
    "lng": 41.778,
    "rating": 4.4,
    "description": "კოტეჯი ეზოთი ზღვასთან ახლოს. ზაფხულში იდეალურია ოჯახისთვის.",
+   "description_en": "A cottage with a yard close to the sea. Ideal for families in summer.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი ოთახი",
+     "title_en": "Double room",
      "price": 90,
      "key_type": "box",
      "capacity": 2,
@@ -1281,6 +1399,7 @@
     {
      "number": "2",
      "title": "სამადგილიანი ოთახი",
+     "title_en": "Triple room",
      "price": 115,
      "key_type": "box",
      "capacity": 3,
@@ -1289,6 +1408,7 @@
     {
      "number": "3",
      "title": "კოტეჯი, 2 საძინებელი",
+     "title_en": "Cottage, 2 bedrooms",
      "price": 180,
      "key_type": "box",
      "capacity": 5,
@@ -1298,6 +1418,8 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     }
@@ -1308,16 +1430,21 @@
    "key": "borjomi",
    "owner": "nino",
    "name": "ბორჯომის ხეობა",
+   "name_en": "Borjomi Gorge",
    "address": "ბორჯომი",
+   "address_en": "Borjomi",
    "lat": 41.842,
    "lng": 43.385,
    "rating": 4.6,
    "description": "სახლი ბორჯომის ცენტრალურ პარკთან ახლოს. აქედან ეროვნული პარკის ბილიკებზე წასვლა მარტივია.",
+   "description_en": "A house near Borjomi's Central Park. The national park trails are easy to reach from here.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი",
+     "title_en": "Double",
      "price": 95,
      "key_type": "box",
      "capacity": 2,
@@ -1326,6 +1453,7 @@
     {
      "number": "2",
      "title": "სამადგილიანი",
+     "title_en": "Triple",
      "price": 120,
      "key_type": "box",
      "capacity": 3,
@@ -1334,6 +1462,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 70,
      "key_type": "box",
      "capacity": 1,
@@ -1343,11 +1472,15 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     },
     {
      "name": "გიდი ეროვნულ პარკში",
+     "name_en": "National park guide",
+     "description_en": "One day",
      "price": 100,
      "description": "ერთი დღე"
     }
@@ -1358,16 +1491,21 @@
    "key": "bakuriani",
    "owner": "levan",
    "name": "ბაკურიანის ხის სახლი",
+   "name_en": "Bakuriani Wooden House",
    "address": "ბაკურიანი",
+   "address_en": "Bakuriani",
    "lat": 41.75,
    "lng": 43.53,
    "rating": 4.7,
    "description": "ხის კოტეჯი ნაძვნარში. ზამთარში თხილამურებით, ზაფხულში ტყეში სასეირნოდ.",
+   "description_en": "A wooden cottage in a spruce forest. Skiing in winter, forest walks in summer.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი ოთახი",
+     "title_en": "Double room",
      "price": 100,
      "key_type": "box",
      "capacity": 2,
@@ -1376,6 +1514,7 @@
     {
      "number": "2",
      "title": "სამადგილიანი ოთახი",
+     "title_en": "Triple room",
      "price": 130,
      "key_type": "box",
      "capacity": 3,
@@ -1384,6 +1523,7 @@
     {
      "number": "3",
      "title": "კოტეჯი, ბუხრით",
+     "title_en": "Cottage, with fireplace",
      "price": 200,
      "key_type": "box",
      "capacity": 6,
@@ -1393,6 +1533,8 @@
    "services": [
     {
      "name": "შეშა ბუხრისთვის",
+     "name_en": "Firewood for the fireplace",
+     "description_en": "In the winter season",
      "price": 0,
      "description": "ზამთრის სეზონზე"
     }
@@ -1403,16 +1545,21 @@
    "key": "aspindza",
    "owner": "nino",
    "name": "ვარძიის გზაზე",
+   "name_en": "On the Road to Vardzia",
    "address": "ასპინძა",
+   "address_en": "Aspindza",
    "lat": 41.5733,
    "lng": 43.25,
    "rating": 4.5,
    "description": "საოჯახო სახლი ასპინძაში, ვარძიიდან დაახლოებით 30 კილომეტრში.",
+   "description_en": "A family house in Aspindza, about 30 km from Vardzia.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი",
+     "title_en": "Double",
      "price": 80,
      "key_type": "box",
      "capacity": 2,
@@ -1421,6 +1568,7 @@
     {
      "number": "2",
      "title": "სამადგილიანი",
+     "title_en": "Triple",
      "price": 100,
      "key_type": "box",
      "capacity": 3,
@@ -1429,6 +1577,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 60,
      "key_type": "box",
      "capacity": 1,
@@ -1438,11 +1587,15 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     },
     {
      "name": "ტრანსფერი ვარძიაში",
+     "name_en": "Transfer to Vardzia",
+     "description_en": "Both ways",
      "price": 70,
      "description": "ორივე მიმართულებით"
     }
@@ -1453,16 +1606,21 @@
    "key": "oni",
    "owner": "levan",
    "name": "რაჭის სახლი",
+   "name_en": "Racha House",
    "address": "ონი, რაჭა",
+   "address_en": "Oni, Racha",
    "lat": 42.5839,
    "lng": 43.4417,
    "rating": 4.6,
    "description": "სახლი ონში, რიონის ხეობაში. კარგი საწყისია რაჭის მთების, შოვისა და ნიკორწმინდის სანახავად.",
+   "description_en": "A house in Oni, in the Rioni valley. A good base for the Racha mountains, Shovi and Nikortsminda.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი",
+     "title_en": "Double",
      "price": 85,
      "key_type": "box",
      "capacity": 2,
@@ -1471,6 +1629,7 @@
     {
      "number": "2",
      "title": "საოჯახო ოთახი",
+     "title_en": "Family room",
      "price": 120,
      "key_type": "box",
      "capacity": 4,
@@ -1479,6 +1638,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 65,
      "key_type": "box",
      "capacity": 1,
@@ -1488,11 +1648,15 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     },
     {
      "name": "რაჭული ვახშამი",
+     "name_en": "Rachan dinner",
+     "description_en": "Lobiani and ham, per person",
      "price": 45,
      "description": "ლობიანი და ლორი, ერთ ადამიანზე"
     }
@@ -1503,16 +1667,21 @@
    "key": "lagodekhi",
    "owner": "nino",
    "name": "ლაგოდეხის ტყე",
+   "name_en": "Lagodekhi Forest",
    "address": "ლაგოდეხი",
+   "address_en": "Lagodekhi",
    "lat": 41.827,
    "lng": 46.277,
    "rating": 4.6,
    "description": "გესთჰაუსი ლაგოდეხის დაცული ტერიტორიის შესასვლელთან. ნინოსხევის ჩანჩქერის ბილიკი აქედან იწყება.",
+   "description_en": "A guesthouse at the entrance to Lagodekhi Protected Areas. The Ninoskhevi Waterfall trail starts here.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი",
+     "title_en": "Double",
      "price": 80,
      "key_type": "box",
      "capacity": 2,
@@ -1521,6 +1690,7 @@
     {
      "number": "2",
      "title": "სამადგილიანი",
+     "title_en": "Triple",
      "price": 100,
      "key_type": "box",
      "capacity": 3,
@@ -1529,6 +1699,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 60,
      "key_type": "box",
      "capacity": 1,
@@ -1538,11 +1709,15 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     },
     {
      "name": "საგზალი ლაშქრობისთვის",
+     "name_en": "Packed lunch for hiking",
+     "description_en": "Sandwich, fruit, water",
      "price": 15,
      "description": "სენდვიჩი, ხილი, წყალი"
     }
@@ -1553,16 +1728,21 @@
    "key": "juta",
    "owner": "nino",
    "name": "ჯუთის ქოხი",
+   "name_en": "Juta Hut",
    "address": "ჯუთა, ყაზბეგი",
+   "address_en": "Juta, Kazbegi",
    "lat": 42.578,
    "lng": 44.744,
    "rating": 4.9,
    "description": "ხის კოტეჯი ჯუთაში, დაახლოებით 2200 მეტრ სიმაღლეზე. ჭაუხის მასივამდე და ხუთი ტბის ბილიკამდე ფეხით მიდიხარ.",
+   "description_en": "A wooden cottage in Juta at about 2,200 m. You can walk to the Chaukhi massif and the Five Lakes trail.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი ოთახი",
+     "title_en": "Double room",
      "price": 95,
      "key_type": "box",
      "capacity": 2,
@@ -1571,6 +1751,7 @@
     {
      "number": "2",
      "title": "სამადგილიანი ოთახი",
+     "title_en": "Triple room",
      "price": 125,
      "key_type": "box",
      "capacity": 3,
@@ -1579,6 +1760,7 @@
     {
      "number": "3",
      "title": "კოტეჯი, 2 საძინებელი",
+     "title_en": "Cottage, 2 bedrooms",
      "price": 190,
      "key_type": "box",
      "capacity": 4,
@@ -1588,11 +1770,15 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     },
     {
      "name": "საგზალი ლაშქრობისთვის",
+     "name_en": "Packed lunch for hiking",
+     "description_en": "Sandwich, fruit, water",
      "price": 15,
      "description": "სენდვიჩი, ხილი, წყალი"
     }
@@ -1603,16 +1789,21 @@
    "key": "roshka",
    "owner": "levan",
    "name": "როშკის ქვის სახლი",
+   "name_en": "Roshka Stone House",
    "address": "როშკა, ხევსურეთი",
+   "address_en": "Roshka, Khevsureti",
    "lat": 42.556,
    "lng": 44.88,
    "rating": 4.7,
    "description": "ქვის სახლი ხევსურეთის სოფელ როშკაში. აბუდელაურის ტბებამდე ბილიკი სოფლიდან იწყება. გზა ზამთარში ხშირად დაკეტილია.",
+   "description_en": "A stone house in the Khevsureti village of Roshka. The trail to the Abudelauri Lakes starts in the village. The road is often closed in winter.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი",
+     "title_en": "Double",
      "price": 90,
      "key_type": "box",
      "capacity": 2,
@@ -1621,6 +1812,7 @@
     {
      "number": "2",
      "title": "ოთხადგილიანი",
+     "title_en": "Quadruple",
      "price": 140,
      "key_type": "box",
      "capacity": 4,
@@ -1629,6 +1821,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 70,
      "key_type": "box",
      "capacity": 1,
@@ -1638,6 +1831,8 @@
    "services": [
     {
      "name": "სამი კვება",
+     "name_en": "Three meals a day",
+     "description_en": "With Khevsur dishes",
      "price": 55,
      "description": "ხევსურული კერძებით"
     }
@@ -1648,16 +1843,21 @@
    "key": "hatsvali",
    "owner": "nino",
    "name": "ჰაწვალის კოტეჯი",
+   "name_en": "Hatsvali Cottage",
    "address": "მესტია, ჰაწვალი",
+   "address_en": "Mestia, Hatsvali",
    "lat": 43.042,
    "lng": 42.735,
    "rating": 4.8,
    "description": "ხის კოტეჯი მესტიის თავზე, ჰაწვალის სათხილამურო ტრასასთან ახლოს, უშბის ხედით.",
+   "description_en": "A wooden cottage above Mestia, near the Hatsvali ski slope, with a view of Ushba.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი ოთახი",
+     "title_en": "Double room",
      "price": 105,
      "key_type": "box",
      "capacity": 2,
@@ -1666,6 +1866,7 @@
     {
      "number": "2",
      "title": "სამადგილიანი ოთახი",
+     "title_en": "Triple room",
      "price": 135,
      "key_type": "box",
      "capacity": 3,
@@ -1674,6 +1875,7 @@
     {
      "number": "3",
      "title": "კოტეჯი ბუხრით",
+     "title_en": "Cottage with fireplace",
      "price": 210,
      "key_type": "box",
      "capacity": 5,
@@ -1683,11 +1885,15 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     },
     {
      "name": "თხილამურების ქირაობა",
+     "name_en": "Ski rental",
+     "description_en": "For one day, per person",
      "price": 45,
      "description": "ერთი დღით, ერთ ადამიანზე"
     }
@@ -1698,16 +1904,21 @@
    "key": "beshumi",
    "owner": "levan",
    "name": "ბეშუმის ხის სახლი",
+   "name_en": "Beshumi Wooden House",
    "address": "ბეშუმი, აჭარა",
+   "address_en": "Beshumi, Adjara",
    "lat": 41.6286,
    "lng": 42.5378,
    "rating": 4.6,
    "description": "ხის კოტეჯი აჭარის მთის საზაფხულო კურორტზე, ფიჭვნარსა და საძოვრებს შორის.",
+   "description_en": "A wooden cottage at a summer mountain resort in Adjara's highlands, among pine forests and pastures.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი ოთახი",
+     "title_en": "Double room",
      "price": 80,
      "key_type": "box",
      "capacity": 2,
@@ -1716,6 +1927,7 @@
     {
      "number": "2",
      "title": "სამადგილიანი ოთახი",
+     "title_en": "Triple room",
      "price": 105,
      "key_type": "box",
      "capacity": 3,
@@ -1724,6 +1936,7 @@
     {
      "number": "3",
      "title": "კოტეჯი, 2 საძინებელი",
+     "title_en": "Cottage, 2 bedrooms",
      "price": 160,
      "key_type": "box",
      "capacity": 5,
@@ -1733,11 +1946,15 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     },
     {
      "name": "აჭარული ვახშამი",
+     "name_en": "Adjarian dinner",
+     "description_en": "Per person",
      "price": 40,
      "description": "ერთ ადამიანზე"
     }
@@ -1748,16 +1965,21 @@
    "key": "bakhmaro",
    "owner": "nino",
    "name": "ბახმაროს კოტეჯი",
+   "name_en": "Bakhmaro Cottage",
    "address": "ბახმარო, გურია",
+   "address_en": "Bakhmaro, Guria",
    "lat": 41.8517,
    "lng": 42.3256,
    "rating": 4.7,
    "description": "კოტეჯი 2000 მეტრ სიმაღლეზე, ცნობილ მთის კურორტზე. ზაფხულში სუფთა ჰაერი და ღრუბლების ზღვა.",
+   "description_en": "A cottage at 2,000 m in a well-known mountain resort. Fresh air and a sea of clouds in summer.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი ოთახი",
+     "title_en": "Double room",
      "price": 85,
      "key_type": "box",
      "capacity": 2,
@@ -1766,6 +1988,7 @@
     {
      "number": "2",
      "title": "სამადგილიანი ოთახი",
+     "title_en": "Triple room",
      "price": 110,
      "key_type": "box",
      "capacity": 3,
@@ -1774,6 +1997,7 @@
     {
      "number": "3",
      "title": "კოტეჯი, 2 საძინებელი",
+     "title_en": "Cottage, 2 bedrooms",
      "price": 170,
      "key_type": "box",
      "capacity": 5,
@@ -1783,6 +2007,8 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     }
@@ -1793,16 +2019,21 @@
    "key": "shovi",
    "owner": "levan",
    "name": "შოვის ხის სახლი",
+   "name_en": "Shovi Wooden House",
    "address": "შოვი, რაჭა",
+   "address_en": "Shovi, Racha",
    "lat": 42.7,
    "lng": 43.6833,
    "rating": 4.6,
    "description": "ხის სახლი ნაძვნარში, მთის კურორტ შოვში, მინერალური წყაროების მახლობლად.",
+   "description_en": "A wooden house in a spruce forest at the Shovi mountain resort, near the mineral springs.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი",
+     "title_en": "Double",
      "price": 100,
      "key_type": "box",
      "capacity": 2,
@@ -1811,6 +2042,7 @@
     {
      "number": "2",
      "title": "საოჯახო ოთახი",
+     "title_en": "Family room",
      "price": 150,
      "key_type": "box",
      "capacity": 4,
@@ -1819,6 +2051,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 75,
      "key_type": "box",
      "capacity": 1,
@@ -1828,11 +2061,15 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     },
     {
      "name": "რაჭული ვახშამი",
+     "name_en": "Rachan dinner",
+     "description_en": "Lobiani and ham, per person",
      "price": 45,
      "description": "ლობიანი და ლორი, ერთ ადამიანზე"
     }
@@ -1843,16 +2080,21 @@
    "key": "abastumani",
    "owner": "nino",
    "name": "აბასთუმნის აგარაკი",
+   "name_en": "Abastumani Summer House",
    "address": "აბასთუმანი",
+   "address_en": "Abastumani",
    "lat": 41.7525,
    "lng": 42.8319,
    "rating": 4.5,
    "description": "ძველი აგარაკის სტილის სახლი ფიჭვნარში. ობსერვატორიამდე საბაგიროთი ან მანქანით ადიხარ.",
+   "description_en": "A house in the style of an old summer villa, in a pine forest. You can go up to the observatory by cable car or by car.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი",
+     "title_en": "Double",
      "price": 85,
      "key_type": "box",
      "capacity": 2,
@@ -1861,6 +2103,7 @@
     {
      "number": "2",
      "title": "სამადგილიანი",
+     "title_en": "Triple",
      "price": 110,
      "key_type": "box",
      "capacity": 3,
@@ -1869,6 +2112,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 65,
      "key_type": "box",
      "capacity": 1,
@@ -1878,11 +2122,15 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     },
     {
      "name": "ღამის ცის დათვალიერება",
+     "name_en": "Stargazing",
+     "description_en": "Observatory tour, per person",
      "price": 30,
      "description": "ტური ობსერვატორიაში, ერთ ადამიანზე"
     }
@@ -1893,16 +2141,21 @@
    "key": "lentekhi",
    "owner": "levan",
    "name": "ლენტეხის სახლი",
+   "name_en": "Lentekhi House",
    "address": "ლენტეხი, ქვემო სვანეთი",
+   "address_en": "Lentekhi, Lower Svaneti",
    "lat": 42.789,
    "lng": 42.724,
    "rating": 4.5,
    "description": "საოჯახო სახლი ქვემო სვანეთში, ცხენისწყლის ხეობაში. მშვიდი ადგილია ლაშქრობისა და თევზაობისთვის.",
+   "description_en": "A family house in Lower Svaneti, in the Tskhenistskali valley. A quiet place for hiking and fishing.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი",
+     "title_en": "Double",
      "price": 80,
      "key_type": "box",
      "capacity": 2,
@@ -1911,6 +2164,7 @@
     {
      "number": "2",
      "title": "სამადგილიანი",
+     "title_en": "Triple",
      "price": 105,
      "key_type": "box",
      "capacity": 3,
@@ -1919,6 +2173,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 60,
      "key_type": "box",
      "capacity": 1,
@@ -1928,6 +2183,8 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     }
@@ -1938,16 +2195,21 @@
    "key": "ambrolauri",
    "owner": "nino",
    "name": "ამბროლაურის მარანი",
+   "name_en": "Ambrolauri Wine Cellar",
    "address": "ამბროლაური, რაჭა",
+   "address_en": "Ambrolauri, Racha",
    "lat": 42.521,
    "lng": 43.153,
    "rating": 4.6,
    "description": "საოჯახო სახლი საკუთარი მარნით რაჭის ცენტრში. ბარაკონი და ნიკორწმინდა ახლოსაა.",
+   "description_en": "A family house with its own wine cellar in the heart of Racha. Barakoni and Nikortsminda are close by.",
    "checkin_info": "გასაღების ყუთი შესასვლელ კართან, მარჯვენა კედელზეა.",
+   "checkin_info_en": "The key box is by the front door, on the right-hand wall.",
    "rooms": [
     {
      "number": "1",
      "title": "ორადგილიანი",
+     "title_en": "Double",
      "price": 90,
      "key_type": "box",
      "capacity": 2,
@@ -1956,6 +2218,7 @@
     {
      "number": "2",
      "title": "საოჯახო ოთახი",
+     "title_en": "Family room",
      "price": 130,
      "key_type": "box",
      "capacity": 4,
@@ -1964,6 +2227,7 @@
     {
      "number": "3",
      "title": "ერთადგილიანი",
+     "title_en": "Single",
      "price": 70,
      "key_type": "box",
      "capacity": 1,
@@ -1973,11 +2237,15 @@
    "services": [
     {
      "name": "საუზმე",
+     "name_en": "Breakfast",
+     "description_en": "Home-made breakfast",
      "price": 20,
      "description": "საოჯახო საუზმე"
     },
     {
      "name": "ხვანჭკარის დეგუსტაცია",
+     "name_en": "Khvanchkara tasting",
+     "description_en": "3 Rachan wines",
      "price": 40,
      "description": "3 რაჭული ღვინო"
     }
@@ -1989,7 +2257,9 @@
   {
    "type": "landmark",
    "name": "გელათის მონასტერი",
+   "name_en": "Gelati Monastery",
    "description": "XII საუკუნის მონასტერი ქუთაისთან, დავით აღმაშენებლის დაარსებული. UNESCO-ს მსოფლიო მემკვიდრეობის ძეგლია.",
+   "description_en": "12th-century monastery near Kutaisi, founded by David the Builder. A UNESCO World Heritage Site.",
    "lat": 42.2947,
    "lng": 42.7681,
    "photo": "lm-gelati"
@@ -1997,7 +2267,9 @@
   {
    "type": "landmark",
    "name": "ჯვრის მონასტერი",
+   "name_en": "Jvari Monastery",
    "description": "VI საუკუნის ტაძარი მცხეთის თავზე, არაგვისა და მტკვრის შესართავის ხედით.",
+   "description_en": "6th-century church above Mtskheta, overlooking the confluence of the Aragvi and the Mtkvari.",
    "lat": 41.8386,
    "lng": 44.7339,
    "photo": "lm-jvari"
@@ -2005,7 +2277,9 @@
   {
    "type": "landmark",
    "name": "ნარიყალა",
+   "name_en": "Narikala Fortress",
    "description": "ძველი ციხე-სიმაგრე თბილისის თავზე, ძველი ქალაქისა და მტკვრის პანორამით.",
+   "description_en": "Ancient fortress above Tbilisi, with a panorama of the Old Town and the Mtkvari.",
    "lat": 41.6878,
    "lng": 44.8086,
    "photo": "lm-narikala"
@@ -2013,7 +2287,9 @@
   {
    "type": "landmark",
    "name": "სამების საკათედრო ტაძარი",
+   "name_en": "Holy Trinity Cathedral (Sameba)",
    "description": "თბილისის მთავარი ტაძარი ელიას მთაზე, ქალაქის თითქმის ყველა უბნიდან ჩანს.",
+   "description_en": "Tbilisi's main cathedral on Elia Hill, visible from almost every part of the city.",
    "lat": 41.6975,
    "lng": 44.8167,
    "photo": "lm-sameba"
@@ -2021,7 +2297,9 @@
   {
    "type": "landmark",
    "name": "საქართველოს მატიანე",
+   "name_en": "Chronicle of Georgia",
    "description": "მონუმენტი თბილისის ზღვის თავზე: მაღალ სვეტებზე საქართველოს ისტორიის სცენებია.",
+   "description_en": "Monument above the Tbilisi Sea: scenes from Georgia's history on tall pillars.",
    "lat": 41.7705,
    "lng": 44.8104,
    "photo": "lm-chronicle"
@@ -2029,7 +2307,9 @@
   {
    "type": "landmark",
    "name": "სვეტიცხოველი",
+   "name_en": "Svetitskhoveli Cathedral",
    "description": "XI საუკუნის საკათედრო ტაძარი მცხეთის ცენტრში. UNESCO-ს მსოფლიო მემკვიდრეობის ძეგლია.",
+   "description_en": "11th-century cathedral in the centre of Mtskheta. A UNESCO World Heritage Site.",
    "lat": 41.8419,
    "lng": 44.7211,
    "photo": "lm-svetitskhoveli"
@@ -2037,7 +2317,9 @@
   {
    "type": "landmark",
    "name": "უფლისციხე",
+   "name_en": "Uplistsikhe",
    "description": "კლდეში ნაკვეთი ძველი ქალაქი გორთან, მტკვრის ნაპირზე.",
+   "description_en": "Ancient rock-hewn town near Gori, on the bank of the Mtkvari.",
    "lat": 41.9683,
    "lng": 44.2042,
    "photo": "lm-uplistsikhe"
@@ -2045,7 +2327,9 @@
   {
    "type": "landmark",
    "name": "ანანურის ციხე",
+   "name_en": "Ananuri Fortress",
    "description": "XVII საუკუნის ციხე-სიმაგრე ჟინვალის წყალსაცავის პირას, საქართველოს სამხედრო გზაზე.",
+   "description_en": "17th-century fortress on the Zhinvali Reservoir, on the Georgian Military Road.",
    "lat": 42.1636,
    "lng": 44.7039,
    "photo": "lm-ananuri"
@@ -2053,7 +2337,9 @@
   {
    "type": "landmark",
    "name": "გერგეტის სამება",
+   "name_en": "Gergeti Trinity Church",
    "description": "XIV საუკუნის ეკლესია ყაზბეგის ძირას, 2170 მეტრ სიმაღლეზე. სტეფანწმინდიდან ბილიკი ადის.",
+   "description_en": "14th-century church at the foot of Kazbek, at 2,170 m. A trail climbs up from Stepantsminda.",
    "lat": 42.6625,
    "lng": 44.6203,
    "photo": "lm-gergeti"
@@ -2061,7 +2347,9 @@
   {
    "type": "trail",
    "name": "თრუსოს ხეობა",
+   "name_en": "Truso Valley",
    "description": "მთის ხეობა ყაზბეგის მუნიციპალიტეტში: მინერალური წყაროები, ტრავერტინები და მიტოვებული სოფლები.",
+   "description_en": "Mountain valley in Kazbegi Municipality: mineral springs, travertines and abandoned villages.",
    "lat": 42.62,
    "lng": 44.45,
    "photo": "lm-truso"
@@ -2069,7 +2357,9 @@
   {
    "type": "landmark",
    "name": "შატილი",
+   "name_en": "Shatili",
    "description": "ხევსურეთის შუა საუკუნეების ციხე-სოფელი ერთმანეთზე მიდგმული ქვის კოშკებით.",
+   "description_en": "Medieval fortified village in Khevsureti, made of stone towers built against one another.",
    "lat": 42.6597,
    "lng": 45.1586,
    "photo": "lm-shatili"
@@ -2077,7 +2367,9 @@
   {
    "type": "landmark",
    "name": "კესელოს ციხე",
+   "name_en": "Keselo Fortress",
    "description": "ციხე-კოშკები ომალოს თავზე, თუშეთის მთების ხედით.",
+   "description_en": "Fortress towers above Omalo, with views of the Tusheti mountains.",
    "lat": 42.3775,
    "lng": 45.6317,
    "photo": "lm-keselo"
@@ -2085,7 +2377,9 @@
   {
    "type": "landmark",
    "name": "დავით გარეჯი",
+   "name_en": "David Gareja",
    "description": "VI საუკუნიდან კლდეში ნაკვეთი მონასტრები ნახევრად უდაბნო ლანდშაფტში.",
+   "description_en": "Rock-hewn monasteries dating from the 6th century, in a semi-desert landscape.",
    "lat": 41.4473,
    "lng": 45.3765,
    "photo": "lm-gareja"
@@ -2093,7 +2387,9 @@
   {
    "type": "landmark",
    "name": "ბოდბის მონასტერი",
+   "name_en": "Bodbe Monastery",
    "description": "წმინდა ნინოს საფლავი სიღნაღიდან 2 კილომეტრში, ალაზნის ველის ხედით.",
+   "description_en": "Burial place of Saint Nino, 2 km from Sighnaghi, overlooking the Alazani Valley.",
    "lat": 41.6066,
    "lng": 45.9334,
    "photo": "lm-bodbe"
@@ -2101,7 +2397,9 @@
   {
    "type": "landmark",
    "name": "ვარძია",
+   "name_en": "Vardzia",
    "description": "XII საუკუნის კლდეში ნაკვეთი სამონასტრო ქალაქი მტკვრის ხეობაში.",
+   "description_en": "12th-century rock-hewn monastery town in the Mtkvari valley.",
    "lat": 41.3809,
    "lng": 43.2838,
    "photo": "lm-vardzia"
@@ -2109,7 +2407,9 @@
   {
    "type": "landmark",
    "name": "რაბათის ციხე",
+   "name_en": "Rabati Fortress",
    "description": "ახალციხის ძველი ციხე-სიმაგრე: ეკლესია, მეჩეთი და მუზეუმი ერთ კომპლექსში.",
+   "description_en": "Akhaltsikhe's old fortress: a church, a mosque and a museum in one complex.",
    "lat": 41.6425,
    "lng": 42.9808,
    "photo": "lm-rabati"
@@ -2117,7 +2417,9 @@
   {
    "type": "trail",
    "name": "ბორჯომ-ხარაგაულის ეროვნული პარკი",
+   "name_en": "Borjomi-Kharagauli National Park",
    "description": "ერთ-ერთი უდიდესი დაცული ტერიტორია კავკასიაში, მონიშნული ტყის ბილიკებით.",
+   "description_en": "One of the largest protected areas in the Caucasus, with marked forest trails.",
    "lat": 41.85,
    "lng": 43.25,
    "photo": "lm-borjomi-park"
@@ -2125,7 +2427,9 @@
   {
    "type": "landmark",
    "name": "ბაგრატის ტაძარი",
+   "name_en": "Bagrati Cathedral",
    "description": "XI საუკუნის ტაძარი ქუთაისის უქიმერიონის გორაზე.",
+   "description_en": "11th-century cathedral on Kutaisi's Ukimerioni Hill.",
    "lat": 42.2773,
    "lng": 42.7043,
    "photo": "lm-bagrati"
@@ -2133,7 +2437,9 @@
   {
    "type": "landmark",
    "name": "მოწამეთას მონასტერი",
+   "name_en": "Motsameta Monastery",
    "description": "მონასტერი წყალწითელას ხეობის კლდეზე, ქუთაისთან.",
+   "description_en": "Monastery on a cliff above the Tskaltsitela gorge, near Kutaisi.",
    "lat": 42.2819,
    "lng": 42.7592,
    "photo": "lm-motsameta"
@@ -2141,7 +2447,9 @@
   {
    "type": "landmark",
    "name": "პრომეთეს მღვიმე",
+   "name_en": "Prometheus Cave",
    "description": "კარსტული მღვიმე წყალტუბოსთან: სტალაქტიტები, სტალაგმიტები და მიწისქვეშა მდინარე.",
+   "description_en": "Karst cave near Tskaltubo: stalactites, stalagmites and an underground river.",
    "lat": 42.3767,
    "lng": 42.6006,
    "photo": "lm-prometheus"
@@ -2149,7 +2457,9 @@
   {
    "type": "landmark",
    "name": "სათაფლია",
+   "name_en": "Sataplia",
    "description": "დაცული ტერიტორია ქუთაისთან: დინოზავრის ნაკვალევი, მღვიმე და ხედის მოედანი.",
+   "description_en": "Protected area near Kutaisi: dinosaur footprints, a cave and a viewing platform.",
    "lat": 42.3117,
    "lng": 42.6744,
    "photo": "lm-sataplia"
@@ -2157,7 +2467,9 @@
   {
    "type": "landmark",
    "name": "კაცხის სვეტი",
+   "name_en": "Katskhi Pillar",
    "description": "40-მეტრიანი კლდის სვეტი, რომლის თავზეც პატარა ეკლესიაა.",
+   "description_en": "A 40-metre limestone pillar with a small church on top.",
    "lat": 42.2875,
    "lng": 43.2156,
    "photo": "lm-katskhi"
@@ -2165,7 +2477,9 @@
   {
    "type": "trail",
    "name": "ოკაცეს კანიონი",
+   "name_en": "Okatse Canyon",
    "description": "კიდული ბილიკი კანიონის კედელზე, ხონთან ახლოს.",
+   "description_en": "A hanging walkway along the canyon wall, near Khoni.",
    "lat": 42.4523,
    "lng": 42.5472,
    "photo": "lm-okatse"
@@ -2173,7 +2487,9 @@
   {
    "type": "landmark",
    "name": "მარტვილის კანიონი",
+   "name_en": "Martvili Canyon",
    "description": "ზურმუხტისფერი მდინარე და ჩანჩქერები. კანიონში ნავით სეირნობაა შესაძლებელი.",
+   "description_en": "An emerald river and waterfalls. Boat rides through the canyon are possible.",
    "lat": 42.4572,
    "lng": 42.3772,
    "photo": "lm-martvili-canyon"
@@ -2181,7 +2497,9 @@
   {
    "type": "landmark",
    "name": "ნიკორწმინდა",
+   "name_en": "Nikortsminda Cathedral",
    "description": "XI საუკუნის ტაძარი რაჭაში, მდიდრული ქვის ჩუქურთმით.",
+   "description_en": "11th-century cathedral in Racha, with rich stone carving.",
    "lat": 42.4594,
    "lng": 43.0878,
    "photo": "lm-nikortsminda"
@@ -2189,7 +2507,9 @@
   {
    "type": "landmark",
    "name": "უშგული",
+   "name_en": "Ushguli",
    "description": "სვანური კოშკებით ცნობილი სოფლები შხარის ძირას. UNESCO-ს მსოფლიო მემკვიდრეობის ძეგლია.",
+   "description_en": "Villages famous for their Svan towers, at the foot of Shkhara. A UNESCO World Heritage Site.",
    "lat": 42.9178,
    "lng": 43.0157,
    "photo": "lm-ushguli"
@@ -2197,7 +2517,9 @@
   {
    "type": "landmark",
    "name": "ბათუმის ბოტანიკური ბაღი",
+   "name_en": "Batumi Botanical Garden",
    "description": "ზღვისპირა ბაღი მწვანე კონცხზე, მსოფლიოს სხვადასხვა კუთხის მცენარეებით.",
+   "description_en": "Seaside garden on Green Cape, with plants from around the world.",
    "lat": 41.6927,
    "lng": 41.7198,
    "photo": "lm-botanical"
@@ -2205,7 +2527,9 @@
   {
    "type": "landmark",
    "name": "ბათუმის ბულვარი",
+   "name_en": "Batumi Boulevard",
    "description": "ზღვისპირა ბულვარი ბაღებით, შადრევნებითა და სასეირნო ბილიკით.",
+   "description_en": "Seaside boulevard with gardens, fountains and a promenade.",
    "lat": 41.6541,
    "lng": 41.6342,
    "photo": "lm-boulevard"
@@ -2213,7 +2537,9 @@
   {
    "type": "landmark",
    "name": "იყალთოს მონასტერი",
+   "name_en": "Ikalto Monastery",
    "description": "VI საუკუნის მონასტერი თელავთან. შუა საუკუნეებში აქ აკადემია მოქმედებდა.",
+   "description_en": "6th-century monastery near Telavi. An academy operated here in the Middle Ages.",
    "lat": 41.937,
    "lng": 45.381,
    "photo": "lm-ikalto"
@@ -2221,7 +2547,9 @@
   {
    "type": "landmark",
    "name": "თეთნულდი",
+   "name_en": "Tetnuldi",
    "description": "4858-მეტრიანი მწვერვალი სვანეთში. მის ფერდზე სათხილამურო კურორტია, ზაფხულში კი საბაგიროთი ადიხარ ხედებისთვის.",
+   "description_en": "A 4,858 m peak in Svaneti. A ski resort lies on its slopes, and in summer a cable car takes you up for the views.",
    "lat": 43.0311,
    "lng": 42.9932,
    "photo": "lm-tetnuldi"
@@ -2229,7 +2557,9 @@
   {
    "type": "landmark",
    "name": "აბანოთუბანი",
+   "name_en": "Abanotubani",
    "description": "თბილისის გოგირდის აბანოები ძველი ქალაქის გულში.",
+   "description_en": "Tbilisi's sulphur baths in the heart of the Old Town.",
    "lat": 41.6878,
    "lng": 44.8111,
    "photo": "lm-abanotubani"
@@ -2237,7 +2567,9 @@
   {
    "type": "landmark",
    "name": "თბილისის ბოტანიკური ბაღი",
+   "name_en": "Tbilisi Botanical Garden",
    "description": "ბაღი ნარიყალას ძირას, ხეობაში, ჩანჩქერითა და ტყის ბილიკებით.",
+   "description_en": "Garden in a gorge below Narikala, with a waterfall and forest paths.",
    "lat": 41.6861,
    "lng": 44.8075,
    "photo": "lm-botanical-tbilisi"
@@ -2245,7 +2577,9 @@
   {
    "type": "landmark",
    "name": "მშვიდობის ხიდი",
+   "name_en": "Bridge of Peace",
    "description": "მინისა და ფოლადის საფეხმავლო ხიდი მტკვარზე, ძველ თბილისში.",
+   "description_en": "Glass and steel pedestrian bridge over the Mtkvari in Old Tbilisi.",
    "lat": 41.6929,
    "lng": 44.8082,
    "photo": "lm-peace-bridge"
@@ -2253,7 +2587,9 @@
   {
    "type": "landmark",
    "name": "მთაწმინდის პარკი",
+   "name_en": "Mtatsminda Park",
    "description": "გასართობი პარკი თბილისის თავზე: ფუნიკულიორი, ეშმაკის ბორბალი და ქალაქის პანორამა.",
+   "description_en": "Amusement park above Tbilisi: funicular, Ferris wheel and a city panorama.",
    "lat": 41.6933,
    "lng": 44.7802,
    "photo": "lm-mtatsminda"
@@ -2261,7 +2597,9 @@
   {
    "type": "landmark",
    "name": "სამთავროს მონასტერი",
+   "name_en": "Samtavro Monastery",
    "description": "XI საუკუნის ტაძარი მცხეთაში. აქ განისვენებენ მეფე მირიანი და დედოფალი ნანა.",
+   "description_en": "11th-century church in Mtskheta, where King Mirian and Queen Nana are buried.",
    "lat": 41.8464,
    "lng": 44.7175,
    "photo": "lm-samtavro"
@@ -2269,7 +2607,9 @@
   {
    "type": "landmark",
    "name": "შიომღვიმე",
+   "name_en": "Shio-Mgvime Monastery",
    "description": "VI საუკუნის სამონასტრო კომპლექსი კლდოვან ხეობაში, მცხეთასთან.",
+   "description_en": "6th-century monastery complex in a rocky gorge near Mtskheta.",
    "lat": 41.8625,
    "lng": 44.6403,
    "photo": "lm-shiomgvime"
@@ -2277,7 +2617,9 @@
   {
    "type": "landmark",
    "name": "ატენის სიონი",
+   "name_en": "Ateni Sioni",
    "description": "VII საუკუნის ტაძარი გორთან, X–XI საუკუნეების ფრესკებით.",
+   "description_en": "7th-century church near Gori, with 10th–11th-century frescoes.",
    "lat": 41.9039,
    "lng": 44.096,
    "photo": "lm-ateni"
@@ -2285,7 +2627,9 @@
   {
    "type": "landmark",
    "name": "გორის ციხე",
+   "name_en": "Gori Fortress",
    "description": "შუა საუკუნეების ციხე გორის ცენტრში, გორაზე.",
+   "description_en": "Medieval fortress on a hill in the centre of Gori.",
    "lat": 41.9861,
    "lng": 44.1081,
    "photo": "lm-gori-fortress"
@@ -2293,7 +2637,9 @@
   {
    "type": "trail",
    "name": "ალგეთის ეროვნული პარკი",
+   "name_en": "Algeti National Park",
    "description": "ნაძვნარი ტყე და მდელოები თბილისიდან დაახლოებით ერთ საათში.",
+   "description_en": "Spruce forest and meadows about an hour from Tbilisi.",
    "lat": 41.7167,
    "lng": 44.3167,
    "photo": "lm-algeti"
@@ -2301,7 +2647,9 @@
   {
    "type": "trail",
    "name": "ვაშლოვანის ეროვნული პარკი",
+   "name_en": "Vashlovani National Park",
    "description": "ნახევრად უდაბნოს ლანდშაფტი სამხრეთ-აღმოსავლეთ საქართველოში: კანიონები, ტალახის ვულკანები და გაშლილი ველები.",
+   "description_en": "Semi-desert landscape in south-eastern Georgia: canyons, mud volcanoes and open plains.",
    "lat": 41.2,
    "lng": 46.3833,
    "photo": "lm-vashlovani"
@@ -2309,7 +2657,9 @@
   {
    "type": "trail",
    "name": "თუშეთის ეროვნული პარკი",
+   "name_en": "Tusheti National Park",
    "description": "მაღალმთიანი ტყეები და საძოვრები კავკასიონზე, ომალოდან დართლომდე ბილიკებით.",
+   "description_en": "High-mountain forests and pastures in the Caucasus, with trails from Omalo to Dartlo.",
    "lat": 42.41,
    "lng": 45.4869,
    "photo": "lm-tusheti-np"
@@ -2317,7 +2667,9 @@
   {
    "type": "landmark",
    "name": "ნოქალაქევი",
+   "name_en": "Nokalakevi",
    "description": "ეგრისის სამეფოს ძველი დედაქალაქი, ციხე-ქალაქის ნანგრევებით.",
+   "description_en": "Ancient capital of the Kingdom of Egrisi, with the ruins of a fortified town.",
    "lat": 42.3572,
    "lng": 42.1939,
    "photo": "lm-nokalakevi"
@@ -2325,7 +2677,9 @@
   {
    "type": "landmark",
    "name": "წყალტუბო",
+   "name_en": "Tskaltubo",
    "description": "საკურორტო ქალაქი რადონის მინერალური წყლით და ძველი სანატორიუმებით.",
+   "description_en": "Spa town with radon mineral water and old sanatoriums.",
    "lat": 42.3286,
    "lng": 42.5997,
    "photo": "lm-tskaltubo"
@@ -2333,7 +2687,9 @@
   {
    "type": "landmark",
    "name": "დადიანების სასახლე",
+   "name_en": "Dadiani Palace",
    "description": "სამეგრელოს მთავრების სასახლე-მუზეუმი ზუგდიდში, ბოტანიკური ბაღით.",
+   "description_en": "Palace-museum of the princes of Samegrelo in Zugdidi, with a botanical garden.",
    "lat": 42.5122,
    "lng": 41.8742,
    "photo": "lm-dadiani"
@@ -2341,7 +2697,9 @@
   {
    "type": "landmark",
    "name": "მარტვილის მონასტერი",
+   "name_en": "Martvili Monastery",
    "description": "VII საუკუნის ტაძარი (ჭყონდიდი) მარტვილის ბორცვზე.",
+   "description_en": "7th-century church (Chkondidi) on a hill in Martvili.",
    "lat": 42.4053,
    "lng": 42.3778,
    "photo": "lm-martvili-monastery"
@@ -2349,7 +2707,9 @@
   {
    "type": "trail",
    "name": "კოლხეთის ეროვნული პარკი",
+   "name_en": "Kolkheti National Park",
    "description": "ჭაობები, პალიასტომის ტბა და ფრინველების სამყარო ფოთთან.",
+   "description_en": "Wetlands, Lake Paliastomi and rich birdlife near Poti.",
    "lat": 42.1108,
    "lng": 41.6961,
    "photo": "lm-kolkheti"
@@ -2357,7 +2717,9 @@
   {
    "type": "trail",
    "name": "მტირალას ეროვნული პარკი",
+   "name_en": "Mtirala National Park",
    "description": "საქართველოს ერთ-ერთი ყველაზე წვიმიანი კუთხე ბათუმთან: ჩანჩქერები და ტყის ბილიკები.",
+   "description_en": "One of the rainiest corners of Georgia, near Batumi: waterfalls and forest trails.",
    "lat": 41.6975,
    "lng": 41.8895,
    "photo": "lm-mtirala"
@@ -2365,7 +2727,9 @@
   {
    "type": "landmark",
    "name": "ხერთვისის ციხე",
+   "name_en": "Khertvisi Fortress",
    "description": "ერთ-ერთი უძველესი ციხე საქართველოში, მტკვრისა და ფარავნის შესართავთან.",
+   "description_en": "One of the oldest fortresses in Georgia, at the confluence of the Mtkvari and the Paravani.",
    "lat": 41.4767,
    "lng": 43.2858,
    "photo": "lm-khertvisi"
@@ -2373,7 +2737,9 @@
   {
    "type": "landmark",
    "name": "საფარის მონასტერი",
+   "name_en": "Sapara Monastery",
    "description": "მონასტერი ახალციხესთან, მთის ტყეში, X–XIV საუკუნეების ეკლესიებით.",
+   "description_en": "Monastery in a mountain forest near Akhaltsikhe, with 10th–14th-century churches.",
    "lat": 41.6022,
    "lng": 43.0303,
    "photo": "lm-sapara"
@@ -2381,7 +2747,9 @@
   {
    "type": "landmark",
    "name": "ზარზმის მონასტერი",
+   "name_en": "Zarzma Monastery",
    "description": "XIV საუკუნის ტაძარი სამცხეში, ფრესკებით და მაღალი სამრეკლოთი.",
+   "description_en": "14th-century church in Samtskhe, with frescoes and a tall bell tower.",
    "lat": 41.6797,
    "lng": 42.6539,
    "photo": "lm-zarzma"
@@ -2389,7 +2757,9 @@
   {
    "type": "landmark",
    "name": "აბასთუმნის ობსერვატორია",
+   "name_en": "Abastumani Observatory",
    "description": "1932 წელს დაარსებული ასტროფიზიკური ობსერვატორია ყანობილის მთაზე.",
+   "description_en": "Astrophysical observatory on Mount Kanobili, founded in 1932.",
    "lat": 41.7542,
    "lng": 42.8194,
    "photo": "lm-abastumani-obs"
@@ -2397,7 +2767,9 @@
   {
    "type": "landmark",
    "name": "ფარავნის ტბა",
+   "name_en": "Lake Paravani",
    "description": "საქართველოს უდიდესი ტბა, ჯავახეთის ზეგანზე, 2073 მეტრ სიმაღლეზე.",
+   "description_en": "Georgia's largest lake, on the Javakheti Plateau at 2,073 m.",
    "lat": 41.4639,
    "lng": 43.8139,
    "photo": "lm-paravani"
@@ -2405,7 +2777,9 @@
   {
    "type": "trail",
    "name": "ჯავახეთის ეროვნული პარკი",
+   "name_en": "Javakheti National Park",
    "description": "მაღალმთიანი ტბები და გადამფრენი ფრინველები ჯავახეთის ზეგანზე.",
+   "description_en": "High-mountain lakes and migratory birds on the Javakheti Plateau.",
    "lat": 41.1667,
    "lng": 43.4333,
    "photo": "lm-javakheti"
@@ -2413,7 +2787,9 @@
   {
    "type": "landmark",
    "name": "ბარაკონი",
+   "name_en": "Barakoni",
    "description": "XVIII საუკუნის ტაძარი რაჭაში, მდიდრული ქვის ჩუქურთმით.",
+   "description_en": "18th-century church in Racha, with rich stone carving.",
    "lat": 42.5389,
    "lng": 43.21,
    "photo": "lm-barakoni"
@@ -2421,7 +2797,9 @@
   {
    "type": "trail",
    "name": "ჭაუხის მასივი",
+   "name_en": "Chaukhi Massif",
    "description": "კლდოვანი მასივი ჯუთის თავზე: ლაშქრობა ჭაუხის უღელტეხილამდე და ხუთი ტბის ბილიკი.",
+   "description_en": "Rocky massif above Juta: hikes to the Chaukhi Pass and the Five Lakes trail.",
    "lat": 42.5551,
    "lng": 44.7764,
    "photo": "lm-chaukhi"
@@ -2429,7 +2807,9 @@
   {
    "type": "trail",
    "name": "აბუდელაურის ტბები",
+   "name_en": "Abudelauri Lakes",
    "description": "სამი სხვადასხვა ფერის მყინვარული ტბა ხევსურეთში, როშკიდან ბილიკით.",
+   "description_en": "Three glacial lakes of different colours in Khevsureti, reached by a trail from Roshka.",
    "lat": 42.5443,
    "lng": 44.8373,
    "photo": "lm-abudelauri"
@@ -2437,7 +2817,9 @@
   {
    "type": "trail",
    "name": "გველეთის ჩანჩქერი",
+   "name_en": "Gveleti Waterfall",
    "description": "ჩანჩქერი დარიალის ხეობაში, მოკლე ბილიკით სტეფანწმინდიდან ახლოს.",
+   "description_en": "Waterfall in the Dariali Gorge, a short trail from near Stepantsminda.",
    "lat": 42.709,
    "lng": 44.629,
    "photo": "lm-gveleti"
@@ -2445,7 +2827,9 @@
   {
    "type": "landmark",
    "name": "დარიალის მონასტერი",
+   "name_en": "Dariali Monastery",
    "description": "სამონასტრო კომპლექსი დარიალის ვიწრო ხეობაში, მაღალი კლდეების ძირას.",
+   "description_en": "Monastery complex in the narrow Dariali Gorge, at the foot of high cliffs.",
    "lat": 42.744,
    "lng": 44.627,
    "photo": "lm-dariali"
@@ -2453,7 +2837,9 @@
   {
    "type": "trail",
    "name": "ქორულდის ტბები",
+   "name_en": "Koruldi Lakes",
    "description": "მთის ტბები მესტიის თავზე, უშბისა და სვანეთის ქედის ხედით.",
+   "description_en": "Mountain lakes above Mestia, with views of Ushba and the Svaneti Range.",
    "lat": 43.0876,
    "lng": 42.7021,
    "photo": "lm-koruldi"
@@ -2461,7 +2847,9 @@
   {
    "type": "trail",
    "name": "ჩალაადის მყინვარი",
+   "name_en": "Chalaadi Glacier",
    "description": "მყინვარი მესტიის მახლობლად, ტყის ბილიკით და ხიდით მდინარეზე.",
+   "description_en": "Glacier near Mestia, reached by a forest trail and a bridge over the river.",
    "lat": 43.1237,
    "lng": 42.7203,
    "photo": "lm-chalaadi"
@@ -2469,7 +2857,9 @@
   {
    "type": "trail",
    "name": "კინჩხას ჩანჩქერი",
+   "name_en": "Kinchkha Waterfall",
    "description": "ერთ-ერთი ყველაზე მაღალი ჩანჩქერი საქართველოში, ოკაცეს კანიონთან ახლოს.",
+   "description_en": "One of the tallest waterfalls in Georgia, near Okatse Canyon.",
    "lat": 42.4966,
    "lng": 42.5527,
    "photo": "lm-kinchkha"
@@ -2477,7 +2867,9 @@
   {
    "type": "trail",
    "name": "მახუნცეთის ჩანჩქერი",
+   "name_en": "Makhuntseti Waterfall",
    "description": "ჩანჩქერი აჭარის მთებში, ბათუმიდან დაახლოებით 30 კილომეტრში, თამარის თაღოვან ხიდთან ახლოს.",
+   "description_en": "Waterfall in the Adjara mountains, about 30 km from Batumi, near Queen Tamar's arched bridge.",
    "lat": 41.5749,
    "lng": 41.8583,
    "photo": "lm-makhuntseti"
@@ -2485,7 +2877,9 @@
   {
    "type": "landmark",
    "name": "პეტრას ციხე",
+   "name_en": "Petra Fortress",
    "description": "VI საუკუნის ბიზანტიური ციხე ზღვის პირას, ციხისძირში.",
+   "description_en": "6th-century Byzantine fortress by the sea, in Tsikhisdziri.",
    "lat": 41.7688,
    "lng": 41.755,
    "photo": "lm-petra"
@@ -2493,7 +2887,9 @@
   {
    "type": "trail",
    "name": "დაშბაშის კანიონი",
+   "name_en": "Dashbashi Canyon",
    "description": "კანიონი წალკასთან, მინის ხიდითა და ჩანჩქერებით.",
+   "description_en": "Canyon near Tsalka, with a glass bridge and waterfalls.",
    "lat": 41.5897,
    "lng": 44.1271,
    "photo": "lm-dashbashi"
@@ -2501,7 +2897,9 @@
   {
    "type": "landmark",
    "name": "ანჩისხატი",
+   "name_en": "Anchiskhati Basilica",
    "description": "თბილისის უძველესი შემორჩენილი ეკლესია, VI საუკუნისა, ძველ ქალაქში.",
+   "description_en": "Tbilisi's oldest surviving church, from the 6th century, in the Old Town.",
    "lat": 41.6956,
    "lng": 44.8069,
    "photo": "lm-tb-anchiskhati"
@@ -2509,7 +2907,9 @@
   {
    "type": "landmark",
    "name": "სიონის ტაძარი",
+   "name_en": "Sioni Cathedral",
    "description": "ძველი თბილისის საკათედრო ტაძარი მტკვრის ნაპირთან.",
+   "description_en": "Cathedral of Old Tbilisi, near the bank of the Mtkvari.",
    "lat": 41.6914,
    "lng": 44.8075,
    "photo": "lm-tb-sioni"
@@ -2517,7 +2917,9 @@
   {
    "type": "landmark",
    "name": "მეტეხის ტაძარი",
+   "name_en": "Metekhi Church",
    "description": "XIII საუკუნის ტაძარი კლდეზე მტკვრის თავზე, ვახტანგ გორგასლის ქანდაკებით.",
+   "description_en": "13th-century church on a cliff above the Mtkvari, with a statue of Vakhtang Gorgasali.",
    "lat": 41.6901,
    "lng": 44.8112,
    "photo": "lm-tb-metekhi"
@@ -2525,7 +2927,9 @@
   {
    "type": "landmark",
    "name": "ქაშვეთის ეკლესია",
+   "name_en": "Kashveti Church",
    "description": "XX საუკუნის დასაწყისის ეკლესია რუსთაველის გამზირზე.",
+   "description_en": "Early 20th-century church on Rustaveli Avenue.",
    "lat": 41.698,
    "lng": 44.7993,
    "photo": "lm-tb-kashveti"
@@ -2533,7 +2937,9 @@
   {
    "type": "landmark",
    "name": "მთაწმინდის პანთეონი",
+   "name_en": "Mtatsminda Pantheon",
    "description": "ქართველი მწერლებისა და საზოგადო მოღვაწეების განსასვენებელი მთაწმინდის ფერდზე.",
+   "description_en": "Resting place of Georgian writers and public figures on the slope of Mtatsminda.",
    "lat": 41.6958,
    "lng": 44.7889,
    "photo": "lm-tb-pantheon"
@@ -2541,7 +2947,9 @@
   {
    "type": "landmark",
    "name": "საქართველოს ეროვნული მუზეუმი",
+   "name_en": "Georgian National Museum",
    "description": "ოქროს ფონდი, არქეოლოგია და ისტორია რუსთაველის გამზირზე.",
+   "description_en": "The Gold Fund, archaeology and history on Rustaveli Avenue.",
    "lat": 41.6964,
    "lng": 44.8,
    "photo": "lm-tb-museum"
@@ -2549,7 +2957,9 @@
   {
    "type": "landmark",
    "name": "თავისუფლების მოედანი",
+   "name_en": "Freedom Square",
    "description": "ქალაქის ცენტრალური მოედანი, საიდანაც რუსთაველის გამზირი იწყება.",
+   "description_en": "The city's central square, where Rustaveli Avenue begins.",
    "lat": 41.6933,
    "lng": 44.8017,
    "photo": "lm-tb-freedom"
@@ -2557,7 +2967,9 @@
   {
    "type": "landmark",
    "name": "ქართლის დედა",
+   "name_en": "Mother of Georgia (Kartlis Deda)",
    "description": "20-მეტრიანი ქანდაკება სოლოლაკის ქედზე: ერთ ხელში ღვინის თასი, მეორეში ხმალი.",
+   "description_en": "A 20-metre statue on the Sololaki Ridge: a cup of wine in one hand, a sword in the other.",
    "lat": 41.6883,
    "lng": 44.8031,
    "photo": "lm-tb-kartlisdeda"
@@ -2565,7 +2977,9 @@
   {
    "type": "trail",
    "name": "რუსთაველის გამზირი",
+   "name_en": "Rustaveli Avenue",
    "description": "თბილისის მთავარი გამზირი ფეხით: ოპერა, თეატრები, მუზეუმები და კაფეები.",
+   "description_en": "Tbilisi's main avenue on foot: the opera, theatres, museums and cafés.",
    "lat": 41.6942,
    "lng": 44.7997,
    "photo": "lm-tb-rustaveli"
@@ -2573,7 +2987,9 @@
   {
    "type": "trail",
    "name": "აღმაშენებლის გამზირი",
+   "name_en": "Aghmashenebeli Avenue",
    "description": "გარემონტებული XIX საუკუნის გამზირი, ფეხით სასეირნო ქუჩით, კაფეებითა და ეზოებით.",
+   "description_en": "Restored 19th-century avenue with a pedestrian street, cafés and courtyards.",
    "lat": 41.7103,
    "lng": 44.7961,
    "photo": "lm-tb-agmashenebeli"
@@ -2581,7 +2997,9 @@
   {
    "type": "trail",
    "name": "სოლოლაკი",
+   "name_en": "Sololaki",
    "description": "ძველი უბანი ხის აივნებითა და მოხატული სადარბაზოებით. საუკეთესოა ფეხით დასათვალიერებლად.",
+   "description_en": "Old neighbourhood with wooden balconies and painted entrance halls. Best explored on foot.",
    "lat": 41.6895,
    "lng": 44.799,
    "photo": "lm-tb-sololaki"
@@ -2589,7 +3007,9 @@
   {
    "type": "trail",
    "name": "ბეთლემის კიბეები",
+   "name_en": "Betlemi Stairs",
    "description": "ვიწრო კიბეები და ქუჩები ძველ ქალაქში, ნარიყალასა და ქართლის დედისკენ.",
+   "description_en": "Narrow stairs and lanes in the Old Town, leading up to Narikala and the Mother of Georgia.",
    "lat": 41.6894,
    "lng": 44.8041,
    "photo": "lm-tb-betlemi"
@@ -2597,7 +3017,9 @@
   {
    "type": "trail",
    "name": "ლეღვთახევის ჩანჩქერი",
+   "name_en": "Leghvtakhevi Waterfall",
    "description": "ჩანჩქერი ქალაქის შუაგულში, აბანოთუბნიდან ხეობის ბილიკით 10 წუთში.",
+   "description_en": "Waterfall in the heart of the city, 10 minutes from Abanotubani along a gorge path.",
    "lat": 41.6866,
    "lng": 44.8077,
    "photo": "lm-tb-leghvtakhevi"
@@ -2605,7 +3027,9 @@
   {
    "type": "trail",
    "name": "რიყის პარკი",
+   "name_en": "Rike Park",
    "description": "პარკი მტკვრის ნაპირზე, მშვიდობის ხიდსა და ნარიყალას საბაგიროსთან.",
+   "description_en": "Park on the bank of the Mtkvari, by the Bridge of Peace and the Narikala cable car.",
    "lat": 41.693,
    "lng": 44.8093,
    "photo": "lm-tb-rike"
@@ -2613,7 +3037,9 @@
   {
    "type": "landmark",
    "name": "ნარიყალას საბაგირო",
+   "name_en": "Narikala Cable Car",
    "description": "საბაგირო რიყის პარკიდან ნარიყალამდე: ძველი ქალაქის საუკეთესო ხედი რამდენიმე წუთში.",
+   "description_en": "Cable car from Rike Park to Narikala: the best view of the Old Town in a few minutes.",
    "lat": 41.6912,
    "lng": 44.8102,
    "photo": "lm-tb-cablecar"
@@ -2621,7 +3047,9 @@
   {
    "type": "trail",
    "name": "მშრალი ხიდის ბაზრობა",
+   "name_en": "Dry Bridge Market",
    "description": "ღია ბაზრობა: ნახატები, ანტიკვარიატი და საბჭოთა სუვენირები.",
+   "description_en": "Open-air market: paintings, antiques and Soviet souvenirs.",
    "lat": 41.7012,
    "lng": 44.8026,
    "photo": "lm-tb-drybridge"
@@ -2629,7 +3057,9 @@
   {
    "type": "trail",
    "name": "კუს ტბა",
+   "name_en": "Turtle Lake",
    "description": "პატარა ტბა ქალაქის თავზე, ვაკიდან საბაგიროთი ან ფეხით, ეთნოგრაფიულ მუზეუმთან.",
+   "description_en": "Small lake above the city, reached from Vake by cable car or on foot, next to the Ethnographic Museum.",
    "lat": 41.7003,
    "lng": 44.7542,
    "photo": "lm-tb-turtle"
@@ -2637,7 +3067,9 @@
   {
    "type": "trail",
    "name": "ვაკის პარკი",
+   "name_en": "Vake Park",
    "description": "დიდი პარკი ვაკეში, ხეივნებით და გამარჯვების მემორიალით.",
+   "description_en": "Large park in Vake, with tree-lined alleys and the Victory Memorial.",
    "lat": 41.7089,
    "lng": 44.7514,
    "photo": "lm-tb-vake"
@@ -2645,7 +3077,9 @@
   {
    "type": "trail",
    "name": "ლისის ტბა",
+   "name_en": "Lisi Lake",
    "description": "ტბა ქალაქის განაპირას, ირგვლივ სირბილისა და ველოსიპედის ბილიკით.",
+   "description_en": "Lake on the edge of the city, with a running and cycling path around it.",
    "lat": 41.7428,
    "lng": 44.7356,
    "photo": "lm-tb-lisi"
@@ -2653,7 +3087,9 @@
   {
    "type": "trail",
    "name": "თბილისის ზღვა",
+   "name_en": "Tbilisi Sea",
    "description": "დიდი წყალსაცავი ქალაქის ჩრდილოეთით: ზაფხულში ცურვა და სანაპიროზე სეირნობა.",
+   "description_en": "Large reservoir north of the city: swimming and lakeside walks in summer.",
    "lat": 41.7494,
    "lng": 44.8456,
    "photo": "lm-tb-tbilisi-sea"
@@ -2661,7 +3097,9 @@
   {
    "type": "cafe",
    "name": "კაფე „აივანი“",
+   "name_en": "Café \"Aivani\"",
    "description": "ყავა, ხაჭაპური და ტკბილეული სოლოლაკის ძველი სახლის აივანზე.",
+   "description_en": "Coffee, khachapuri and sweets on the balcony of an old Sololaki house.",
    "lat": 41.6905,
    "lng": 44.801,
    "photo": null
@@ -2669,7 +3107,9 @@
   {
    "type": "cafe",
    "name": "საცხობი „ფურნე“",
+   "name_en": "\"Purne\" Bakery",
    "description": "შოთის პური, ლობიანი და ფენოვანი ხაჭაპური დილის 8 საათიდან, აბანოთუბანთან.",
+   "description_en": "Shoti bread, lobiani and flaky khachapuri from 8 a.m., near Abanotubani.",
    "lat": 41.688,
    "lng": 44.8095,
    "photo": null
@@ -2677,7 +3117,9 @@
   {
    "type": "cafe",
    "name": "ღვინის ბარი „ქვევრი და ჭიქა“",
+   "name_en": "\"Qvevri & Glass\" Wine Bar",
    "description": "40-ზე მეტი საოჯახო ღვინო ჭიქით და ყველის დაფა, ძველ ქალაქში.",
+   "description_en": "More than 40 family-made wines by the glass and a cheese board, in the Old Town.",
    "lat": 41.693,
    "lng": 44.8068,
    "photo": null
@@ -2685,7 +3127,9 @@
   {
    "type": "cafe",
    "name": "„ხინკლის სახლი“",
+   "name_en": "\"Khinkali House\"",
    "description": "ხინკალი, მწვადი და ქართული სალათები მარჯანიშვილზე.",
+   "description_en": "Khinkali, mtsvadi and Georgian salads on Marjanishvili.",
    "lat": 41.7095,
    "lng": 44.7975,
    "photo": null
@@ -2693,7 +3137,9 @@
   {
    "type": "cafe",
    "name": "კაფე „ბაღი“",
+   "name_en": "Café \"Baghi\"",
    "description": "საუზმე და დესერტები ბაღში, ვაკის პარკის გვერდით.",
+   "description_en": "Breakfast and desserts in a garden next to Vake Park.",
    "lat": 41.7072,
    "lng": 44.7598,
    "photo": null
@@ -2701,7 +3147,9 @@
   {
    "type": "cafe",
    "name": "„ხიდის ყავა“",
+   "name_en": "\"Bridge Coffee\"",
    "description": "ყავა წასაღებად მშრალი ხიდის ბაზრობასთან.",
+   "description_en": "Coffee to go by the Dry Bridge Market.",
    "lat": 41.7008,
    "lng": 44.802,
    "photo": null
@@ -2709,7 +3157,9 @@
   {
    "type": "cafe",
    "name": "„ჩაის სახლი“",
+   "name_en": "\"Tea House\"",
    "description": "ქართული ჩაი და მურაბები რუსთაველის გამზირის ეზოში.",
+   "description_en": "Georgian tea and preserves in a courtyard off Rustaveli Avenue.",
    "lat": 41.6975,
    "lng": 44.799,
    "photo": null
@@ -2717,7 +3167,9 @@
   {
    "type": "guide",
    "name": "გიდი თამარი: ძველი თბილისი",
+   "name_en": "Guide Tamari: Old Tbilisi",
    "description": "3-საათიანი ფეხით ტური ძველ ქალაქში აბანოებამდე. ქართ. / ინგლ. / ფრანგ.",
+   "description_en": "3-hour walking tour through the Old Town to the baths. Georgian / English / French.",
    "lat": 41.692,
    "lng": 44.8075,
    "photo": null
@@ -2725,7 +3177,9 @@
   {
    "type": "guide",
    "name": "გიდი ლაშა: ღვინო და სამზარეულო",
+   "name_en": "Guide Lasha: wine and food",
    "description": "დეგუსტაცია ქალაქის ღვინის ბარებსა და ბაზრებზე. ქართ. / ინგლ. / რუს.",
+   "description_en": "Tastings in the city's wine bars and markets. Georgian / English / Russian.",
    "lat": 41.7005,
    "lng": 44.7985,
    "photo": null
@@ -2733,7 +3187,9 @@
   {
    "type": "guide",
    "name": "გიდი ანა: თბილისის არქიტექტურა",
+   "name_en": "Guide Ana: Tbilisi architecture",
    "description": "XIX საუკუნის სოლოლაკი და საბჭოთა მოდერნიზმი ერთ დღეში. ქართ. / ინგლ. / გერმ.",
+   "description_en": "19th-century Sololaki and Soviet modernism in one day. Georgian / English / German.",
    "lat": 41.723,
    "lng": 44.772,
    "photo": null
@@ -2741,7 +3197,9 @@
   {
    "type": "guide",
    "name": "გიდი გიორგი: ქალაქის ბილიკები",
+   "name_en": "Guide Giorgi: city trails",
    "description": "ფეხით მთაწმინდიდან კუს ტბამდე, ქალაქის ხედებით. ქართ. / ინგლ.",
+   "description_en": "On foot from Mtatsminda to Turtle Lake, with city views. Georgian / English.",
    "lat": 41.695,
    "lng": 44.785,
    "photo": null
@@ -2749,7 +3207,9 @@
   {
    "type": "tour",
    "name": "ღამის ტური ძველ თბილისში",
+   "name_en": "Night tour of Old Tbilisi",
    "description": "2-საათიანი საღამოს გასეირნება განათებულ ძველ ქალაქში, ნარიყალადან მეტეხამდე.",
+   "description_en": "2-hour evening walk through the lit-up Old Town, from Narikala to Metekhi.",
    "lat": 41.691,
    "lng": 44.806,
    "photo": null
@@ -2757,7 +3217,9 @@
   {
    "type": "tour",
    "name": "გასტრო ტური დეზერტირების ბაზარზე",
+   "name_en": "Food tour of the Dezertirebi Bazaar",
    "description": "ბაზრის დათვალიერება და დეგუსტაცია: ჩურჩხელა, ყველი, მწნილი და სანელებლები.",
+   "description_en": "A walk through the market with tastings: churchkhela, cheese, pickles and spices.",
    "lat": 41.7212,
    "lng": 44.7978,
    "photo": null
@@ -2765,7 +3227,9 @@
   {
    "type": "tour",
    "name": "აბანო და ხინკალი",
+   "name_en": "Baths and khinkali",
    "description": "საღამო გოგირდის აბანოში და ვახშამი ძველ უბანში.",
+   "description_en": "An evening in a sulphur bath and dinner in the old quarter.",
    "lat": 41.688,
    "lng": 44.8105,
    "photo": null

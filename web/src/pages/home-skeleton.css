@@ -558,7 +558,7 @@
 }
 .sk-owner .btn {
   background: #fff;
-  color: var(--wine-ink);
+  color: #365e32; /* white button on the green band, in both themes */
 }
 .sk-owner .btn svg {
   transition: transform 0.2s;

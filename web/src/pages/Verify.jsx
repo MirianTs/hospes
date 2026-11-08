@@ -4,6 +4,7 @@ import { api } from '../api.js';
 import { useAuth } from '../auth.jsx';
 import Icon from '../components/Icon.jsx';
 import { Alert, Spinner, useApi, VerificationBadge } from '../components/ui.jsx';
+import { L } from '../prefs.js';
 
 const MAX_SIDE = 1024;
 const THRESHOLD = 0.6; // same default as FACE_MATCH_THRESHOLD on the server
@@ -38,7 +39,7 @@ function fileToCanvas(file) {
     };
     img.onerror = () => {
       URL.revokeObjectURL(url);
-      reject(new Error('სურათი ვერ წავიკითხე. სცადე JPEG ან PNG.'));
+      reject(new Error(L('სურათი ვერ წავიკითხე. სცადე JPEG ან PNG.', "Couldn't read the image. Try a JPEG or PNG.")));
     };
     img.src = url;
   });
@@ -67,15 +68,15 @@ function IdStep({ canvas, onChange, onError }) {
   };
   return (
     <div className="card card-body">
-      <h3 className="card-title">1. პირადობის ფოტო</h3>
+      <h3 className="card-title">{L('1. პირადობის ფოტო', '1. ID photo')}</h3>
       <Shot canvas={canvas}>
         <div className="hint">
           <Icon name="card" size={34} />
-          პირადობის მოწმობა ან პასპორტი: ფოტოს მხარე, კარგ განათებაში
+          {L('პირადობის მოწმობა ან პასპორტი: ფოტოს მხარე, კარგ განათებაში', 'ID card or passport: the photo side, in good light')}
         </div>
       </Shot>
       <label className="btn btn-outline btn-block mt-2">
-        <Icon name="upload" size={16} /> {canvas ? 'სხვა ფოტოს არჩევა' : 'ფოტოს ატვირთვა / გადაღება'}
+        <Icon name="upload" size={16} /> {canvas ? L('სხვა ფოტოს არჩევა', 'Choose another photo') : L('ფოტოს ატვირთვა / გადაღება', 'Upload / take a photo')}
         <input type="file" accept="image/*" capture="environment" onChange={pick} hidden />
       </label>
     </div>
@@ -108,7 +109,12 @@ function SelfieStep({ canvas, onChange, onError }) {
         }
       });
     } catch {
-      onError('კამერაზე წვდომა ვერ მოხერხდა. დაუშვი კამერა ბრაუზერში ან ატვირთე სელფი ფაილად.');
+      onError(
+        L(
+          'კამერაზე წვდომა ვერ მოხერხდა. დაუშვი კამერა ბრაუზერში ან ატვირთე სელფი ფაილად.',
+          "Couldn't access the camera. Allow camera access in your browser or upload a selfie as a file."
+        )
+      );
     }
   };
 
@@ -132,7 +138,7 @@ function SelfieStep({ canvas, onChange, onError }) {
 
   return (
     <div className="card card-body">
-      <h3 className="card-title">2. სელფი</h3>
+      <h3 className="card-title">{L('2. სელფი', '2. Selfie')}</h3>
       {live ? (
         <div className="shot filled">
           <video ref={videoRef} className="mirror" playsInline muted />
@@ -141,7 +147,7 @@ function SelfieStep({ canvas, onChange, onError }) {
         <Shot canvas={canvas}>
           <div className="hint">
             <Icon name="camera" size={34} />
-            სახე კადრის ცენტრში, სათვალისა და ქუდის გარეშე
+            {L('სახე კადრის ცენტრში, სათვალისა და ქუდის გარეშე', 'Face in the center of the frame, no glasses or hat')}
           </div>
         </Shot>
       )}
@@ -149,21 +155,21 @@ function SelfieStep({ canvas, onChange, onError }) {
         {live ? (
           <>
             <button type="button" className="btn btn-primary" onClick={capture}>
-              <Icon name="camera" size={16} /> გადაღება
+              <Icon name="camera" size={16} /> {L('გადაღება', 'Capture')}
             </button>
             <button type="button" className="btn btn-ghost" onClick={stop}>
-              გაუქმება
+              {L('გაუქმება', 'Cancel')}
             </button>
           </>
         ) : (
           <>
             {canUseCamera && (
               <button type="button" className="btn btn-outline" onClick={start}>
-                <Icon name="camera" size={16} /> {canvas ? 'ხელახლა გადაღება' : 'კამერის ჩართვა'}
+                <Icon name="camera" size={16} /> {canvas ? L('ხელახლა გადაღება', 'Retake') : L('კამერის ჩართვა', 'Turn on camera')}
               </button>
             )}
             <label className={`btn ${canUseCamera ? 'btn-ghost' : 'btn-outline'}`}>
-              <Icon name="upload" size={16} /> {canUseCamera ? 'ფაილიდან' : 'სელფის გადაღება'}
+              <Icon name="upload" size={16} /> {canUseCamera ? L('ფაილიდან', 'From file') : L('სელფის გადაღება', 'Take a selfie')}
               <input type="file" accept="image/*" capture="user" onChange={pick} hidden />
             </label>
           </>
@@ -215,9 +221,17 @@ export default function Verify() {
     await loadModels();
     setPhase('faces');
     const a = await describeFace(idCanvas);
-    if (!a) throw new Error('პირადობის ფოტოზე სახე ვერ მოიძებნა. გადაიღე უფრო ახლოდან და კარგ განათებაში.');
+    if (!a) throw new Error(
+        L(
+          'პირადობის ფოტოზე სახე ვერ მოიძებნა. გადაიღე უფრო ახლოდან და კარგ განათებაში.',
+          'No face found on the ID photo. Take it closer and in good light.'
+        )
+      );
     const b = await describeFace(selfie);
-    if (!b) throw new Error('სელფიზე სახე ვერ მოიძებნა. სახე კადრის ცენტრში მოაქციე.');
+    if (!b)
+      throw new Error(
+        L('სელფიზე სახე ვერ მოიძებნა. სახე კადრის ცენტრში მოაქციე.', 'No face found on the selfie. Keep your face in the center of the frame.')
+      );
     const distance = faceDistance(a.descriptor, b.descriptor);
     const form = new FormData();
     form.append('id_doc', await canvasBlob(idCanvas), 'id.jpg');
@@ -232,31 +246,37 @@ export default function Verify() {
     try {
       await (mode === 'real' ? realCompare() : demoCompare());
     } catch (e) {
-      setError(e.message || 'შედარება ვერ მოხერხდა');
+      setError(e.message || L('შედარება ვერ მოხერხდა', 'Comparison failed'));
       setPhase('idle');
     }
   };
 
   const busy = ['models', 'faces', 'upload'].includes(phase);
-  const phaseText = { models: 'მოდელები იტვირთება…', faces: 'სახეებს ვადარებ…', upload: 'შედეგს ვინახავ…' }[phase];
+  const phaseText = {
+    models: L('მოდელები იტვირთება…', 'Loading models…'),
+    faces: L('სახეებს ვადარებ…', 'Comparing faces…'),
+    upload: L('შედეგს ვინახავ…', 'Saving the result…'),
+  }[phase];
   const match = result ? matchPercent(result.distance, result.threshold ?? threshold) : 0;
 
   return (
     <div className="container">
       <div className="page-head">
         <div className="inline">
-          <h1 className="mb-0">ვინაობის დადასტურება</h1>
+          <h1 className="mb-0">{L('ვინაობის დადასტურება', 'Identity verification')}</h1>
           <VerificationBadge status={user.verification_status} />
         </div>
         <p className="mt-1">
-          ჩექინამდე ჯერ ვინაობა უნდა დაადასტურო. სახეებს შენი ბრაუზერი ადარებს, სერვერზე მხოლოდ შედეგი და
-          ფოტოები ინახება.
+          {L(
+            'ჩექინამდე ჯერ ვინაობა უნდა დაადასტურო. სახეებს შენი ბრაუზერი ადარებს, სერვერზე მხოლოდ შედეგი და ფოტოები ინახება.',
+            'Before check-in you need to verify your identity. Your browser compares the faces; only the result and the photos are stored on the server.'
+          )}
         </p>
       </div>
 
       {user.verification_status === 'verified' && !result && (
         <Alert tone="success">
-          უკვე ვერიფიცირებული ხარ. <Link to={next || '/cabinet'}>გაგრძელება →</Link>
+          {L('უკვე ვერიფიცირებული ხარ.', "You're already verified.")} <Link to={next || '/cabinet'}>{L('გაგრძელება →', 'Continue →')}</Link>
         </Alert>
       )}
 
@@ -266,25 +286,34 @@ export default function Verify() {
       </div>
 
       <div className="card card-body mt-3" style={{ maxWidth: 640 }}>
-        <h3 className="card-title">3. შედარება</h3>
+        <h3 className="card-title">{L('3. შედარება', '3. Comparison')}</h3>
         {error && <Alert tone="error">{error}</Alert>}
         {result && (
           <div className="stack">
             <Alert tone={result.verified ? 'success' : 'error'}>
               {result.verified
-                ? 'ვინაობა დადასტურდა! ახლა ჩექინი და ლოქერ-ბოქსის გახსნა შეგიძლია.'
-                : 'სახეები საკმარისად არ დაემთხვა. სცადე უკეთეს განათებაში, ან პირადობის ფოტო უფრო ახლოდან გადაიღე.'}
+                ? L(
+                    'ვინაობა დადასტურდა! ახლა ჩექინი და ლოქერ-ბოქსის გახსნა შეგიძლია.',
+                    'Identity verified! You can now check in and open the locker box.'
+                  )
+                : L(
+                    'სახეები საკმარისად არ დაემთხვა. სცადე უკეთეს განათებაში, ან პირადობის ფოტო უფრო ახლოდან გადაიღე.',
+                    "The faces didn't match closely enough. Try in better light, or take the ID photo from closer."
+                  )}
             </Alert>
             <div>
               <div className="spread small">
-                <span>დამთხვევა</span>
+                <span>{L('დამთხვევა', 'Match')}</span>
                 <strong>{match}%</strong>
               </div>
               <div className="meter mt-1">
                 <div style={{ width: `${match}%`, background: result.verified ? 'var(--vine)' : 'var(--danger)' }} />
               </div>
               <div className="muted small mt-1">
-                სახეებს შორის მანძილი {result.distance.toFixed(2)} (ზღვარი {result.threshold ?? threshold})
+                {L(
+                  `სახეებს შორის მანძილი ${result.distance.toFixed(2)} (ზღვარი ${result.threshold ?? threshold})`,
+                  `Face distance ${result.distance.toFixed(2)} (threshold ${result.threshold ?? threshold})`
+                )}
               </div>
             </div>
           </div>
@@ -292,18 +321,18 @@ export default function Verify() {
         <div className="inline mt-2">
           {result?.verified ? (
             <button type="button" className="btn btn-primary btn-lg" onClick={() => navigate(next || '/cabinet')}>
-              გაგრძელება <Icon name="arrowRight" size={16} />
+              {L('გაგრძელება', 'Continue')} <Icon name="arrowRight" size={16} />
             </button>
           ) : (
             <button type="button" className="btn btn-primary btn-lg" disabled={!idCanvas || !selfie || busy || !mode} onClick={compare}>
-              {busy ? <Spinner small /> : <Icon name="shield" size={16} />} {busy ? phaseText : 'შედარება და დადასტურება'}
+              {busy ? <Spinner small /> : <Icon name="shield" size={16} />} {busy ? phaseText : L('შედარება და დადასტურება', 'Compare and verify')}
             </button>
           )}
-          {!result && (!idCanvas || !selfie) ? <span className="muted small">ჯერ ორივე ფოტო დაამატე.</span> : null}
+          {!result && (!idCanvas || !selfie) ? <span className="muted small">{L('ჯერ ორივე ფოტო დაამატე.', 'Add both photos first.')}</span> : null}
         </div>
         {mode === 'demo' && !result?.verified && (
           <button type="button" className="btn btn-ghost btn-sm mt-2" disabled={busy} onClick={compare}>
-            ფოტოების გარეშე გაგრძელება
+            {L('ფოტოების გარეშე გაგრძელება', 'Continue without photos')}
           </button>
         )}
       </div>

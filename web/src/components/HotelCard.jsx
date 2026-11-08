@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { money } from '../format.js';
+import { L } from '../prefs.js';
 import HotelArt from './HotelArt.jsx';
 import Icon from './Icon.jsx';
 import { KeyBadge, Rating } from './ui.jsx';
@@ -18,8 +19,9 @@ export function PriceFrom({ value }) {
   if (value == null) return null;
   return (
     <span className="price">
+      {L(null, <small>from </small>)}
       {money(value)}
-      <small>-დან / ღამე</small>
+      <small>{L('-დან / ღამე', ' / night')}</small>
     </span>
   );
 }

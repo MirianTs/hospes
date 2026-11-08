@@ -1,3 +1,5 @@
+import { L } from '../prefs.js';
+
 // Illustrated placeholder (Kakheti hills, snowy Caucasus, vineyard, a guesthouse)
 // shown when a hotel has no photos yet. The seed picks one of several palettes.
 const PALETTES = [
@@ -19,7 +21,7 @@ export default function HotelArt({ seed = 0, label, className }) {
       className={className}
       preserveAspectRatio="xMidYMid slice"
       role="img"
-      aria-label={label || 'სასტუმროს ილუსტრაცია'}
+      aria-label={label || L('სასტუმროს ილუსტრაცია', 'Guesthouse illustration')}
     >
       <defs>
         <linearGradient id={gid} x1="0" y1="0" x2="0" y2="1">

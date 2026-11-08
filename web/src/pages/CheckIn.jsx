@@ -7,6 +7,7 @@ import LockConnect from '../components/LockConnect.jsx';
 import { openCompartment } from '../lockSerial.js';
 import { Alert, ErrorBox, KeyBadge, Loading, Spinner, useAction, useApi } from '../components/ui.jsx';
 import { fmtDate } from '../format.js';
+import { L } from '../prefs.js';
 
 // One entry method for every room: the key waits in a key locker box. The guest (verified, paid,
 // within the booking dates) enters the 6-digit code; if the key is in a Hospes Lock compartment,
@@ -36,7 +37,7 @@ function CodeCheckIn({ booking, onDone }) {
   return (
     <form onSubmit={submit}>
       <label className="field">
-        <span>შეიყვანე 6-ციფრიანი კოდი</span>
+        <span>{L('შეიყვანე 6-ციფრიანი კოდი', 'Enter the 6-digit code')}</span>
         <input
           className="input otp"
           inputMode="numeric"
@@ -50,21 +51,30 @@ function CodeCheckIn({ booking, onDone }) {
       </label>
       {needsVerification ? (
         <Alert tone="warn">
-          ჯერ ვინაობა დაადასტურე.{' '}
-          <Link to={`/verify?next=${encodeURIComponent(`/checkin/${booking.id}`)}`}>ვერიფიკაციის გავლა →</Link>
+          {L('ჯერ ვინაობა დაადასტურე.', 'Verify your identity first.')}{' '}
+          <Link to={`/verify?next=${encodeURIComponent(`/checkin/${booking.id}`)}`}>{L('ვერიფიკაციის გავლა →', 'Get verified →')}</Link>
         </Alert>
       ) : (
         <ErrorBox error={action.error} />
       )}
       <button type="submit" className="btn btn-primary btn-lg btn-block mt-1" disabled={code.length !== 6 || action.busy}>
-        {action.busy ? <Spinner small /> : <Icon name="key" size={16} />} ლოქერ-ბოქსის გახსნა
+        {action.busy ? <Spinner small /> : <Icon name="key" size={16} />} {L('ლოქერ-ბოქსის გახსნა', 'Open locker box')}
       </button>
-      <p className="muted small center-text mt-2 mb-0">კოდი ჯავშნის გვერდზეა და მხოლოდ შენს თარიღებში მოქმედებს.</p>
+      <p className="muted small center-text mt-2 mb-0">
+        {L('კოდი ჯავშნის გვერდზეა და მხოლოდ შენს თარიღებში მოქმედებს.', 'The code is on your booking page and only works during your stay dates.')}
+      </p>
       {booking.lock_id && (
         <>
           <hr className="divider" />
           <p className="small center-text mb-1">
-            ოთახი {booking.room_number}-ის გასაღები ლოქერის <b>განყოფილება #{booking.lock_id}</b>-შია.
+            {L(
+              <>
+                ოთახი {booking.room_number}-ის გასაღები ლოქერის <b>განყოფილება #{booking.lock_id}</b>-შია.
+              </>,
+              <>
+                The key for room {booking.room_number} is in locker <b>compartment #{booking.lock_id}</b>.
+              </>
+            )}
           </p>
           <LockConnect />
         </>
@@ -94,9 +104,9 @@ export default function CheckIn() {
   return (
     <div className="container">
       <div className="page-head center-text">
-        <h1>ჩექინი</h1>
+        <h1>{L('ჩექინი', 'Check-in')}</h1>
         <p style={{ margin: '0 auto' }}>
-          {b.hotel_name} · ოთახი {b.room_number}
+          {b.hotel_name} · {L('ოთახი', 'Room')} {b.room_number}
         </p>
       </div>
       <div className="card card-body checkin-card" style={{ padding: 28 }}>
@@ -105,9 +115,12 @@ export default function CheckIn() {
             <div className="success-mark">
               <Icon name="check" strokeWidth={3} />
             </div>
-            <h2>ლოქერ-ბოქსი გაიღო</h2>
+            <h2>{L('ლოქერ-ბოქსი გაიღო', 'The locker box is open')}</h2>
             <p className="muted">
-              აიღე ოთახის გასაღები. კეთილი იყოს შენი მობრძანება! ოთახი {b.room_number} შენია {fmtDate(b.check_out, true)}-მდე.
+              {L(
+                `აიღე ოთახის გასაღები. კეთილი იყოს შენი მობრძანება! ოთახი ${b.room_number} შენია ${fmtDate(b.check_out, true)}-მდე.`,
+                `Take your room key. Welcome! Room ${b.room_number} is yours until ${fmtDate(b.check_out, true)}.`
+              )}
             </p>
             {done.checkin_info && (
               <Alert tone="info" icon="key">
@@ -116,21 +129,30 @@ export default function CheckIn() {
             )}
             {done.sent ? (
               <Alert tone="success" icon="key">
-                Hospes Lock: განყოფილება #{done.lock_id} გაიღო. 5 წამში თავისით ჩაიკეტება.
+                {L(
+                  `Hospes Lock: განყოფილება #${done.lock_id} გაიღო. 5 წამში თავისით ჩაიკეტება.`,
+                  `Hospes Lock: compartment #${done.lock_id} is open. It locks by itself in 5 seconds.`
+                )}
               </Alert>
             ) : done.hardware === 'mock' && (
               <Alert tone="info">
                 {STATIC_DEMO
-                  ? 'ონლაინ დემოში Hospes Lock სიმულაციაა: ნამდვილ ლოქერს ლეპტოპზე გაშვებული ვერსია და Arduino აღებს.'
-                  : `დემო რეჟიმი: Arduino არ არის მიერთებული, ბრძანება OPEN${done.lock_id} სერვერის ლოგში ჩაიწერა.`}
+                  ? L(
+                      'ონლაინ დემოში Hospes Lock სიმულაციაა: ნამდვილ ლოქერს ლეპტოპზე გაშვებული ვერსია და Arduino აღებს.',
+                      'In the online demo Hospes Lock is simulated: the real locker is opened by the version running on the laptop with the Arduino.'
+                    )
+                  : L(
+                      `დემო რეჟიმი: Arduino არ არის მიერთებული, ბრძანება OPEN${done.lock_id} სერვერის ლოგში ჩაიწერა.`,
+                      `Demo mode: no Arduino is connected, so the OPEN${done.lock_id} command was written to the server log.`
+                    )}
               </Alert>
             )}
             <div className="inline mt-2" style={{ justifyContent: 'center' }}>
               <Link to={`/bookings/${b.id}/services`} className="btn btn-primary">
-                <Icon name="bell" size={16} /> სერვისის მოთხოვნა
+                <Icon name="bell" size={16} /> {L('სერვისის მოთხოვნა', 'Request a service')}
               </Link>
               <Link to="/cabinet" className="btn btn-outline">
-                ჩემი ჯავშნები
+                {L('ჩემი ჯავშნები', 'My bookings')}
               </Link>
             </div>
           </div>
@@ -143,31 +165,38 @@ export default function CheckIn() {
               </span>
             </div>
             <ul className="checklist mt-2">
-              <Check ok={paid}>{paid ? 'ჯავშანი გადახდილია' : 'ჯავშანი ჯერ არ არის გადახდილი'}</Check>
-              <Check ok={verified}>{verified ? 'ვინაობა დადასტურებულია' : 'ვინაობა დასადასტურებელია'}</Check>
+              <Check ok={paid}>{paid ? L('ჯავშანი გადახდილია', 'Booking is paid') : L('ჯავშანი ჯერ არ არის გადახდილი', 'Booking is not paid yet')}</Check>
+              <Check ok={verified}>
+                {verified ? L('ვინაობა დადასტურებულია', 'Identity verified') : L('ვინაობა დასადასტურებელია', 'Identity not verified yet')}
+              </Check>
               <Check ok={b.within_stay}>
-                {b.within_stay ? 'დღეს შენი ჯავშნის თარიღია' : `კოდი მოქმედებს ${fmtDate(b.check_in)}-დან ${fmtDate(b.check_out)}-მდე`}
+                {b.within_stay
+                  ? L('დღეს შენი ჯავშნის თარიღია', 'Today is within your booking dates')
+                  : L(
+                      `კოდი მოქმედებს ${fmtDate(b.check_in)}-დან ${fmtDate(b.check_out)}-მდე`,
+                      `The code is valid from ${fmtDate(b.check_in)} to ${fmtDate(b.check_out)}`
+                    )}
               </Check>
             </ul>
             <hr className="divider" />
             {b.status === 'checked_out' || b.status === 'cancelled' ? (
-              <Alert tone="warn">ეს ჯავშანი აღარ არის აქტიური.</Alert>
+              <Alert tone="warn">{L('ეს ჯავშანი აღარ არის აქტიური.', 'This booking is no longer active.')}</Alert>
             ) : b.status === 'checked_in' ? (
-              <Alert tone="success">ჩექინი უკვე გავლილია. გასაღები შენთანაა.</Alert>
+              <Alert tone="success">{L('ჩექინი უკვე გავლილია. გასაღები შენთანაა.', "You're already checked in. The key is with you.")}</Alert>
             ) : !paid ? (
               <Link to={`/bookings/${b.id}`} className="btn btn-primary btn-block">
-                გადახდაზე გადასვლა
+                {L('გადახდაზე გადასვლა', 'Go to payment')}
               </Link>
             ) : !verified ? (
               <Alert tone="warn">
-                ლოქერ-ბოქსი მხოლოდ ვერიფიცირებულ სტუმარს იღება.{' '}
-                <Link to={`/verify?next=${encodeURIComponent(`/checkin/${b.id}`)}`}>ვერიფიკაციის გავლა →</Link>
+                {L('ლოქერ-ბოქსი მხოლოდ ვერიფიცირებულ სტუმარს იღება.', 'The locker box only opens for verified guests.')}{' '}
+                <Link to={`/verify?next=${encodeURIComponent(`/checkin/${b.id}`)}`}>{L('ვერიფიკაციის გავლა →', 'Get verified →')}</Link>
               </Alert>
             ) : (
               <CodeCheckIn booking={b} onDone={setDone} />
             )}
             {paid && !b.within_stay && b.status === 'confirmed' && (
-              <p className="muted small center-text mt-2 mb-0">თარიღამდე კოდი არ იმუშავებს.</p>
+              <p className="muted small center-text mt-2 mb-0">{L('თარიღამდე კოდი არ იმუშავებს.', "The code won't work before your dates.")}</p>
             )}
           </>
         )}

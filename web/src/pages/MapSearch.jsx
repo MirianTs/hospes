@@ -5,13 +5,14 @@ import { HotelImage, PriceFrom } from '../components/HotelCard.jsx';
 import Icon from '../components/Icon.jsx';
 import MapView from '../components/MapView.jsx';
 import { ErrorBox, Rating, Spinner, useApi } from '../components/ui.jsx';
-import { addDays, cityOf, distanceKm, HOTEL_COLOR, nightsBetween, POI_BY_ID, POI_TYPES, REGIONS, todayStr } from '../format.js';
+import { addDays, cityOf, distanceKm, HOTEL_COLOR, nightsBetween, placeName, POI_BY_ID, POI_TYPES, REGIONS, todayStr } from '../format.js';
+import { L } from '../prefs.js';
 
 const NEAR_KM = 45; // with a town chosen, places within this distance of its guesthouses are shown
 
 // Chips: nothing selected = everything is shown ("ყველა"). Tapping a chip narrows the map to it;
 // more chips can be added, and "ყველა" clears the choice.
-const CATEGORIES = [{ id: 'hotels', label: 'სასტუმროები', icon: 'home', color: HOTEL_COLOR }, ...POI_TYPES];
+const CATEGORIES = () => [{ id: 'hotels', label: L('სასტუმროები', 'Guesthouses'), icon: 'home', color: HOTEL_COLOR }, ...POI_TYPES];
 
 // Place picker: '' = all Georgia, 'r:<region>' = a whole region (all its towns ticked), 'c:<town>' = one town.
 function PlacePicker({ value, onChange, groups, count }) {
@@ -35,7 +36,11 @@ function PlacePicker({ value, onChange, groups, count }) {
     setOpen(false);
   };
   const [kind, name] = value ? [value[0], value.slice(2)] : [null, null];
-  const label = !value ? 'მთელი საქართველო' : kind === 'r' ? `${name} · ყველა` : name;
+  const label = !value
+    ? L('მთელი საქართველო', 'All of Georgia')
+    : kind === 'r'
+      ? L(`${name} · ყველა`, `${placeName(name)} · all`)
+      : placeName(name);
   const regionTotal = (cs) => cs.reduce((n, c) => n + count[c], 0);
 
   return (
@@ -48,21 +53,21 @@ function PlacePicker({ value, onChange, groups, count }) {
       {open && (
         <div className="place-menu" role="listbox">
           <button type="button" className={`place-opt place-all${!value ? ' on' : ''}`} onClick={() => pick('')}>
-            <span className="place-check" /> მთელი საქართველო
+            <span className="place-check" /> {L('მთელი საქართველო', 'All of Georgia')}
           </button>
           {groups.map(([region, cs]) => {
             const regionOn = kind === 'r' && name === region;
             return (
               <div key={region} className="place-group">
                 <button type="button" className={`place-opt place-region${regionOn ? ' on' : ''}`} onClick={() => pick(`r:${region}`)}>
-                  <span className="place-check" /> {region}
+                  <span className="place-check" /> {placeName(region)}
                   <span className="place-n">{regionTotal(cs)}</span>
                 </button>
                 {cs.map((c) => {
                   const on = regionOn || (kind === 'c' && name === c);
                   return (
                     <button key={c} type="button" className={`place-opt place-city${on ? ' on' : ''}`} onClick={() => pick(`c:${c}`)}>
-                      <span className="place-check" /> {c}
+                      <span className="place-check" /> {placeName(c)}
                       <span className="place-n">{count[c]}</span>
                     </button>
                   );
@@ -155,13 +160,18 @@ export default function MapSearch() {
   return (
     <div className="container container-wide">
       <div className="page-head" style={{ paddingBottom: 12 }}>
-        <h1>ძებნა რუკაზე</h1>
-        <p>აირჩიე კუთხე ან ქალაქი და თარიღები: ნახავ თავისუფალ სასტუმროებს და რა არის მათ გარშემო სანახავი.</p>
+        <h1>{L('ძებნა რუკაზე', 'Map search')}</h1>
+        <p>
+          {L(
+            'აირჩიე კუთხე ან ქალაქი და თარიღები: ნახავ თავისუფალ სასტუმროებს და რა არის მათ გარშემო სანახავი.',
+            'Pick a region or town and your dates to see available guesthouses and what there is to see around them.',
+          )}
+        </p>
       </div>
 
       <div className="card search-bar">
         <div className="field grow">
-          <span>სად მიდიხარ?</span>
+          <span>{L('სად მიდიხარ?', 'Where are you going?')}</span>
           <PlacePicker
             value={place}
             groups={cityGroups.groups}
@@ -173,11 +183,11 @@ export default function MapSearch() {
           />
         </div>
         <label className="field">
-          <span>შესვლა</span>
+          <span>{L('შესვლა', 'Check-in')}</span>
           <input className="input" type="date" min={todayStr()} value={checkIn} onChange={(e) => onCheckIn(e.target.value)} />
         </label>
         <label className="field">
-          <span>გასვლა</span>
+          <span>{L('გასვლა', 'Check-out')}</span>
           <input
             className="input"
             type="date"
@@ -187,26 +197,26 @@ export default function MapSearch() {
           />
         </label>
         <label className="field">
-          <span>ბიუჯეტი ღამეში</span>
+          <span>{L('ბიუჯეტი ღამეში', 'Budget per night')}</span>
           <select className="input" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)}>
-            <option value="">ნებისმიერი</option>
-            <option value="100">100 ₾-მდე</option>
-            <option value="150">150 ₾-მდე</option>
-            <option value="200">200 ₾-მდე</option>
+            <option value="">{L('ნებისმიერი', 'Any')}</option>
+            <option value="100">{L('100 ₾-მდე', 'Up to 100 ₾')}</option>
+            <option value="150">{L('150 ₾-მდე', 'Up to 150 ₾')}</option>
+            <option value="200">{L('200 ₾-მდე', 'Up to 200 ₾')}</option>
           </select>
         </label>
         {filtersOn && (
           <button type="button" className="btn btn-ghost" onClick={reset}>
-            <Icon name="x" size={16} /> გასუფთავება
+            <Icon name="x" size={16} /> {L('გასუფთავება', 'Clear')}
           </button>
         )}
       </div>
 
-      <div className="chips mt-2" role="group" aria-label="რა გაჩვენო რუკაზე">
+      <div className="chips mt-2" role="group" aria-label={L('რა გაჩვენო რუკაზე', 'What to show on the map')}>
         <button type="button" className={`chip${all ? ' on' : ''}`} onClick={() => setCats(new Set())} aria-pressed={all}>
-          ყველა
+          {L('ყველა', 'All')}
         </button>
-        {CATEGORIES.map((t) => {
+        {CATEGORIES().map((t) => {
           const on = cats.has(t.id);
           const n = counts[t.id] || 0;
           return (
@@ -231,11 +241,16 @@ export default function MapSearch() {
           {(all || cats.has('hotels')) && (
             <>
               <h3 className="inline">
-                სასტუმროები · {hotels.data ? visibleHotels.length : '…'} {hotels.loading && <Spinner small />}
+                {L('სასტუმროები', 'Guesthouses')} · {hotels.data ? visibleHotels.length : '…'} {hotels.loading && <Spinner small />}
               </h3>
               {hotels.data && visibleHotels.length === 0 && (
                 <div className="card card-body muted small">
-                  {datesValid ? 'ამ თარიღებში თავისუფალი ოთახი ვერ მოიძებნა. სცადე სხვა თარიღები ან ბიუჯეტი.' : 'აქ სასტუმრო ჯერ არ გვაქვს.'}
+                  {datesValid
+                    ? L(
+                        'ამ თარიღებში თავისუფალი ოთახი ვერ მოიძებნა. სცადე სხვა თარიღები ან ბიუჯეტი.',
+                        'No rooms are available on these dates. Try other dates or a different budget.',
+                      )
+                    : L('აქ სასტუმრო ჯერ არ გვაქვს.', "We don't have any guesthouses here yet.")}
                 </div>
               )}
               {visibleHotels.map((h) => (
@@ -259,7 +274,7 @@ export default function MapSearch() {
                     <div className="spread mt-1">
                       <PriceFrom value={h.min_price} />
                       <Link to={`/hotels/${h.id}${linkSearch}`} className="btn btn-sm btn-primary" onClick={(e) => e.stopPropagation()}>
-                        ნახვა
+                        {L('ნახვა', 'View')}
                       </Link>
                     </div>
                   </div>
@@ -267,7 +282,7 @@ export default function MapSearch() {
               ))}
             </>
           )}
-          {visiblePois.length > 0 && <h3>{place ? 'სანახავი ახლომახლო' : 'სანახავი ადგილები'} · {visiblePois.length}</h3>}
+          {visiblePois.length > 0 && <h3>{place ? L('სანახავი ახლომახლო', 'Things to see nearby') : L('სანახავი ადგილები', 'Places to see')} · {visiblePois.length}</h3>}
           {visiblePois.map((p) => {
             const t = POI_BY_ID[p.type];
             return (
