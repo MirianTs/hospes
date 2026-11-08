@@ -4,7 +4,7 @@
 import { HOTELS, POIS, USERS } from './demoData.js';
 
 export const STORE_KEY = 'hospes_demo_v1';
-const VERSION = 3; // 2: places all over Georgia; 3: key locker box only, more cottages and sights
+const VERSION = 4; // 2: places all over Georgia; 3: key locker box only, more cottages and sights; 4: Tbilisi places
 const TIMEZONE = 'Asia/Tbilisi';
 const OPEN_MS = 5000;
 const FACE_THRESHOLD = 0.6;

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { qs } from '../api.js';
 import { HotelImage, PriceFrom } from '../components/HotelCard.jsx';
@@ -13,10 +13,73 @@ const NEAR_KM = 45; // with a town chosen, places within this distance of its gu
 // more chips can be added, and "ყველა" clears the choice.
 const CATEGORIES = [{ id: 'hotels', label: 'სასტუმროები', icon: 'home', color: 'var(--wine)' }, ...POI_TYPES];
 
+// Place picker: '' = all Georgia, 'r:<region>' = a whole region (all its towns ticked), 'c:<town>' = one town.
+function PlacePicker({ value, onChange, groups, count }) {
+  const [open, setOpen] = useState(false);
+  const box = useRef(null);
+  useEffect(() => {
+    if (!open) return undefined;
+    const close = (e) => {
+      if (e.type === 'keydown' ? e.key === 'Escape' : !box.current?.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener('pointerdown', close);
+    document.addEventListener('keydown', close);
+    return () => {
+      document.removeEventListener('pointerdown', close);
+      document.removeEventListener('keydown', close);
+    };
+  }, [open]);
+
+  const pick = (v) => {
+    onChange(v);
+    setOpen(false);
+  };
+  const [kind, name] = value ? [value[0], value.slice(2)] : [null, null];
+  const label = !value ? 'მთელი საქართველო' : kind === 'r' ? `${name} · ყველა` : name;
+  const regionTotal = (cs) => cs.reduce((n, c) => n + count[c], 0);
+
+  return (
+    <div className="place-picker" ref={box}>
+      <button type="button" className="input place-btn" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-haspopup="listbox">
+        <Icon name="pin" size={16} />
+        <span>{label}</span>
+        <Icon name="arrowRight" size={14} className="place-caret" />
+      </button>
+      {open && (
+        <div className="place-menu" role="listbox">
+          <button type="button" className={`place-opt place-all${!value ? ' on' : ''}`} onClick={() => pick('')}>
+            <span className="place-check" /> მთელი საქართველო
+          </button>
+          {groups.map(([region, cs]) => {
+            const regionOn = kind === 'r' && name === region;
+            return (
+              <div key={region} className="place-group">
+                <button type="button" className={`place-opt place-region${regionOn ? ' on' : ''}`} onClick={() => pick(`r:${region}`)}>
+                  <span className="place-check" /> {region}
+                  <span className="place-n">{regionTotal(cs)}</span>
+                </button>
+                {cs.map((c) => {
+                  const on = regionOn || (kind === 'c' && name === c);
+                  return (
+                    <button key={c} type="button" className={`place-opt place-city${on ? ' on' : ''}`} onClick={() => pick(`c:${c}`)}>
+                      <span className="place-check" /> {c}
+                      <span className="place-n">{count[c]}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function MapSearch() {
   const [params] = useSearchParams();
   const initialType = params.get('type');
-  const [city, setCity] = useState(params.get('city') || '');
+  const [place, setPlace] = useState(params.get('city') ? `c:${params.get('city')}` : '');
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
@@ -40,18 +103,19 @@ export default function MapSearch() {
     return { groups, count };
   }, [allHotels.data]);
 
-  const cityCenters = useMemo(
-    () => (city ? (allHotels.data || []).filter((h) => cityOf(h.address) === city) : []),
-    [city, allHotels.data],
-  );
-  const hotelsInArea = useMemo(
-    () => (hotels.data || []).filter((h) => !city || cityOf(h.address) === city),
-    [hotels.data, city],
-  );
+  // Towns covered by the current choice (null = all Georgia).
+  const towns = useMemo(() => {
+    if (!place) return null;
+    if (place.startsWith('c:')) return new Set([place.slice(2)]);
+    const group = cityGroups.groups.find(([r]) => r === place.slice(2));
+    return new Set(group ? group[1] : []);
+  }, [place, cityGroups]);
+  const inTowns = (h) => !towns || towns.has(cityOf(h.address));
+  const centers = useMemo(() => (towns ? (allHotels.data || []).filter(inTowns) : []), [towns, allHotels.data]); // eslint-disable-line react-hooks/exhaustive-deps
+  const hotelsInArea = useMemo(() => (hotels.data || []).filter(inTowns), [hotels.data, towns]); // eslint-disable-line react-hooks/exhaustive-deps
   const poisInArea = useMemo(
-    () =>
-      (pois.data || []).filter((p) => !city || cityCenters.some((c) => distanceKm(c, p) <= NEAR_KM)),
-    [pois.data, city, cityCenters],
+    () => (pois.data || []).filter((p) => !towns || centers.some((c) => distanceKm(c, p) <= NEAR_KM)),
+    [pois.data, towns, centers],
   );
 
   const all = cats.size === 0;
@@ -76,9 +140,9 @@ export default function MapSearch() {
     setCheckIn(v);
     if (v && (!checkOut || checkOut <= v)) setCheckOut(addDays(v, 1));
   };
-  const filtersOn = city || checkIn || maxPrice || cats.size > 0;
+  const filtersOn = place || checkIn || maxPrice || cats.size > 0;
   const reset = () => {
-    setCity('');
+    setPlace('');
     setCheckIn('');
     setCheckOut('');
     setMaxPrice('');
@@ -87,35 +151,25 @@ export default function MapSearch() {
   };
 
   return (
-    <div className="container">
+    <div className="container container-wide">
       <div className="page-head" style={{ paddingBottom: 12 }}>
         <h1>ძებნა რუკაზე</h1>
-        <p>აირჩიე ადგილი და თარიღები: ნახავ თავისუფალ სასტუმროებს და რა არის მათ გარშემო სანახავი.</p>
+        <p>აირჩიე კუთხე ან ქალაქი და თარიღები: ნახავ თავისუფალ სასტუმროებს და რა არის მათ გარშემო სანახავი.</p>
       </div>
 
       <div className="card search-bar">
-        <label className="field grow">
+        <div className="field grow">
           <span>სად მიდიხარ?</span>
-          <select
-            className="input"
-            value={city}
-            onChange={(e) => {
-              setCity(e.target.value);
+          <PlacePicker
+            value={place}
+            groups={cityGroups.groups}
+            count={cityGroups.count}
+            onChange={(v) => {
+              setPlace(v);
               setSelected(null);
             }}
-          >
-            <option value="">მთელი საქართველო</option>
-            {cityGroups.groups.map(([region, cs]) => (
-              <optgroup key={region} label={region}>
-                {cs.map((c) => (
-                  <option key={c} value={c}>
-                    {c} ({cityGroups.count[c]})
-                  </option>
-                ))}
-              </optgroup>
-            ))}
-          </select>
-        </label>
+          />
+        </div>
         <label className="field">
           <span>შესვლა</span>
           <input className="input" type="date" min={todayStr()} value={checkIn} onChange={(e) => onCheckIn(e.target.value)} />
@@ -211,7 +265,7 @@ export default function MapSearch() {
               ))}
             </>
           )}
-          {visiblePois.length > 0 && <h3>{city ? 'სანახავი ახლომახლო' : 'სანახავი ადგილები'} · {visiblePois.length}</h3>}
+          {visiblePois.length > 0 && <h3>{place ? 'სანახავი ახლომახლო' : 'სანახავი ადგილები'} · {visiblePois.length}</h3>}
           {visiblePois.map((p) => {
             const t = POI_BY_ID[p.type];
             return (

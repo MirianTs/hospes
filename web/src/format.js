@@ -114,7 +114,7 @@ export const POI_TYPES = [
   { id: 'cafe', label: 'კაფეები', one: 'კაფე', icon: 'coffee', color: '#c65a3e' },
   { id: 'tour', label: 'ტურები', one: 'ტური', icon: 'compass', color: '#c9922e' },
   { id: 'guide', label: 'გიდები', one: 'გიდი', icon: 'users', color: '#4f6aa3' },
-  { id: 'trail', label: 'ბილიკები', one: 'ბილიკი', icon: 'mountain', color: '#3d7a4c' },
+  { id: 'trail', label: 'სასეირნო და ბილიკები', one: 'სასეირნო / ბილიკი', icon: 'mountain', color: '#3d7a4c' },
   { id: 'landmark', label: 'ღირსშესანიშნაობები', one: 'ღირსშესანიშნაობა', icon: 'landmark', color: '#7a1f3d' },
 ];
 export const POI_BY_ID = Object.fromEntries(POI_TYPES.map((t) => [t.id, t]));
