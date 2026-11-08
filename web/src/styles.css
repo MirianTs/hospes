@@ -40,7 +40,7 @@
 :root[data-theme="dark"] {
   --ink: #ececec;
   --logo-green: #8fb47f;
-  --logo-window: #ffffff;
+  --logo-window: #000000;
   --ink-soft: #c8c8c8;
   --muted: #9b9f9b;
   --line: #2a2f2a;
