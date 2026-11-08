@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
+import { LayersControl, MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
-import { money, POI_BY_ID } from '../format.js';
+import { HOTEL_COLOR, money, POI_BY_ID } from '../format.js';
 import { iconHtml } from './Icon.jsx';
 import { Rating } from './ui.jsx';
 
@@ -11,19 +11,24 @@ const GEORGIA = [42.2, 43.6];
 const escapeHtml = (s) =>
   String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
+// Teardrop pin with a white icon; its tip sits on the point. Guesthouses also carry a small price tag.
+function pinHtml(color, icon, on, title, tag = '') {
+  return `<div class="pin${on ? ' on' : ''}" title="${escapeHtml(title)}"><div class="pin-drop" style="background:${color}">${iconHtml(icon, 16)}</div>${
+    tag ? `<span class="pin-tag">${escapeHtml(tag)}</span>` : ''
+  }</div>`;
+}
+
 function hotelIcon(hotel, on) {
-  const label = hotel.min_price != null ? money(hotel.min_price) : hotel.name;
-  return L.divIcon({ className: '', iconSize: null, html: `<div class="pin-price${on ? ' on' : ''}">${escapeHtml(label)}</div>` });
+  const tag = hotel.min_price != null ? money(hotel.min_price) : '';
+  return L.divIcon({ className: '', iconSize: null, html: pinHtml(HOTEL_COLOR, 'home', on, hotel.name, tag) });
 }
 
 function poiIcon(poi, on) {
   const t = POI_BY_ID[poi.type];
-  return L.divIcon({
-    className: '',
-    iconSize: null,
-    html: `<div class="pin-poi${on ? ' on' : ''}" style="background:${t.color}" title="${escapeHtml(poi.name)}">${iconHtml(t.icon, 15)}</div>`,
-  });
+  return L.divIcon({ className: '', iconSize: null, html: pinHtml(t.color, t.icon, on, poi.name) });
 }
+
+const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services';
 
 // Leaflet measures its container only once, so re-measure whenever the layout resizes it,
 // and fit the view to the markers once per set of markers. A container that is still
@@ -50,6 +55,18 @@ function AutoFit({ points, enabled }) {
     observer.observe(map.getContainer());
     return () => observer.disconnect();
   }, [key, enabled, map]);
+  return null;
+}
+
+// Price tags only when zoomed in enough; at country level they cover the map.
+function ZoomClass() {
+  const map = useMap();
+  useEffect(() => {
+    const set = () => map.getContainer().classList.toggle('map-far', map.getZoom() < 9);
+    set();
+    map.on('zoomend', set);
+    return () => map.off('zoomend', set);
+  }, [map]);
   return null;
 }
 
@@ -88,12 +105,27 @@ export default function MapView({
   return (
     <div className="map-box" style={{ height }}>
       <MapContainer center={GEORGIA} zoom={7} scrollWheelZoom style={{ height: '100%' }}>
-        <TileLayer
-          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          maxZoom={19}
-        />
+        <LayersControl position="topright">
+          <LayersControl.BaseLayer checked name="სატელიტი">
+            <TileLayer
+              url={`${ESRI}/World_Imagery/MapServer/tile/{z}/{y}/{x}`}
+              attribution="Tiles &copy; Esri, Maxar, Earthstar Geographics"
+              maxZoom={19}
+            />
+          </LayersControl.BaseLayer>
+          <LayersControl.BaseLayer name="რუკა">
+            <TileLayer
+              url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+              maxZoom={19}
+            />
+          </LayersControl.BaseLayer>
+          <LayersControl.Overlay checked name="სახელები და საზღვრები">
+            <TileLayer url={`${ESRI}/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}`} maxZoom={19} />
+          </LayersControl.Overlay>
+        </LayersControl>
         <AutoFit points={points} enabled={fit} />
+        <ZoomClass />
         <FlyTo target={target} />
         {onPick && <ClickToPick onPick={onPick} />}
         {picked && <Marker position={[picked.lat, picked.lng]} icon={poiIcon({ type: 'landmark', name: 'არჩეული წერტილი' }, true)} />}

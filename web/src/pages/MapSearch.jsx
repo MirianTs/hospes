@@ -5,13 +5,13 @@ import { HotelImage, PriceFrom } from '../components/HotelCard.jsx';
 import Icon from '../components/Icon.jsx';
 import MapView from '../components/MapView.jsx';
 import { ErrorBox, Rating, Spinner, useApi } from '../components/ui.jsx';
-import { addDays, cityOf, distanceKm, nightsBetween, POI_BY_ID, POI_TYPES, REGIONS, todayStr } from '../format.js';
+import { addDays, cityOf, distanceKm, HOTEL_COLOR, nightsBetween, POI_BY_ID, POI_TYPES, REGIONS, todayStr } from '../format.js';
 
 const NEAR_KM = 45; // with a town chosen, places within this distance of its guesthouses are shown
 
 // Chips: nothing selected = everything is shown ("ყველა"). Tapping a chip narrows the map to it;
 // more chips can be added, and "ყველა" clears the choice.
-const CATEGORIES = [{ id: 'hotels', label: 'სასტუმროები', icon: 'home', color: 'var(--wine)' }, ...POI_TYPES];
+const CATEGORIES = [{ id: 'hotels', label: 'სასტუმროები', icon: 'home', color: HOTEL_COLOR }, ...POI_TYPES];
 
 // Place picker: '' = all Georgia, 'r:<region>' = a whole region (all its towns ticked), 'c:<town>' = one town.
 function PlacePicker({ value, onChange, groups, count }) {
