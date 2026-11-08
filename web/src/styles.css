@@ -23,6 +23,48 @@
   --shadow: 0 1px 2px rgba(20, 20, 20, 0.05), 0 6px 20px rgba(20, 20, 20, 0.06);
   --shadow-lg: 0 18px 48px rgba(20, 20, 20, 0.16);
   --header-h: 64px;
+  --wine-ink: #365e32;
+  --surface-2: #e8e8e8;
+  --header-bg: rgba(245, 245, 245, 0.92);
+  --glass: rgba(255, 255, 255, 0.94);
+  --gold-ink: #85590f;
+  --vine-ink: #3a6a2c;
+  --danger-line: #efc9c4;
+  --vine-line: #c6dbbd;
+  color-scheme: light;
+}
+
+/* Dark theme: same tokens, dark values. The choice lives in <html data-theme> (prefs.js). */
+:root[data-theme="dark"] {
+  --ink: #ececec;
+  --ink-soft: #c8c8c8;
+  --muted: #9b9f9b;
+  --line: #2a2f2a;
+  --line-strong: #3a403a;
+  --bg: #111411;
+  --card: #1a1e1a;
+  --wine: #3f7a37;
+  --wine-dark: #33662d;
+  --wine-soft: #1e2d1c;
+  --wine-ink: #8fc882;
+  --gold: #e8a83a;
+  --gold-soft: #2e2615;
+  --gold-ink: #f0c060;
+  --vine: #5a9447;
+  --vine-soft: #1c2a19;
+  --vine-ink: #9fd38c;
+  --vine-line: #2f4a28;
+  --blue: #8ab4e0;
+  --blue-soft: #18222e;
+  --danger: #f08a80;
+  --danger-soft: #2e1a18;
+  --danger-line: #5a2a26;
+  --surface-2: #252a25;
+  --header-bg: rgba(17, 20, 17, 0.9);
+  --glass: rgba(26, 30, 26, 0.94);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 6px 20px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 18px 48px rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
 }
 
 * {
@@ -44,7 +86,7 @@ body {
 }
 
 a {
-  color: var(--wine);
+  color: var(--wine-ink);
   text-decoration: none;
 }
 a:hover {
@@ -100,7 +142,7 @@ p {
   gap: 8px;
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--wine);
+  color: var(--wine-ink);
   background: var(--wine-soft);
   padding: 5px 12px;
   border-radius: 999px;
@@ -159,7 +201,7 @@ p {
   position: sticky;
   top: 0;
   z-index: 1100;
-  background: rgba(245, 245, 245, 0.92);
+  background: var(--header-bg);
   backdrop-filter: saturate(1.4) blur(10px);
   border-bottom: 1px solid var(--line);
 }
@@ -200,7 +242,7 @@ p {
 .nav a:hover,
 .nav a.active {
   background: var(--wine-soft);
-  color: var(--wine);
+  color: var(--wine-ink);
   text-decoration: none;
 }
 .nav .nav-auth {
@@ -218,7 +260,7 @@ p {
   gap: 8px;
   padding: 4px 12px 4px 4px;
   border-radius: 999px;
-  background: #fff;
+  background: var(--card);
   border: 1px solid var(--line);
   color: var(--ink);
   font-weight: 500;
@@ -323,13 +365,13 @@ p {
   background: var(--wine-dark);
 }
 .btn-outline {
-  background: #fff;
+  background: var(--card);
   border-color: var(--line-strong);
   color: var(--ink);
 }
 .btn-outline:hover:not(:disabled) {
-  border-color: var(--wine);
-  color: var(--wine);
+  border-color: var(--wine-ink);
+  color: var(--wine-ink);
 }
 .btn-ghost {
   background: transparent;
@@ -337,7 +379,7 @@ p {
 }
 .btn-ghost:hover:not(:disabled) {
   background: var(--wine-soft);
-  color: var(--wine);
+  color: var(--wine-ink);
 }
 .btn-success {
   background: var(--vine);
@@ -347,9 +389,9 @@ p {
   background: #3c6b30;
 }
 .btn-danger {
-  background: #fff;
+  background: var(--card);
   color: var(--danger);
-  border-color: #efc9c4;
+  border-color: var(--danger-line);
 }
 .btn-danger:hover:not(:disabled) {
   background: var(--danger-soft);
@@ -397,7 +439,7 @@ p {
   font-size: 0.78rem;
   font-weight: 600;
   line-height: 1.5;
-  background: #efefef;
+  background: var(--surface-2);
   color: var(--ink-soft);
   white-space: nowrap;
 }
@@ -407,7 +449,7 @@ p {
 }
 .badge-wine {
   background: var(--wine-soft);
-  color: var(--wine);
+  color: var(--wine-ink);
 }
 .badge-green {
   background: var(--vine-soft);
@@ -415,7 +457,7 @@ p {
 }
 .badge-gold {
   background: var(--gold-soft);
-  color: #85590f;
+  color: var(--gold-ink);
 }
 .badge-red {
   background: var(--danger-soft);
@@ -444,7 +486,7 @@ p {
 }
 .alert-success {
   background: var(--vine-soft);
-  color: #3a6a2c;
+  color: var(--vine-ink);
 }
 .alert-info {
   background: var(--blue-soft);
@@ -452,7 +494,7 @@ p {
 }
 .alert-warn {
   background: var(--gold-soft);
-  color: #7a5410;
+  color: var(--gold-ink);
 }
 
 /* ---------- Forms ---------- */
@@ -475,7 +517,7 @@ p {
   padding: 11px 13px;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-sm);
-  background: #fff;
+  background: var(--card);
   font: inherit;
   font-size: 0.97rem;
   color: var(--ink);
@@ -486,7 +528,7 @@ p {
 }
 .input:focus {
   outline: none;
-  border-color: var(--wine);
+  border-color: var(--wine-ink);
   box-shadow: 0 0 0 3px rgba(54, 94, 50, 0.14);
 }
 textarea.input {
@@ -577,7 +619,7 @@ textarea.input {
   width: 26px;
   height: 26px;
   border: 3px solid rgba(54, 94, 50, 0.18);
-  border-top-color: var(--wine);
+  border-top-color: var(--wine-ink);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -638,7 +680,7 @@ textarea.input {
   align-items: center;
 }
 .hero h1 span {
-  color: var(--wine);
+  color: var(--wine-ink);
 }
 .hero-lead {
   font-size: 1.1rem;
@@ -683,7 +725,7 @@ textarea.input {
   right: 18px;
   bottom: 18px;
   width: min(250px, 72%);
-  background: #fff;
+  background: var(--card);
   border-radius: 18px;
   padding: 16px;
   box-shadow: var(--shadow-lg);
@@ -695,7 +737,7 @@ textarea.input {
   position: absolute;
   left: 18px;
   top: 18px;
-  background: rgba(255, 255, 255, 0.94);
+  background: var(--glass);
   border-radius: 12px;
   padding: 8px 12px;
   font-size: 0.85rem;
@@ -722,7 +764,7 @@ textarea.input {
   display: grid;
   place-items: center;
   background: var(--wine-soft);
-  color: var(--wine);
+  color: var(--wine-ink);
   margin-bottom: 14px;
 }
 .feature p {
@@ -842,7 +884,7 @@ textarea.input {
 }
 .hotel-card .art {
   aspect-ratio: 16 / 10;
-  background: #e8e8e8;
+  background: var(--surface-2);
 }
 .hotel-card .art > svg,
 .hotel-card .art > img {
@@ -882,7 +924,7 @@ textarea.input {
   align-items: center;
   gap: 4px;
   font-weight: 600;
-  color: #85590f;
+  color: var(--gold-ink);
   font-size: 0.9rem;
 }
 .rating svg {
@@ -906,14 +948,14 @@ textarea.input {
 }
 .hotel-row:hover,
 .hotel-row.on {
-  border-color: var(--wine);
+  border-color: var(--wine-ink);
   text-decoration: none;
 }
 .hotel-row .thumb {
   border-radius: 10px;
   overflow: hidden;
   aspect-ratio: 1;
-  background: #e8e8e8;
+  background: var(--surface-2);
 }
 .hotel-row .thumb svg {
   width: 100%;
@@ -958,7 +1000,7 @@ textarea.input {
 }
 .poi-row:hover,
 .poi-row.on {
-  border-color: var(--wine);
+  border-color: var(--wine-ink);
 }
 
 /* ---------- Chips & tabs ---------- */
@@ -975,7 +1017,7 @@ textarea.input {
   padding: 7px 13px;
   border-radius: 999px;
   border: 1px solid var(--line-strong);
-  background: #fff;
+  background: var(--card);
   font: inherit;
   font-size: 0.87rem;
   font-weight: 500;
@@ -989,7 +1031,7 @@ textarea.input {
 .chip.on {
   background: var(--ink);
   border-color: var(--ink);
-  color: #fff;
+  color: var(--bg);
 }
 .chip .dot {
   width: 9px;
@@ -1052,13 +1094,13 @@ textarea.input {
   color: var(--ink);
 }
 .tab.on {
-  color: var(--wine);
-  border-bottom-color: var(--wine);
+  color: var(--wine-ink);
+  border-bottom-color: var(--wine-ink);
 }
 .tab .count {
   font-size: 0.75rem;
   background: var(--wine-soft);
-  color: var(--wine);
+  color: var(--wine-ink);
   border-radius: 999px;
   padding: 1px 7px;
 }
@@ -1069,7 +1111,7 @@ textarea.input {
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--line);
-  background: #e6e6e6;
+  background: var(--surface-2);
   position: relative;
   z-index: 0;
 }
@@ -1180,7 +1222,7 @@ div.leaflet-container {
 }
 .pin.on .pin-tag {
   background: var(--ink);
-  color: #fff;
+  color: var(--bg);
 }
 
 .search-bar {
@@ -1249,7 +1291,7 @@ div.leaflet-container {
   max-height: min(60vh, 460px);
   overflow-y: auto;
   padding: 6px;
-  background: #fff;
+  background: var(--card);
   border: 1px solid var(--line-strong);
   border-radius: 14px;
   box-shadow: var(--shadow-lg);
@@ -1296,10 +1338,10 @@ div.leaflet-container {
   height: 18px;
   border: 1.5px solid var(--line-strong);
   border-radius: 5px;
-  background: #fff;
+  background: var(--card);
 }
 .place-opt.on .place-check {
-  border-color: var(--wine);
+  border-color: var(--wine-ink);
   background: var(--wine)
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
     center / 14px no-repeat;
@@ -1344,7 +1386,7 @@ div.leaflet-container {
   overflow: hidden;
   aspect-ratio: 21 / 9;
   box-shadow: var(--shadow);
-  background: #e8e8e8;
+  background: var(--surface-2);
 }
 .gallery > svg,
 .gallery > img {
@@ -1415,7 +1457,7 @@ div.leaflet-container {
   font-weight: 700;
   font-size: 2.2rem;
   letter-spacing: 0.22em;
-  color: var(--wine);
+  color: var(--wine-ink);
 }
 .code-box {
   text-align: center;
@@ -1534,7 +1576,7 @@ div.leaflet-container {
   overflow: hidden;
 }
 .booking-card .thumb {
-  background: #e8e8e8;
+  background: var(--surface-2);
   min-height: 100%;
 }
 .booking-card .thumb svg,
@@ -1546,7 +1588,7 @@ div.leaflet-container {
 }
 .booking-cover {
   aspect-ratio: 16 / 9;
-  background: #e8e8e8;
+  background: var(--surface-2);
 }
 .booking-cover > svg,
 .booking-cover > img,
@@ -1607,7 +1649,7 @@ div.leaflet-container {
   aspect-ratio: 4 / 3;
   border-radius: 12px;
   overflow: hidden;
-  background: #f0f0f0;
+  background: var(--surface-2);
   border: 2px dashed var(--line-strong);
   display: grid;
   place-items: center;
@@ -1642,7 +1684,7 @@ div.leaflet-container {
 .meter {
   height: 10px;
   border-radius: 999px;
-  background: #ececec;
+  background: var(--surface-2);
   overflow: hidden;
 }
 .meter > div {
@@ -1732,7 +1774,7 @@ div.leaflet-container {
   text-align: center;
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: #fff;
+  background: var(--card);
   box-shadow: var(--shadow);
   transition:
     background 0.3s,
@@ -1746,7 +1788,7 @@ div.leaflet-container {
   display: grid;
   place-items: center;
   background: var(--wine-soft);
-  color: var(--wine);
+  color: var(--wine-ink);
   transition:
     background 0.3s,
     color 0.3s;
@@ -1757,7 +1799,7 @@ div.leaflet-container {
 }
 .door.open {
   background: var(--vine-soft);
-  border-color: #c6dbbd;
+  border-color: var(--vine-line);
 }
 .door.open .ico {
   background: var(--vine);
@@ -1833,7 +1875,7 @@ div.leaflet-container {
   border: 0;
   padding: 0;
   font: inherit;
-  color: var(--wine);
+  color: var(--wine-ink);
   text-decoration: underline;
   cursor: pointer;
 }
@@ -1865,6 +1907,9 @@ div.leaflet-container {
 
 /* Hospes Lock (Arduino by USB, Web Serial) */
 .lock-connect { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; margin: 8px 0 0; }
-.lock-on { display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 600; color: var(--wine); }
+.lock-on { display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 600; color: var(--wine-ink); }
 .lock-dot { width: 9px; height: 9px; border-radius: 50%; background: #3fa34d; box-shadow: 0 0 0 4px rgba(63, 163, 77, 0.18); }
-.lock-err { color: #b42318; flex-basis: 100%; text-align: center; }
+.lock-err { color: var(--danger); flex-basis: 100%; text-align: center; }
+
+/* Theme and language switches in the header */
+.lang-btn { min-width: 44px; padding-left: 10px; padding-right: 10px; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.02em; }

@@ -171,7 +171,7 @@
   padding: 8px;
   max-width: 900px;
   border-radius: 20px;
-  background: #fff;
+  background: var(--card);
   color: var(--ink);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
 }
@@ -223,7 +223,7 @@
   align-items: center;
   gap: 6px;
   font-weight: 600;
-  color: var(--wine);
+  color: var(--wine-ink);
 }
 .sk-more svg {
   transition: transform 0.2s;
@@ -263,7 +263,7 @@
   padding-top: 0;
 }
 .sk-alt {
-  background: #fff;
+  background: var(--card);
   border-block: 1px solid var(--line);
 }
 .sk-head {
@@ -354,7 +354,7 @@
 .sk-card.in:hover {
   transition-delay: 0ms;
   transform: translateY(-6px);
-  background: #fff;
+  background: var(--card);
   border-color: transparent;
   box-shadow: var(--shadow-lg);
 }
@@ -371,7 +371,7 @@
   height: 44px;
   border-radius: 12px;
   background: var(--wine-soft);
-  color: var(--wine);
+  color: var(--wine-ink);
   transition:
     background 0.3s,
     color 0.3s;
@@ -386,7 +386,7 @@
   color: var(--muted);
   padding: 4px 10px;
   border-radius: 999px;
-  background: #fff;
+  background: var(--card);
   border: 1px solid var(--line);
 }
 
@@ -428,7 +428,7 @@
   height: 44px;
   border: 0;
   border-radius: 50%;
-  background: #fff;
+  background: var(--card);
   color: var(--ink);
   box-shadow: var(--shadow-lg);
   cursor: pointer;
@@ -519,7 +519,7 @@
   gap: 14px;
   padding: 18px;
   border-radius: var(--radius);
-  background: #fff;
+  background: var(--card);
   border: 1px solid var(--line);
 }
 .sk-facts svg {
@@ -558,7 +558,7 @@
 }
 .sk-owner .btn {
   background: #fff;
-  color: var(--wine);
+  color: var(--wine-ink);
 }
 .sk-owner .btn svg {
   transition: transform 0.2s;
