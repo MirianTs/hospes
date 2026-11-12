@@ -1,6 +1,8 @@
 import crypto from 'node:crypto';
 import { config } from './config.js';
 
+// An error with an HTTP status. Route handlers throw it (usually through fail());
+// the error handler in server.js sends it as { error: message, ...extra }.
 export class HttpError extends Error {
   constructor(status, message, extra = {}) {
     super(message);
