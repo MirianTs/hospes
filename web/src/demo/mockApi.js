@@ -568,7 +568,7 @@ function parseService(body, current = {}) {
   const price = body.price !== undefined ? Number(body.price) : current.price;
   const description = body.description !== undefined ? String(body.description).trim().slice(0, 300) || null : current.description ?? null;
   if (!name) fail(400, L('მიუთითეთ სერვისის სახელი', 'Enter the service name'));
-  if (!Number.isFinite(price) || price < 0) fail(400, L('ფასი არასწორია', 'Invalid price'));
+  if (!Number.isFinite(price) || price < 0 || price > 10000) fail(400, L('ფასი არასწორია', 'Invalid price'));
   return { name, price, description };
 }
 
