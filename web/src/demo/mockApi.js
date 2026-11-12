@@ -488,6 +488,7 @@ function optionalNumber(value) {
 function listHotels(q) {
   const minPrice = optionalNumber(q.min_price);
   const maxPrice = optionalNumber(q.max_price);
+  if (minPrice !== null && maxPrice !== null && minPrice > maxPrice) fail(400, L('მინიმალური ფასი მაქსიმალურზე მეტია', 'The minimum price is above the maximum'));
   const keyType = ['box', 'smartlock'].includes(q.key_type) ? q.key_type : null;
   const hasStay = Boolean(q.check_in || q.check_out);
   if (hasStay) parseStay(q.check_in, q.check_out);
