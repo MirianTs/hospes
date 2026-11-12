@@ -19,10 +19,10 @@ guest / owner / admin — ერთი User ცხრილი `role` ველ�
 ## მონაცემთა მოდელი
 - User: id, name, phone, email, password_hash, role, verification_status, id_doc_url, selfie_url
 - Hotel: id, name, address, lat, lng, owner_id, google_rating (static), description, photos, checkin_info (გასაღების ყუთის მდებარეობა, ჩანს მხოლოდ ჩექინის შემდეგ)
-- Room: id, hotel_id, number, price, key_type (მხოლოდ box: გასაღების ლოქერ-ბოქსი), lock_id (Hospes Lock-ის განყოფილება, Arduino servo 1–4, nullable, უნიკალური ერთი სასტუმროს ფარგლებში), status
-- HotelService: id, hotel_id, name, price (საუზმე, დალაგება...)
-- Booking: id, user_id (nullable), room_id, check_in, check_out, status, source (internal/external), access_code, total_price
-- ServiceRequest: id, booking_id, hotel_service_id, status (pending/done)
+- Room: id, hotel_id, number, title, capacity, price, key_type (მხოლოდ box: გასაღების ლოქერ-ბოქსი), lock_id (Hospes Lock-ის განყოფილება, Arduino servo 1–4, nullable, უნიკალური ერთი სასტუმროს ფარგლებში), status
+- HotelService: id, hotel_id, name, price, description, active (საუზმე, დალაგება...; წაშლა = active 0, ძველი მოთხოვნები რომ არ დაიკარგოს)
+- Booking: id, user_id (nullable), room_id, check_in, check_out, status, source (internal/external), access_code, total_price, note (გარე ბლოკის წყარო), paid_at, checked_in_at, checked_out_at
+- ServiceRequest: id, booking_id, hotel_service_id, status (pending/done), note, done_at
 - POI: id, type (cafe/tour/guide/trail/landmark), name, description, lat, lng, google_maps_url, photo
 
 ## API routes
