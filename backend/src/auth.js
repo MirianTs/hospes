@@ -23,7 +23,8 @@ function userFromRequest(req) {
   const match = /^Bearer (.+)$/.exec(req.headers.authorization || '');
   if (!match) return null;
   try {
-    const payload = jwt.verify(match[1], config.jwtSecret);
+    // signToken() always uses HS256; accept nothing else.
+    const payload = jwt.verify(match[1], config.jwtSecret, { algorithms: ['HS256'] });
     return getUser(payload.sub) || null;
   } catch {
     return null;
