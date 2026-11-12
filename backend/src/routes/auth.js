@@ -29,6 +29,8 @@ router.post('/register', (req, res) => {
   if (!name?.trim() || !email?.trim() || !password) fail(400, 'შეავსეთ სახელი, ელფოსტა და პაროლი');
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.trim())) fail(400, 'ელფოსტის ფორმატი არასწორია');
   if (String(password).length < 6) fail(400, 'პაროლი მინიმუმ 6 სიმბოლო უნდა იყოს');
+  if (name.trim().length > 80) fail(400, 'სახელი მაქსიმუმ 80 სიმბოლოა');
+  if (phone && phone.trim().length > 30) fail(400, 'ტელეფონის ნომერი ძალიან გრძელია');
   if (db.prepare('SELECT 1 FROM users WHERE email = ?').get(email.trim())) {
     fail(409, 'ეს ელფოსტა უკვე რეგისტრირებულია');
   }
