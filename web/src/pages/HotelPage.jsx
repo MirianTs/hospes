@@ -164,7 +164,9 @@ export default function HotelPage() {
                         {bookingRoom === r.id ? <Spinner small /> : <Icon name="calendar" size={16} />} {L('დაჯავშნა', 'Book')}
                       </button>
                     ) : (
-                      <Badge tone="red">{L('ამ თარიღებზე დაკავებულია', 'Booked on these dates')}</Badge>
+                      // Closed rooms already carry their own badge, and invalid dates get the warning above.
+                      r.status === 'available' &&
+                      datesValid && <Badge tone="red">{L('ამ თარიღებზე დაკავებულია', 'Booked on these dates')}</Badge>
                     )}
                   </div>
                 </div>
