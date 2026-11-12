@@ -420,7 +420,7 @@ export default function Admin() {
           )}
         </p>
       </div>
-      <div className="tabs" role="tablist">
+      <div className="tabs" role="tablist" aria-label={L('ადმინის განყოფილებები', 'Admin sections')}>
         {TABS().map((t) => (
           <button key={t.id} type="button" role="tab" aria-selected={tab === t.id} className={`tab${tab === t.id ? ' on' : ''}`} onClick={() => setTab(t.id)}>
             <Icon name={t.icon} size={16} /> {t.label}
