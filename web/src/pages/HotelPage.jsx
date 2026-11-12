@@ -145,7 +145,8 @@ export default function HotelPage() {
                       <Badge icon="users">{L(`${r.capacity} სტუმარი`, `${r.capacity} ${r.capacity === 1 ? 'guest' : 'guests'}`)}</Badge>
                       {r.status === 'maintenance' && <Badge tone="red">{L('დროებით დახურულია', 'Temporarily closed')}</Badge>}
                     </div>
-                    <p className="muted small mt-1 mb-0">{KEY_TYPE[r.key_type].label}</p>
+                    {/* The schema still allows 'smartlock', which has no label any more; skip the line instead of crashing. */}
+                    {KEY_TYPE[r.key_type] && <p className="muted small mt-1 mb-0">{KEY_TYPE[r.key_type].label}</p>}
                   </div>
                   <div className="actions">
                     <div>
