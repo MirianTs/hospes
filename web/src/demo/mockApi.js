@@ -996,8 +996,8 @@ route(
     const b = ctx.body;
     const hotelId = toId(b.hotel_id);
     if (!find('hotels', hotelId)) fail(404, L('ობიექტი ვერ მოიძებნა', 'Property not found'));
-    const lockId = b.lock_id ? Number(b.lock_id) : null;
-    if (lockId && ![1, 2, 3].includes(lockId)) fail(400, L('Hospes Lock-ის განყოფილება: 1–3 (#4 გასაღების დასაბრუნებელია)', 'Hospes Lock compartment: 1–3 (#4 is for returning the key)'));
+    const lockId = b.lock_id === undefined || b.lock_id === null || b.lock_id === '' ? null : Number(b.lock_id);
+    if (lockId !== null && ![1, 2, 3].includes(lockId)) fail(400, L('Hospes Lock-ის განყოფილება: 1–3 (#4 გასაღების დასაბრუნებელია)', 'Hospes Lock compartment: 1–3 (#4 is for returning the key)'));
     if (lockId && db.rooms.some((r) => r.hotel_id === hotelId && r.lock_id === lockId)) fail(409, L(`განყოფილება #${lockId} ამ ობიექტზე უკვე სხვა ოთახზეა მიბმული`, `Compartment #${lockId} is already assigned to another room at this property`));
     const number = text(b.number, 20, ['ოთახის ნომერი', 'room number']);
     if (db.rooms.some((r) => r.hotel_id === hotelId && r.number === number)) fail(409, L('ასეთი ნომრის ოთახი ამ ობიექტზე უკვე არსებობს', 'A room with this number already exists at this property'));

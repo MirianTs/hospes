@@ -84,8 +84,9 @@ router.post('/rooms', (req, res) => {
   if (!db.prepare('SELECT 1 FROM hotels WHERE id = ?').get(hotelId)) fail(404, 'ობიექტი ვერ მოიძებნა');
   // Keys are always in a key locker box; lock_id = optional Hospes Lock compartment (servo 1–3; 4 is the key return).
   const keyType = 'box';
-  const lockId = b.lock_id ? Number(b.lock_id) : null;
-  if (lockId && ![1, 2, 3].includes(lockId)) fail(400, 'Hospes Lock-ის განყოფილება: 1–3 (#4 გასაღების დასაბრუნებელია)');
+  // Empty means a plain code box; anything else must be compartment 1-3 ("abc" used to become "no compartment").
+  const lockId = b.lock_id === undefined || b.lock_id === null || b.lock_id === '' ? null : Number(b.lock_id);
+  if (lockId !== null && ![1, 2, 3].includes(lockId)) fail(400, 'Hospes Lock-ის განყოფილება: 1–3 (#4 გასაღების დასაბრუნებელია)');
   if (lockId && db.prepare('SELECT 1 FROM rooms WHERE hotel_id = ? AND lock_id = ?').get(hotelId, lockId)) {
     fail(409, `განყოფილება #${lockId} ამ ობიექტზე უკვე სხვა ოთახზეა მიბმული`);
   }
