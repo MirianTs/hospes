@@ -95,7 +95,8 @@ function parseService(body, current = {}) {
   const description =
     body.description !== undefined ? String(body.description).trim().slice(0, 300) || null : current.description ?? null;
   if (!name) fail(400, 'მიუთითეთ სერვისის სახელი');
-  if (!Number.isFinite(price) || price < 0) fail(400, 'ფასი არასწორია');
+  // Same ceiling as room prices (PATCH /rooms/:id), so a typo can't put a huge number on the guest's bill.
+  if (!Number.isFinite(price) || price < 0 || price > 10000) fail(400, 'ფასი არასწორია');
   return { name, price, description };
 }
 
