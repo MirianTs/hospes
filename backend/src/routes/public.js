@@ -25,6 +25,7 @@ router.get('/hotels', (req, res) => {
   const { q, check_in, check_out } = req.query;
   const minPrice = optionalNumber(req.query.min_price);
   const maxPrice = optionalNumber(req.query.max_price);
+  if (minPrice !== null && maxPrice !== null && minPrice > maxPrice) fail(400, 'მინიმალური ფასი მაქსიმალურზე მეტია');
   const keyType = ['box', 'smartlock'].includes(req.query.key_type) ? req.query.key_type : null;
   const hasStay = Boolean(check_in || check_out);
   if (hasStay) parseStay(check_in, check_out);
