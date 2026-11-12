@@ -38,6 +38,13 @@ function changed() {
   events.emit('status');
 }
 
+// Only a new error is announced, so the 3 s reconnect loop doesn't flood the card access page.
+function setError(message) {
+  if (state.lastError === message) return;
+  state.lastError = message;
+  changed();
+}
+
 function markReady() {
   state.ready = true;
   readyWaiters.forEach((resolve) => resolve());
@@ -96,7 +103,7 @@ export async function connect() {
   }
   const path = await resolvePath().catch(() => null);
   if (!path) {
-    state.lastError = 'Arduino ვერ მოიძებნა';
+    setError('Arduino ვერ მოიძებნა');
     return scheduleReconnect();
   }
   const port = new SerialPort({ path, baudRate: config.arduinoBaud, autoOpen: false });
@@ -111,13 +118,11 @@ export async function connect() {
     changed();
     scheduleReconnect();
   });
-  port.on('error', (err) => {
-    state.lastError = err.message;
-  });
+  port.on('error', (err) => setError(err.message));
   port.open((err) => {
     if (err) {
       if (state.lastError !== err.message) console.log('[arduino] cannot open', path, '-', err.message);
-      state.lastError = err.message;
+      setError(err.message);
       return scheduleReconnect();
     }
     Object.assign(state, { port, path, open: true, ready: false, reader: null, lastError: null });
