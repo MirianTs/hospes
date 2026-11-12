@@ -45,6 +45,7 @@ function Switches() {
         className="btn btn-ghost lang-btn"
         onClick={() => setLang(lang === 'en' ? 'ka' : 'en')}
         title={lang === 'en' ? 'ქართულად' : 'In English'}
+        aria-label={lang === 'en' ? 'ქართულად' : 'In English'}
         lang={lang === 'en' ? 'ka' : 'en'}
       >
         {lang === 'en' ? 'ქარ' : 'EN'}
