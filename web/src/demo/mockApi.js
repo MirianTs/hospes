@@ -943,12 +943,13 @@ route('PATCH', '/owner/service-requests/:id', (ctx) => {
 // admin
 route('GET', '/admin/users', (ctx) => (role(ctx, 'admin'), [...db.users].sort((a, b) => a.id - b.id).map(publicUser)));
 route('PATCH', '/admin/users/:id', (ctx) => {
-  role(ctx, 'admin');
+  const me = role(ctx, 'admin');
   const user = find('users', toId(ctx.params.id));
   if (!user) fail(404, L('მომხმარებელი ვერ მოიძებნა', 'User not found'));
   const nextRole = ctx.body.role ?? user.role;
   const status = ctx.body.verification_status ?? user.verification_status;
   if (!['guest', 'owner', 'admin'].includes(nextRole)) fail(400, L('როლი არასწორია', 'Invalid role'));
+  if (user.id === me.id && nextRole !== 'admin') fail(400, L('საკუთარ თავს ადმინის როლს ვერ მოუხსნით', 'You cannot remove your own admin role'));
   if (!['unverified', 'verified', 'rejected'].includes(status)) fail(400, L('ვერიფიკაციის სტატუსი არასწორია', 'Invalid verification status'));
   Object.assign(user, { role: nextRole, verification_status: status });
   return publicUser(user);

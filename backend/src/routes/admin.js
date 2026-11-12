@@ -33,6 +33,8 @@ router.patch('/users/:id', (req, res) => {
   const role = req.body?.role ?? user.role;
   const status = req.body?.verification_status ?? user.verification_status;
   if (!['guest', 'owner', 'admin'].includes(role)) fail(400, 'როლი არასწორია');
+  // Otherwise the only admin could lock everyone out of the admin pages with one click.
+  if (user.id === req.user.id && role !== 'admin') fail(400, 'საკუთარ თავს ადმინის როლს ვერ მოუხსნით');
   if (!['unverified', 'verified', 'rejected'].includes(status)) fail(400, 'ვერიფიკაციის სტატუსი არასწორია');
   db.prepare('UPDATE users SET role = ?, verification_status = ? WHERE id = ?').run(role, status, user.id);
   res.json(publicUser(db.prepare('SELECT * FROM users WHERE id = ?').get(user.id)));
