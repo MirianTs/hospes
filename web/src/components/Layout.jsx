@@ -78,7 +78,7 @@ export default function Layout() {
             <LogoMark size={36} />
             <span className="logo-word">Hospes</span>
           </Link>
-          <nav className={`nav${open ? ' open' : ''}`} aria-label={L('მთავარი მენიუ', 'Main menu')}>
+          <nav id="main-nav" className={`nav${open ? ' open' : ''}`} aria-label={L('მთავარი მენიუ', 'Main menu')}>
             {[...mainLinks(), ...roleLinks(user)].map((l) => (
               <NavLink key={l.to} to={l.to} end={l.end}>
                 {l.label}
@@ -126,6 +126,7 @@ export default function Layout() {
               className="btn btn-outline btn-icon menu-btn"
               onClick={() => setOpen((o) => !o)}
               aria-expanded={open}
+              aria-controls="main-nav"
               aria-label={L('მენიუ', 'Menu')}
             >
               <Icon name={open ? 'x' : 'menu'} />
