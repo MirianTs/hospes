@@ -217,8 +217,9 @@ export function seed() {
         ...b,
       }).lastInsertRowid;
 
-    // Ready-made bookings so both check-in types can be shown even without a live booking.
-    const smartStay = booking({
+    // Paid bookings for today, so check-in can be shown even without a live booking:
+    // one with the key in Hospes Lock compartment #2, one in compartment #1 of another hotel.
+    const todayStay = booking({
       user_id: users.giorgi,
       room_id: rooms['alazani:2'],
       check_in: t,
@@ -277,7 +278,7 @@ export function seed() {
     });
 
     db.prepare('INSERT INTO service_requests (booking_id, hotel_service_id, note) VALUES (?, ?, ?)').run(
-      smartStay,
+      todayStay,
       services['alazani:საუზმე'],
       'ხვალ 9:00-ზე, 2 ადამიანი',
     );
