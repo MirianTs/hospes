@@ -24,7 +24,7 @@ export default function LockConnect() {
           {lock.status === 'connecting' ? <Spinner small /> : <Icon name="key" size={14} />} {L('Hospes Lock-ის მიერთება (USB)', 'Connect Hospes Lock (USB)')}
         </button>
       )}
-      {lock.error && <span className="small lock-err">{lock.error}</span>}
+      {lock.error && <span className="small lock-err" role="alert">{lock.error}</span>}
     </div>
   );
 }
