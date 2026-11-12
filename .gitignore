@@ -8,3 +8,5 @@ backend/uploads/
 web/public/models/
 *.log
 .DS_Store
+Thumbs.db
+desktop.ini
