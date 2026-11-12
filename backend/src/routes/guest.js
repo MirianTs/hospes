@@ -16,6 +16,7 @@ import { fail, newAccessCode, nowIso, parseStay, toId } from '../util.js';
 
 const router = Router();
 
+// Entering the code again on a later day keeps the first checked_in_at.
 function markCheckedIn(b) {
   if (b.status !== 'checked_in') {
     db.prepare(`UPDATE bookings SET status = 'checked_in', checked_in_at = ? WHERE id = ?`).run(nowIso(), b.id);
