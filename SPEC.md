@@ -33,7 +33,8 @@ guest / owner / admin — ერთი User ცხრილი `role` ველ�
   POST /bookings/:id/cancel, POST /bookings/:id/checkout (გასაღების დასაბრუნებელი განყოფილება #4),
   GET|POST /bookings/:id/services
 - owner: GET /owner/hotels, GET /owner/bookings, PATCH /rooms/:id (ფასი/სტატუსი),
-  CRUD /owner/services, POST /owner/blocks (Booking.com-ის ხელით ბლოკი → Booking source=external)
+  CRUD /owner/services, POST /owner/blocks (Booking.com-ის ხელით ბლოკი → Booking source=external),
+  DELETE /owner/blocks/:id (ბლოკის მოხსნა), GET /owner/service-requests, PATCH /owner/service-requests/:id (pending/done)
 - admin: POST /admin/hotels, POST /admin/rooms, POST /admin/pois (ობიექტებსა და რუკის ადგილებს მხოლოდ ადმინი ამატებს),
   GET /admin/users, PATCH /admin/users/:id (როლი, ვერიფიკაცია), GET /admin/hardware, POST /admin/locks/:n/open (სერვოს ტესტი),
   /admin/rfid/* (ბარათით შესვლა: ბარათები, რეჟიმი, ცოცხალი ჟურნალი)
