@@ -160,7 +160,7 @@ function RoomRow({ room, onSaved }) {
         <button type="button" className="btn btn-primary btn-sm" disabled={!dirty || !priceOk || action.busy} onClick={save}>
           {action.busy ? <Spinner small /> : <Icon name="check" size={14} />} {L('შენახვა', 'Save')}
         </button>
-        {action.error && <div className="small" style={{ color: 'var(--danger)' }}>{action.error.message}</div>}
+        {action.error && <div className="small" role="alert" style={{ color: 'var(--danger)' }}>{action.error.message}</div>}
       </td>
     </tr>
   );
@@ -308,7 +308,7 @@ function ServiceRow({ service, onChange }) {
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
         />
-        {action.error && <div className="small" style={{ color: 'var(--danger)' }}>{action.error.message}</div>}
+        {action.error && <div className="small" role="alert" style={{ color: 'var(--danger)' }}>{action.error.message}</div>}
         <div className="inline">
           <button type="button" className="btn btn-primary btn-sm" disabled={action.busy} onClick={save}>
             {L('შენახვა', 'Save')}
@@ -375,7 +375,7 @@ function NewService({ hotelId, onChange }) {
           <Icon name="plus" size={14} /> {L('დამატება', 'Add')}
         </button>
       </div>
-      {action.error && <div className="small mt-1" style={{ color: 'var(--danger)' }}>{action.error.message}</div>}
+      {action.error && <div className="small mt-1" role="alert" style={{ color: 'var(--danger)' }}>{action.error.message}</div>}
     </form>
   );
 }
