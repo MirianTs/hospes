@@ -2,6 +2,7 @@
   "name": "hospes-web",
   "version": "0.1.0",
   "private": true,
+  "description": "Hospes web app: React (Vite) site for guests, owners and admins",
   "type": "module",
   "scripts": {
     "postinstall": "node scripts/copy-face-models.mjs",
