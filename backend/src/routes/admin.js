@@ -114,6 +114,9 @@ router.post('/rooms', (req, res) => {
 router.post('/pois', (req, res) => {
   const b = req.body || {};
   if (!POI_TYPES.includes(b.type)) fail(400, `კატეგორია: ${POI_TYPES.join(', ')}`);
+  // The link becomes an <a href> on the map and in the catalog, so only web addresses are allowed.
+  const mapsLink = text(b.google_maps_url, 300, 'Google Maps ბმული', false);
+  if (mapsLink && !/^https?:\/\//i.test(mapsLink)) fail(400, 'Google Maps ბმული http:// ან https://-ით უნდა იწყებოდეს');
   const { lastInsertRowid } = db
     .prepare('INSERT INTO pois (type, name, description, lat, lng, google_maps_url) VALUES (?, ?, ?, ?, ?, ?)')
     .run(
@@ -122,7 +125,7 @@ router.post('/pois', (req, res) => {
       text(b.description, 500, 'აღწერა', false),
       coord(b.lat, -90, 90, 'განედი (lat)'),
       coord(b.lng, -180, 180, 'გრძედი (lng)'),
-      text(b.google_maps_url, 300, 'Google Maps ბმული', false),
+      mapsLink,
     );
   res.status(201).json(db.prepare('SELECT * FROM pois WHERE id = ?').get(lastInsertRowid));
 });

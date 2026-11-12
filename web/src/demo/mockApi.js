@@ -1024,6 +1024,8 @@ route(
     role(ctx, 'admin');
     const b = ctx.body;
     if (!POI_TYPES.includes(b.type)) fail(400, L(`კატეგორია: ${POI_TYPES.join(', ')}`, `Category: ${POI_TYPES.join(', ')}`));
+    const mapsLink = text(b.google_maps_url, 300, ['Google Maps ბმული', 'Google Maps link'], false);
+    if (mapsLink && !/^https?:\/\//i.test(mapsLink)) fail(400, L('Google Maps ბმული http:// ან https://-ით უნდა იწყებოდეს', 'The Google Maps link must start with http:// or https://'));
     const poi = {
       id: nextId('pois'),
       type: b.type,
@@ -1031,7 +1033,7 @@ route(
       description: text(b.description, 500, ['აღწერა', 'description'], false),
       lat: coord(b.lat, -90, 90, ['განედი (lat)', 'latitude (lat)']),
       lng: coord(b.lng, -180, 180, ['გრძედი (lng)', 'longitude (lng)']),
-      google_maps_url: text(b.google_maps_url, 300, ['Google Maps ბმული', 'Google Maps link'], false),
+      google_maps_url: mapsLink,
     };
     db.pois.push(poi);
     return poi;
