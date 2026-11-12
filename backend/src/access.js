@@ -33,6 +33,7 @@ export function recentEvents(limit = 60) {
   return db.prepare('SELECT * FROM access_events ORDER BY id DESC LIMIT ?').all(limit);
 }
 
+// "de:30:00:aa" or "DE 30 00 AA" -> "DE3000AA". MIFARE UIDs are 4, 7 or 10 bytes, so 20 hex digits is the longest real one.
 export const normalizeUid = (uid) =>
   String(uid || '')
     .replace(/[^0-9a-f]/gi, '')
