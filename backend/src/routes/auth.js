@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import multer from 'multer';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
+import path from 'node:path';
 import { db } from '../db.js';
 import { config } from '../config.js';
 import { getUser, publicUser, requireAuth, signToken } from '../auth.js';
@@ -109,6 +110,10 @@ router.post(
       verified ? nowIso() : null,
       req.user.id,
     );
+    // A second verification replaces the first one's photos; the old files are no longer referenced.
+    for (const old of [req.user.id_doc_url, req.user.selfie_url]) {
+      if (old) fs.rm(path.join(config.uploadDir, path.basename(old)), { force: true }, () => {});
+    }
     res.json({
       verified,
       distance,
