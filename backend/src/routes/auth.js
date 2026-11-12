@@ -64,6 +64,10 @@ const PHOTO_FIELDS = [
 // Demo mode keeps uploads in memory only, so nothing is written to disk.
 const discardPhotos = multer({ storage: multer.memoryStorage(), limits: { fileSize: 8 * 1024 * 1024, files: 2 } });
 
+function removeUploads(files) {
+  for (const file of Object.values(files || {}).flat()) fs.rm(file.path, { force: true }, () => {});
+}
+
 // FACE_VERIFICATION=demo: always verified, photos optional and not stored.
 function demoVerify(req, res) {
   const reported = Number(req.body?.distance);
@@ -86,8 +90,12 @@ router.post(
     const idDoc = req.files?.id_doc?.[0];
     const selfie = req.files?.selfie?.[0];
     const distance = Number(req.body?.distance);
-    if (!idDoc || !selfie) fail(400, 'საჭიროა პირადობის ფოტო და სელფი (JPEG, PNG ან WebP)');
-    if (!Number.isFinite(distance) || distance < 0) fail(400, 'სახეების შედარების შედეგი არ მოვიდა');
+    if (!idDoc || !selfie || !Number.isFinite(distance) || distance < 0) {
+      // multer has already written whatever did arrive; don't leave orphaned ID photos on disk.
+      removeUploads(req.files);
+      if (!idDoc || !selfie) fail(400, 'საჭიროა პირადობის ფოტო და სელფი (JPEG, PNG ან WebP)');
+      fail(400, 'სახეების შედარების შედეგი არ მოვიდა');
+    }
 
     const verified = distance <= config.faceMatchThreshold;
     db.prepare(
