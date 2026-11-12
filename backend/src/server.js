@@ -57,6 +57,8 @@ app.use((err, req, res, next) => {
     return res.status(400).json({ error: tooBig ? 'ფაილი ძალიან დიდია (მაქს. 8 MB)' : 'ფაილის ატვირთვა ვერ მოხერხდა' });
   }
   if (err?.type === 'entity.parse.failed') return res.status(400).json({ error: 'მოთხოვნის JSON არასწორია' });
+  // express.json() above caps bodies at 1 MB; without this branch a bigger one became a 500.
+  if (err?.type === 'entity.too.large') return res.status(413).json({ error: 'მოთხოვნა ძალიან დიდია (მაქს. 1 MB)' });
   console.error(err);
   res.status(500).json({ error: 'სერვერის შეცდომა' });
 });
