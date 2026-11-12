@@ -17,6 +17,8 @@ export function fail(status, message, extra) {
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
+// A real calendar date in YYYY-MM-DD form. Date() rolls "2026-02-30" over to March 2,
+// so the round trip through toISOString() is what rejects impossible days.
 export function isDate(s) {
   if (typeof s !== 'string' || !DATE_RE.test(s)) return false;
   const d = new Date(`${s}T00:00:00Z`);
