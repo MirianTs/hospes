@@ -36,6 +36,7 @@ function selectedHotels(user, hotelIdParam) {
   return [id];
 }
 
+// "?,?,?" for an IN (...) list; an empty list becomes IN (NULL), which matches nothing.
 const placeholders = (ids) => ids.map(() => '?').join(',') || 'NULL';
 
 router.get('/owner/hotels', owner, (req, res) => {
