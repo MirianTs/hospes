@@ -17,7 +17,7 @@ export default function LockConnect() {
     <div className="lock-connect">
       {lock.status === 'ready' ? (
         <span className="lock-on">
-          <span className="lock-dot" /> {L('Hospes Lock მიერთებულია', 'Hospes Lock connected')}
+          <span className="lock-dot" aria-hidden="true" /> {L('Hospes Lock მიერთებულია', 'Hospes Lock connected')}
         </span>
       ) : (
         <button type="button" className="btn btn-outline btn-sm" onClick={connectLock} disabled={lock.status === 'connecting'}>
