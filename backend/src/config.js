@@ -24,3 +24,8 @@ export const config = {
   faceVerification: (process.env.FACE_VERIFICATION || 'demo').trim().toLowerCase() === 'real' ? 'real' : 'demo',
   timezone: process.env.TIMEZONE || 'Asia/Tbilisi',
 };
+
+// Anyone who knows the built-in secret can sign an admin token, so say it out loud.
+if (!process.env.JWT_SECRET) {
+  console.warn('[config] JWT_SECRET is not set: using the demo secret. Set it in backend/.env before going on a shared network.');
+}
