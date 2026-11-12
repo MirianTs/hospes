@@ -173,7 +173,7 @@ arduino-cli upload -p COM3 --fqbn arduino:avr:uno hardware/hospes_locks
 ყველა მარშრუტი `/api`-ით იწყება. დაცულ მარშრუტებს სჭირდება `Authorization: Bearer <token>`.
 
 - **auth:** `POST /auth/register`, `POST /auth/login`, `GET /auth/me`, `POST /auth/verify` (multipart: `id_doc`, `selfie`, `distance`)
-- **public:** `GET /hotels?q=&check_in=&check_out=&max_price=&key_type=`, `GET /hotels/:id`, `GET /rooms/:id/availability`, `GET /pois?type=cafe,tour`
+- **public:** `GET /hotels?q=&check_in=&check_out=&min_price=&max_price=&key_type=`, `GET /hotels/:id`, `GET /rooms/:id/availability`, `GET /pois?type=cafe,tour`
 - **guest:** `POST /bookings`, `GET /bookings/my`, `GET /bookings/:id`, `POST /bookings/:id/pay`, `POST /bookings/:id/cancel`, `POST /bookings/:id/checkout`, `POST /checkin/code`, `GET|POST /bookings/:id/services`
 - **owner:** `GET /owner/hotels`, `GET /owner/bookings`, `PATCH /rooms/:id`, `GET|POST|PATCH|DELETE /owner/services`, `POST /owner/blocks`, `DELETE /owner/blocks/:id`, `GET /owner/service-requests`, `PATCH /owner/service-requests/:id`
 - **admin:** `POST /admin/hotels`, `POST /admin/rooms`, `POST /admin/pois`, `GET /admin/users`, `PATCH /admin/users/:id`, `GET /admin/hardware`, `POST /admin/locks/:n/open`
