@@ -328,10 +328,15 @@ function ServiceRow({ service, onChange }) {
       </div>
       <div className="inline" style={{ flexWrap: 'nowrap' }}>
         <strong className="nowrap">{service.price ? money(service.price) : L('უფასო', 'Free')}</strong>
-        <button type="button" className="btn btn-ghost btn-sm" onClick={() => setEdit(true)}>
+        <button
+          type="button"
+          className="btn btn-ghost btn-sm"
+          onClick={() => setEdit(true)}
+          aria-label={L(`შეცვლა: ${service.name}`, `Edit: ${service.name}`)}
+        >
           {L('შეცვლა', 'Edit')}
         </button>
-        <button type="button" className="btn btn-ghost btn-sm btn-icon" onClick={remove} title={L('წაშლა', 'Delete')} aria-label={L('წაშლა', 'Delete')}>
+        <button type="button" className="btn btn-ghost btn-sm btn-icon" onClick={remove} title={L('წაშლა', 'Delete')} aria-label={L(`წაშლა: ${service.name}`, `Delete: ${service.name}`)}>
           <Icon name="trash" size={15} />
         </button>
       </div>
