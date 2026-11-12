@@ -118,6 +118,8 @@ function RoomRow({ room, onSaved }) {
   const [status, setStatus] = useState(room.status);
   const action = useAction();
   const dirty = Number(price) !== room.price || status !== room.status;
+  // An emptied field would be sent as Number('') = 0 and make the room free.
+  const priceOk = price.trim() !== '' && Number(price) >= 0 && Number(price) <= 10000;
   const save = async () => {
     const updated = await action.run(() => api(`/rooms/${room.id}`, { method: 'PATCH', body: { price: Number(price), status } }));
     if (updated) onSaved(updated);
@@ -138,6 +140,7 @@ function RoomRow({ room, onSaved }) {
             className="input input-sm"
             type="number"
             min="0"
+            max="10000"
             step="5"
             style={{ width: 96 }}
             value={price}
@@ -154,7 +157,7 @@ function RoomRow({ room, onSaved }) {
         </select>
       </td>
       <td className="num">
-        <button type="button" className="btn btn-primary btn-sm" disabled={!dirty || action.busy} onClick={save}>
+        <button type="button" className="btn btn-primary btn-sm" disabled={!dirty || !priceOk || action.busy} onClick={save}>
           {action.busy ? <Spinner small /> : <Icon name="check" size={14} />} {L('შენახვა', 'Save')}
         </button>
         {action.error && <div className="small" style={{ color: 'var(--danger)' }}>{action.error.message}</div>}
