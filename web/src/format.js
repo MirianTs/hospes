@@ -2,6 +2,7 @@ import { L } from './prefs.js';
 
 // Language: labels below are getters, so they read the current language when used, not when imported.
 
+// Keep in step with TIMEZONE in backend/.env: the server decides which dates a code is valid on.
 export const TIMEZONE = 'Asia/Tbilisi';
 
 // Today in Tbilisi as YYYY-MM-DD, built from parts so it doesn't depend on locale data.
