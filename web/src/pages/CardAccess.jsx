@@ -266,6 +266,7 @@ export default function CardAccess() {
                 <input
                   className="input input-sm"
                   placeholder={L('სახელი, მაგ. ნინოს ბარათი', "Name, e.g. Nino's card")}
+                  aria-label={L('ბარათის სახელი', 'Card name')}
                   value={label}
                   onChange={(e) => setLabel(e.target.value)}
                 />
