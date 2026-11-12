@@ -97,6 +97,8 @@ export function createSchema() {
       created_at TEXT NOT NULL DEFAULT ${NOW},
       done_at TEXT
     );
+    -- Booking pages and the "pending requests" counts look requests up by booking.
+    CREATE INDEX IF NOT EXISTS idx_service_requests_booking ON service_requests (booking_id);
 
     CREATE TABLE IF NOT EXISTS pois (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
