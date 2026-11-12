@@ -124,11 +124,11 @@ export function Register() {
       <form onSubmit={submit}>
         <label className="field">
           <span>{L('სახელი და გვარი', 'Full name')}</span>
-          <input className="input" autoComplete="name" required value={form.name} onChange={set('name')} />
+          <input className="input" autoComplete="name" required maxLength={80} value={form.name} onChange={set('name')} />
         </label>
         <label className="field">
           <span>{L('ტელეფონი', 'Phone')}</span>
-          <input className="input" type="tel" autoComplete="tel" placeholder="+995 5XX XX XX XX" value={form.phone} onChange={set('phone')} />
+          <input className="input" type="tel" autoComplete="tel" maxLength={30} placeholder="+995 5XX XX XX XX" value={form.phone} onChange={set('phone')} />
         </label>
         <label className="field">
           <span>{L('ელფოსტა', 'Email')}</span>

@@ -629,6 +629,8 @@ route(
     if (!name?.trim() || !email?.trim() || !password) fail(400, L('შეავსეთ სახელი, ელფოსტა და პაროლი', 'Please fill in your name, email and password'));
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.trim())) fail(400, L('ელფოსტის ფორმატი არასწორია', 'Invalid email format'));
     if (String(password).length < 6) fail(400, L('პაროლი მინიმუმ 6 სიმბოლო უნდა იყოს', 'The password must be at least 6 characters'));
+    if (name.trim().length > 80) fail(400, L('სახელი მაქსიმუმ 80 სიმბოლოა', 'The name can be at most 80 characters'));
+    if (phone && phone.trim().length > 30) fail(400, L('ტელეფონის ნომერი ძალიან გრძელია', 'The phone number is too long'));
     if (db.users.some((u) => u.email.toLowerCase() === email.trim().toLowerCase())) fail(409, L('ეს ელფოსტა უკვე რეგისტრირებულია', 'This email is already registered'));
     const user = {
       id: nextId('users'),
