@@ -2,6 +2,7 @@
   "name": "hospes-backend",
   "version": "0.1.0",
   "private": true,
+  "description": "Hospes API: Express + SQLite, plus the serial bridge to the Arduino locks",
   "type": "module",
   "main": "src/server.js",
   "scripts": {
