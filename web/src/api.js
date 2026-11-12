@@ -106,6 +106,11 @@ export function stream(path, onMessage, onState) {
           headers: { Authorization: `Bearer ${getToken()}` },
           signal: controller.signal,
         });
+        // Signed out or not an admin: retrying every 2 s would never succeed.
+        if (res.status === 401 || res.status === 403) {
+          onState?.('closed');
+          return;
+        }
         if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`);
         onState?.('open');
         const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
