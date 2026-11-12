@@ -73,6 +73,8 @@ export function broadcastStatus() {
   broadcast({ type: 'status', hardware: serial.status(), open_any: openAny() });
 }
 
+// A tapped card opens its registered compartment; an unregistered card opens compartment 1,
+// but only while "open for any card" is on. Every tap is logged, allowed or denied.
 export async function handleCard(rawUid) {
   const uid = normalizeUid(rawUid);
   if (!uid) return;
