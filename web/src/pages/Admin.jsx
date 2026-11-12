@@ -26,6 +26,7 @@ function PickOnMap({ value, onChange }) {
         <input
           className="input input-sm"
           placeholder="lat"
+          inputMode="decimal"
           value={value?.lat ?? ''}
           onChange={(e) => onChange({ lat: e.target.value, lng: value?.lng ?? '' })}
           aria-label={L('განედი', 'Latitude')}
@@ -33,6 +34,7 @@ function PickOnMap({ value, onChange }) {
         <input
           className="input input-sm"
           placeholder="lng"
+          inputMode="decimal"
           value={value?.lng ?? ''}
           onChange={(e) => onChange({ lat: value?.lat ?? '', lng: e.target.value })}
           aria-label={L('გრძედი', 'Longitude')}
