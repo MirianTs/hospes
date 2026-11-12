@@ -3,6 +3,7 @@ import { config } from './config.js';
 import { db } from './db.js';
 import { HttpError } from './util.js';
 
+// JWT for the Authorization: Bearer header, valid for 7 days.
 export function signToken(user) {
   return jwt.sign({ sub: user.id, role: user.role }, config.jwtSecret, { expiresIn: '7d' });
 }
@@ -36,6 +37,7 @@ export function requireAuth(req, res, next) {
   next();
 }
 
+// Like requireAuth, then 403 unless the user has one of the given roles.
 export function requireRole(...roles) {
   return (req, res, next) =>
     requireAuth(req, res, (err) => {
