@@ -290,11 +290,12 @@ function ServiceRow({ service, onChange }) {
     return (
       <li className="stack" style={{ gap: 8 }}>
         <div className="form-row">
-          <input className="input input-sm" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} aria-label={L('სახელი', 'Name')} />
+          <input className="input input-sm" maxLength={80} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} aria-label={L('სახელი', 'Name')} />
           <input
             className="input input-sm"
             type="number"
             min="0"
+            max="10000"
             value={form.price}
             onChange={(e) => setForm({ ...form, price: e.target.value })}
             aria-label={L('ფასი', 'Price')}
@@ -305,6 +306,7 @@ function ServiceRow({ service, onChange }) {
           className="input input-sm"
           placeholder={L('აღწერა', 'Description')}
           aria-label={L('აღწერა', 'Description')}
+          maxLength={300}
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
         />
@@ -363,6 +365,7 @@ function NewService({ hotelId, onChange }) {
           required
           placeholder={L('ახალი სერვისი, მაგ. გვიანი ჩექაუთი', 'New service, e.g. late check-out')}
           aria-label={L('ახალი სერვისის სახელი', 'New service name')}
+          maxLength={80}
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
         />
@@ -370,6 +373,7 @@ function NewService({ hotelId, onChange }) {
           className="input input-sm"
           type="number"
           min="0"
+          max="10000"
           placeholder={L('ფასი ₾', 'Price ₾')}
           aria-label={L('ფასი ₾', 'Price ₾')}
           value={form.price}
