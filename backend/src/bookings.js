@@ -55,6 +55,7 @@ export function describeBooking(b) {
     nights: nightsBetween(b.check_in, b.check_out),
     paid,
     within_stay: withinStay(b, day),
+    // checked_in stays allowed: the code opens the box again on any later day of the stay (POST /checkin/code).
     can_check_in: ['confirmed', 'checked_in'].includes(b.status) && withinStay(b, day),
     today: day,
   };
