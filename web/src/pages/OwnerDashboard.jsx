@@ -350,12 +350,20 @@ function NewService({ hotelId, onChange }) {
   return (
     <form onSubmit={submit} className="mt-2">
       <div className="form-row">
-        <input className="input input-sm" required placeholder={L('ახალი სერვისი, მაგ. გვიანი ჩექაუთი', 'New service, e.g. late check-out')} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+        <input
+          className="input input-sm"
+          required
+          placeholder={L('ახალი სერვისი, მაგ. გვიანი ჩექაუთი', 'New service, e.g. late check-out')}
+          aria-label={L('ახალი სერვისის სახელი', 'New service name')}
+          value={form.name}
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
+        />
         <input
           className="input input-sm"
           type="number"
           min="0"
           placeholder={L('ფასი ₾', 'Price ₾')}
+          aria-label={L('ფასი ₾', 'Price ₾')}
           value={form.price}
           onChange={(e) => setForm({ ...form, price: e.target.value })}
           style={{ maxWidth: 110 }}
