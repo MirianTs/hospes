@@ -156,11 +156,11 @@ function NewRoom({ hotels, onCreated }) {
       <div className="form-row">
         <label className="field">
           <span>{L('ნომერი', 'Number')}</span>
-          <input className="input" required value={form.number} onChange={set('number')} />
+          <input className="input" required maxLength={20} value={form.number} onChange={set('number')} />
         </label>
         <label className="field">
           <span>{L('ფასი ღამეში, ₾', 'Price per night, ₾')}</span>
-          <input className="input" type="number" min="0" required value={form.price} onChange={set('price')} />
+          <input className="input" type="number" min="0" max="10000" required value={form.price} onChange={set('price')} />
         </label>
         <label className="field">
           <span>{L('ადგილები', 'Guests')}</span>
@@ -169,7 +169,7 @@ function NewRoom({ hotels, onCreated }) {
       </div>
       <label className="field">
         <span>{L('სათაური', 'Title')}</span>
-        <input className="input" placeholder={L('მაგ. ორადგილიანი, აივნით', 'e.g. double room with balcony')} value={form.title} onChange={set('title')} />
+        <input className="input" placeholder={L('მაგ. ორადგილიანი, აივნით', 'e.g. double room with balcony')} maxLength={80} value={form.title} onChange={set('title')} />
       </label>
       <label className="field">
         <span>{L('გასაღები: Hospes Lock-ის განყოფილება', 'Key: Hospes Lock compartment')}</span>
@@ -223,17 +223,17 @@ function NewPoi() {
         </label>
         <label className="field">
           <span>{L('სახელი', 'Name')}</span>
-          <input className="input" required value={form.name} onChange={set('name')} />
+          <input className="input" required maxLength={80} value={form.name} onChange={set('name')} />
         </label>
       </div>
       <label className="field">
         <span>{L('აღწერა', 'Description')}</span>
-        <input className="input" value={form.description} onChange={set('description')} />
+        <input className="input" maxLength={500} value={form.description} onChange={set('description')} />
       </label>
       <PickOnMap value={point} onChange={setPoint} />
       <label className="field">
         <span>{L('Google Maps ბმული (არასავალდებულო)', 'Google Maps link (optional)')}</span>
-        <input className="input" type="url" value={form.google_maps_url} onChange={set('google_maps_url')} />
+        <input className="input" type="url" maxLength={300} value={form.google_maps_url} onChange={set('google_maps_url')} />
       </label>
       <ErrorBox error={action.error} />
       {done && <Alert tone="success">{L('დაემატა:', 'Added:')} {done.name}</Alert>}
