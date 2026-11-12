@@ -51,7 +51,7 @@ export default function Catalog() {
           )}
         </p>
       </div>
-      <div className="tabs" role="tablist">
+      <div className="tabs" role="tablist" aria-label={L('კატეგორიები', 'Categories')}>
         {TABS().map((t) => (
           <button
             key={t.id}
