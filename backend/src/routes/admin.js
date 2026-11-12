@@ -174,6 +174,7 @@ router.get('/rfid/stream', (req, res) => {
 });
 
 router.post('/rfid/cards', (req, res) => {
+  // Hex UID as the RC522 reports it: at least 4 bytes (8 hex digits).
   const uid = access.normalizeUid(req.body?.uid);
   if (uid.length < 8) fail(400, 'ბარათის ID არასწორია');
   const lockId = Number(req.body?.lock_id ?? 1);
