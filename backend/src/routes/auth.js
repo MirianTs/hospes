@@ -47,6 +47,7 @@ router.post('/register', (req, res) => {
 
 router.post('/login', (req, res) => {
   const { email, password } = req.body || {};
+  // users.email is COLLATE NOCASE (db.js), so this lookup and the duplicate check in /register ignore case.
   const user = email ? db.prepare('SELECT * FROM users WHERE email = ?').get(String(email).trim()) : null;
   if (!user || !bcrypt.compareSync(String(password || ''), user.password_hash)) {
     fail(401, 'ელფოსტა ან პაროლი არასწორია');
