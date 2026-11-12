@@ -604,7 +604,7 @@ export default function OwnerDashboard() {
             ))}
           </div>
 
-          <div className="tabs" role="tablist">
+          <div className="tabs" role="tablist" aria-label={L('დეშბორდის განყოფილებები', 'Dashboard sections')}>
             {TABS().map((tb) => (
               <button
                 key={tb.id}
