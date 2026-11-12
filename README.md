@@ -139,7 +139,7 @@ arduino-cli compile --fqbn arduino:avr:uno hardware/hospes_locks
 arduino-cli upload -p COM3 --fqbn arduino:avr:uno hardware/hospes_locks
 ```
 
-**შემოწმება.** Serial Monitor-ში (9600 baud) აკრიფეთ `OPEN1`. კარი გაიღება და 5 წამში დაიკეტება. დაბრუნდება `OPENED1`, მერე `LOCKED1`. კუთხეები სკეტჩის თავშია: `OPEN_ANGLE`, `LOCKED_ANGLE`.
+**შემოწმება.** Serial Monitor-ში (9600 baud) აკრიფეთ `OPEN1`. კარი გაიღება და 5 წამში დაიკეტება. დაბრუნდება `OPENED1`, მერე `LOCKED1`. კუთხეები სკეტჩის თავშია: `OPEN_ANGLE`, `LOCKED_ANGLE`. სხვა ბრძანებები: `CLOSE1`..`CLOSE4` კარს მაშინვე კეტავს, `PING`-ზე დაფა `PONG`-ს პასუხობს.
 
 **Backend-თან დაკავშირება.**
 1. დააკოპირეთ `backend/.env.example` → `backend/.env`.
