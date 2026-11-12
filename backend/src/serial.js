@@ -69,7 +69,8 @@ function onLine(line) {
   if (door) setDoor(Number(door[2]), door[1] === 'OPENED');
 }
 
-// Boards whose USB chip is common on Uno originals and clones.
+// Boards whose USB chip is common on Uno originals and clones (USB vendor ids):
+// 2341 / 2a03 Arduino, 1a86 WCH CH340, 0403 FTDI, 10c4 Silicon Labs CP210x.
 const KNOWN_VENDORS = ['2341', '2a03', '1a86', '0403', '10c4'];
 
 async function resolvePath() {
