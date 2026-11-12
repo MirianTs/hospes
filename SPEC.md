@@ -26,11 +26,12 @@ guest / owner / admin — ერთი User ცხრილი `role` ველ�
 - POI: id, type (cafe/tour/guide/trail/landmark), name, description, lat, lng, google_maps_url, photo
 
 ## API routes
-- auth: POST /register, POST /login, POST /verify (ID + selfie შედეგი)
+- auth: POST /register, POST /login, GET /me, POST /verify (ID + selfie შედეგი)
 - public: GET /hotels, GET /hotels/:id, GET /rooms/:id/availability, GET /pois?type=
 - guest: POST /bookings, GET /bookings/my, POST /bookings/:id/pay (mock),
   POST /checkin/code (კოდის შემოწმება; lock_id-ის მქონე ოთახზე → Serial "OPEN<id>"),
-  POST /bookings/:id/services
+  POST /bookings/:id/cancel, POST /bookings/:id/checkout (გასაღების დასაბრუნებელი განყოფილება #4),
+  GET|POST /bookings/:id/services
 - owner: GET /owner/hotels, GET /owner/bookings, PATCH /rooms/:id (ფასი/სტატუსი),
   CRUD /owner/services, POST /owner/blocks (Booking.com-ის ხელით ბლოკი → Booking source=external)
 - admin: POST /admin/hotels, POST /admin/rooms (ობიექტებს მხოლოდ ადმინი ამატებს)
