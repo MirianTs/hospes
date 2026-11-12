@@ -1,7 +1,9 @@
 import { db } from './db.js';
 import { fail, nightsBetween, today, withinStay } from './util.js';
 
-// Statuses that hold a room's dates. Internal and external bookings are checked together.
+// True when another non-cancelled booking holds any night of [checkIn, checkOut).
+// Internal bookings and external blocks are checked together; the check-out day itself
+// stays free, so a new guest can arrive the day the previous one leaves.
 export function hasOverlap(roomId, checkIn, checkOut, excludeBookingId = 0) {
   return Boolean(
     db
