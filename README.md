@@ -172,6 +172,7 @@ arduino-cli upload -p COM3 --fqbn arduino:avr:uno hardware/hospes_locks
 
 ყველა მარშრუტი `/api`-ით იწყება. დაცულ მარშრუტებს სჭირდება `Authorization: Bearer <token>`.
 
+- **სერვისი:** `GET /health` (`ok`, დღევანდელი თარიღი, Arduino-ს მდგომარეობა), `GET /config` (`face_verification`, `face_match_threshold`)
 - **auth:** `POST /auth/register`, `POST /auth/login`, `GET /auth/me`, `POST /auth/verify` (multipart: `id_doc`, `selfie`, `distance`)
 - **public:** `GET /hotels?q=&check_in=&check_out=&min_price=&max_price=&key_type=`, `GET /hotels/:id`, `GET /rooms/:id/availability`, `GET /pois?type=cafe,tour`
 - **guest:** `POST /bookings`, `GET /bookings/my`, `GET /bookings/:id`, `POST /bookings/:id/pay`, `POST /bookings/:id/cancel`, `POST /bookings/:id/checkout`, `POST /checkin/code`, `GET|POST /bookings/:id/services`
