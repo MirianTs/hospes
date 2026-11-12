@@ -40,6 +40,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api', publicRoutes);
 app.use('/api', guestRoutes);
 app.use('/api', ownerRoutes);
+// Unknown /api paths get a JSON 404 here instead of falling through to the site's index.html below.
 app.use('/api', (req, res) => res.status(404).json({ error: 'API მარშრუტი ვერ მოიძებნა' }));
 
 // After `npm run build` in web/, the same server also serves the site (one URL for the demo).
