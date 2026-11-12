@@ -66,11 +66,11 @@ function NewHotel({ owners, onCreated }) {
       <h3 className="card-title">{L('ახალი სასტუმრო', 'New property')}</h3>
       <label className="field">
         <span>{L('სახელი', 'Name')}</span>
-        <input className="input" required value={form.name} onChange={set('name')} />
+        <input className="input" required maxLength={80} value={form.name} onChange={set('name')} />
       </label>
       <label className="field">
         <span>{L('მისამართი', 'Address')}</span>
-        <input className="input" required value={form.address} onChange={set('address')} />
+        <input className="input" required maxLength={160} value={form.address} onChange={set('address')} />
       </label>
       <div className="form-row">
         <label className="field">
@@ -92,13 +92,14 @@ function NewHotel({ owners, onCreated }) {
       <PickOnMap value={point} onChange={setPoint} />
       <label className="field">
         <span>{L('აღწერა', 'Description')}</span>
-        <textarea className="input" value={form.description} onChange={set('description')} />
+        <textarea className="input" maxLength={1000} value={form.description} onChange={set('description')} />
       </label>
       <label className="field">
         <span>{L('ჩექინის ინსტრუქცია (ჩანს მხოლოდ ჩექინის შემდეგ)', 'Check-in instructions (shown only after check-in)')}</span>
         <input
           className="input"
           placeholder={L('მაგ. გასაღების ყუთი ჭიშკართან', 'e.g. key box by the gate')}
+          maxLength={300}
           value={form.checkin_info}
           onChange={set('checkin_info')}
         />
