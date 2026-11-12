@@ -9,6 +9,8 @@ Smartstay 2026 ჰაკათონის დემო. სრული სპ�
 | `web/` | React (Vite), Leaflet + OpenStreetMap, `@vladmandic/face-api` |
 | `hardware/hospes_locks/` | Arduino Uno + 4 × SG90 სერვო |
 | `hardware/servo-locker/` | ცალკე ლოქერი: Arduino Uno + 4 × SG90, საიტი Web Serial-ით (სერვერის გარეშე) |
+| `card-status/` | ცალკე ერთეკრანიანი საიტი: კარი ღიაა თუ დაკეტილი (Node, პორტი 5500, [README](card-status/README.md)) |
+| `servo-buttons/` | ცალკე ერთეკრანიანი საიტი: სამი ღილაკი სერვოების გასაღებად (Node, პორტი 5501, [README](servo-buttons/README.md)) |
 
 ## გაშვება
 
