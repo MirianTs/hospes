@@ -50,9 +50,11 @@ export function createSchema() {
       capacity INTEGER NOT NULL DEFAULT 2,
       price REAL NOT NULL CHECK (price >= 0),
       key_type TEXT NOT NULL CHECK (key_type IN ('box', 'smartlock')),
-      lock_id INTEGER UNIQUE CHECK (lock_id BETWEEN 1 AND 4),
+      -- Hospes Lock compartment with this room's key: unique within a hotel, since every hotel has its own box.
+      lock_id INTEGER CHECK (lock_id BETWEEN 1 AND 4),
       status TEXT NOT NULL DEFAULT 'available' CHECK (status IN ('available', 'maintenance')),
       UNIQUE (hotel_id, number),
+      UNIQUE (hotel_id, lock_id),
       CHECK (key_type = 'box' OR lock_id IS NOT NULL)
     );
 
