@@ -272,7 +272,7 @@ function UsersTab() {
                   <div className="muted small">{u.email}</div>
                 </td>
                 <td>
-                  <select className="input input-sm" value={u.role} onChange={(e) => update(u, { role: e.target.value })} aria-label={L('როლი', 'Role')}>
+                  <select className="input input-sm" value={u.role} onChange={(e) => update(u, { role: e.target.value })} aria-label={L(`როლი: ${u.name}`, `Role: ${u.name}`)}>
                     {Object.entries(ROLE).map(([id, label]) => (
                       <option key={id} value={id}>
                         {label}
@@ -288,7 +288,7 @@ function UsersTab() {
                       style={{ width: 'auto' }}
                       value={u.verification_status}
                       onChange={(e) => update(u, { verification_status: e.target.value })}
-                      aria-label={L('ვერიფიკაციის სტატუსი', 'Verification status')}
+                      aria-label={L(`ვერიფიკაციის სტატუსი: ${u.name}`, `Verification status: ${u.name}`)}
                     >
                       <option value="unverified">{L('გასავლელი', 'Not verified')}</option>
                       <option value="verified">{L('დადასტურებული', 'Verified')}</option>
