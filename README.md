@@ -50,6 +50,8 @@ npm run build
 npm start
 ```
 
+აწყობილი საიტი Vite-ითაც იხსნება: `npm run preview --prefix web` (http://localhost:4173). `/api` აქაც backend-ზე, პორტ 4000-ზე გადადის, ამიტომ backend ცალკე უნდა მუშაობდეს.
+
 ## ონლაინ დემო (GitHub Pages)
 
 **https://miriants.github.io/hospes/**: იგივე საიტი, რომელსაც სერვერი არ სჭირდება და ნებისმიერ ტელეფონზე ან კომპიუტერზე იხსნება.
