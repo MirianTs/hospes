@@ -301,6 +301,7 @@ function ServiceRow({ service, onChange }) {
         <input
           className="input input-sm"
           placeholder={L('აღწერა', 'Description')}
+          aria-label={L('აღწერა', 'Description')}
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
         />
