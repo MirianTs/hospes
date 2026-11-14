@@ -162,7 +162,7 @@ void readSerial() {
       len = 0;
       overflow = false;
     } else if (len < sizeof(line) - 1) {
-      line[len++] = toupper(c);
+      line[len++] = toupper((unsigned char)c);  // toupper() of a negative char (a byte >= 0x80) is undefined
     } else {
       overflow = true;  // drop the rest of this line
     }
