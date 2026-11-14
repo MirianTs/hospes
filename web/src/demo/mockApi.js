@@ -956,7 +956,8 @@ route('PATCH', '/admin/users/:id', (ctx) => {
   if (!['guest', 'owner', 'admin'].includes(nextRole)) fail(400, L('როლი არასწორია', 'Invalid role'));
   if (user.id === me.id && nextRole !== 'admin') fail(400, L('საკუთარ თავს ადმინის როლს ვერ მოუხსნით', 'You cannot remove your own admin role'));
   if (!['unverified', 'verified', 'rejected'].includes(status)) fail(400, L('ვერიფიკაციის სტატუსი არასწორია', 'Invalid verification status'));
-  Object.assign(user, { role: nextRole, verification_status: status });
+  const verifiedAt = status === user.verification_status ? user.verified_at : status === 'verified' ? nowIso() : null;
+  Object.assign(user, { role: nextRole, verification_status: status, verified_at: verifiedAt });
   return publicUser(user);
 });
 // Every new place starts with rooms 1–3, each in its own Hospes Lock compartment; the owner sets prices later.

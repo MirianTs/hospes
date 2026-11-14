@@ -3,7 +3,7 @@ import { db } from '../db.js';
 import { publicUser, requireRole } from '../auth.js';
 import * as serial from '../serial.js';
 import * as access from '../access.js';
-import { fail, toId } from '../util.js';
+import { fail, nowIso, toId } from '../util.js';
 import { hotelOut, POI_TYPES } from './public.js';
 
 // New hotels, rooms and POIs are added only by an admin.
@@ -38,7 +38,9 @@ router.patch('/users/:id', (req, res) => {
   // Otherwise the only admin could lock everyone out of the admin pages with one click.
   if (user.id === req.user.id && role !== 'admin') fail(400, 'საკუთარ თავს ადმინის როლს ვერ მოუხსნით');
   if (!['unverified', 'verified', 'rejected'].includes(status)) fail(400, 'ვერიფიკაციის სტატუსი არასწორია');
-  db.prepare('UPDATE users SET role = ?, verification_status = ? WHERE id = ?').run(role, status, user.id);
+  // Keep verified_at in step with a manual change: set when the admin verifies, cleared otherwise.
+  const verifiedAt = status === user.verification_status ? user.verified_at : status === 'verified' ? nowIso() : null;
+  db.prepare('UPDATE users SET role = ?, verification_status = ?, verified_at = ? WHERE id = ?').run(role, status, verifiedAt, user.id);
   res.json(publicUser(db.prepare('SELECT * FROM users WHERE id = ?').get(user.id)));
 });
 
