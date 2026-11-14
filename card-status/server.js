@@ -51,14 +51,15 @@ function handle(block) {
   } catch {
     return;
   }
-  if (msg.type === 'status') {
+  // A message without its payload is skipped; destructuring it would throw and drop the whole feed.
+  if (msg.type === 'status' && msg.hardware) {
     const { mode, open, ready, reader, doors, log = [] } = msg.hardware;
     // The board's last reader error says why: not found (wiring) or antenna switching off (power).
     const readerError = [...log].reverse().find((l) => /RFID (OK|reader|antenna)/.test(l.line))?.line || '';
     state.board = { mode, open, ready, reader, power: reader === 'missing' && readerError.includes('antenna') };
     state.doors = doors;
     broadcast();
-  } else if (msg.type === 'event' && msg.event.kind === 'card') {
+  } else if (msg.type === 'event' && msg.event?.kind === 'card') {
     const { result, lock_id, at } = msg.event;
     state.lastCard = { result, lock_id, at };
     broadcast();
