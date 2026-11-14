@@ -130,6 +130,19 @@ function reply(res, status, body) {
   res.end(JSON.stringify(body));
 }
 
+// Any web page the visitor has open could otherwise make their browser POST /open/1 here: a plain
+// form post needs no CORS. Browsers send Origin with a POST, so it must be this server's own address.
+// No Origin at all (curl, a script) is allowed, like before.
+function sameOrigin(req) {
+  const { origin } = req.headers;
+  if (!origin) return true;
+  try {
+    return new URL(origin).host === req.headers.host;
+  } catch {
+    return false; // "null" from a sandboxed page or a file
+  }
+}
+
 // POST /open/<n>: asks the Hospes backend to open servo n; it locks again by itself.
 async function openServo(n, res) {
   try {
@@ -150,6 +163,7 @@ http
     const { pathname } = new URL(req.url, 'http://localhost');
     const open = /^\/open\/(\d+)$/.exec(pathname);
     if (open && req.method === 'POST') {
+      if (!sameOrigin(req)) return reply(res, 403, { error: 'სხვა საიტიდან სერვოს გაღება აკრძალულია' });
       const n = Number(open[1]);
       if (n < 1 || n > SERVOS) return reply(res, 400, { error: `სერვოს ნომერი 1–${SERVOS}` });
       return openServo(n, res);
