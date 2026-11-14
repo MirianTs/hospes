@@ -65,6 +65,14 @@ export default function Layout() {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  // Escape closes the open phone menu, as it does other popups (e.g. the map's place picker).
+  useEffect(() => {
+    if (!open) return undefined;
+    const onKey = (e) => e.key === 'Escape' && setOpen(false);
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open]);
+
   const signOut = () => {
     logout();
     navigate('/');
