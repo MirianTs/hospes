@@ -36,6 +36,8 @@ router.post('/bookings', requireAuth, (req, res) => {
   const nights = parseStay(check_in, check_out);
   if (hasOverlap(room.id, check_in, check_out)) fail(409, 'ამ თარიღებზე ოთახი უკვე დაკავებულია');
 
+  // No transaction needed: better-sqlite3 is synchronous and nothing is awaited between the
+  // overlap check and the insert, so no other request can book the room in between.
   const { lastInsertRowid } = db
     .prepare(
       `INSERT INTO bookings (user_id, room_id, check_in, check_out, status, source, total_price)
