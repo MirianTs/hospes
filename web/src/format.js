@@ -75,8 +75,9 @@ export function money(n) {
 }
 
 // First letter for an avatar. Georgian stays as is: toUpperCase() would turn it into Mtavruli.
-export function initial(name = '') {
-  const c = name.trim().charAt(0);
+export function initial(name) {
+  // String(): a user row with a null name must not take the header down with it.
+  const c = String(name ?? '').trim().charAt(0);
   return /[a-z]/i.test(c) ? c.toUpperCase() : c;
 }
 
