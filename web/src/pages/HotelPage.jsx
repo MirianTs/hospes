@@ -160,7 +160,13 @@ export default function HotelPage() {
                       )}
                     </div>
                     {free ? (
-                      <button type="button" className="btn btn-primary" disabled={booking.busy} onClick={() => book(r)}>
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        disabled={booking.busy}
+                        onClick={() => book(r)}
+                        aria-label={L(`ოთახი ${r.number}-ის დაჯავშნა`, `Book room ${r.number}`)}
+                      >
                         {bookingRoom === r.id ? <Spinner small /> : <Icon name="calendar" size={16} />} {L('დაჯავშნა', 'Book')}
                       </button>
                     ) : (
