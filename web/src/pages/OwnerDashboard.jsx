@@ -151,7 +151,7 @@ function RoomRow({ room, onSaved }) {
         </div>
       </td>
       <td>
-        <select className="input input-sm" value={status} onChange={(e) => setStatus(e.target.value)} aria-label={L('სტატუსი', 'Status')}>
+        <select className="input input-sm" value={status} onChange={(e) => setStatus(e.target.value)} aria-label={L(`ოთახი ${room.number}: სტატუსი`, `Room ${room.number}: status`)}>
           <option value="available">{L('ღიაა ჯავშნისთვის', 'Open for booking')}</option>
           <option value="maintenance">{L('დროებით დახურული', 'Temporarily closed')}</option>
         </select>
