@@ -629,6 +629,7 @@ route(
     const { name, phone, email, password } = body;
     if (!name?.trim() || !email?.trim() || !password) fail(400, L('შეავსეთ სახელი, ელფოსტა და პაროლი', 'Please fill in your name, email and password'));
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.trim())) fail(400, L('ელფოსტის ფორმატი არასწორია', 'Invalid email format'));
+    if (email.trim().length > 254) fail(400, L('ელფოსტა ძალიან გრძელია', 'The email address is too long'));
     if (String(password).length < 6) fail(400, L('პაროლი მინიმუმ 6 სიმბოლო უნდა იყოს', 'The password must be at least 6 characters'));
     if (name.trim().length > 80) fail(400, L('სახელი მაქსიმუმ 80 სიმბოლოა', 'The name can be at most 80 characters'));
     if (phone && phone.trim().length > 30) fail(400, L('ტელეფონის ნომერი ძალიან გრძელია', 'The phone number is too long'));
