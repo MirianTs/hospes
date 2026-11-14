@@ -86,6 +86,9 @@ export default function ExtraServices() {
                   className={`btn ${sentId === s.id ? 'btn-success' : 'btn-outline'} btn-sm`}
                   disabled={!canRequest || action.busy}
                   onClick={() => request(s)}
+                  aria-label={
+                    sentId === s.id ? L(`მოთხოვნილია: ${s.name}`, `Requested: ${s.name}`) : L(`მოთხოვნა: ${s.name}`, `Request: ${s.name}`)
+                  }
                 >
                   {pendingId === s.id ? <Spinner small /> : <Icon name={sentId === s.id ? 'check' : 'plus'} size={15} />}
                   {sentId === s.id ? L('მოთხოვნილია', 'Requested') : L('მოთხოვნა', 'Request')}
