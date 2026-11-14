@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { api } from '../api.js';
-import { useAuth } from '../auth.jsx';
+import { safeNext, useAuth } from '../auth.jsx';
 import Icon from '../components/Icon.jsx';
 import { Alert, Spinner, useApi, VerificationBadge } from '../components/ui.jsx';
 import { L } from '../prefs.js';
@@ -183,7 +183,7 @@ export default function Verify() {
   const { user, setUser } = useAuth();
   const [params] = useSearchParams();
   const navigate = useNavigate();
-  const next = params.get('next')?.startsWith('/') && !params.get('next').startsWith('//') ? params.get('next') : null;
+  const next = safeNext(params.get('next'));
   const [idCanvas, setIdCanvas] = useState(null);
   const [selfie, setSelfie] = useState(null);
   const [phase, setPhase] = useState('idle'); // idle | models | faces | upload | done

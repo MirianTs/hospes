@@ -1,14 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { homeFor, useAuth } from '../auth.jsx';
+import { homeFor, safeNext, useAuth } from '../auth.jsx';
 import Icon from '../components/Icon.jsx';
 import { ErrorBox, Spinner, useAction } from '../components/ui.jsx';
 import { L } from '../prefs.js';
-
-// Only same-site paths, so ?next= can't send people to another site.
-function safeNext(next) {
-  return next && next.startsWith('/') && !next.startsWith('//') ? next : null;
-}
 
 // Seeded demo accounts (backend/src/seed.js), for switching roles during the pitch.
 // Remove before a real pilot.
