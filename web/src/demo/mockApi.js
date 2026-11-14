@@ -1008,7 +1008,7 @@ route(
       hotel_id: hotelId,
       number,
       title: text(b.title, 80, ['სათაური', 'title'], false),
-      capacity: Math.max(1, Math.min(12, Number(b.capacity) || 2)),
+      capacity: Math.max(1, Math.min(12, Math.round(Number(b.capacity)) || 2)),
       price: coord(b.price, 0, 10000, ['ფასი', 'price']),
       key_type: 'box',
       lock_id: lockId,
