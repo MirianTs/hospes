@@ -267,6 +267,7 @@ export default function CardAccess() {
                   className="input input-sm"
                   placeholder={L('სახელი, მაგ. ნინოს ბარათი', "Name, e.g. Nino's card")}
                   aria-label={L('ბარათის სახელი', 'Card name')}
+                  maxLength={60}
                   value={label}
                   onChange={(e) => setLabel(e.target.value)}
                 />
