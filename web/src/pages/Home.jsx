@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import HotelCard from '../components/HotelCard.jsx';
 import Icon from '../components/Icon.jsx';
-import { CountUp, Reveal } from '../components/motion.jsx';
+import { CountUp, reduced, Reveal } from '../components/motion.jsx';
 import { Loading, useApi } from '../components/ui.jsx';
 import { addDays, cityOf, placeName, REGIONS, todayStr } from '../format.js';
 import { L } from '../prefs.js';
@@ -145,7 +145,8 @@ function SectionHead({ title, sub, link, children }) {
 function HeroSlides({ slides }) {
   const [i, setI] = useState(0);
   useEffect(() => {
-    if (slides.length < 2) return undefined;
+    // With reduced motion the photo changes only when the visitor picks a dot.
+    if (slides.length < 2 || reduced()) return undefined;
     const t = setInterval(() => setI((x) => (x + 1) % slides.length), 6500);
     return () => clearInterval(t);
   }, [slides.length]);
