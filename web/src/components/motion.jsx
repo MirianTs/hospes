@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-const reduced = () => typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+export const reduced = () => typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
 // True once the element has scrolled into view (stays true).
 export function useInView(options = { rootMargin: '0px 0px -10% 0px', threshold: 0.12 }) {
