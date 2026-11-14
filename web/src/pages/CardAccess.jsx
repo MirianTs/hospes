@@ -244,10 +244,10 @@ export default function CardAccess() {
           <div className="card card-body">
             <h3 className="card-title">{L('ვის უღებს ლოქერს', 'Who can open the locker')}</h3>
             <div className="chips">
-              <button type="button" className={`chip${openAny ? ' on' : ''}`} onClick={() => setMode(true)} disabled={action.busy}>
+              <button type="button" className={`chip${openAny ? ' on' : ''}`} onClick={() => setMode(true)} disabled={action.busy} aria-pressed={openAny}>
                 {L('ნებისმიერ ბარათს', 'Any card')}
               </button>
-              <button type="button" className={`chip${!openAny ? ' on' : ''}`} onClick={() => setMode(false)} disabled={action.busy}>
+              <button type="button" className={`chip${!openAny ? ' on' : ''}`} onClick={() => setMode(false)} disabled={action.busy} aria-pressed={!openAny}>
                 {L('მხოლოდ დაშვებულს', 'Allowed cards only')}
               </button>
             </div>
