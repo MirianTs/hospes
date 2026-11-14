@@ -110,6 +110,11 @@ export function stream(path, onMessage, onState) {
         });
         // Signed out or not an admin: retrying every 2 s would never succeed.
         if (res.status === 401 || res.status === 403) {
+          // An expired session signs the user out here too, the same way api() does.
+          if (res.status === 401 && token) {
+            setToken(null);
+            window.dispatchEvent(new Event('hospes:logout'));
+          }
           onState?.('closed');
           return;
         }
