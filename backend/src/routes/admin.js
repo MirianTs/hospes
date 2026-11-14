@@ -16,6 +16,8 @@ function coord(value, min, max, label) {
   return n;
 }
 
+const isPhotoUrl = (p) => typeof p === 'string' && p.length <= 500 && /^(https?:\/\/|\/(?!\/))/i.test(p);
+
 function text(value, max, label, required = true) {
   const s = String(value ?? '').trim().slice(0, max);
   if (required && !s) fail(400, `მიუთითეთ: ${label}`);
@@ -54,7 +56,8 @@ router.post('/hotels', (req, res) => {
     fail(400, 'მფლობელი ვერ მოიძებნა (role = owner)');
   }
   const rating = b.google_rating === undefined || b.google_rating === '' ? null : coord(b.google_rating, 0, 5, 'რეიტინგი');
-  const photos = Array.isArray(b.photos) ? b.photos.filter((p) => typeof p === 'string').slice(0, 10) : [];
+  // Photos become <img src>, so keep only web addresses and paths on this site (no data: or javascript:).
+  const photos = Array.isArray(b.photos) ? b.photos.filter(isPhotoUrl).slice(0, 10) : [];
   const { lastInsertRowid } = db
     .prepare(
       `INSERT INTO hotels (name, address, lat, lng, owner_id, google_rating, description, photos, checkin_info)
