@@ -528,7 +528,13 @@ function BlocksTab({ hotels, bookings, onChange }) {
         </div>
         <label className="field">
           <span>{L('წყარო / შენიშვნა', 'Source / note')}</span>
-          <input className="input" value={form.note} onChange={(e) => setForm({ ...form, note: e.target.value })} placeholder="Booking.com #1234" />
+          <input
+            className="input"
+            maxLength={120}
+            value={form.note}
+            onChange={(e) => setForm({ ...form, note: e.target.value })}
+            placeholder="Booking.com #1234"
+          />
         </label>
         <ErrorBox error={create.error} />
         {created && !create.error && (
