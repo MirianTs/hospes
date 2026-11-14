@@ -97,7 +97,9 @@ export async function connectLock() {
 // Reconnect to a port the user already allowed, without asking.
 export async function reconnectLock() {
   if (!serialSupported || port || state.status === 'connecting') return;
-  const [p] = (await navigator.serial.getPorts()).filter((x) => portScore(x) > 0).sort((a, b) => portScore(b) - portScore(a));
+  // getPorts() rejects when a permissions policy blocks Web Serial; treat that as "no saved port".
+  const ports = await navigator.serial.getPorts().catch(() => []);
+  const [p] = ports.filter((x) => portScore(x) > 0).sort((a, b) => portScore(b) - portScore(a));
   if (p) await attach(p).catch(() => {});
 }
 
