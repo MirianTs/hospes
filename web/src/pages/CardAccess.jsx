@@ -83,7 +83,7 @@ function Connection({ hw, live }) {
       <div className="spread">
         <h3 className="mb-0">{L('კავშირი', 'Connection')}</h3>
         <span className={`live${live === 'open' ? ' on' : ''}`}>
-          <span className="dot" /> {live === 'open' ? L('ცოცხალი', 'Live') : L('უკავშირდება…', 'Connecting…')}
+          <span className="dot" aria-hidden="true" /> {live === 'open' ? L('ცოცხალი', 'Live') : L('უკავშირდება…', 'Connecting…')}
         </span>
       </div>
       <div className="stack mt-2" style={{ gap: 8, alignItems: 'flex-start' }}>
