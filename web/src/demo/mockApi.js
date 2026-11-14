@@ -980,7 +980,7 @@ route(
       owner_id: ownerId,
       google_rating: rating,
       description: text(b.description, 1000, ['აღწერა', 'description'], false),
-      photos: Array.isArray(b.photos) ? b.photos.filter((p) => typeof p === 'string').slice(0, 10) : [],
+      photos: Array.isArray(b.photos) ? b.photos.filter((p) => typeof p === 'string' && p.length <= 500 && /^(https?:\/\/|\/(?!\/))/i.test(p)).slice(0, 10) : [],
       checkin_info: text(b.checkin_info, 300, ['ჩექინის ინფორმაცია', 'check-in information'], false),
       created_at: nowIso(),
     };
