@@ -4,17 +4,17 @@ import { fail, nightsBetween, today, withinStay } from './util.js';
 // True when another non-cancelled booking holds any night of [checkIn, checkOut).
 // Internal bookings and external blocks are checked together; the check-out day itself
 // stays free, so a new guest can arrive the day the previous one leaves.
+// GET /hotels calls this once per room, so the statement is compiled once and reused. It is prepared
+// on first use rather than at import time, because server.js creates the tables after the imports run.
+let overlapStmt = null;
 export function hasOverlap(roomId, checkIn, checkOut, excludeBookingId = 0) {
-  return Boolean(
-    db
-      .prepare(
-        `SELECT 1 FROM bookings
-         WHERE room_id = ? AND status != 'cancelled' AND id != ?
-           AND check_in < ? AND ? < check_out
-         LIMIT 1`,
-      )
-      .get(roomId, excludeBookingId, checkOut, checkIn),
+  overlapStmt ??= db.prepare(
+    `SELECT 1 FROM bookings
+     WHERE room_id = ? AND status != 'cancelled' AND id != ?
+       AND check_in < ? AND ? < check_out
+     LIMIT 1`,
   );
+  return Boolean(overlapStmt.get(roomId, excludeBookingId, checkOut, checkIn));
 }
 
 const BOOKING_SELECT = `
