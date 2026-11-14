@@ -25,6 +25,8 @@ serial.events.on('door', access.handleDoor);
 serial.events.on('status', access.broadcastStatus);
 
 const app = express();
+// Don't advertise the framework in every response's X-Powered-By header.
+app.disable('x-powered-by');
 app.use(cors());
 app.use(express.json({ limit: '1mb' }));
 
