@@ -132,7 +132,7 @@ export function Register() {
         </label>
         <label className="field">
           <span>{L('ელფოსტა', 'Email')}</span>
-          <input className="input" type="email" autoComplete="email" required value={form.email} onChange={set('email')} />
+          <input className="input" type="email" autoComplete="email" required maxLength={254} value={form.email} onChange={set('email')} />
         </label>
         <label className="field">
           <span>{L('პაროლი (მინ. 6 სიმბოლო)', 'Password (min. 6 characters)')}</span>
