@@ -158,6 +158,8 @@ export async function openLock(lockId) {
   }
   if (!state.open || !state.port) return { error: 'Arduino არ არის დაკავშირებული', command: cmd };
   await waitUntilReady(3000);
+  // The board can be unplugged during that wait; don't report a command as sent to a closed port.
+  if (!state.open || !state.port) return { error: 'Arduino არ არის დაკავშირებული', command: cmd };
   state.port.write(`${cmd}\n`);
   remember(`> ${cmd}`);
   console.log('[arduino] >', cmd);
