@@ -83,6 +83,8 @@ void setup() {
 void loop() {
   while (Serial.available()) {
     char c = Serial.read();
+    // Only digits count and letters are skipped, which is why the web app's "OPEN2" works here too.
+    // The flip side: any digit in a line opens that lock (there is no CLOSE<n> in this sketch).
     if (c >= '1' && c <= '4') {
       openLock(c - '1');
     } else if (c == '?') {
