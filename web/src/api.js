@@ -101,9 +101,11 @@ export function stream(path, onMessage, onState) {
   (async () => {
     while (!stopped) {
       controller = new AbortController();
+      const token = getToken();
       try {
         const res = await fetch(`/api${path}`, {
-          headers: { Authorization: `Bearer ${getToken()}` },
+          // Signed out: no header at all rather than "Bearer null".
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
           signal: controller.signal,
         });
         // Signed out or not an admin: retrying every 2 s would never succeed.
