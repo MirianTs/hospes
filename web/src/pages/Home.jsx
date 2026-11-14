@@ -150,12 +150,13 @@ function HeroSlides({ slides }) {
     const t = setInterval(() => setI((x) => (x + 1) % slides.length), 6500);
     return () => clearInterval(t);
   }, [slides.length]);
-  const cur = slides[i];
+  // If the list gets shorter (new data), an old index would point past the end and hide the caption.
+  const cur = slides[i] ?? slides[0];
   return (
     <>
       <div className="sk-hero-img" aria-hidden="true">
         {slides.map((s, k) => (
-          <img key={s.id} src={s.photo} alt="" className={k === i ? 'on' : ''} loading={k === 0 ? 'eager' : 'lazy'} />
+          <img key={s.id} src={s.photo} alt="" className={s === cur ? 'on' : ''} loading={k === 0 ? 'eager' : 'lazy'} />
         ))}
       </div>
       {cur && (
@@ -168,9 +169,9 @@ function HeroSlides({ slides }) {
               <button
                 key={s.id}
                 type="button"
-                className={k === i ? 'on' : ''}
+                className={s === cur ? 'on' : ''}
                 aria-label={s.name}
-                aria-selected={k === i}
+                aria-selected={s === cur}
                 role="tab"
                 onClick={() => setI(k)}
               />
