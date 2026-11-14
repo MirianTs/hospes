@@ -64,3 +64,9 @@ export function homeFor(user) {
   if (user?.role === 'admin') return '/admin';
   return '/cabinet';
 }
+
+// ?next= after login, sign-up or verification: only same-site paths, so it can't send people to
+// another site. Browsers read "/\evil.com" like "//evil.com", so a backslash anywhere is refused too.
+export function safeNext(next) {
+  return next && next.startsWith('/') && !next.startsWith('//') && !next.includes('\\') ? next : null;
+}
