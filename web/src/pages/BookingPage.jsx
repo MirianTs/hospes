@@ -147,9 +147,12 @@ export default function BookingPage() {
               </p>
               <div className="inline mt-2">
                 {!b.can_check_in ? (
-                  <Badge tone="gold" icon="clock">
-                    {L(`ჩექინი გაიხსნება ${fmtDate(b.check_in)}-ს`, `Check-in opens on ${fmtDate(b.check_in)}`)}
-                  </Badge>
+                  // Only before the stay: once the dates have passed, "opens on <a past day>" would be wrong.
+                  b.today < b.check_in && (
+                    <Badge tone="gold" icon="clock">
+                      {L(`ჩექინი გაიხსნება ${fmtDate(b.check_in)}-ს`, `Check-in opens on ${fmtDate(b.check_in)}`)}
+                    </Badge>
+                  )
                 ) : (
                   b.status !== 'checked_in' && (
                     <Link to={`/checkin/${b.id}`} className="btn btn-primary">
