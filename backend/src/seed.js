@@ -1,5 +1,7 @@
-// Demo data: 21 fictional guesthouses (Kakheti + georgia-places.json), points of interest with real landmarks, demo accounts.
-// `npm run seed` wipes the database and recreates everything.
+// Demo data: 30 fictional guesthouses (4 in Kakheti below + 26 from georgia-places.json), points of interest
+// with real landmarks, demo accounts.
+// `npm run seed` wipes users, hotels, bookings and POIs (and uploaded ID photos) and recreates them;
+// the card access tables (rfid_cards, access_events, settings) are hardware setup and are kept.
 import bcrypt from 'bcryptjs';
 import fs from 'node:fs';
 import path from 'node:path';
