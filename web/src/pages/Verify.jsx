@@ -87,6 +87,7 @@ function SelfieStep({ canvas, onChange, onError }) {
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const [live, setLive] = useState(false);
+  const mounted = useRef(true);
   const canUseCamera = Boolean(window.isSecureContext && navigator.mediaDevices?.getUserMedia);
 
   const stop = () => {
@@ -94,11 +95,22 @@ function SelfieStep({ canvas, onChange, onError }) {
     streamRef.current = null;
     setLive(false);
   };
-  useEffect(() => stop, []);
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+      stop();
+    };
+  }, []);
 
   const start = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 } }, audio: false });
+      // The guest may have left the page while the permission prompt was open: don't leave the camera on.
+      if (!mounted.current) {
+        stream.getTracks().forEach((t) => t.stop());
+        return;
+      }
       streamRef.current = stream;
       setLive(true);
       onChange(null);
