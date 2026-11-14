@@ -4,6 +4,7 @@
 //   OPEN1 .. OPEN4   open that door; it locks again after OPEN_MS
 //   CLOSE1 .. CLOSE4 lock right away
 //   PING             answers PONG
+//   RFIDDIAG         prints the reader's registers and polls for a card (wiring / power check)
 // Replies: READY (after boot), RFID OK / ERR RFID ..., OPENED<n>, LOCKED<n>,
 //          RFID:<UID hex> when a card is tapped, ERR ...
 // The board never opens a door by itself for a card: the server decides and sends OPEN<n>.
