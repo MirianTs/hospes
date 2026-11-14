@@ -52,21 +52,35 @@ function PlacePicker({ value, onChange, groups, count }) {
       </button>
       {open && (
         <div className="place-menu" role="listbox">
-          <button type="button" className={`place-opt place-all${!value ? ' on' : ''}`} onClick={() => pick('')}>
+          {/* Each choice is an option of the listbox, so screen readers say which one is selected. */}
+          <button type="button" role="option" aria-selected={!value} className={`place-opt place-all${!value ? ' on' : ''}`} onClick={() => pick('')}>
             <span className="place-check" /> {L('მთელი საქართველო', 'All of Georgia')}
           </button>
           {groups.map(([region, cs]) => {
             const regionOn = kind === 'r' && name === region;
             return (
               <div key={region} className="place-group">
-                <button type="button" className={`place-opt place-region${regionOn ? ' on' : ''}`} onClick={() => pick(`r:${region}`)}>
+                <button
+                  type="button"
+                  role="option"
+                  aria-selected={regionOn}
+                  className={`place-opt place-region${regionOn ? ' on' : ''}`}
+                  onClick={() => pick(`r:${region}`)}
+                >
                   <span className="place-check" /> {placeName(region)}
                   <span className="place-n">{regionTotal(cs)}</span>
                 </button>
                 {cs.map((c) => {
                   const on = regionOn || (kind === 'c' && name === c);
                   return (
-                    <button key={c} type="button" className={`place-opt place-city${on ? ' on' : ''}`} onClick={() => pick(`c:${c}`)}>
+                    <button
+                      key={c}
+                      type="button"
+                      role="option"
+                      aria-selected={on}
+                      className={`place-opt place-city${on ? ' on' : ''}`}
+                      onClick={() => pick(`c:${c}`)}
+                    >
                       <span className="place-check" /> {placeName(c)}
                       <span className="place-n">{count[c]}</span>
                     </button>
