@@ -60,6 +60,8 @@ export function fmtDateTime(iso) {
 }
 
 export function fmtTime(iso) {
+  // Like fmtDateTime: an event without a time shows nothing instead of throwing "Invalid time value".
+  if (!iso) return '';
   const p = tbilisiParts(iso);
   return `${p.hour}:${p.minute}:${p.second}`;
 }
