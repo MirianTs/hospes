@@ -270,7 +270,8 @@ function Carousel({ children, label }) {
   };
   return (
     <div className="sk-carousel">
-      <div className="sk-track" ref={track} onScroll={update} aria-label={label}>
+      {/* role="group": a plain div's aria-label is ignored by screen readers. */}
+      <div className="sk-track" ref={track} onScroll={update} role="group" aria-label={label}>
         {children}
       </div>
       <button type="button" className="sk-arrow prev" onClick={() => go(-1)} disabled={edge.start} aria-label={L('წინა', 'Previous')}>
