@@ -627,10 +627,13 @@ route(
   '/auth/register',
   async ({ body }) => {
     const { name, phone, email, password } = body;
+    // Same checks as backend/src/routes/auth.js, so the online demo rejects what the real server does.
+    if ([name, phone, email, password].some((v) => v != null && typeof v !== 'string')) fail(400, L('ველები ტექსტით უნდა იყოს შევსებული', 'The fields must be text'));
     if (!name?.trim() || !email?.trim() || !password) fail(400, L('შეავსეთ სახელი, ელფოსტა და პაროლი', 'Please fill in your name, email and password'));
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.trim())) fail(400, L('ელფოსტის ფორმატი არასწორია', 'Invalid email format'));
     if (email.trim().length > 254) fail(400, L('ელფოსტა ძალიან გრძელია', 'The email address is too long'));
     if (String(password).length < 6) fail(400, L('პაროლი მინიმუმ 6 სიმბოლო უნდა იყოს', 'The password must be at least 6 characters'));
+    if (new TextEncoder().encode(password).length > 72) fail(400, L('პაროლი ძალიან გრძელია (მაქს. 72 ბაიტი)', 'The password is too long (max. 72 bytes)'));
     if (name.trim().length > 80) fail(400, L('სახელი მაქსიმუმ 80 სიმბოლოა', 'The name can be at most 80 characters'));
     if (phone && phone.trim().length > 30) fail(400, L('ტელეფონის ნომერი ძალიან გრძელია', 'The phone number is too long'));
     if (db.users.some((u) => u.email.toLowerCase() === email.trim().toLowerCase())) fail(409, L('ეს ელფოსტა უკვე რეგისტრირებულია', 'This email is already registered'));
