@@ -29,6 +29,8 @@ router.post('/register', (req, res) => {
   if ([name, phone, email, password].some((v) => v != null && typeof v !== 'string')) fail(400, 'ველები ტექსტით უნდა იყოს შევსებული');
   if (!name?.trim() || !email?.trim() || !password) fail(400, 'შეავსეთ სახელი, ელფოსტა და პაროლი');
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.trim())) fail(400, 'ელფოსტის ფორმატი არასწორია');
+  // 254 characters is the longest address SMTP can deliver to.
+  if (email.trim().length > 254) fail(400, 'ელფოსტა ძალიან გრძელია');
   if (String(password).length < 6) fail(400, 'პაროლი მინიმუმ 6 სიმბოლო უნდა იყოს');
   // bcrypt only looks at the first 72 bytes, so a longer password would match on its prefix alone.
   if (Buffer.byteLength(password) > 72) fail(400, 'პაროლი ძალიან გრძელია (მაქს. 72 ბაიტი)');
