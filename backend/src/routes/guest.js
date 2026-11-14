@@ -140,7 +140,8 @@ router.post('/bookings/:id/services', requireAuth, (req, res) => {
     .prepare('SELECT * FROM hotel_services WHERE id = ? AND hotel_id = ? AND active = 1')
     .get(toId(req.body?.hotel_service_id), b.hotel_id);
   if (!service) fail(404, 'ეს სერვისი ამ ობიექტზე არ არის');
-  const note = String(req.body?.note || '').trim().slice(0, 300) || null;
+  // A non-text note (number, object) would otherwise be saved as e.g. "[object Object]".
+  const note = (typeof req.body?.note === 'string' && req.body.note.trim().slice(0, 300)) || null;
   db.prepare('INSERT INTO service_requests (booking_id, hotel_service_id, note) VALUES (?, ?, ?)').run(
     b.id,
     service.id,
