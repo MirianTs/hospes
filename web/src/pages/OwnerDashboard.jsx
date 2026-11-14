@@ -24,10 +24,10 @@ function BookingsTab({ bookings, showHotel }) {
     <div className="card">
       <div className="card-body spread" style={{ paddingBottom: 8 }}>
         <div className="chips">
-          <button type="button" className={`chip${!all ? ' on' : ''}`} onClick={() => setAll(false)}>
+          <button type="button" className={`chip${!all ? ' on' : ''}`} onClick={() => setAll(false)} aria-pressed={!all}>
             {L('მიმდინარე და მომავალი', 'Current and upcoming')}
           </button>
-          <button type="button" className={`chip${all ? ' on' : ''}`} onClick={() => setAll(true)}>
+          <button type="button" className={`chip${all ? ' on' : ''}`} onClick={() => setAll(true)} aria-pressed={all}>
             {L('ყველა', 'All')}
           </button>
         </div>
@@ -596,11 +596,17 @@ export default function OwnerDashboard() {
         <>
           {hotels.data.length > 1 && (
             <div className="hotel-switch">
-              <button type="button" className={`chip${hotelId === 'all' ? ' on' : ''}`} onClick={() => setHotelId('all')}>
+              <button type="button" className={`chip${hotelId === 'all' ? ' on' : ''}`} onClick={() => setHotelId('all')} aria-pressed={hotelId === 'all'}>
                 {L('ყველა ობიექტი', 'All properties')}
               </button>
               {hotels.data.map((h) => (
-                <button key={h.id} type="button" className={`chip${hotelId === String(h.id) ? ' on' : ''}`} onClick={() => setHotelId(String(h.id))}>
+                <button
+                  key={h.id}
+                  type="button"
+                  className={`chip${hotelId === String(h.id) ? ' on' : ''}`}
+                  onClick={() => setHotelId(String(h.id))}
+                  aria-pressed={hotelId === String(h.id)}
+                >
                   {h.name}
                 </button>
               ))}
