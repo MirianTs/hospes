@@ -309,7 +309,7 @@ export default function CardAccess() {
                       className="btn btn-ghost btn-sm btn-icon"
                       onClick={() => removeCard(c.uid)}
                       title={L('წაშლა', 'Delete')}
-                      aria-label={L('წაშლა', 'Delete')}
+                      aria-label={L(`წაშლა: ${c.label || spaced(c.uid)}`, `Delete: ${c.label || spaced(c.uid)}`)}
                     >
                       <Icon name="trash" size={15} />
                     </button>
