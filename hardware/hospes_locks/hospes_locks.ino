@@ -248,6 +248,8 @@ void setup() {
 
 void loop() {
   readSerial();
+  // "(long)(millis() - t) >= 0" means "t has passed" and stays right when millis() wraps
+  // after ~49 days; comparing millis() >= t directly would not.
   if (reinitAt && (long)(millis() - reinitAt) >= 0) {
     reinitAt = 0;
     if (rfidReady) startReader();
