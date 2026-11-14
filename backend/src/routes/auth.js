@@ -45,11 +45,15 @@ router.post('/register', (req, res) => {
   res.status(201).json({ token: signToken(user), user: publicUser(user) });
 });
 
+// Compared against when the email is unknown (see /login).
+const DUMMY_HASH = bcrypt.hashSync('hospes-no-such-user', 10);
+
 router.post('/login', (req, res) => {
   const { email, password } = req.body || {};
   // users.email is COLLATE NOCASE (db.js), so this lookup and the duplicate check in /register ignore case.
   const user = email ? db.prepare('SELECT * FROM users WHERE email = ?').get(String(email).trim()) : null;
-  if (!user || !bcrypt.compareSync(String(password || ''), user.password_hash)) {
+  // An unknown email still costs one bcrypt comparison, so response time doesn't reveal which emails exist.
+  if (!bcrypt.compareSync(String(password || ''), user?.password_hash ?? DUMMY_HASH) || !user) {
     fail(401, 'ელფოსტა ან პაროლი არასწორია');
   }
   res.json({ token: signToken(user), user: publicUser(user) });
