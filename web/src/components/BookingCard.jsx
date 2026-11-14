@@ -56,7 +56,11 @@ export default function BookingCard({ b }) {
               <Icon name="bell" size={15} /> {L('სერვისები', 'Services')}
             </Link>
           )}
-          <Link to={`/bookings/${b.id}`} className="btn btn-ghost btn-sm">
+          <Link
+            to={`/bookings/${b.id}`}
+            className="btn btn-ghost btn-sm"
+            aria-label={L(`დეტალები: ${b.hotel_name}, ოთახი ${b.room_number}`, `Details: ${b.hotel_name}, room ${b.room_number}`)}
+          >
             {L('დეტალები', 'Details')}
           </Link>
         </div>
