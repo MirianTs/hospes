@@ -103,7 +103,8 @@ router.post('/rooms', (req, res) => {
       hotelId,
       number,
       text(b.title, 80, 'სათაური', false),
-      Math.max(1, Math.min(12, Number(b.capacity) || 2)),
+      // Whole guests only: "2.5" used to be stored as is.
+      Math.max(1, Math.min(12, Math.round(Number(b.capacity)) || 2)),
       coord(b.price, 0, 10000, 'ფასი'),
       keyType,
       lockId,
