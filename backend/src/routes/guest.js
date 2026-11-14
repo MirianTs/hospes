@@ -113,6 +113,8 @@ router.post('/checkin/code', requireAuth, async (req, res) => {
     fail(403, 'ჩექინისთვის საჭიროა ვინაობის ვერიფიკაცია', { need: 'verification' });
   }
   assertCanEnter(b);
+  // Only the booking's own guest gets here (ownBooking), and they already see the code on the booking
+  // page, so this is a typing check at the box rather than a secret that needs rate limiting.
   if (String(code || '').trim() !== b.access_code) fail(400, 'კოდი არასწორია');
   let hardware = null;
   if (b.lock_id) {
