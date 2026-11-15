@@ -47,3 +47,4 @@
 - 2026-11-08 (SkillLAB): ბეშუმისა და რამდენიმე სოფლის (ლენტეხი, ჰაწვალი) კოორდინატები მიახლოებითია.
 
 - 2026-11-16 (MSCAR): `docs/`-ს დაემატა პრეზენტაციის ახალი ვერსია `Hospes_presentation_v2.pptx` (+ PDF, 10 სლაიდი, ~30 წმ თითოზე, ბიზნეს მოდელი და 3 წლის პროგნოზი) და ChatGPT-ის 12 სურათი `docs/images/`-ში. ძველი `presentation.pdf` უცვლელია. წყარო: `MirianTs/hospes-proektis-prezentatsia`.
+- 2026-11-16 (MSCAR): `docs/` დალაგდა: პრეზენტაციები → `docs/presentation/` (v1 PDF + v2 .pptx/.pdf, v2-ში ვიდეო თავისით ირთვება), სურათები → `docs/images/generated/`, დაემატა `docs/README.md`.
