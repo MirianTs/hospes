@@ -30,6 +30,7 @@
 - 2026-11-15 (SkillLAB): 12–14 ნოემბრის 127 კომიტი (homepage-skeleton) main-ში შევიდა (fast-forward) და ცოცხალ საიტზეა. Pages deploy წარმატებით დასრულდა, საიტი შემოწმდა: იხსნება, კონსოლში შეცდომა არ არის.
 - 2026-11-16 (Miro): რეპო დაკლონილია Documents\Code\hospes-proekti-ში; git-ის სახელი/იმეილი დაყენდა (MirianTs, GitHub noreply); web-ის `npm install` და build გადის. დაყენდა VS 2022 C++ Build Tools და Python 3.12. backend: `npm install` + `npm run seed` მუშაობს (better-sqlite3 v13-ის Windows prebuild ჩაიტვირთა, ბაზაში 30 სასტუმრო).
 - 2026-11-16 (Miro): პროექტის სრული აღწერა ფიჩისთვის → `docs/project-description.md` (პრობლემა, გადაწყვეტა, ბაზარი, კონკურენცია, ბიზნეს მოდელი, პროგნოზი, გუნდი, რისკები, ფიჩის ჩონჩხი); PDF ასლი Desktop\Hospes-ში.
+- 2026-11-16 (Miro): ყუთის ქირა 50 ₾/თვე (იყო 25): აღწერაში ერთ სასტუმროზე შემოსავალი 3,000 ₾, დანაზოგი 1,500 ₾, მოგება 24k/162k/570k ₾. პრეზენტაციაც (პირად რეპოში) განახლდა.
 - 2026-11-16 (Miro): პრეზენტაცია (.pptx/.pdf, ვიდეო, ფოტოები, ბაზრის კვლევა) მხოლოდ პირად რეპოშია `MirianTs/hospes-proektis-prezentatsia` (`Documents\Code\hospes-proektis-prezentatsia`, თავისი PROGRESS-ით). საჯარო რეპოდან ამოღებულია `docs/presentation/` და `docs/images/generated/`; `pitch/`-ში გაერთიანება გაუქმდა, რომ ფოტოები და პრეზენტაცია საჯარო არ იყოს.
 - 2026-11-16 (Miro): **ისტორია გადაიწერა** (git filter-repo + force push, სამივე ბრენჩი): ყველა კომიტიდან წაიშალა `docs/presentation*`, `docs/images/`, `docs/Hospes_presentation_v2.*` და `pitch/`. რეპო 57 MB-დან 14 MB-მდე შემცირდა. კოდი და საიტი არ შეცვლილა.
 
