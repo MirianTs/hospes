@@ -31,8 +31,11 @@
 - 2026-11-16 (Miro): რეპო დაკლონილია Documents\Code\hospes-proekti-ში; git-ის სახელი/იმეილი დაყენდა (MirianTs, GitHub noreply); web-ის `npm install` და build გადის. დაყენდა VS 2022 C++ Build Tools და Python 3.12. backend: `npm install` + `npm run seed` მუშაობს (better-sqlite3 v13-ის Windows prebuild ჩაიტვირთა, ბაზაში 30 სასტუმრო).
 - 2026-11-16 (Miro): პროექტის სრული აღწერა ფიჩისთვის → `docs/project-description.md` (პრობლემა, გადაწყვეტა, ბაზარი, კონკურენცია, ბიზნეს მოდელი, პროგნოზი, გუნდი, რისკები, ფიჩის ჩონჩხი); PDF ასლი Desktop\Hospes-ში.
 - 2026-11-16 (Miro): პრეზენტაცია (.pptx/.pdf, ვიდეო, ფოტოები, ბაზრის კვლევა) მხოლოდ პირად რეპოშია `MirianTs/hospes-proektis-prezentatsia` (`Documents\Code\hospes-proektis-prezentatsia`, თავისი PROGRESS-ით). საჯარო რეპოდან ამოღებულია `docs/presentation/` და `docs/images/generated/`; `pitch/`-ში გაერთიანება გაუქმდა, რომ ფოტოები და პრეზენტაცია საჯარო არ იყოს.
+- 2026-11-16 (Miro): **ისტორია გადაიწერა** (git filter-repo + force push, სამივე ბრენჩი): ყველა კომიტიდან წაიშალა `docs/presentation*`, `docs/images/`, `docs/Hospes_presentation_v2.*` და `pitch/`. რეპო 57 MB-დან 14 MB-მდე შემცირდა. კოდი და საიტი არ შეცვლილა.
 
 ## დარჩა
+- 2026-11-16 (Miro): **სხვა ლეპტოპებზე (ASUS, Lenovo/MSCAR) hospes-proekti ძველი ისტორიითაა.** იქ `git pull` არ გაუშვა (ძველ ფაილებს დააბრუნებს). ჯერ შეამოწმე, რომ დაუკომიტებელი ცვლილება არ არის, მერე: `git fetch origin` და `git reset --hard origin/main` (ან საქაღალდე წაშალე და თავიდან დაკლონე).
+- 2026-11-16 (Miro): GitHub ძველ კომიტებს ზუსტი SHA-ით ჯერ კიდევ აჩვენებს (ქეში). სრულად წასაშლელად GitHub Support-ს უნდა მიწეროს მომხმარებელმა (Remove sensitive data).
 - 2026-11-08 (SkillLAB): ხვალ: ნამდვილი ტესტი Arduino-თი (ჩექინი → სერვო 1–3, ჩექაუთი → სერვო 4), საჭიროების შემთხვევაში შესწორებები.
 - 2026-11-08 (SkillLAB): **გაგრძელება სხვა კომპიუტერზე:** `git fetch && git switch homepage-skeleton`, მერე `cd web && npm install && npm run dev`. 2026-11-08: homepage-skeleton main-ში შეერთდა (fast-forward); main-ზე push Pages საიტს აახლებს.
 - 2026-11-16 (Miro): backend-ის check-in ნამდვილ სერვერზე (არა ონლაინ დემოში) ჯერ არ შემოწმებულა; seed უკვე გადის.
