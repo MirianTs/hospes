@@ -259,6 +259,15 @@ p {
 .nav .nav-auth {
   display: none;
 }
+.nav-demo {
+  margin-left: 4px;
+  padding: 1px 7px;
+  border-radius: 99px;
+  background: var(--gold-soft);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+}
 .header-actions {
   margin-left: auto;
   display: flex;

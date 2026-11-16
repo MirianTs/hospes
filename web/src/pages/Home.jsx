@@ -95,6 +95,17 @@ const PRODUCTS = () => [
       'Breakfast, cleaning, transfers, tastings: the guest requests them in the app, the owner sees them on the dashboard.',
     ),
   },
+  {
+    icon: 'map',
+    tag: L('დემო · მალე', 'Demo · coming soon'),
+    title: L('მოგზაურობის დამგეგმავი', 'Trip planner'),
+    text: L(
+      'აირჩიე საიდან სად მიდიხარ, ფეხით თუ მანქანით: Hospes დაგიგეგმავს დღეებს, ღამისთევას და ადგილობრივ სერვისებს. ჯერ განვითარების ეტაპზეა.',
+      'Pick where you start and finish, on foot or by car: Hospes plans your days, stays and local services. Still in development.',
+    ),
+    href: `${import.meta.env.BASE_URL}trip-planner/index.html`,
+    cta: L('დემოს ნახვა', 'See the demo'),
+  },
 ];
 
 const FACTS = () => [
@@ -391,6 +402,11 @@ export default function Home() {
                 </div>
                 <h3>{p.title}</h3>
                 <p>{p.text}</p>
+                {p.href && (
+                  <a href={p.href} className="sk-card-link">
+                    {p.cta} →
+                  </a>
+                )}
               </Reveal>
             ))}
           </div>

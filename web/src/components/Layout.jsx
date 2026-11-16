@@ -14,6 +14,9 @@ const mainLinks = () => [
   { to: '/map', label: L('რუკა', 'Map') },
 ];
 
+// The trip planner is a separate static demo page (web/public/trip-planner), not a route of this app.
+const PLANNER_URL = `${import.meta.env.BASE_URL}trip-planner/index.html`;
+
 function roleLinks(user) {
   if (!user) return [];
   const links = [{ to: '/cabinet', label: L('ჩემი ჯავშნები', 'My bookings') }];
@@ -92,6 +95,9 @@ export default function Layout() {
                 {l.label}
               </NavLink>
             ))}
+            <a href={PLANNER_URL}>
+              {L('დამგეგმავი', 'Trip planner')} <span className="nav-demo">{L('დემო', 'demo')}</span>
+            </a>
             {user ? (
               <a href="/" className="nav-auth" onClick={(e) => (e.preventDefault(), signOut())}>
                 {L('გასვლა', 'Sign out')} ({user.name})

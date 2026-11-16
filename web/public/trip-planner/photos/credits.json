@@ -1,0 +1,47 @@
+{
+ "glacier": {
+  "page": "https://commons.wikimedia.org/wiki/File:Adishi_Glacier.jpg",
+  "license": "CC BY-SA 2.0",
+  "author": "Martin Lopatka"
+ },
+ "adishi": {
+  "page": "https://commons.wikimedia.org/wiki/File:Adishi_Village_(2050m),_Samegrelo-Zemo_Svaneti,_Georgia.jpg",
+  "license": "CC BY 2.0",
+  "author": "Boris Kuznetsov"
+ },
+ "chazhashi": {
+  "page": "https://commons.wikimedia.org/wiki/File:Chazhashi_%E2%80%93_01.jpg",
+  "license": "CC0",
+  "author": "Maesi64"
+ },
+ "iprari": {
+  "page": "https://commons.wikimedia.org/wiki/File:Iprali_(Photo_A._Muhranoff,_2011).jpg",
+  "license": "CC BY-SA 3.0",
+  "author": "Aleksey Muhranoff"
+ },
+ "khalde": {
+  "page": "https://commons.wikimedia.org/wiki/File:Khalde_ruins,_Georgia_(Photo_A._Muhranoff,_2011).jpg",
+  "license": "CC BY-SA 3.0",
+  "author": "Aleksey Muhranoff"
+ },
+ "kubdari": {
+  "page": "https://commons.wikimedia.org/wiki/File:Kubdari.jpg",
+  "license": "CC BY 3.0",
+  "author": "Georgian Recipes at Georgia About"
+ },
+ "mestia": {
+  "page": "https://commons.wikimedia.org/wiki/File:Near_Mestia,_Svan_towers_(35252565354).jpg",
+  "license": "CC BY 2.0",
+  "author": "Arian Zwegers from Brussels, Belgium"
+ },
+ "ushguli": {
+  "page": "https://commons.wikimedia.org/wiki/File:Ushguli_-_panoramio_(2).jpg",
+  "license": "CC BY 3.0",
+  "author": "Alen Ištoković"
+ },
+ "trail": {
+  "page": "https://commons.wikimedia.org/wiki/File:Trail_to_Mount_Ushba_with_horse.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "FingerWiki"
+ }
+}
