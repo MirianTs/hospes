@@ -32,6 +32,7 @@
 - 2026-11-16 (MSCAR): `docs/` დალაგდა: პრეზენტაციები → `docs/presentation/` (v1 PDF + v2 .pptx/.pdf, v2-ში ვიდეო თავისით ირთვება), სურათები → `docs/images/generated/`, დაემატა `docs/README.md`.
 - 2026-11-16 (Miro): რეპო დაკლონილია Documents\Code\hospes-proekti-ში; git-ის სახელი/იმეილი დაყენდა (MirianTs, GitHub noreply); web-ის `npm install` და build გადის. დაყენდა VS 2022 C++ Build Tools და Python 3.12. backend: `npm install` + `npm run seed` მუშაობს (better-sqlite3 v13-ის Windows prebuild ჩაიტვირთა, ბაზაში 30 სასტუმრო).
 - 2026-11-16 (Miro): პრეზენტაციის გუნდის სლაიდს ნიკოლოზის ფოტო დაემატა (თეთრ ფონზე, ორნამენტის გარეშე); ელენეს ფოტო მოლოდინშია.
+- 2026-11-16 (Miro): პროექტის სრული აღწერა ფიჩისთვის → `docs/project-description.md` (პრობლემა, გადაწყვეტა, ბაზარი, კონკურენცია, ბიზნეს მოდელი, პროგნოზი, გუნდი, რისკები, ფიჩის ჩონჩხი); PDF ასლი DesktopHospes-ში.
 
 ## დარჩა
 - 2026-11-08 (SkillLAB): ხვალ: ნამდვილი ტესტი Arduino-თი (ჩექინი → სერვო 1–3, ჩექაუთი → სერვო 4), საჭიროების შემთხვევაში შესწორებები.
