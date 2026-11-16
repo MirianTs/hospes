@@ -28,11 +28,9 @@
 - 2026-11-08 (SkillLAB): საპრეზენტაციო PDF → `docs/presentation.pdf`; ლოქერ-ბოქსის 3D ფაილები (STL, FlashPrint .gx, რენდერები, Blender სკრიპტი, README აწყობით) → `hardware/locker-box-3d/` (ასლი 3d-print-files/locker-box-იდან).
 - 2026-11-13 (SkillLAB): homepage-skeleton-ზე 40 მცირე გაუმჯობესება: backend-ის ვალიდაცია და უსაფრთხოება (413, HS256, პაროლის/სახელის ლიმიტები, ფოტოების წაშლა, ადმინის როლის დაცვა, http(s) ბმულები), ფორმების ლიმიტები და ხელმისაწვდომობა, SPEC/README შესწორებები; web build ორივე რეჟიმში გადის.
 - 2026-11-15 (SkillLAB): 12–14 ნოემბრის 127 კომიტი (homepage-skeleton) main-ში შევიდა (fast-forward) და ცოცხალ საიტზეა. Pages deploy წარმატებით დასრულდა, საიტი შემოწმდა: იხსნება, კონსოლში შეცდომა არ არის.
-- 2026-11-16 (MSCAR): `docs/`-ს დაემატა პრეზენტაციის ახალი ვერსია `Hospes_presentation_v2.pptx` (+ PDF, 10 სლაიდი, ~30 წმ თითოზე, ბიზნეს მოდელი და 3 წლის პროგნოზი) და ChatGPT-ის 12 სურათი `docs/images/`-ში. ძველი `presentation.pdf` უცვლელია. წყარო: `MirianTs/hospes-proektis-prezentatsia`.
-- 2026-11-16 (MSCAR): `docs/` დალაგდა: პრეზენტაციები → `docs/presentation/` (v1 PDF + v2 .pptx/.pdf, v2-ში ვიდეო თავისით ირთვება), სურათები → `docs/images/generated/`, დაემატა `docs/README.md`.
 - 2026-11-16 (Miro): რეპო დაკლონილია Documents\Code\hospes-proekti-ში; git-ის სახელი/იმეილი დაყენდა (MirianTs, GitHub noreply); web-ის `npm install` და build გადის. დაყენდა VS 2022 C++ Build Tools და Python 3.12. backend: `npm install` + `npm run seed` მუშაობს (better-sqlite3 v13-ის Windows prebuild ჩაიტვირთა, ბაზაში 30 სასტუმრო).
-- 2026-11-16 (Miro): პრეზენტაციის გუნდის სლაიდს ნიკოლოზის ფოტო დაემატა (თეთრ ფონზე, ორნამენტის გარეშე); ელენეს ფოტო მოლოდინშია.
-- 2026-11-16 (Miro): პროექტის სრული აღწერა ფიჩისთვის → `docs/project-description.md` (პრობლემა, გადაწყვეტა, ბაზარი, კონკურენცია, ბიზნეს მოდელი, პროგნოზი, გუნდი, რისკები, ფიჩის ჩონჩხი); PDF ასლი DesktopHospes-ში.
+- 2026-11-16 (Miro): პროექტის სრული აღწერა ფიჩისთვის → `docs/project-description.md` (პრობლემა, გადაწყვეტა, ბაზარი, კონკურენცია, ბიზნეს მოდელი, პროგნოზი, გუნდი, რისკები, ფიჩის ჩონჩხი); PDF ასლი Desktop\Hospes-ში.
+- 2026-11-16 (Miro): პრეზენტაცია (.pptx/.pdf, ვიდეო, ფოტოები, ბაზრის კვლევა) მხოლოდ პირად რეპოშია `MirianTs/hospes-proektis-prezentatsia` (`Documents\Code\hospes-proektis-prezentatsia`, თავისი PROGRESS-ით). საჯარო რეპოდან ამოღებულია `docs/presentation/` და `docs/images/generated/`; `pitch/`-ში გაერთიანება გაუქმდა, რომ ფოტოები და პრეზენტაცია საჯარო არ იყოს.
 
 ## დარჩა
 - 2026-11-08 (SkillLAB): ხვალ: ნამდვილი ტესტი Arduino-თი (ჩექინი → სერვო 1–3, ჩექაუთი → სერვო 4), საჭიროების შემთხვევაში შესწორებები.
