@@ -30,12 +30,13 @@
 - 2026-11-15 (SkillLAB): 12–14 ნოემბრის 127 კომიტი (homepage-skeleton) main-ში შევიდა (fast-forward) და ცოცხალ საიტზეა. Pages deploy წარმატებით დასრულდა, საიტი შემოწმდა: იხსნება, კონსოლში შეცდომა არ არის.
 - 2026-11-16 (MSCAR): `docs/`-ს დაემატა პრეზენტაციის ახალი ვერსია `Hospes_presentation_v2.pptx` (+ PDF, 10 სლაიდი, ~30 წმ თითოზე, ბიზნეს მოდელი და 3 წლის პროგნოზი) და ChatGPT-ის 12 სურათი `docs/images/`-ში. ძველი `presentation.pdf` უცვლელია. წყარო: `MirianTs/hospes-proektis-prezentatsia`.
 - 2026-11-16 (MSCAR): `docs/` დალაგდა: პრეზენტაციები → `docs/presentation/` (v1 PDF + v2 .pptx/.pdf, v2-ში ვიდეო თავისით ირთვება), სურათები → `docs/images/generated/`, დაემატა `docs/README.md`.
-- 2026-11-16 (Miro): რეპო დაკლონილია Documents\Code\hospes-proekti-ში; git-ის სახელი/იმეილი დაყენდა (MirianTs, GitHub noreply); web-ის `npm install` და build გადის. backend-ისთვის (better-sqlite3 v13 მხოლოდ კომპილირდება) ყენდება VS 2022 C++ Build Tools + Python 3.12.
+- 2026-11-16 (Miro): რეპო დაკლონილია Documents\Code\hospes-proekti-ში; git-ის სახელი/იმეილი დაყენდა (MirianTs, GitHub noreply); web-ის `npm install` და build გადის. დაყენდა VS 2022 C++ Build Tools და Python 3.12. backend: `npm install` + `npm run seed` მუშაობს (better-sqlite3 v13-ის Windows prebuild ჩაიტვირთა, ბაზაში 30 სასტუმრო).
+- 2026-11-16 (Miro): პრეზენტაციის გუნდის სლაიდს ნიკოლოზის ფოტო დაემატა (თეთრ ფონზე, ორნამენტის გარეშე); ელენეს ფოტო მოლოდინშია.
 
 ## დარჩა
 - 2026-11-08 (SkillLAB): ხვალ: ნამდვილი ტესტი Arduino-თი (ჩექინი → სერვო 1–3, ჩექაუთი → სერვო 4), საჭიროების შემთხვევაში შესწორებები.
 - 2026-11-08 (SkillLAB): **გაგრძელება სხვა კომპიუტერზე:** `git fetch && git switch homepage-skeleton`, მერე `cd web && npm install && npm run dev`. 2026-11-08: homepage-skeleton main-ში შეერთდა (fast-forward); main-ზე push Pages საიტს აახლებს.
-- 2026-11-08 (SkillLAB): backend-ის seed და check-in მხოლოდ სინტაქსზეა შემოწმებული (`backend`-ში `npm install` არ არის); ონლაინ დემოს (mockApi) ჩექინი შემოწმდა. შემდეგ ჯერზე: `cd backend && npm install && npm run seed`.
+- 2026-11-16 (Miro): backend-ის check-in ნამდვილ სერვერზე (არა ონლაინ დემოში) ჯერ არ შემოწმებულა; seed უკვე გადის.
 - 2026-11-08 (SkillLAB): მომხმარებელი მისცემს თემფლეითს → მთავარი გვერდის დიზაინის გამართვა; ჰიროს ფოტო; ახალი სლოგანი.
 - 2026-11-08 (SkillLAB): შემდეგ: დანარჩენი გვერდები (სერვისები, რეგისტრაცია/შესვლა).
 
