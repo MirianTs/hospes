@@ -36,7 +36,7 @@
 - 2026-11-17 (MSCAR): **ისტორია ისევ გადაიწერა** (git filter-repo + force push, main): ყველა კომიტიდან წაიშალა `docs/project-description.md`. homepage-skeleton და design-trailhead ამ ფაილს არ შეიცავდა და არ შეცვლილა. MSCAR-ის კლონი უკვე `origin/main`-ზეა.
 
 ## დარჩა
-- 2026-11-17 (MSCAR): **ASUS-სა და Miro-ზე hospes-proekti ძველი ისტორიითაა** (2026-11-17-ის გადაწერამდე). იქ `git pull` არ გაუშვა (ძველ ფაილებს დააბრუნებს). ჯერ შეამოწმე, რომ დაუკომიტებელი ცვლილება არ არის, მერე: `git fetch origin` და `git reset --hard origin/main` (ან საქაღალდე წაშალე და თავიდან დაკლონე).
+- 2026-11-17 (MSCAR): **ASUS-ზე hospes-proekti ძველი ისტორიითაა** (Miro 2026-11-17-ს გადაყვანილია origin/main-ზე) (2026-11-17-ის გადაწერამდე). იქ `git pull` არ გაუშვა (ძველ ფაილებს დააბრუნებს). ჯერ შეამოწმე, რომ დაუკომიტებელი ცვლილება არ არის, მერე: `git fetch origin` და `git reset --hard origin/main` (ან საქაღალდე წაშალე და თავიდან დაკლონე).
 - 2026-11-16 (Miro): GitHub ძველ კომიტებს ზუსტი SHA-ით ჯერ კიდევ აჩვენებს (ქეში). სრულად წასაშლელად GitHub Support-ს უნდა მიწეროს მომხმარებელმა (Remove sensitive data).
 - 2026-11-08 (SkillLAB): ხვალ: ნამდვილი ტესტი Arduino-თი (ჩექინი → სერვო 1–3, ჩექაუთი → სერვო 4), საჭიროების შემთხვევაში შესწორებები.
 - 2026-11-08 (SkillLAB): **გაგრძელება სხვა კომპიუტერზე:** `git fetch && git switch homepage-skeleton`, მერე `cd web && npm install && npm run dev`. 2026-11-08: homepage-skeleton main-ში შეერთდა (fast-forward); main-ზე push Pages საიტს აახლებს.
