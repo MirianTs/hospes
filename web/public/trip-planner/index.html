@@ -380,7 +380,7 @@ function render() {
       <button class="day-head" type="button" aria-expanded="false">
         <div class="num">${i + 1}</div>
         <div><div class="day-title">${ord(i + 1)} დღე · ${s.from} → ${s.to}</div><div class="day-meta">${meta}</div></div>
-        <svg class="chev" width="14" height="14" viewBox="0 0 14 14"><path d="M3 5l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg class="chev" aria-hidden="true" width="14" height="14" viewBox="0 0 14 14"><path d="M3 5l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
       </button>
       <div class="day-body">
         ${s.ele ? profileSvg(s, s.color) : ""}
@@ -393,7 +393,7 @@ function render() {
           ${s.stay.photo ? `<img src="photos/${s.stay.photo}.jpg" alt="" loading="lazy">` : ""}
           <div class="stay-in">
             <div class="stay-top"><div>${s.stay.name}<small><span class="star">★</span> ${s.stay.rating} (${s.stay.reviews} შეფასება) · ღამე, ვახშამი და საუზმე</small></div><div>${s.stay.price} ₾</div></div>
-            ${s.stay.box ? '<span class="lock"><svg width="12" height="12" viewBox="0 0 12 12"><rect x="2" y="5" width="8" height="6" rx="1.5" fill="currentColor"/><path d="M4 5V3.5a2 2 0 014 0V5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>Hospes ყუთი: შედიხარ კოდით, მასპინძლის მოლოდინის გარეშე</span>' : ""}
+            ${s.stay.box ? '<span class="lock"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12"><rect x="2" y="5" width="8" height="6" rx="1.5" fill="currentColor"/><path d="M4 5V3.5a2 2 0 014 0V5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>Hospes ყუთი: შედიხარ კოდით, მასპინძლის მოლოდინის გარეშე</span>' : ""}
           </div>
         </div>
         <div class="label">მასპინძლის და ახლომახლო მომსახურება</div>
