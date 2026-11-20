@@ -7,6 +7,7 @@ Smartstay 2026 ჰაკათონის დემო. სრული სპ�
 |---|---|
 | `backend/` | Node.js + Express + SQLite (better-sqlite3), JWT, `serialport` |
 | `web/` | React (Vite), Leaflet + OpenStreetMap, `@vladmandic/face-api` |
+| `web/public/trip-planner/` | მოგზაურობის დამგეგმავის დემო: ცალკე სტატიკური გვერდი (Leaflet), React აპის ნაწილი არ არის; საიტზე `/trip-planner/` |
 | `hardware/hospes_locks/` | Arduino Uno + 4 × SG90 სერვო |
 | `hardware/servo-locker/` | ცალკე ლოქერი: Arduino Uno + 4 × SG90, საიტი Web Serial-ით (სერვერის გარეშე) |
 | `card-status/` | ცალკე ერთეკრანიანი საიტი: კარი ღიაა თუ დაკეტილი (Node, პორტი 5500, [README](card-status/README.md)) |
