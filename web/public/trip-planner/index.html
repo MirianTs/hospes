@@ -340,7 +340,7 @@ function render() {
   // guide (walking trips)
   document.getElementById("guide").innerHTML = walk.length ? `
     <label class="guide"><input type="checkbox" id="guideChk">
-      <span class="avatar">ლ</span>
+      <span class="avatar" aria-hidden="true">ლ</span>
       <span><b>${GUIDE.name} · მთის გიდი <span class="star">★</span> 4.9</b><small>12 წელი სვანეთის ბილიკებზე · ქართული, ინგლისური, რუსული</small></span>
       <span class="price">${GUIDE.per} ₾/დღე</span></label>` : "";
 
@@ -399,7 +399,7 @@ function render() {
         </div>
         <div class="label">მასპინძლის და ახლომახლო მომსახურება</div>
         ${s.services.map((v, k) => `<label class="svc"><input type="checkbox" data-d="${i}" data-s="${k}" ${v.on ? "checked" : ""}>
-          <span class="ico">${v.ico}</span><span>${v.name}<span class="who">${v.who}</span></span><span class="price">${v.price} ₾</span></label>`).join("")}
+          <span class="ico" aria-hidden="true">${v.ico}</span><span>${v.name}<span class="who">${v.who}</span></span><span class="price">${v.price} ₾</span></label>`).join("")}
       </div>`;
     el.querySelector(".day-head").addEventListener("click", () => select(el.classList.contains("active") ? -1 : i));
     el.querySelectorAll(".sight-row").forEach(b => b.addEventListener("click", () => {
