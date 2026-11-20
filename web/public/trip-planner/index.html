@@ -314,7 +314,7 @@ function profileSvg(d, color) {
   const lo = Math.min(...d.ele) - 40, hi = Math.max(...d.ele) + 40, km = d.dist[d.dist.length - 1];
   const x = v => PAD + (v / km) * (W - 2 * PAD), y = e => H - PAD - ((e - lo) / (hi - lo)) * (H - 2 * PAD);
   const pts = d.dist.map((v, k) => `${x(v).toFixed(1)},${y(d.ele[k]).toFixed(1)}`);
-  return `<div class="profile"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-label="სიმაღლის პროფილი">
+  return `<div class="profile"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="სიმაღლის პროფილი">
     <path d="M${x(0)},${H} L${pts.join(" L")} L${x(km)},${H} Z" fill="${color}" fill-opacity=".14"/>
     <polyline points="${pts.join(" ")}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke"/>
     <line class="cursor" y1="0" y2="${H}" stroke="#2A2224" stroke-width="1" vector-effect="non-scaling-stroke" style="display:none"/>
